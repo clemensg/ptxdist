@@ -1,8 +1,8 @@
 From: Debian OpenSSL Team <pkg-openssl-devel@lists.alioth.debian.org>
-Date: Tue, 12 Dec 2017 23:35:24 +0100
+Date: Sun, 5 Nov 2017 15:09:09 +0100
 Subject: [PATCH] pic
 
-Imported from openssl1.0_1.0.2q-2.debian.tar.xz
+Imported from openssl_1.1.1b-1.debian.tar.xz
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
@@ -13,10 +13,10 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  4 files changed, 55 insertions(+), 12 deletions(-)
 
 diff --git a/crypto/des/asm/desboth.pl b/crypto/des/asm/desboth.pl
-index eec00886e4c6..ab6f52452bf3 100644
+index ef7054e27506..50765d2b1552 100644
 --- a/crypto/des/asm/desboth.pl
 +++ b/crypto/des/asm/desboth.pl
-@@ -16,6 +16,11 @@ sub DES_encrypt3
+@@ -23,6 +23,11 @@ sub DES_encrypt3
  
  	&push("edi");
  
@@ -28,7 +28,7 @@ index eec00886e4c6..ab6f52452bf3 100644
  	&comment("");
  	&comment("Load the data words");
  	&mov($L,&DWP(0,"ebx","",0));
-@@ -47,15 +52,21 @@ sub DES_encrypt3
+@@ -54,15 +59,21 @@ sub DES_encrypt3
  	&mov(&swtmp(2),	(DWC(($enc)?"1":"0")));
  	&mov(&swtmp(1),	"eax");
  	&mov(&swtmp(0),	"ebx");
@@ -54,10 +54,10 @@ index eec00886e4c6..ab6f52452bf3 100644
  	&stack_pop(3);
  	&mov($L,&DWP(0,"ebx","",0));
 diff --git a/crypto/perlasm/cbc.pl b/crypto/perlasm/cbc.pl
-index 24561e759aba..269fb0b0c69f 100644
+index 01bafe457d68..c093be5a4fd6 100644
 --- a/crypto/perlasm/cbc.pl
 +++ b/crypto/perlasm/cbc.pl
-@@ -122,7 +122,11 @@ sub cbc
+@@ -129,7 +129,11 @@ sub cbc
  	&mov(&DWP($data_off,"esp","",0),	"eax");	# put in array for call
  	&mov(&DWP($data_off+4,"esp","",0),	"ebx");	#
  
@@ -70,7 +70,7 @@ index 24561e759aba..269fb0b0c69f 100644
  
  	&mov("eax",	&DWP($data_off,"esp","",0));
  	&mov("ebx",	&DWP($data_off+4,"esp","",0));
-@@ -185,7 +189,11 @@ sub cbc
+@@ -192,7 +196,11 @@ sub cbc
  	&mov(&DWP($data_off,"esp","",0),	"eax");	# put in array for call
  	&mov(&DWP($data_off+4,"esp","",0),	"ebx");	#
  
@@ -83,7 +83,7 @@ index 24561e759aba..269fb0b0c69f 100644
  
  	&mov("eax",	&DWP($data_off,"esp","",0));
  	&mov("ebx",	&DWP($data_off+4,"esp","",0));
-@@ -218,7 +226,11 @@ sub cbc
+@@ -225,7 +233,11 @@ sub cbc
  	&mov(&DWP($data_off,"esp","",0),	"eax");	# put back
  	&mov(&DWP($data_off+4,"esp","",0),	"ebx");	#
  
@@ -96,7 +96,7 @@ index 24561e759aba..269fb0b0c69f 100644
  
  	&mov("eax",	&DWP($data_off,"esp","",0));	# get return
  	&mov("ebx",	&DWP($data_off+4,"esp","",0));	#
-@@ -261,7 +273,11 @@ sub cbc
+@@ -268,7 +280,11 @@ sub cbc
  	&mov(&DWP($data_off,"esp","",0),	"eax");	# put back
  	&mov(&DWP($data_off+4,"esp","",0),	"ebx");	#
  
@@ -110,10 +110,10 @@ index 24561e759aba..269fb0b0c69f 100644
  	&mov("eax",	&DWP($data_off,"esp","",0));	# get return
  	&mov("ebx",	&DWP($data_off+4,"esp","",0));	#
 diff --git a/crypto/perlasm/x86gas.pl b/crypto/perlasm/x86gas.pl
-index 63b2301fd1f0..176b04d24521 100644
+index 5c7ea3880e4d..7e49b55e97c7 100644
 --- a/crypto/perlasm/x86gas.pl
 +++ b/crypto/perlasm/x86gas.pl
-@@ -163,6 +163,7 @@ sub ::file_end
+@@ -170,6 +170,7 @@ sub ::file_end
  	if ($::macosx)	{ push (@out,"$tmp,2\n"); }
  	elsif ($::elf)	{ push (@out,"$tmp,4\n"); }
  	else		{ push (@out,"$tmp\n"); }
@@ -121,7 +121,7 @@ index 63b2301fd1f0..176b04d24521 100644
      }
      push(@out,$initseg) if ($initseg);
  }
-@@ -221,8 +222,23 @@ ___
+@@ -228,8 +229,23 @@ ___
      elsif ($::elf)
      {	$initseg.=<<___;
  .section	.init
@@ -146,10 +146,10 @@ index 63b2301fd1f0..176b04d24521 100644
      elsif ($::coff)
      {   $initseg.=<<___;	# applies to both Cygwin and Mingw
 diff --git a/crypto/x86cpuid.pl b/crypto/x86cpuid.pl
-index 90ed196c09cd..b49d1be8c38c 100644
+index d43dda4d935c..d72a36fbf0c5 100644
 --- a/crypto/x86cpuid.pl
 +++ b/crypto/x86cpuid.pl
-@@ -8,6 +8,8 @@ require "x86asm.pl";
+@@ -18,6 +18,8 @@ open OUT,">$output";
  
  for (@ARGV) { $sse2=1 if (/-DOPENSSL_IA32_SSE2/); }
  
@@ -158,7 +158,7 @@ index 90ed196c09cd..b49d1be8c38c 100644
  &function_begin("OPENSSL_ia32_cpuid");
  	&xor	("edx","edx");
  	&pushf	();
-@@ -153,9 +155,7 @@ for (@ARGV) { $sse2=1 if (/-DOPENSSL_IA32_SSE2/); }
+@@ -163,9 +165,7 @@ for (@ARGV) { $sse2=1 if (/-DOPENSSL_IA32_SSE2/); }
  &set_label("nocpuid");
  &function_end("OPENSSL_ia32_cpuid");
  
@@ -169,7 +169,7 @@ index 90ed196c09cd..b49d1be8c38c 100644
  	&xor	("eax","eax");
  	&xor	("edx","edx");
  	&picmeup("ecx","OPENSSL_ia32cap_P");
-@@ -169,7 +169,7 @@ for (@ARGV) { $sse2=1 if (/-DOPENSSL_IA32_SSE2/); }
+@@ -179,7 +179,7 @@ for (@ARGV) { $sse2=1 if (/-DOPENSSL_IA32_SSE2/); }
  # This works in Ring 0 only [read DJGPP+MS-DOS+privileged DPMI host],
  # but it's safe to call it on any [supported] 32-bit platform...
  # Just check for [non-]zero return value...
@@ -178,7 +178,7 @@ index 90ed196c09cd..b49d1be8c38c 100644
  	&picmeup("ecx","OPENSSL_ia32cap_P");
  	&bt	(&DWP(0,"ecx"),4);
  	&jnc	(&label("nohalt"));	# no TSC
-@@ -236,7 +236,7 @@ for (@ARGV) { $sse2=1 if (/-DOPENSSL_IA32_SSE2/); }
+@@ -246,7 +246,7 @@ for (@ARGV) { $sse2=1 if (/-DOPENSSL_IA32_SSE2/); }
  	&ret	();
  &function_end_B("OPENSSL_far_spin");
  

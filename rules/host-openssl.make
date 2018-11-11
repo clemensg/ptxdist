@@ -33,12 +33,12 @@ HOST_OPENSSL_CONF_ENV	:= $(HOST_ENV)
 # no ':=' here
 HOST_OPENSSL_CONF_OPT = \
 	--prefix=/ \
-	--install_prefix=$(HOST_OPENSSL_PKGDIR) \
 	--libdir=/lib \
 	shared
 
 HOST_OPENSSL_INSTALL_OPT := \
-	install_sw
+	install_sw \
+	install_ssldirs
 
 #
 # Follow the directions in INSTALL section 1a.

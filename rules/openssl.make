@@ -18,10 +18,10 @@ PACKAGES-$(PTXCONF_OPENSSL) += openssl
 #
 # Paths and names
 #
-OPENSSL_BASE	:= 1.0.2
-OPENSSL_BUGFIX	:= q
+OPENSSL_BASE	:= 1.1.1
+OPENSSL_BUGFIX	:= b
 OPENSSL_VERSION	:= $(OPENSSL_BASE)$(OPENSSL_BUGFIX)
-OPENSSL_MD5	:= 7563e1ce046cb21948eeb6ba1a0eb71c
+OPENSSL_MD5	:= 4532712e7bcc9414f5bce995e4e13930
 OPENSSL		:= openssl-$(OPENSSL_VERSION)
 OPENSSL_SUFFIX	:= tar.gz
 OPENSSL_URL	:= \
@@ -74,11 +74,17 @@ endif
 OPENSSL_CONF_OPT := \
 	--prefix=/usr \
 	--openssldir=/usr/lib/ssl \
-	--install_prefix=$(OPENSSL_PKGDIR) \
-	shared
+	shared \
+	no-idea \
+	no-mdc2 \
+	no-rc5 \
+	no-zlib \
+	no-ssl3 \
+	no-ssl3-method
 
 OPENSSL_INSTALL_OPT := \
-	install_sw
+	install_sw \
+	install_ssldirs
 
 $(STATEDIR)/openssl.prepare:
 	@$(call targetinfo)
