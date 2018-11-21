@@ -217,6 +217,8 @@ config NET_SNMP_MD5
 
 config NET_SNMP_SHA_AES
 	bool
+	# 5.7.3 fails to build with OpenSSL 1.1.x
+	depends on BROKEN
 	prompt "SHA authentication and AES encryption"
 
 config NET_SNMP_DOM_SOCK_ONLY
