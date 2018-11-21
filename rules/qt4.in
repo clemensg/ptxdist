@@ -655,6 +655,8 @@ config QT4_GLIB
 
 config QT4_OPENSSL
 	bool
+	# fails to build with OpenSSL 1.1.x
+	depends on BROKEN
 	prompt "openssl support"
 	help
 	  Add Qt support for openssl.
