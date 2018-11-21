@@ -31,6 +31,8 @@ choice
 		bool "disabled"
 
 	config OPENLDAP_TLS_OPENSSL
+		# 2.4.31 fails to build with OpenSSL 1.1.x
+		depends on BROKEN
 		bool "openssl"
 
 	config OPENLDAP_TLS_GNUTLS
