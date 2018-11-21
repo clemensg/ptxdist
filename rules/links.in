@@ -22,6 +22,8 @@ if LINKS
 
 config LINKS_SSL
 	bool
+	# 2.7 fails to build with OpenSSL 1.1.x
+	depends on BROKEN
 	prompt "support for SSL"
 	help
 	  Include support for Secure Socket Layer (SSL) transfers
