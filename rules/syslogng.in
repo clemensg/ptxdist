@@ -1,4 +1,6 @@
-## SECTION=networking
+## SECTION=staging
+## old section:
+### SECTION=networking
 # syslog-ng configuration
 
 menuconfig SYSLOGNG
@@ -16,6 +18,10 @@ menuconfig SYSLOGNG
 	select SYSTEMD		if SYSLOGNG_SYSTEMD
 	help
 	  The next generation syslog daemon.
+
+	  STAGING: remove in ptxdist-2020.01.0
+	  Fails to build with OpenSSL 1.1.x. Update to a new version is
+	  needed.
 
 if SYSLOGNG
 
