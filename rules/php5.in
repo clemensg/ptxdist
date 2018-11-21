@@ -283,6 +283,8 @@ config PHP5_EXT_ZLIB
 
 config PHP5_EXT_OPENSSL
 	bool
+	# Fails to build with OpenSSL 1.1.x
+	depends on BROKEN
 	prompt "openssl"
 	help
 	  Enable openssl support for PHP.
