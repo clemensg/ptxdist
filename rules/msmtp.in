@@ -19,6 +19,8 @@ config MSMTP_NOSSL
 
 config MSMTP_OPENSSL
 	bool
+	# Fails to build with OpenSSL 1.1.x
+	depends on BROKEN
 	prompt "OpenSSL"
 
 config MSMTP_GNUTLS
