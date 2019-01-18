@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_SYSTEMD) += systemd
 #
 # Paths and names
 #
-SYSTEMD_VERSION	:= 239
-SYSTEMD_MD5	:= 6137e3f50390391cf34521d071a1a078
+SYSTEMD_VERSION	:= 241
+SYSTEMD_MD5	:= c5953c24c850b44fcf714326e567dc37
 SYSTEMD		:= systemd-$(SYSTEMD_VERSION)
 SYSTEMD_SUFFIX	:= tar.gz
 SYSTEMD_URL	:= https://github.com/systemd/systemd/archive/v$(SYSTEMD_VERSION).$(SYSTEMD_SUFFIX)
@@ -54,6 +54,8 @@ SYSTEMD_CONF_OPT	:= \
 	-Dbacklight=false \
 	-Dbinfmt=false \
 	-Dblkid=true \
+	-Dbump-proc-sys-fs-file-max=true \
+	-Dbump-proc-sys-fs-nr-open=true \
 	-Dbzip2=false \
 	-Dcertificate-root=/etc/ssl \
 	-Dcompat-gateway-hostname=false \
@@ -66,6 +68,8 @@ SYSTEMD_CONF_OPT	:= \
 	-Ddefault-dnssec=no \
 	-Ddefault-hierarchy=hybrid \
 	-Ddefault-kill-user-processes=true \
+	-Ddefault-locale=C \
+	-Ddefault-net-naming-scheme=latest \
 	-Ddev-kvm-mode=0660 \
 	-Ddns-over-tls=false \
 	-Ddns-servers= \
@@ -88,7 +92,6 @@ SYSTEMD_CONF_OPT	:= \
 	-Dimportd=false \
 	-Dinstall-tests=false \
 	-Dkexec-path=/usr/sbin/kexec \
-	-Dkill-path=/usr/bin/kill \
 	-Dkmod=true \
 	-Dkmod-path=/usr/bin/kmod \
 	-Dldconfig=false \
@@ -102,6 +105,7 @@ SYSTEMD_CONF_OPT	:= \
 	-Dllvm-fuzz=false \
 	-Dloadkeys-path=/usr/bin/loadkeys \
 	-Dlocaled=$(call ptx/truefalse,PTXCONF_SYSTEMD_LOCALES) \
+	-Dlog-trace=false \
 	-Dlogind=$(call ptx/truefalse,PTXCONF_SYSTEMD_LOGIND) \
 	-Dlz4=$(call ptx/truefalse,PTXCONF_SYSTEMD_LZ4) \
 	-Dmachined=false \
@@ -109,13 +113,16 @@ SYSTEMD_CONF_OPT	:= \
 	-Dmemory-accounting-default=true \
 	-Dmicrohttpd=$(call ptx/truefalse,PTXCONF_SYSTEMD_MICROHTTPD) \
 	-Dmount-path=/usr/bin/mount \
-	-Dmyhostname=true \
 	-Dnetworkd=$(call ptx/truefalse,PTXCONF_SYSTEMD_NETWORK) \
 	-Dnobody-group=nogroup \
 	-Dnobody-user=nobody \
+	-Dnss-myhostname=true \
+	-Dnss-mymachines=false \
+	-Dnss-resolve=$(call ptx/truefalse,PTXCONF_SYSTEMD_NETWORK) \
 	-Dnss-systemd=true \
 	-Dntp-servers= \
 	-Dok-color=green \
+	-Dopenssl=false \
 	-Doss-fuzz=false \
 	-Dpam=false \
 	-Dpcre2=false \
@@ -135,10 +142,11 @@ SYSTEMD_CONF_OPT	:= \
 	-Dslow-tests=false \
 	-Dsmack=false \
 	-Dsplit-bin=true \
+	-Dsplit-usr=false \
 	-Dstatic-libsystemd=false \
 	-Dstatic-libudev=false \
-	-Dsplit-usr=false \
 	-Dsulogin-path=/sbin/sulogin \
+	-Dsupport-url=https://www.ptxdist.org/ \
 	-Dsystem-gid-max=999 \
 	-Dsystem-uid-max=999 \
 	-Dsysusers=false \
@@ -153,7 +161,7 @@ SYSTEMD_CONF_OPT	:= \
 	-Dtpm=false \
 	-Dtty-gid=112 \
 	-Dumount-path=/usr/bin/umount \
-	-Dusers-gid= \
+	-Dusers-gid=-1 \
 	-Dutmp=false \
 	-Dvalgrind=false \
 	-Dvconsole=$(call ptx/truefalse,PTXCONF_SYSTEMD_VCONSOLE) \
@@ -233,7 +241,6 @@ SYSTEMD_UDEV_HELPER-$(PTXCONF_SYSTEMD_UDEV_PERSISTENT_ATA)	+= ata_id
 SYSTEMD_UDEV_HELPER-$(PTXCONF_SYSTEMD_UDEV_PERSISTENT_CDROM)	+= cdrom_id
 SYSTEMD_UDEV_HELPER-$(PTXCONF_SYSTEMD_UDEV_PERSISTENT_SCSI)	+= scsi_id
 SYSTEMD_UDEV_HELPER-$(PTXCONF_SYSTEMD_UDEV_PERSISTENT_V4L)	+= v4l_id
-SYSTEMD_UDEV_HELPER-$(PTXCONF_SYSTEMD_UDEV_COLLECT)		+= collect
 SYSTEMD_UDEV_HELPER-$(PTXCONF_SYSTEMD_UDEV_MTD_PROBE)		+= mtd_probe
 
 SYSTEMD_UDEV_RULES-y := \
@@ -400,12 +407,13 @@ endif
 
 	@$(call install_copy, systemd, 0, 0, 0755, /var/lib/systemd)
 	@$(call install_copy, systemd, 0, 0, 0700, /var/lib/private)
+	@$(call install_copy, systemd, 0, 0, 0700, /var/cache/private)
 
 #	# systemd expects this directory to exist.
 	@$(call install_copy, systemd, 0, 0, 0755, /var/lib/systemd/coredump)
 	@$(call install_copy, systemd, 0, 0, 0700, /var/lib/machines)
 ifdef PTXCONF_SYSTEMD_TIMEDATE
-	@$(call install_link, systemd, ../private/systemd/timesync, \
+	@$(call install_copy, systemd, systemd-timesync, nogroup, 0700, \
 		/var/lib/systemd/timesync)
 endif
 

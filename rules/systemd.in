@@ -185,12 +185,6 @@ endmenu
 
 menu "misc helper                   "
 
-config SYSTEMD_UDEV_COLLECT
-	bool
-	prompt "collect"
-	help
-	  Collect variables across events
-
 config SYSTEMD_UDEV_MTD_PROBE
 	bool
 	prompt "mtd_probe"
