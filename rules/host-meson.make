@@ -16,8 +16,8 @@ HOST_PACKAGES-$(PTXCONF_HOST_MESON) += host-meson
 #
 # Paths and names
 #
-HOST_MESON_VERSION	:= 0.44.1
-HOST_MESON_MD5		:= 623ebb89422911ce4fbac6707e2cffc5
+HOST_MESON_VERSION	:= 0.49.2
+HOST_MESON_MD5		:= 6132bfb9ff10b2dd7c370045ab18813f
 HOST_MESON		:= meson-$(HOST_MESON_VERSION)
 HOST_MESON_SUFFIX	:= tar.gz
 HOST_MESON_URL		:= https://github.com/mesonbuild/meson/archive/$(HOST_MESON_VERSION).$(HOST_MESON_SUFFIX)
@@ -48,8 +48,8 @@ $(STATEDIR)/host-meson.compile:
 HOST_MESON_INSTALL_OPT	:= \
 	install \
 	--prefix=/ \
-	--install-lib=/share/meson \
-	--install-scripts=/share/meson \
+	--install-lib=/lib/meson \
+	--install-scripts=/lib/meson \
 	--root=$(HOST_MESON_PKGDIR)
 
 $(STATEDIR)/host-meson.install:
@@ -58,7 +58,7 @@ $(STATEDIR)/host-meson.install:
 	@cd $(HOST_MESON_DIR) && \
 		$(SYSTEMPYTHON3) setup.py $(HOST_MESON_INSTALL_OPT)
 	@mkdir -vp $(HOST_MESON_PKGDIR)/bin
-	@ln -svf ../share/meson/meson $(HOST_MESON_PKGDIR)/bin/meson
+	@ln -svf ../lib/meson/meson $(HOST_MESON_PKGDIR)/bin/meson
 	@$(call touch)
 
 $(STATEDIR)/host-meson.install.post: $(PTXDIST_MESON_CROSS_FILE)
