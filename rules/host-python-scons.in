@@ -1,0 +1,6 @@
+## SECTION=hosttools_noprompt
+
+config HOST_PYTHON_SCONS
+	tristate
+	default y if ALLYES
+	select HOST_SYSTEM_PYTHON
