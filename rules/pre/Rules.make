@@ -246,7 +246,7 @@ CROSS_QMAKE_OPT := \
 	$(if $(filter 0,$(PTXDIST_VERBOSE)),CONFIG+=silent)
 
 CROSS_PYTHON_INSTALL := install --prefix=/usr
-HOST_PYTHON_INSTALL := install --prefix=
+HOST_PYTHON_INSTALL := install --prefix=/.
 
 CROSS_MESON_USR := \
 	--prefix /usr \
