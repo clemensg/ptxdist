@@ -70,7 +70,7 @@ GLIB_CONF_OPT	:= \
 	--disable-fam \
 	--disable-xattr \
 	--disable-libelf \
-	--disable-libmount \
+	--$(call ptx/endis, PTXCONF_GLIB_LIBMOUNT)-libmount \
 	--disable-gtk-doc \
 	--disable-gtk-doc-html \
 	--disable-gtk-doc-pdf \

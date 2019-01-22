@@ -14,6 +14,8 @@ menuconfig GLIB
 	select HOST_GTK_DOC
 	select ICONV
 	select ZLIB
+	select UTIL_LINUX_NG if GLIB_LIBMOUNT
+	select UTIL_LINUX_NG_LIBMOUNT if GLIB_LIBMOUNT
 	help
 	  GLib is a library containing many useful C routines for things
 	  such as trees, hashes, lists, and strings. It is a useful
@@ -28,5 +30,11 @@ config GLIB_GDBUS
 	help
 	  gdbus is a command line dbus tool, based on the glib internal gdbus
 	  implementation.
+
+config GLIB_LIBMOUNT
+	bool
+	prompt "enable libmount
+	help
+	  Enable libmount in glib
 
 endif
