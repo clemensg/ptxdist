@@ -5,6 +5,7 @@ menuconfig RAUC
 	prompt "Rauc Update Tool              "
 	select OPENSSL
 	select GLIB
+	select GLIB_LIBMOUNT
 	select HOST_GLIB
 	select BUSYBOX_FEATURE_TAR_LONG_OPTIONS if BUSYBOX_TAR
 	select LIBCURL				if RAUC_NETWORK
