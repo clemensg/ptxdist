@@ -118,6 +118,11 @@ To rebuild the kernel:
     jbe@octopus:~/myprj$ ptxdist drop kernel compile
     jbe@octopus:~/myprj$ ptxdist targetinstall kernel
 
+.. note:: To clean the kernel, change into the local_src directory and call
+         ``make clean`` or the clean command for the build system used by the
+         package. A ``ptxdist clean kernel`` call will only delete the
+         symlinks in the build directory, but not clean the kernel compiled files.
+
 Discovering Runtime Dependencies
 --------------------------------
 
