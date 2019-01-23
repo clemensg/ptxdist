@@ -1,0 +1,41 @@
+## SECTION=multimedia_tools
+
+menuconfig IGT_GPU_TOOLS
+	tristate
+	select GLIB
+	select CAIRO
+	select LIBKMOD
+	select LIBDRM
+	select LIBPCIACCESS
+	select LIBUNWIND
+	select OPENSSL
+	select PROCPS
+	select UDEV
+	select UDEV_LIBUDEV
+	select ZLIB
+	prompt "igt-gpu-tools"
+	help
+	  igt-gpu-tools is a package of tools for debugging the Intel
+	  graphics driver, including a GPU hang dumping program,
+	  performance monitor, and performance microbenchmarks for
+	  regression testing the DRM.
+
+if IGT_GPU_TOOLS
+
+config IGT_GPU_TOOLS_INTEL
+	bool
+	default LIBDRM_INTEL
+
+config IGT_GPU_TOOLS_AMDGPU
+	bool
+	default LIBDRM_AMDGPU
+
+config IGT_GPU_TOOLS_NOUVEAU
+	bool
+	default LIBDRM_NOUVEAU
+
+config IGT_GPU_TOOLS_TESTS
+	bool
+	prompt "build and install tests"
+
+endif
