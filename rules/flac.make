@@ -16,14 +16,14 @@ PACKAGES-$(PTXCONF_FLAC) += flac
 #
 # Paths and names
 #
-FLAC_VERSION	:= 1.2.1
-FLAC_MD5	:= 153c8b15a54da428d1f0fadc756c22c7
+FLAC_VERSION	:= 1.3.2
+FLAC_MD5	:= 454f1bfa3f93cc708098d7890d0499bd
 FLAC		:= flac-$(FLAC_VERSION)
-FLAC_SUFFIX	:= tar.gz
-FLAC_URL	:= $(call ptx/mirror, SF, flac/$(FLAC).$(FLAC_SUFFIX))
+FLAC_SUFFIX	:= tar.xz
+FLAC_URL	:= http://downloads.xiph.org/releases/flac/$(FLAC).$(FLAC_SUFFIX)
 FLAC_SOURCE	:= $(SRCDIR)/$(FLAC).$(FLAC_SUFFIX)
 FLAC_DIR	:= $(BUILDDIR)/$(FLAC)
-FLAC_LICENSE	:= unknown
+FLAC_LICENSE	:= BSD-3-Clause AND GPL-2.0-or-later AND LGPL-2.0-or-later
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -36,10 +36,16 @@ FLAC_CONF_TOOL	:= autoconf
 FLAC_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	$(GLOBAL_LARGE_FILE_OPTION) \
-	--disable-rpath \
+	--enable-asm-optimizations \
 	--disable-debug \
+	--$(call ptx/endis, PTXCONF_ARCH_X86)-sse \
+	--disable-altivec \
+	--$(call ptx/endis, PTXCONF_ARCH_X86_64)-avx \
 	--disable-thorough-tests \
 	--disable-exhaustive-tests \
+	--disable-werror \
+	--enable-stack-smash-protection \
+	--disable-64-bit-words \
 	--disable-valgrind-testing \
 	--disable-doxygen-docs \
 	--disable-local-xmms-plugin \
@@ -47,21 +53,9 @@ FLAC_CONF_OPT	:= \
 	--disable-cpplibs \
 	--enable-ogg \
 	--disable-oggtest \
+	--disable-rpath \
 	--with-ogg=$(PTXDIST_SYSROOT_TARGET)/usr
 
-ifdef PTXCONF_ARCH_X86
-FLAC_CONF_OPT += \
-	--enable-asm-optimizations \
-	--enable-sse \
-	--enable-3dnow \
-	--disable-altivec
-else
-FLAC_CONF_OPT += \
-	--disable-asm-optimizations \
-	--disable-sse \
-	--disable-3dnow \
-	--disable-altivec
-endif
 
 # ----------------------------------------------------------------------------
 # Target-Install
