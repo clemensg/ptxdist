@@ -20,7 +20,7 @@ menuconfig JVISU
 config JVISU_APPLET
 	bool
 	depends on JVISU
-	default Y if JVISU
+	default y if JVISU
 	prompt "Install JVisu Applet"
 	help
 	  The JVisu applet is a generic visualisation tool for process visualisation.
