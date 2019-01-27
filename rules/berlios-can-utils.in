@@ -10,69 +10,91 @@ menuconfig BERLIOS_CAN_UTILS
 if BERLIOS_CAN_UTILS
 
 config BERLIOS_CAN_UTILS_ASC2LOG
-	bool asc2log
+	bool
+	prompt "asc2log"
 
 config BERLIOS_CAN_UTILS_BCMSERVER
-	bool bcmserver
+	bool
+	prompt "bcmserver"
 
 config BERLIOS_CAN_UTILS_CANBUSLOAD
-	bool canbusload
+	bool
+	prompt "canbusload"
 
 config BERLIOS_CAN_UTILS_CANDUMP
-	bool candump
+	bool
+	prompt "candump"
 
 config BERLIOS_CAN_UTILS_CANFDTEST
-	bool canfdtest
+	bool
+	prompt "canfdtest"
 
 config BERLIOS_CAN_UTILS_CANGEN
-	bool cangen
+	bool
+	prompt "cangen"
 
 config BERLIOS_CAN_UTILS_CANGW
-	bool cangw
+	bool
+	prompt "cangw"
 
 config BERLIOS_CAN_UTILS_CANLOGSERVER
-	bool canlogserver
+	bool
+	prompt "canlogserver"
 
 config BERLIOS_CAN_UTILS_CANPLAYER
-	bool canplayer
+	bool
+	prompt "canplayer"
 
 config BERLIOS_CAN_UTILS_CANSEND
-	bool cansend
+	bool
+	prompt "cansend"
 
 config BERLIOS_CAN_UTILS_CANSNIFFER
-	bool cansniffer
+	bool
+	prompt "cansniffer"
 
 config BERLIOS_CAN_UTILS_ISOTPDUMP
-	bool isotpdump
+	bool
+	prompt "isotpdump"
 
 config BERLIOS_CAN_UTILS_ISOTPRECV
-	bool isotprecv
+	bool
+	prompt "isotprecv"
 
 config BERLIOS_CAN_UTILS_ISOTPSEND
-	bool isotpsend
+	bool
+	prompt "isotpsend"
 
 config BERLIOS_CAN_UTILS_ISOTPSERVER
-	bool isotpserver
+	bool
+	prompt "isotpserver"
 
 config BERLIOS_CAN_UTILS_ISOTPSNIFFER
-	bool isotpsniffer
+	bool
+	prompt "isotpsniffer"
 
 config BERLIOS_CAN_UTILS_ISOTPTUN
-	bool isotptun
+	bool
+	prompt "isotptun"
 
 config BERLIOS_CAN_UTILS_LOG2ASC
-	bool log2asc
+	bool
+	prompt "log2asc"
 
 config BERLIOS_CAN_UTILS_LOG2LONG
-	bool log2long
+	bool
+	prompt "log2long"
 
 config BERLIOS_CAN_UTILS_SLCAN_ATTACH
-	bool slcan_attach
+	bool
+	prompt "slcan_attach"
 
 config BERLIOS_CAN_UTILS_SLCAND
-	bool slcand
+	bool
+	prompt "slcand"
 
 config BERLIOS_CAN_UTILS_SLCANPTY
-	bool slcanpty
+	bool
+	prompt "slcanpty"
 
 endif
