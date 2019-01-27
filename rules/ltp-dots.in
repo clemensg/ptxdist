@@ -1,8 +1,0 @@
-## SECTION=ltp
-
-menuconfig LTP_DOTS
-	tristate
-	select LTP_BASE
-	prompt "dots                          "
-	depends on BROKEN
-

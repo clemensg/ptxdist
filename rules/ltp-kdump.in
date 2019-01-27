@@ -1,8 +1,0 @@
-## SECTION=ltp
-
-menuconfig LTP_KDUMP
-	tristate
-	select LTP_BASE
-	prompt "ddump                         "
-	depends on BROKEN
-

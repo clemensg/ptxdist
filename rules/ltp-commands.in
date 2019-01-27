@@ -1,9 +1,0 @@
-## SECTION=ltp
-
-config LTP_COMMANDS
-	tristate
-	select LTP_BASE
-	prompt "commands                      "
-	help
-	  Test user land commands.
-

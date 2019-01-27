@@ -1,8 +1,0 @@
-## SECTION=ltp
-
-menuconfig LTP_HPI
-	tristate
-	select LTP_BASE
-	prompt "open_hpi_testsuite            "
-	depends on BROKEN
-

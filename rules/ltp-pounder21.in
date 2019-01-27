@@ -1,9 +1,0 @@
-## SECTION=ltp
-
-
-menuconfig LTP_POUNDER21
-	tristate
-	select LTP_BASE
-	prompt "pounder21                     "
-	depends on BROKEN
-

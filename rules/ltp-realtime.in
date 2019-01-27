@@ -1,7 +1,0 @@
-## SECTION=ltp
-
-config LTP_REALTIME
-	tristate
-	select LTP_BASE
-	prompt "realtime                      "
-
