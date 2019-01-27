@@ -127,7 +127,7 @@ config BUSYBOX_FEATURE_KILL_REMOVED
 	that have been removed.
 
 config BUSYBOX_FEATURE_KILL_DELAY
-	int "How long to wait between TERM and KILL (0 - send TERM only)" if FEATURE_KILL_REMOVED
+	int "How long to wait between TERM and KILL (0 - send TERM only)" if BUSYBOX_FEATURE_KILL_REMOVED
 	range 0 1024
 	default 0
 	depends on BUSYBOX_FEATURE_KILL_REMOVED
