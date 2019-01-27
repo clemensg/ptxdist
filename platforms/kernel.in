@@ -102,7 +102,6 @@ config KERNEL_ARCH_STRING
 	default "m68k"			if ARCH_M68K
 	default "sparc"			if ARCH_SPARC
 	default "mips"			if ARCH_MIPS
-	default "mips"			if ARCH_MIPSEL
 	default "cris"			if ARCH_CRIS
 	default "parisc"		if ARCH_PARISC
 	default "sh"			if ARCH_SH
