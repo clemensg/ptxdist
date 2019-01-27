@@ -44,8 +44,8 @@ SPEEX_CONF_OPT := \
 	--$(call ptx/endis, PTXCONF_SPEEX_FLOAT_API)-float-api \
 	--$(call ptx/endis, PTXCONF_SPEEX_BINARIES)-binaries \
 	--$(call ptx/endis, PTXCONF_SPEEX_VBR)-vbr \
-	--$(call ptx/endis, PTXCONF_ARCH_ARM_V4)-arm4-asm \
-	--$(call ptx/endis, PTXCONF_ARCH_ARM_V5E)-arm5e-asm \
+	--disable-arm4-asm \
+	--disable-arm5e-asm \
 	--$(call ptx/endis, PTXCONF_ARCH_BLACKFIN)-blackfin-asm \
 	--disable-fixed-point-debug \
 	--disable-ti-c55x \

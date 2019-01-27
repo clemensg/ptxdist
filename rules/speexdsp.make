@@ -44,8 +44,8 @@ SPEEXDSP_CONF_OPT	:= \
 	--$(call ptx/endis, PTXCONF_SPEEXDSP_FIXED_POINT)-fixed-point \
 	--$(call ptx/endis, PTXCONF_SPEEXDSP_FLOAT_API)-float-api \
 	--disable-examples \
-	--$(call ptx/endis, PTXCONF_ARCH_ARM_V4)-arm4-asm \
-	--$(call ptx/endis, PTXCONF_ARCH_ARM_V5E)-arm5e-asm \
+	--disable-arm4-asm \
+	--disable-arm5e-asm \
 	--$(call ptx/endis, PTXCONF_ARCH_BLACKFIN)-blackfin-asm \
 	--disable-fixed-point-debug \
 	--enable-resample-full-sinc-table \
