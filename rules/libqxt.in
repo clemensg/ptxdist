@@ -45,9 +45,6 @@ config LIBQXT_BERKELEY
 	select LIBQXT_CORE
 	prompt "berkeley"
 
-comment "berkeley needs berkeley db 4.4.x"
-	depends on LIBQXT_BERKELEY && !DB_44
-
 config LIBQXT_ZEROCONF
 	bool
 	select LIBQXT_NETWORK
