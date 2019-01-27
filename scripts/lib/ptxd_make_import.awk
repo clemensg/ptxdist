@@ -77,6 +77,10 @@ FNR == 1 {
 	$0 = add_prefix($0);
 }
 
+/^[[:space:]]*(int|hex|string|bool|boolean|tristate|prompt)[[:space:]]+"[^"]*"[[:space:]]+if[[:space:]]+/ {
+	match($0, "(.*)([[:space:]]if[[:space:]].*)", tmp)
+	$0 = tmp[1] add_prefix(tmp[2])
+}
 
 #
 # put "source"d file to argument, in order to convert them, too
