@@ -46,9 +46,9 @@ AT91BOOTSTRAP2_MAKE_OPT := \
 ifdef PTXCONF_AT91BOOTSTRAP2
 $(AT91BOOTSTRAP2_CONFIG):
 	@echo
-	@echo "************************************************************************************"
-	@echo "* Please generate a at91bootstrap config with 'ptxdist menuconfig 'at91bootstrap2' *"
-	@echo "************************************************************************************"
+	@echo "***********************************************************************************"
+	@echo "* Please generate a at91bootstrap config with 'ptxdist menuconfig at91bootstrap2' *"
+	@echo "***********************************************************************************"
 	@echo
 	@echo
 	@exit 1
@@ -69,10 +69,10 @@ $(STATEDIR)/at91bootstrap2.install:
 $(STATEDIR)/at91bootstrap2.targetinstall:
 	@$(call targetinfo)
 	@if [ -e $(AT91BOOTSTRAP2_DIR)/binaries/at91bootstrap.bin ]; then \
-		install -m644 $(AT91BOOTSTRAP2_DIR)/binaries/at91bootstrap.bin \
+		install -vD -m644 $(AT91BOOTSTRAP2_DIR)/binaries/at91bootstrap.bin \
 			$(IMAGEDIR)/at91bootstrap.bin; \
 	else \
-		install -m644 $(AT91BOOTSTRAP2_DIR)/binaries/*boot-$(AT91BOOTSTRAP2_VERSION).bin \
+		install -vD -m644 $(AT91BOOTSTRAP2_DIR)/binaries/*boot-$(AT91BOOTSTRAP2_VERSION).bin \
 			$(IMAGEDIR)/at91bootstrap.bin; \
 	fi
 	@$(call touch)
