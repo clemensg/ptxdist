@@ -16,11 +16,11 @@ PACKAGES-$(PTXCONF_OWFS) += owfs
 #
 # Paths and names
 #
-OWFS_VERSION	:= 3.1p0
-OWFS_MD5	:= 3d8919af078ae8c9171e5713a1789195
+OWFS_VERSION	:= 3.2p3
+OWFS_MD5	:= ea0c96fdc3e0bb386a135fa90aeb97f8
 OWFS		:= owfs-$(OWFS_VERSION)
 OWFS_SUFFIX	:= tar.gz
-OWFS_URL	:= $(call ptx/mirror, SF, owfs/$(OWFS).$(OWFS_SUFFIX))
+OWFS_URL	:= https://github.com/owfs/owfs/releases/download/v$(OWFS_VERSION)/$(OWFS).$(OWFS_SUFFIX)
 OWFS_SOURCE	:= $(SRCDIR)/$(OWFS).$(OWFS_SUFFIX)
 OWFS_DIR	:= $(BUILDDIR)/$(OWFS)
 OWFS_LICENSE	:= GPL-2.0-or-later AND LGPL-2.0-or-later
@@ -32,12 +32,15 @@ OWFS_LICENSE	:= GPL-2.0-or-later AND LGPL-2.0-or-later
 #
 # autoconf
 #
-OWFS_AUTOCONF := \
+OWFS_CONF_TOOL	:= autoconf
+OWFS_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	--disable-debian \
 	--disable-debug \
 	--disable-mutexdebug \
+	--$(call ptx/endis,PTXCONF_OWFS_OWSHELL)-owshell \
 	--enable-owlib \
+	--$(call ptx/endis,PTXCONF_OWFS_OWNETLIB)-ownetlib \
 	--enable-i2c \
 	--disable-w1 \
 	--disable-owhttpd \
@@ -48,16 +51,19 @@ OWFS_AUTOCONF := \
 	--disable-owtap \
 	--disable-owmalloc \
 	--disable-owmon \
+	--$(call ptx/endis,PTXCONF_OWFS_OWCAPI)-owcapi \
 	--disable-swig \
 	--disable-owperl \
 	--disable-owphp \
 	--disable-owpython \
 	--disable-owtcl \
 	--disable-profiling \
+	--$(call ptx/endis,PTXCONF_OWFS_OWFS)-owfs \
 	--disable-zero \
 	--disable-usb \
 	--disable-avahi \
 	--disable-parport \
+	--disable-ftdi \
 	--without-perl5 \
 	--without-php \
 	--without-phpconfig \
@@ -65,26 +71,6 @@ OWFS_AUTOCONF := \
 	--without-pythonconfig \
 	--without-tcl
 
-ifdef PTXCONF_OWFS_OWSHELL
-OWFS_AUTOCONF += --enable-owshell
-else
-OWFS_AUTOCONF += --disable-owshell
-endif
-ifdef PTXCONF_OWFS_OWNETLIB
-OWFS_AUTOCONF += --enable-ownetlib
-else
-OWFS_AUTOCONF += --disable-ownetlib
-endif
-ifdef PTXCONF_OWFS_OWFS
-OWFS_AUTOCONF += --enable-owfs
-else
-OWFS_AUTOCONF += --disable-owfs
-endif
-ifdef PTXCONF_OWFS_OWCAPI
-OWFS_AUTOCONF += --enable-owcapi
-else
-OWFS_AUTOCONF += --disable-owcapi
-endif
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -99,9 +85,9 @@ $(STATEDIR)/owfs.targetinstall:
 	@$(call install_fixup, owfs,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, owfs,DESCRIPTION,missing)
 
-	@$(call install_lib, owfs, 0, 0, 0644, libow-3.1)
+	@$(call install_lib, owfs, 0, 0, 0644, libow-3.2)
 ifdef PTXCONF_OWFS_OWCAPI
-	@$(call install_lib, owfs, 0, 0, 0644, libowcapi-3.1)
+	@$(call install_lib, owfs, 0, 0, 0644, libowcapi-3.2)
 endif
 
 ifdef PTXCONF_OWFS_OWFS
