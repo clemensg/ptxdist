@@ -50,6 +50,11 @@ IGT_GPU_TOOLS_CONF_OPT	:= \
 	-Dwith_libdrm=$(subst $(space),$(comma),$(IGT_GPU_TOOLS_LIBDRM-y)) \
 	-Duse_rpath=false
 
+ifdef PTXCONF_KERNEL_HEADER
+IGT_GPU_TOOLS_CPPFLAGS	:= \
+	-isystem $(KERNEL_HEADERS_INCLUDE_DIR)
+endif
+
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
