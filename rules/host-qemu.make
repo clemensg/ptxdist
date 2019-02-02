@@ -18,8 +18,8 @@ HOST_PACKAGES-$(PTXCONF_HOST_QEMU) += host-qemu
 #
 # Paths and names
 #
-HOST_QEMU_VERSION	:= 3.0.0
-HOST_QEMU_MD5		:= 6a5c8df583406ea24ef25b239c3243e0
+HOST_QEMU_VERSION	:= 3.1.0
+HOST_QEMU_MD5		:= fb687ce0b02d3bf4327e36d3b99427a8
 HOST_QEMU		:= qemu-$(HOST_QEMU_VERSION)
 HOST_QEMU_SUFFIX	:= tar.xz
 HOST_QEMU_URL		:= https://download.qemu.org/$(HOST_QEMU).$(HOST_QEMU_SUFFIX)
@@ -92,7 +92,6 @@ HOST_QEMU_CONF_OPT	= \
 	--disable-sdl \
 	--with-sdlabi= \
 	--disable-gtk \
-	--with-gtkabi= \
 	--disable-vte \
 	--disable-curses \
 	--disable-vnc \
@@ -111,6 +110,7 @@ HOST_QEMU_CONF_OPT	= \
 	--disable-kvm \
 	--disable-hax \
 	--disable-rdma \
+	--disable-pvrdma \
 	--disable-netmap \
 	--disable-linux-aio \
 	--disable-cap-ng \
@@ -118,6 +118,7 @@ HOST_QEMU_CONF_OPT	= \
 	--enable-vhost-net \
 	--disable-capstone \
 	--disable-debug-mutex \
+	--disable-libpmem \
 	--disable-spice \
 	--disable-rbd \
 	--disable-libiscsi \
@@ -129,7 +130,7 @@ HOST_QEMU_CONF_OPT	= \
 	--disable-snappy \
 	--disable-bzip2 \
 	--disable-seccomp \
-	--disable-coroutine-pool \
+	--enable-coroutine-pool \
 	--disable-glusterfs \
 	--disable-tpm \
 	--disable-libssh2 \
