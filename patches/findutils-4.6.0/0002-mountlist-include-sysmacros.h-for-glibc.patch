@@ -1,0 +1,22 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Sun, 3 Feb 2019 19:57:41 +0100
+Subject: [PATCH] mountlist: include sysmacros.h for glibc
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ gl/lib/mountlist.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/gl/lib/mountlist.c b/gl/lib/mountlist.c
+index c3d2852bb990..922fcd4ddb39 100644
+--- a/gl/lib/mountlist.c
++++ b/gl/lib/mountlist.c
+@@ -37,6 +37,8 @@
+ # include <sys/param.h>
+ #endif
+ 
++#include <sys/sysmacros.h>
++
+ #if defined MOUNTED_GETFSSTAT   /* OSF_1 and Darwin1.3.x */
+ # if HAVE_SYS_UCRED_H
+ #  include <grp.h> /* needed on OSF V4.0 for definition of NGROUPS,
