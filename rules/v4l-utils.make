@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_V4L_UTILS) += v4l-utils
 #
 # Paths and names
 #
-V4L_UTILS_VERSION	:= 1.16.0
-V4L_UTILS_MD5		:= 21a6ec3605a1c3114c8ccb70a963c871
+V4L_UTILS_VERSION	:= 1.16.3
+V4L_UTILS_MD5		:= ecc98c6140916135725a4d9ada10404f
 V4L_UTILS		:= v4l-utils-$(V4L_UTILS_VERSION)
 V4L_UTILS_SUFFIX	:= tar.bz2
 V4L_UTILS_URL		:= http://linuxtv.org/downloads/v4l-utils/$(V4L_UTILS).$(V4L_UTILS_SUFFIX)
@@ -57,6 +57,7 @@ V4L_UTILS_CONF_OPT	:= \
 	--disable-qv4l2 \
 	--disable-qvidcap \
 	--disable-gconv \
+	--$(call ptx/endis, PTXCONF_V4L_UTILS_IRKEYTABLE)-bpf \
 	--$(call ptx/wwo, PTXCONF_V4L_UTILS_LIBV4LCONVERT)-jpeg
 
 ifdef PTXCONF_KERNEL_HEADER
