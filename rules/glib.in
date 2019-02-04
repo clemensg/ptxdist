@@ -33,7 +33,7 @@ config GLIB_GDBUS
 
 config GLIB_LIBMOUNT
 	bool
-	prompt "enable libmount
+	prompt "enable libmount"
 	help
 	  Enable libmount in glib
 
