@@ -1,18 +1,86 @@
 ## SECTION=system_libraries
 
-config POCO
+menuconfig POCO
 	tristate
 	select GCCLIBS_CXX
 	select GCCLIBS_GCC_S
-	select LIBC_M
-	select LIBC_DL
-	select LIBC_RT
-	select LIBC_PTHREAD
 	select ZLIB
 	select LIBPCRE
-	select EXPAT
-	prompt "poco"
+	select EXPAT	if POCO_XML
+	select SQLITE	if POCO_DATA_SQLITE
+	select MYSQLDB	if POCO_DATA_MYSQL
+	select OPENSSL	if POCO_CRYPTO
+	prompt "poco                          "
 	help
 	  The POCO C++ Libraries (POrtable COmponents) are open source C++ class
 	  libraries that simplify and accelerate the development of
 	  network-centric, portable applications in C++.
+
+
+if POCO
+
+config POCO_ENCODINGS
+	bool
+	prompt "double-byte encodings library"
+
+config POCO_XML
+	bool
+	prompt "XML library"
+
+config POCO_JSON
+	bool
+	prompt "JSON library"
+
+config POCO_UTIL
+	bool
+	prompt "Util library"
+
+config POCO_NET
+	bool
+	prompt "Networking library"
+
+if POCO_NET && POCO_CRYPTO && POCO_UTIL
+
+config POCO_NETSSL_OPENSSL
+	bool
+	prompt "TLS using OpenSSL"
+
+endif
+
+config POCO_CRYPTO
+	bool
+	prompt "Crypto library"
+
+config POCO_DATA
+	bool
+	prompt "Database abstraction library"
+
+if POCO_DATA
+
+config POCO_DATA_SQLITE
+	bool
+	prompt "SQLite backend"
+
+config POCO_DATA_MYSQL
+	bool
+	prompt "MySQL backend"
+
+endif
+
+config POCO_ZIP
+	bool
+	prompt "Zip library"
+
+if POCO_NET
+
+config POCO_MONGODB
+	bool
+	prompt "MongoDB support"
+
+config POCO_REDIS
+	bool
+	prompt "Redis support"
+
+endif
+
+endif

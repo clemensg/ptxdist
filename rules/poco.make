@@ -16,11 +16,11 @@ PACKAGES-$(PTXCONF_POCO) += poco
 #
 # Paths and names
 #
-POCO_VERSION	:= 1.6.1
-POCO_MD5	:= 8bc6b7dc22a8cbd97257028c02ac2707
+POCO_VERSION	:= 1.9.0
+POCO_MD5	:= 9047586e0ba393bfeced96e3b7ae6286
 POCO		:= poco-$(POCO_VERSION)
 POCO_SUFFIX	:= tar.gz
-POCO_URL	:= http://pocoproject.org/releases/$(POCO)/$(POCO).$(POCO_SUFFIX)
+POCO_URL	:= http://pocoproject.org/releases/$(POCO)/$(POCO)-all.$(POCO_SUFFIX)
 POCO_SOURCE	:= $(SRCDIR)/$(POCO).$(POCO_SUFFIX)
 POCO_DIR	:= $(shell readlink -f "$(BUILDDIR)/$(POCO)")
 POCO_LICENSE	:= BSL-1.0
@@ -29,13 +29,34 @@ POCO_LICENSE	:= BSL-1.0
 # Prepare
 # ----------------------------------------------------------------------------
 
+POCO_LIBS-					:= CppUnit
+POCO_LIBS-					+= CppUnit/WinTestRunner
+POCO_LIBS-					+= Data/ODBC
+POCO_LIBS-					+= PageCompiler
+POCO_LIBS-					+= PageCompiler/File2Page
+
+POCO_LIBS-y					+= Foundation
+POCO_LIBS-$(PTXCONF_POCO_ENCODINGS)		+= Encodings
+POCO_LIBS-$(PTXCONF_POCO_XML)			+= XML
+POCO_LIBS-$(PTXCONF_POCO_JSON)			+= JSON
+POCO_LIBS-$(PTXCONF_POCO_UTIL)			+= Util
+POCO_LIBS-$(PTXCONF_POCO_NET)			+= Net
+POCO_LIBS-$(PTXCONF_POCO_NETSSL_OPENSSL)	+= NetSSL_OpenSSL
+POCO_LIBS-$(PTXCONF_POCO_CRYPTO)		+= Crypto
+POCO_LIBS-$(PTXCONF_POCO_DATA)			+= Data
+POCO_LIBS-$(PTXCONF_POCO_DATA_SQLITE)		+= Data/SQLite
+POCO_LIBS-$(PTXCONF_POCO_DATA_MYSQL)		+= Data/MySQL
+POCO_LIBS-$(PTXCONF_POCO_ZIP)			+= Zip
+POCO_LIBS-$(PTXCONF_POCO_MONGODB)		+= MongoDB
+POCO_LIBS-$(PTXCONF_POCO_REDIS)			+= Redis
+
 POCO_CONF_TOOL	:= autoconf
 POCO_CONF_OPT	:= \
 	--config=Linux \
 	--prefix=/usr \
 	--no-tests \
 	--no-samples \
-	--omit=Data/MySQL,Data/ODBC,Zip \
+	--omit=$(subst $(ptx/def/space),$(ptx/def/comma),$(POCO_LIBS-)) \
 	--poquito \
 	--unbundled \
 	--shared
@@ -59,11 +80,9 @@ $(STATEDIR)/poco.targetinstall:
 	@$(call install_fixup, poco,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, poco,DESCRIPTION,missing)
 
-	@$(call install_lib, poco, 0, 0, 0644, libPocoUtil)
-	@$(call install_lib, poco, 0, 0, 0644, libPocoXML)
-	@$(call install_lib, poco, 0, 0, 0644, libPocoNet)
-	@$(call install_lib, poco, 0, 0, 0644, libPocoFoundation)
-	@$(call install_lib, poco, 0, 0, 0644, libPocoJSON)
+	@$(foreach lib, $(POCO_LIBS-y), \
+		$(call install_lib, poco, 0, 0, 0644, \
+			libPoco$(subst /,,$(subst _OpenSSL,,$(lib))));)
 
 	@$(call install_finish, poco)
 
