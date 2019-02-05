@@ -36,8 +36,8 @@ HOST_E2FSPROGS_CONF_OPT		:= \
 	--disable-jbd-debug \
 	--disable-blkid-debug \
 	--disable-testio-debug \
-	--enable-libuuid \
-	--enable-libblkid \
+	--disable-libuuid \
+	--disable-libblkid \
 	--disable-backtrace \
 	--disable-debugfs \
 	--disable-imager \
