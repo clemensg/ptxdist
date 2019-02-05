@@ -113,6 +113,14 @@ endif
 ifdef PTXCONF_U_BOOT_INSTALL_U_BOOT_IMX
 	@install -v -D -m644 $(U_BOOT_DIR)/u-boot.imx $(IMAGEDIR)/u-boot.imx
 endif
+ifdef PTXCONF_U_BOOT_INSTALL_U_BOOT_DTB
+	@install -v -D -m644 $(U_BOOT_DIR)/u-boot-dtb.bin \
+		$(IMAGEDIR)/u-boot-dtb.bin
+endif
+ifdef PTXCONF_U_BOOT_INSTALL_U_BOOT_WITH_SPL_PBL
+	@install -v -D -m644 $(U_BOOT_DIR)/u-boot-with-spl-pbl.bin \
+		$(IMAGEDIR)/u-boot-with-spl-pbl.bin
+endif
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -125,6 +133,7 @@ $(STATEDIR)/u-boot.clean:
 	@rm -vf $(IMAGEDIR)/u-boot.bin $(IMAGEDIR)/u-boot.srec $(IMAGEDIR)/u-boot.elf
 	@rm -vf $(IMAGEDIR)/u-boot.img $(IMAGEDIR)/SPL $(IMAGEDIR)/MLO
 	@rm -vf $(IMAGEDIR)/u-boot.imx
+	@rm -vf	$(IMAGEDIR)/u-boot-dtb.bin $(IMAGEDIR)/u-boot-with-spl-pbl.bin
 
 # ----------------------------------------------------------------------------
 # oldconfig / menuconfig

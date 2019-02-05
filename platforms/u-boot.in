@@ -128,5 +128,19 @@ config U_BOOT_INSTALL_U_BOOT_IMX
 	  image directory. Say yes if you are building for freescale i.MX SOCs
 	  and are not using SPL.
 
+config U_BOOT_INSTALL_U_BOOT_DTB
+	prompt "install u-boot-dtb.bin"
+	bool
+	help
+	  Installing the U-Boot binary concatenated with the device tree
+	  into platform image directory.
+
+config U_BOOT_INSTALL_U_BOOT_WITH_SPL_PBL
+	prompt "install u-boot-with-spl-pbl.bin"
+	bool
+	help
+	  Installing the U-Boot binary which contains as well the SPL and PBL.
+	  Say yes if you are building for Layerscape SoCs
+
 endif
 
