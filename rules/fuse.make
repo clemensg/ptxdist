@@ -16,11 +16,11 @@ PACKAGES-$(PTXCONF_FUSE) += fuse
 #
 # Paths and names
 #
-FUSE_VERSION	:= 2.9.5
-FUSE_MD5	:= c901b77a1c4584c7ac6c2b67c0713f2b
+FUSE_VERSION	:= 2.9.9
+FUSE_MD5	:= 8000410aadc9231fd48495f7642f3312
 FUSE		:= fuse-$(FUSE_VERSION)
 FUSE_SUFFIX	:= tar.gz
-FUSE_URL	:= https://github.com/libfuse/libfuse/releases/download/fuse_$(subst .,_,$(FUSE_VERSION))/$(FUSE).$(FUSE_SUFFIX)
+FUSE_URL	:= https://github.com/libfuse/libfuse/releases/download/$(FUSE)/$(FUSE).$(FUSE_SUFFIX)
 FUSE_SOURCE	:= $(SRCDIR)/$(FUSE).$(FUSE_SUFFIX)
 FUSE_DIR	:= $(BUILDDIR)/$(FUSE)
 FUSE_LICENSE	:= GPL-2.0-only AND LGPL-2.1-only
@@ -39,8 +39,8 @@ FUSE_CONF_OPT	:= \
 	--disable-mtab \
 	--disable-rpath \
 	--without-libiconv-prefix \
-	--$(call ptx/endis, PTXCONF_FUSE__LIB)-lib \
-	--$(call ptx/endis, PTXCONF_FUSE__UTIL)-util
+	--$(call ptx/endis, PTXCONF_FUSE_LIB)-lib \
+	--$(call ptx/endis, PTXCONF_FUSE_UTIL)-util
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -55,11 +55,11 @@ $(STATEDIR)/fuse.targetinstall:
 	@$(call install_fixup, fuse,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, fuse,DESCRIPTION,missing)
 
-ifdef PTXCONF_FUSE__LIB
+ifdef PTXCONF_FUSE_LIB
 	@$(call install_lib, fuse, 0, 0, 0644, libfuse)
 	@$(call install_lib, fuse, 0, 0, 0644, libulockmgr)
 endif
-ifdef PTXCONF_FUSE__UTIL
+ifdef PTXCONF_FUSE_UTIL
 	@$(call install_copy, fuse, 0, 0, 0755, -, /usr/bin/fusermount)
 	@$(call install_copy, fuse, 0, 0, 0755, -, /usr/bin/ulockmgr_server)
 endif

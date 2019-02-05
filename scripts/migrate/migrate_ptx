@@ -314,3 +314,11 @@ s/^\(\(# \)\?PTXCONF_\)XORG_LIB_X11_INSTALL_LOCALE\>/\1LIBX11_LOCALE/
 # reason : consolidation of config symbols
 #
 s/^\(\(# \)\?PTXCONF_BLUEZ\)_UTILS\(.*$\)/\1_TOOLS\2/
+
+#
+# from   : ptxdist-2019.01.0
+# to     : ptxdist-2019.02.0
+# symbol : FUSE__*			-> FUSE_*
+# reason : change __ -> _
+#
+s/^\(\(# \)\?PTXCONF_FUSE_\)_/\1\2/

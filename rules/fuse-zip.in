@@ -5,7 +5,7 @@ config FUSE_ZIP
 	prompt "fuse-zip"
 	select LIBZIP
 	select FUSE
-	select FUSE__LIB
+	select FUSE_LIB
 	help
 	  fuse-zip is a FUSE file system to navigate, extract, create
 	  and modify ZIP and ZIP64 archives based on libzip implemented

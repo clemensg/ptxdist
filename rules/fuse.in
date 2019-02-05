@@ -2,8 +2,8 @@
 menuconfig FUSE
 	tristate
 	prompt "fuse                          "
-	select LIBC_DL if FUSE__LIB
-	select LIBC_RT if FUSE__LIB
+	select LIBC_DL if FUSE_LIB
+	select LIBC_RT if FUSE_LIB
 	select LIBC_PTHREAD
 	help
 	  utilities for filesystems in userspace
@@ -13,11 +13,11 @@ menuconfig FUSE
 
 if FUSE
 
-config FUSE__LIB
+config FUSE_LIB
 	bool
 	prompt "fuse lib"
 
-config FUSE__UTIL
+config FUSE_UTIL
 	bool
 	prompt "fuse util"
 

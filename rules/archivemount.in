@@ -4,8 +4,8 @@ config ARCHIVEMOUNT
 	tristate
 	prompt "archivemount"
 	select FUSE
-	select FUSE__LIB
-	select FUSE__UTIL
+	select FUSE_LIB
+	select FUSE_UTIL
 	select LIBARCHIVE
 	help
 	  Archivemount is a piece of glue code between libarchive and FUSE.

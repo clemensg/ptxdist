@@ -13,7 +13,7 @@ menuconfig OWFS
 	select LIBC_PTHREAD
 	select GCCLIBS_GCC_S
 	select FUSE			if OWFS_OWFS
-	select FUSE__LIB		if OWFS_OWFS
+	select FUSE_LIB			if OWFS_OWFS
 	depends on !BUSYBOX_MOUNT || ALLYES
 	depends on !BUSYBOX_UMOUNT || ALLYES
 	select UTIL_LINUX_NG		if OWFS_OWFS
