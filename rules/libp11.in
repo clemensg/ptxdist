@@ -1,0 +1,20 @@
+## SECTION=security
+
+menuconfig LIBP11
+	tristate
+	prompt "libp11                        "
+	select OPENSSL
+	help
+	  libp11 is a library implementing a thin layer on top of PKCS#11 API to
+	  make using PKCS#11 implementations easier.
+	  It also includes a pkcs#11 engine implementation for openssl.
+
+if LIBP11
+
+config LIBP11_PROXY_MODULE
+	bool
+	default y
+	depends on P11_KIT
+	prompt "Default to p11-kit proxy module"
+
+endif
