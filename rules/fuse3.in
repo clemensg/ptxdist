@@ -1,0 +1,18 @@
+## SECTION=disk_and_file
+
+config FUSE3
+	tristate
+	select HOST_MESON
+	select LIBC_DL
+	select LIBC_PTHREAD
+	select LIBC_RT
+	select UDEV
+	prompt "fuse3"
+	help
+	  Filesystem in Userspace (3.x version)
+	  Filesystem in Userspace (FUSE) is a simple interface for
+	  userspace programs to export a virtual filesystem to the Linux
+	  kernel. It also aims to provide a secure method for non
+	  privileged users to create and mount their own filesystem
+	  implementations.
+
