@@ -130,6 +130,11 @@ ifdef PTXCONF_NCURSES_WIDE_CHAR
 
 	@ln -sf "ncursesw$(NCURSES_MAJOR)-config" \
 		"$(NCURSES_PKGDIR)/usr/bin/ncurses$(NCURSES_MAJOR)-config"
+ifdef PTXCONF_NCURSES_BACKWARD_COMPATIBLE_NON_WIDE_CHAR
+	@for lib in $(NCURSES_LIBRARY_LIST); do \
+		ln -vs "$${lib}w.pc" "$(NCURSES_PKGDIR)/usr/$(CROSS_LIB_DIR)/pkgconfig/$${lib}.pc"; \
+	done
+endif
 endif
 	@$(call touch)
 
