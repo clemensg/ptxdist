@@ -94,24 +94,24 @@ $(STATEDIR)/u-boot.install:
 
 $(STATEDIR)/u-boot.targetinstall:
 	@$(call targetinfo)
-	@install -D -m644 $(U_BOOT_DIR)/u-boot.bin $(IMAGEDIR)/u-boot.bin
+	@install -v -D -m644 $(U_BOOT_DIR)/u-boot.bin $(IMAGEDIR)/u-boot.bin
 ifdef PTXCONF_U_BOOT_INSTALL_SREC
-	@install -D -m644 $(U_BOOT_DIR)/u-boot.srec $(IMAGEDIR)/u-boot.srec
+	@install -v -D -m644 $(U_BOOT_DIR)/u-boot.srec $(IMAGEDIR)/u-boot.srec
 endif
 ifdef PTXCONF_U_BOOT_INSTALL_ELF
-	@install -D -m644 $(U_BOOT_DIR)/u-boot $(IMAGEDIR)/u-boot.elf
+	@install -v -D -m644 $(U_BOOT_DIR)/u-boot $(IMAGEDIR)/u-boot.elf
 endif
 ifdef PTXCONF_U_BOOT_INSTALL_SPL
-	@install -D -m644 $(U_BOOT_DIR)/SPL $(IMAGEDIR)/SPL
+	@install -v -D -m644 $(U_BOOT_DIR)/SPL $(IMAGEDIR)/SPL
 endif
 ifdef PTXCONF_U_BOOT_INSTALL_MLO
-	@install -D -m644 $(U_BOOT_DIR)/MLO $(IMAGEDIR)/MLO
+	@install -v -D -m644 $(U_BOOT_DIR)/MLO $(IMAGEDIR)/MLO
 endif
 ifdef PTXCONF_U_BOOT_INSTALL_U_BOOT_IMG
-	@install -D -m644 $(U_BOOT_DIR)/u-boot.img $(IMAGEDIR)/u-boot.img
+	@install -v -D -m644 $(U_BOOT_DIR)/u-boot.img $(IMAGEDIR)/u-boot.img
 endif
 ifdef PTXCONF_U_BOOT_INSTALL_U_BOOT_IMX
-	@install -D -m644 $(U_BOOT_DIR)/u-boot.imx $(IMAGEDIR)/u-boot.imx
+	@install -v -D -m644 $(U_BOOT_DIR)/u-boot.imx $(IMAGEDIR)/u-boot.imx
 endif
 	@$(call touch)
 
@@ -122,9 +122,9 @@ endif
 $(STATEDIR)/u-boot.clean:
 	@$(call targetinfo)
 	@$(call clean_pkg, U_BOOT)
-	@rm -f $(IMAGEDIR)/u-boot.bin $(IMAGEDIR)/u-boot.srec $(IMAGEDIR)/u-boot.elf
-	@rm -f $(IMAGEDIR)/u-boot.img $(IMAGEDIR)/SPL $(IMAGEDIR)/MLO
-	@rm -f $(IMAGEDIR)/u-boot.imx
+	@rm -vf $(IMAGEDIR)/u-boot.bin $(IMAGEDIR)/u-boot.srec $(IMAGEDIR)/u-boot.elf
+	@rm -vf $(IMAGEDIR)/u-boot.img $(IMAGEDIR)/SPL $(IMAGEDIR)/MLO
+	@rm -vf $(IMAGEDIR)/u-boot.imx
 
 # ----------------------------------------------------------------------------
 # oldconfig / menuconfig
