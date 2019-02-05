@@ -1,0 +1,16 @@
+## SECTION=disk_and_file
+
+config SSHFS
+	tristate
+	select HOST_MESON
+	select GLIB
+	select FUSE3
+	prompt "sshfs"
+	help
+	  filesystem client based on SSH File Transfer Protocol
+	  sshfs is a filesystem client based on the SSH File Transfer
+	  Protocol. Since most SSH servers already support this protocol
+	  it is very easy to set up: i.e. on the server side there`s
+	  nothing to do. On the client side mounting the filesystem is as
+	  easy as logging into the server with ssh.
+
