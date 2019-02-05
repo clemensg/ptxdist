@@ -25,6 +25,11 @@ U_BOOT_URL	:= ftp://ftp.denx.de/pub/u-boot/$(U_BOOT).$(U_BOOT_SUFFIX)
 U_BOOT_SOURCE	:= $(SRCDIR)/$(U_BOOT).$(U_BOOT_SUFFIX)
 U_BOOT_DIR	:= $(BUILDDIR)/$(U_BOOT)
 
+ifdef PTXCONF_U_BOOT_CONFIGSYSTEM_KCONFIG
+U_BOOT_CONFIG	:= $(call ptx/in-platformconfigdir, \
+		$(call remove_quotes, $(PTXCONF_U_BOOT_CONFIGFILE_KCONFIG)))
+endif
+
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
@@ -36,17 +41,44 @@ U_BOOT_WRAPPER_BLACKLIST := \
 	TARGET_DEBUG \
 	TARGET_BUILD_ID
 
-U_BOOT_PATH	:= PATH=$(CROSS_PATH)
-U_BOOT_MAKE_OPT	:= CROSS_COMPILE=$(BOOTLOADER_CROSS_COMPILE) HOSTCC=$(HOSTCC)
-U_BOOT_MAKE_PAR	:= NO
-U_BOOT_TAGS_OPT	:= ctags cscope etags
+U_BOOT_MAKE_ENV		:= \
+	CROSS_COMPILE=$(BOOTLOADER_CROSS_COMPILE) \
+	HOSTCC=$(HOSTCC)
+U_BOOT_MAKE_OPT		:= V=$(PTXDIST_VERBOSE)
+U_BOOT_TAGS_OPT		:= ctags cscope etags
 
+ifdef PTXCONF_U_BOOT_CONFIGSYSTEM_KCONFIG
+U_BOOT_CONF_TOOL	:= kconfig
+U_BOOT_CONF_ENV		:= KCONFIG_NOTIMESTAMP=1 $(U_BOOT_MAKE_ENV)
+endif
+
+ifdef PTXCONF_U_BOOT_CONFIGSYSTEM_LEGACY
+U_BOOT_CONF_ENV		:= PATH=$(CROSS_PATH) $(U_BOOT_MAKE_ENV)
+U_BOOT_CONF_OPT		:= \
+	$(U_BOOT_MAKE_OPT) \
+	$(call remove_quotes, $(PTXCONF_U_BOOT_CONFIG))
+U_BOOT_MAKE_PAR		:= NO
+endif
+
+
+ifdef PTXCONF_U_BOOT
+$(U_BOOT_CONFIG):
+	@echo
+	@echo "****************************************************************************"
+	@echo "***** Please generate a u-boot config with 'ptxdist menuconfig u-boot' *****"
+	@echo "****************************************************************************"
+	@echo
+	@echo
+	@exit 1
+endif
+
+
+ifdef PTXCONF_U_BOOT_CONFIGSYSTEM_LEGACY
 $(STATEDIR)/u-boot.prepare:
 	@$(call targetinfo)
-	cd $(U_BOOT_DIR) && \
-		$(U_BOOT_PATH) \
-		$(MAKE) $(U_BOOT_MAKE_OPT) $(PTXCONF_U_BOOT_CONFIG)
+	$(U_BOOT_CONF_ENV) $(MAKE) -C $(U_BOOT_DIR) $(U_BOOT_CONF_OPT)
 	@$(call touch)
+endif
 
 # ----------------------------------------------------------------------------
 # Install
@@ -93,5 +125,12 @@ $(STATEDIR)/u-boot.clean:
 	@rm -f $(IMAGEDIR)/u-boot.bin $(IMAGEDIR)/u-boot.srec $(IMAGEDIR)/u-boot.elf
 	@rm -f $(IMAGEDIR)/u-boot.img $(IMAGEDIR)/SPL $(IMAGEDIR)/MLO
 	@rm -f $(IMAGEDIR)/u-boot.imx
+
+# ----------------------------------------------------------------------------
+# oldconfig / menuconfig
+# ----------------------------------------------------------------------------
+
+u-boot_oldconfig u-boot_menuconfig u-boot_nconfig: $(STATEDIR)/u-boot.extract
+	@$(call world/kconfig, U_BOOT, $(subst u-boot_,,$@))
 
 # vim: syntax=make

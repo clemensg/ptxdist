@@ -28,9 +28,47 @@ config U_BOOT_SERIES
 	  the u-boot patches directory. This way you can set a different
 	  series file than the default.
 
-config U_BOOT_CONFIG
+choice
+	prompt "config system"
+	default U_BOOT_CONFIGSYSTEM_LEGACY
+
+config U_BOOT_CONFIGSYSTEM_KCONFIG
+	prompt "Kconfig"
+	bool
+	help
+	  U-Boot from version 2014.10 uses Kconfig for configuring a target.
+	  Use this if you want to configure U-Boot inside the BSP, e.g.
+	  with menuconfig.
+	  
+	  NOTE: if you just want to use a defconfig, you can still use the
+	  legacy config system by using the name of a defconfig file from
+	  the "configs" folder as config target.
+
+config U_BOOT_CONFIGSYSTEM_LEGACY
+	prompt "legacy"
+	bool
+	help
+	  Select this if you use an old U-Boot prior 2014.10 or want to use
+	  a defconfig as config target.
+
+endchoice
+
+if U_BOOT_CONFIGSYSTEM_KCONFIG
+
+config U_BOOT_CONFIGFILE_KCONFIG
+	prompt "config file"
 	string
+	default "u-boot.config"
+	help
+	  This entry specifies the .config file used to compile U-Boot.
+
+endif
+
+if U_BOOT_CONFIGSYSTEM_LEGACY
+
+config U_BOOT_CONFIG
 	prompt "U-Boot config target"
+	string
 	help
 	  The U-Boot make config target. Usually something like
 	  "yourbox_config". Before U-Boot 2014.10 that was something from
@@ -39,6 +77,8 @@ config U_BOOT_CONFIG
 	  use some defconfig name as config target, e.g.
 	  "yourbox_defconfig", where that name is a file from the folder
 	  "configs".
+
+endif
 
 comment "target install"
 
