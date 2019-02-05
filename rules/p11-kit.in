@@ -1,0 +1,23 @@
+## SECTION=security
+
+menuconfig P11_KIT
+	tristate
+	select LIBFFI
+	prompt "p11-kit                       "
+	help
+	  Provides a way to load and enumerate PKCS#11 modules. Provides a
+	  standard configuration setup for installing PKCS#11 modules in such a
+	  way that they're discoverable.
+
+	  Also solves problems with coordinating the use of PKCS#11 by different
+	  components or libraries living in the same process.
+
+if P11_KIT
+
+config P11_KIT_SYSTEMD_UNIT
+	bool
+	default y
+	depends on SYSTEMD
+	prompt "install systemd unit file for p11-kit"
+
+endif
