@@ -9,10 +9,11 @@ if U_BOOT
 
 config U_BOOT_VERSION
 	string
-	default 1.2.0
+	default 2019.01
 	prompt "U-Boot version"
 	help
-	  Enter the Uboot version you want to build. Usually something like "1.2.0"
+	  Enter the U-Boot version you want to build. Usually something like
+	  "2019.01".
 
 config U_BOOT_MD5
 	string
@@ -32,8 +33,12 @@ config U_BOOT_CONFIG
 	prompt "U-Boot config target"
 	help
 	  The U-Boot make config target. Usually something like
-	  "yourbox_config". See Uboot's main Makefile for possible
-	  configuration targets.
+	  "yourbox_config". Before U-Boot 2014.10 that was something from
+	  the file "boards.cfg". With version 2014.10 U-Boot switched to
+	  Kconfig based build and configuration, and from there you could
+	  use some defconfig name as config target, e.g.
+	  "yourbox_defconfig", where that name is a file from the folder
+	  "configs".
 
 comment "target install"
 
@@ -70,8 +75,8 @@ config U_BOOT_INSTALL_U_BOOT_IMG
 	prompt "install u-boot.img"
 	bool
 	help
-	  Installing the u-boot image with header ("u-boot.img") which is executed
-	  by u-boot SPL into platform image directory.
+	  Installing the U-Boot image with header ("u-boot.img") which is executed
+	  by U-Boot SPL into platform image directory.
 
 endif
 
