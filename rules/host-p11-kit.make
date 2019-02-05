@@ -16,13 +16,6 @@ HOST_PACKAGES-$(PTXCONF_HOST_P11_KIT) += host-p11-kit
 #
 # Paths and names
 #
-HOST_P11_KIT_VERSION	:= 0.23.13
-HOST_P11_KIT_MD5	:= 9fb1daab59c6b9d90261f6bddf00d0f1
-HOST_P11_KIT		:= p11-kit-$(HOST_P11_KIT_VERSION)
-HOST_P11_KIT_SUFFIX	:= tar.gz
-HOST_P11_KIT_URL	:= https://github.com/p11-glue/p11-kit/releases/download/0.23.13//$(HOST_P11_KIT).$(HOST_P11_KIT_SUFFIX)
-HOST_P11_KIT_SOURCE	:= $(SRCDIR)/$(HOST_P11_KIT).$(HOST_P11_KIT_SUFFIX)
-HOST_P11_KIT_DIR	:= $(HOST_BUILDDIR)/$(HOST_P11_KIT)
 
 # ----------------------------------------------------------------------------
 # Prepare
