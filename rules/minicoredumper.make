@@ -40,7 +40,7 @@ MINICOREDUMPER_CONF_OPT := \
 	--without-minicoredumper_trigger \
 	--without-libminicoredumper \
 	--without-minicoredumper_demo \
-	--without-werror \
+	--without-werror
 
 # ----------------------------------------------------------------------------
 # Target-Install
