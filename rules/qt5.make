@@ -241,7 +241,7 @@ else
 QT5_QMAKE_OPT += "QT_CONFIG-=gstreamer-0.10 gstreamer-1.0"
 endif
 
-QT5_COMPILE_ENV := \
+QT5_MAKE_ENV := \
 	ICECC_REMOTE_CPP=0
 
 $(STATEDIR)/qt5.prepare:

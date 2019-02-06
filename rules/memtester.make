@@ -31,7 +31,7 @@ MEMTESTER_LICENSE	:= GPL-2.0-only
 # ----------------------------------------------------------------------------
 
 MEMTESTER_PATH := PATH=$(CROSS_PATH)
-MEMTESTER_COMPILE_ENV := $(CROSS_ENV)
+MEMTESTER_MAKE_ENV := $(CROSS_ENV)
 
 $(STATEDIR)/memtester.prepare:
 	@$(call targetinfo)

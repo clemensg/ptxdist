@@ -31,7 +31,7 @@ DNSMASQ_DIR		:= $(BUILDDIR)/$(DNSMASQ)
 # ----------------------------------------------------------------------------
 
 DNSMASQ_PATH := PATH=$(CROSS_PATH)
-DNSMASQ_COMPILE_ENV := $(CROSS_ENV)
+DNSMASQ_MAKE_ENV := $(CROSS_ENV)
 
 DNSMASQ_COPT :=
 

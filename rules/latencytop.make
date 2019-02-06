@@ -31,7 +31,7 @@ LATENCYTOP_LICENSE	:= GPL-2.0-only
 # ----------------------------------------------------------------------------
 
 LATENCYTOP_CONF_TOOL	:= NO
-LATENCYTOP_COMPILE_ENV	:= $(CROSS_ENV_FLAGS)
+LATENCYTOP_MAKE_ENV	:= $(CROSS_ENV_FLAGS)
 LATENCYTOP_MAKE_OPT	:= \
 	$(CROSS_ENV_CC) \
 	HAS_GTK_GUI=

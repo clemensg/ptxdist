@@ -29,7 +29,7 @@ CPUFREQUTILS_DIR	:= $(BUILDDIR)/$(CPUFREQUTILS)
 # ----------------------------------------------------------------------------
 
 CPUFREQUTILS_PATH := PATH=$(CROSS_PATH)
-CPUFREQUTILS_COMPILE_ENV := $(CROSS_ENV)
+CPUFREQUTILS_MAKE_ENV := $(CROSS_ENV)
 CPUFREQUTILS_MAKEVARS := \
 	NLS=false \
 	V=true \

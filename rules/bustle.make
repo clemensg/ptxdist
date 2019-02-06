@@ -30,7 +30,7 @@ BUSTLE_LICENSE	:= GPL-2.0-or-later AND LGPL-2.1-or-later
 # ----------------------------------------------------------------------------
 
 BUSTLE_PATH	:= PATH=$(CROSS_PATH)
-BUSTLE_COMPILE_ENV := $(CROSS_ENV)
+BUSTLE_MAKE_ENV := $(CROSS_ENV)
 
 $(STATEDIR)/bustle.prepare:
 	@$(call targetinfo)

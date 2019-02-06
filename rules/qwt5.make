@@ -38,7 +38,7 @@ ifdef PTXCONF_QWT5_SVG
 QWT5_CONF_OPT += QWT5_CONFIG+=QwtSvg
 endif
 
-QWT5_COMPILE_ENV := \
+QWT5_MAKE_ENV := \
 	ICECC_REMOTE_CPP=0
 
 # ----------------------------------------------------------------------------

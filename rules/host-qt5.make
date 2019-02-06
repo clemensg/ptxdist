@@ -150,7 +150,7 @@ HOST_QT5_CONF_OPT += \
 
 HOST_QT5_QT_CONF := $(PTXDIST_SYSROOT_HOST)/bin/qt5/qt.conf
 
-HOST_QT5_COMPILE_ENV := \
+HOST_QT5_MAKE_ENV := \
 	ICECC_REMOTE_CPP=0
 
 $(STATEDIR)/host-qt5.install.post:

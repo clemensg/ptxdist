@@ -31,7 +31,7 @@ PCIUTILS_LICENSE	:= GPL-2.0-only
 # ----------------------------------------------------------------------------
 
 PCIUTILS_CONF_TOOL	:= NO
-PCIUTILS_COMPILE_ENV	:= $(CROSS_ENV)
+PCIUTILS_MAKE_ENV	:= $(CROSS_ENV)
 
 PCIUTILS_MAKE_OPT := \
 	CROSS_COMPILE=$(COMPILER_PREFIX) \

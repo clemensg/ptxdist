@@ -26,7 +26,7 @@ UTELNETD_DIR		:= $(BUILDDIR)/$(UTELNETD)
 # Compile
 # ----------------------------------------------------------------------------
 
-UTELNETD_COMPILE_ENV := \
+UTELNETD_MAKE_ENV := \
 	CROSS_COMPILE=$(COMPILER_PREFIX) \
 	$(CROSS_ENV_FLAGS)
 

@@ -30,7 +30,7 @@ UNSTRUNG_LICENSE	:= GPL-2.0-or-later
 # ----------------------------------------------------------------------------
 
 UNSTRUNG_CONF_TOOL	:= NO
-UNSTRUNG_COMPILE_ENV	:= \
+UNSTRUNG_MAKE_ENV	:= \
 	$(CROSS_ENV) \
 	ARCH=$(PTXCONF_ARCH_STRING) \
 	EMBEDDED=$(call ptx/ifdef,PTXCONF_UNSTRUNG_TESTING,,1)
