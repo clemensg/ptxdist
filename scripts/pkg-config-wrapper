@@ -23,6 +23,9 @@ system_incpath=( "${libdir[@]/%//../../include}" "${libdir[@]/%//../include}" "/
 
 orig_IFS="${IFS}"
 IFS=":"
+# make sure no other sysroot is set
+# it conflicts with our own sysroot handling
+unset PKG_CONFIG_SYSROOT_DIR
 # default pkg-config searchs
 export PKG_CONFIG_LIBDIR="${libdir[*]}"
 # default search path that will be dropped from --cflags
