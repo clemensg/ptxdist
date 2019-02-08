@@ -1,0 +1,11 @@
+## SECTION=hosttools_noprompt
+
+config HOST_CRYPTSETUP
+	tristate
+	default y if ALLYES
+	select HOST_JSON_C
+	select HOST_LVM2
+	select HOST_LIBUUID
+	select HOST_LIBPOPT
+	select HOST_LIBBLKID
+	select HOST_OPENSSL
