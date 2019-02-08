@@ -29,11 +29,18 @@ U_BOOT_TOOLS_LICENSE	:= GPL-2.0-only
 # Prepare
 # ----------------------------------------------------------------------------
 
-U_BOOT_TOOLS_CONF_TOOL	:= NO
+
 # just pick sandbox as a dummy target config
+U_BOOT_TOOLS_CONFIG	:= sandbox_config
+ifdef PTXCONF_ARCH_PPC
+# the sandbox is not supported by PPC so just some random PPC config
+U_BOOT_TOOLS_CONFIG	:= MPC8308RDB_defconfig
+endif
+
+U_BOOT_TOOLS_CONF_TOOL	:= NO
 U_BOOT_TOOLS_MAKE_OPT	:= \
 	CROSS_COMPILE=$(BOOTLOADER_CROSS_COMPILE) \
-	sandbox_config \
+	$(U_BOOT_TOOLS_CONFIG) \
 	tools/env/
 
 # ----------------------------------------------------------------------------
