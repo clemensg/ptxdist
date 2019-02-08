@@ -1,0 +1,5 @@
+## SECTION=hosttools_noprompt
+
+config HOST_JSON_C
+	tristate
+	default y if ALLYES
