@@ -1,0 +1,9 @@
+## SECTION=multimedia_xorg_app
+
+config XCB_UTIL_IMAGE
+	tristate
+	select LIBXCB
+	select XCB_UTIL
+	prompt "xcb-util-image"
+	help
+	  utility libraries for X C Binding -- image
