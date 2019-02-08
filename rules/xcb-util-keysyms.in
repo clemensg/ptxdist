@@ -1,0 +1,8 @@
+## SECTION=multimedia_xorg_app
+
+config XCB_UTIL_KEYSYMS
+	tristate
+	select LIBXCB
+	prompt "xcb-util-keysyms"
+	help
+	  utility libraries for X C Binding -- keysyms
