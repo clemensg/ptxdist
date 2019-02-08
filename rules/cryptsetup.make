@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_CRYPTSETUP) += cryptsetup
 #
 # Paths and names
 #
-CRYPTSETUP_VERSION	:= 2.0.3
-CRYPTSETUP_MD5		:= 9161132f69e97018b39ab592d7831f61
+CRYPTSETUP_VERSION	:= 2.0.6
+CRYPTSETUP_MD5		:= c01aa63a90acdb25600ed9126fa2b1a1
 CRYPTSETUP		:= cryptsetup-$(CRYPTSETUP_VERSION)
 CRYPTSETUP_SUFFIX	:= tar.gz
 CRYPTSETUP_URL		:= https://www.kernel.org/pub/linux/utils/cryptsetup/v$(basename $(CRYPTSETUP_VERSION))/$(CRYPTSETUP).$(CRYPTSETUP_SUFFIX)
@@ -52,6 +52,8 @@ CRYPTSETUP_CONF_OPT	:= \
 	--$(call ptx/endis, PTXCONF_CRYPTSETUP_CRYPT_BACKEND_GCRYPT)-gcrypt-pbkdf2 \
 	--enable-internal-argon2 \
 	--disable-libargon2 \
+	--disable-internal-sse-argon2 \
+	--enable-blkid \
 	--enable-dev-random \
 	--disable-python \
 	--with-crypto_backend=$(PTXCONF_CRYPTSETUP_CRYPT_BACKEND) \
