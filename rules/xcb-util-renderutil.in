@@ -1,0 +1,8 @@
+## SECTION=multimedia_xorg_app
+
+config XCB_UTIL_RENDERUTIL
+	tristate
+	select LIBXCB
+	prompt "xcb-util-renderutil"
+	help
+	  utility libraries for X C Binding -- render-util
