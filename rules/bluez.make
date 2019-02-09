@@ -138,9 +138,12 @@ endif
 
 	@$(call install_alternative, bluez, 0, 0, 0644, \
 		/usr/share/dbus-1/system.d/bluetooth.conf)
+
+ifdef PTXCONF_BLUEZ_TOOLS
 	@$(call install_alternative, bluez, 0, 0, 0644, \
 		/usr/lib/udev/rules.d/97-hid2hci.rules)
 	@$(call install_copy, bluez, 0, 0, 0644, -, /usr/lib/udev/hid2hci)
+endif
 
 ifdef PTXCONF_BLUEZ_SYSTEMD_UNIT
 	@$(call install_alternative, bluez, 0, 0, 0644, \
