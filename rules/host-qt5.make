@@ -29,20 +29,119 @@ HOST_QT5_CONF_ENV := \
 #
 HOST_QT5_CONF_TOOL	:= autoconf
 HOST_QT5_CONF_OPT	:= \
-	$(if $(filter 1,$(PTXDIST_VERBOSE)),-v) \
-	$(if $(filter 0,$(PTXDIST_VERBOSE)),-silent) \
 	-prefix / \
 	-bindir /bin/qt5 \
 	-headerdir /include/qt5 \
 	-archdatadir /lib/qt5 \
 	-datadir /share/qt5 \
 	-hostbindir /bin/qt5 \
-	-release \
-	--disable-optimized-tools \
+	$(if $(filter 1,$(PTXDIST_VERBOSE)),-v) \
 	-opensource \
 	-confirm-license \
+	-release \
+	--disable-optimized-tools \
+	--disable-separate-debug-info \
+	--disable-gdb-index \
+	--disable-strip \
+	--disable-gc-binaries \
 	--enable-shared \
+	--disable-trace \
+	--disable-rpath \
+	--disable-pch \
+	--disable-ltcg \
+	$(if $(filter 0,$(PTXDIST_VERBOSE)),-silent) \
+	\
+	-pkg-config \
+	\
+	-skip qt3d \
+	-skip qtactiveqt \
+	-skip qtandroidextras \
+	-skip qtcanvas3d \
+	-skip qtcharts \
+	-skip qtconnectivity \
+	-skip qtdatavis3d \
+	-skip qtdeclarative \
+	-skip qtdoc \
+	-skip qtgamepad \
+	-skip qtgraphicaleffects \
+	-skip qtimageformats \
+	-skip qtlocation \
+	-skip qtmacextras \
+	-skip qtmultimedia \
+	-skip qtnetworkauth \
+	-skip qtpurchasing \
+	-skip qtquickcontrols \
+	-skip qtquickcontrols2 \
+	-skip qtremoteobjects \
+	-skip qtscript \
+	-skip qtscxml \
+	-skip qtsensors \
+	-skip qtserialbus \
+	-skip qtserialport \
+	-skip qtspeech \
+	-skip qtsvg \
+	-skip qttools \
+	-skip qttranslations \
+	-skip qtvirtualkeyboard \
+	-skip qtwayland \
+	-skip qtwebchannel \
+	-skip qtwebengine \
+	-skip qtwebglplugin \
+	-skip qtwebsockets \
+	-skip qtwebview \
+	-skip qtwinextras \
+	-skip qtx11extras \
+	-skip qtxmlpatterns \
+	-make libs \
+	-make tools \
+	--disable-compile-examples \
+	--disable-gui \
+	--disable-widgets \
+	--disable-dbus \
 	--disable-accessibility \
+	\
+	--disable-glib \
+	--disable-iconv \
+	--disable-icu \
+	-qt-pcre \
+	-system-zlib \
+	--disable-journald \
+	--disable-syslog \
+	\
+	--disable-ssl \
+	--disable-openssl \
+	--disable-sctp \
+	--disable-libproxy \
+	--disable-system-proxies \
+	\
+	--disable-cups \
+	--disable-fontconfig \
+	--disable-freetype \
+	-qt-harfbuzz \
+	--disable-gtk \
+	--opengl=no \
+	--disable-xcb-xlib \
+	\
+	--disable-directfb \
+	--disable-eglfs \
+	--disable-gbm \
+	--disable-kms \
+	--disable-linuxfb \
+	--disable-mirclient \
+	--disable-xcb \
+	\
+	--disable-libudev \
+	--disable-evdev \
+	--disable-libinput \
+	--disable-mtdev \
+	--disable-tslib \
+	--disable-xcb-xinput \
+	--disable-xkbcommon \
+	\
+	-no-gif \
+	-no-libpng \
+	-no-libjpeg \
+	\
 	--disable-sql-db2 \
 	--disable-sql-ibase \
 	--disable-sql-mysql \
@@ -52,101 +151,12 @@ HOST_QT5_CONF_OPT	:= \
 	--disable-sql-sqlite2 \
 	--disable-sql-tds \
 	--disable-sql-sqlite \
-	--disable-qml-debug \
-	-pkg-config \
-	-force-pkg-config \
-	\
-	-system-zlib \
-	--disable-mtdev \
-	--disable-journald \
-	--disable-syslog \
-	-no-gif \
-	-no-libpng \
-	-no-libjpeg \
-	-no-freetype \
-	-qt-harfbuzz \
-	--disable-openssl \
-	--disable-libproxy \
-	-qt-pcre \
-	-system-xcb \
-	-no-xkbcommon-x11 \
-	--disable-xkbcommon-evdev \
-	--disable-xinput2 \
-	--disable-xcb-xlib \
-	--disable-glib \
-	--disable-pulseaudio \
-	--disable-alsa \
-	--disable-gtkstyle \
-	\
-	-make libs \
-	-make tools \
-	-skip qt3d \
-	-skip qtactiveqt \
-	-skip qtandroidextras \
-	-skip qtcanvas3d \
-	-skip qtconnectivity \
-	-skip qtdeclarative \
-	-skip qtdoc \
-	-skip qtenginio \
-	-skip qtgraphicaleffects \
-	-skip qtimageformats \
-	-skip qtlocation \
-	-skip qtmacextras \
-	-skip qtmultimedia \
-	-skip qtquickcontrols \
-	-skip qtquickcontrols2 \
-	-skip qtscript \
-	-skip qtsensors \
-	-skip qtserialbus \
-	-skip qtserialport \
-	-skip qtsvg \
-	-skip qttools \
-	-skip qttranslations \
-	-skip qtwayland \
-	-skip qtwebchannel \
-	-skip qtwebengine \
-	-skip qtwebsockets \
-	-skip qtwebview \
-	-skip qtwinextras \
-	-skip qtx11extras \
-	-skip qtxmlpatterns \
-	--disable-compile-examples \
-	--disable-gui \
-	--disable-widgets \
-	--disable-rpath \
-	--disable-cups \
-	--disable-iconv \
-	--disable-evdev \
-	--disable-tslib \
-	--disable-icu \
-	--disable-fontconfig \
-	--disable-strip \
-	--disable-pch \
-	--disable-ltcg \
-	--disable-dbus \
-	--disable-separate-debug-info \
-	--disable-xcb \
-	--disable-eglfs \
-	--disable-kms \
-	--disable-gbm \
-	--disable-directfb \
-	--disable-linuxfb \
-	--disable-mirclient \
-	--opengl=no \
-	--opengles3=no \
-	--disable-libinput \
-	-no-gstreamer \
-	--disable-system-proxies
+	--disable-sqlite
 
 # Note: these options are not listed in '--help' but they exist
 HOST_QT5_CONF_OPT += \
 	--disable-sm \
-	--disable-openvg \
-	--disable-libudev \
-	--disable-egl \
-	--disable-xkb \
-	--disable-xrender \
-	--disable-xvideo
+	--disable-egl
 
 HOST_QT5_QT_CONF := $(PTXDIST_SYSROOT_HOST)/bin/qt5/qt.conf
 

@@ -1,0 +1,47 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Tue, 7 Nov 2017 14:51:03 +0100
+Subject: [PATCH] videonode: egl: use QT_EGL_NO_X11 and qt_egl_p.h
+
+Otherwise egl.h is included without MESA_EGL_NO_X11_HEADERS
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ qtmultimedia/src/plugins/videonode/egl/egl.pro            | 4 +++-
+ qtmultimedia/src/plugins/videonode/egl/qsgvideonode_egl.h | 3 +--
+ 2 files changed, 4 insertions(+), 3 deletions(-)
+
+diff --git a/qtmultimedia/src/plugins/videonode/egl/egl.pro b/qtmultimedia/src/plugins/videonode/egl/egl.pro
+index 7151123ea7a3..106f982e5ec0 100644
+--- a/qtmultimedia/src/plugins/videonode/egl/egl.pro
++++ b/qtmultimedia/src/plugins/videonode/egl/egl.pro
+@@ -1,6 +1,6 @@
+ TARGET = eglvideonode
+ 
+-QT += multimedia-private qtmultimediaquicktools-private
++QT += multimedia-private qtmultimediaquicktools-private egl_support-private
+ CONFIG += egl
+ 
+ HEADERS += \
+@@ -12,6 +12,8 @@ SOURCES += \
+ OTHER_FILES += \
+     egl.json
+ 
++DEFINES += QT_EGL_NO_X11
++
+ PLUGIN_TYPE = video/videonode
+ PLUGIN_EXTENDS = quick
+ PLUGIN_CLASS_NAME = QSGVideoNodeFactory_EGL
+diff --git a/qtmultimedia/src/plugins/videonode/egl/qsgvideonode_egl.h b/qtmultimedia/src/plugins/videonode/egl/qsgvideonode_egl.h
+index 0ec63eac1798..1a753463a5b7 100644
+--- a/qtmultimedia/src/plugins/videonode/egl/qsgvideonode_egl.h
++++ b/qtmultimedia/src/plugins/videonode/egl/qsgvideonode_egl.h
+@@ -45,8 +45,7 @@
+ #include <QSGOpaqueTextureMaterial>
+ #include <QSGTexture>
+ 
+-#include <EGL/egl.h>
+-#include <EGL/eglext.h>
++#include <QtEglSupport/private/qt_egl_p.h>
+ 
+ #ifdef Bool
+ #  undef Bool

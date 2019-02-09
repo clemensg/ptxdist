@@ -1,0 +1,30 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Fri, 8 Feb 2019 15:56:46 +0100
+Subject: [PATCH] HACK: don't resolv library paths
+
+qtConfResolveLibs turns '-lfoo' into the full path for libfoo.so and fails
+if the library is not found.
+
+This break when the library is a ld scripts in a relocatable toolchain.
+For example libm.so may contain 'GROUP ( /lib/libm.so.6 ...)' and this path
+is not prefixed with the toolchain sysroot when the absolute path for
+libm.so is used.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ qtbase/mkspecs/features/qt_configure.prf | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/qtbase/mkspecs/features/qt_configure.prf b/qtbase/mkspecs/features/qt_configure.prf
+index c45439c3ef1d..1a0368bc5481 100644
+--- a/qtbase/mkspecs/features/qt_configure.prf
++++ b/qtbase/mkspecs/features/qt_configure.prf
+@@ -561,7 +561,7 @@ defineTest(qtConfResolveLibs) {
+             out += $$l
+         }
+     }
+-    $$1 = $$out
++    $$1 = $$2
+     export($$1)
+     !isEmpty(4) {
+         $$4 = $$paths

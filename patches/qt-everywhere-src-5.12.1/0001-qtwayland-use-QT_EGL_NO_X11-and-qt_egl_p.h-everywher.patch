@@ -1,0 +1,87 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Tue, 7 Nov 2017 14:51:03 +0100
+Subject: [PATCH] qtwayland: use QT_EGL_NO_X11 and qt_egl_p.h everywhere
+
+Otherwise egl.h is included without MESA_EGL_NO_X11_HEADERS
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ .../src/hardwareintegration/client/drm-egl-server/drm-egl-server.pri  | 4 ++++
+ .../client/drm-egl-server/drmeglserverbufferintegration.h             | 4 ++--
+ .../hardwareintegration/compositor/drm-egl-server/drm-egl-server.pri  | 3 +++
+ .../compositor/drm-egl-server/drmeglserverbufferintegration.h         | 4 ++--
+ .../src/hardwareintegration/compositor/wayland-egl/wayland-egl.pri    | 2 ++
+ 5 files changed, 13 insertions(+), 4 deletions(-)
+
+diff --git a/qtwayland/src/hardwareintegration/client/drm-egl-server/drm-egl-server.pri b/qtwayland/src/hardwareintegration/client/drm-egl-server/drm-egl-server.pri
+index 700e95e32df5..7667b5418261 100644
+--- a/qtwayland/src/hardwareintegration/client/drm-egl-server/drm-egl-server.pri
++++ b/qtwayland/src/hardwareintegration/client/drm-egl-server/drm-egl-server.pri
+@@ -2,6 +2,10 @@ INCLUDEPATH += $$PWD
+ 
+ QMAKE_USE += egl wayland-client
+ 
++QT += egl_support-private
++
++DEFINES += QT_EGL_NO_X11
++
+ SOURCES += \
+         $$PWD/drmeglserverbufferintegration.cpp
+ 
+diff --git a/qtwayland/src/hardwareintegration/client/drm-egl-server/drmeglserverbufferintegration.h b/qtwayland/src/hardwareintegration/client/drm-egl-server/drmeglserverbufferintegration.h
+index 2c65969f8488..e6387c37158b 100644
+--- a/qtwayland/src/hardwareintegration/client/drm-egl-server/drmeglserverbufferintegration.h
++++ b/qtwayland/src/hardwareintegration/client/drm-egl-server/drmeglserverbufferintegration.h
+@@ -48,8 +48,8 @@
+ #include <QtWaylandClient/private/qwaylanddisplay_p.h>
+ #include <QtCore/QTextStream>
+ 
+-#include <EGL/egl.h>
+-#include <EGL/eglext.h>
++#include <QtEglSupport/private/qt_egl_p.h>
++
+ #ifndef EGL_KHR_image
+ typedef void *EGLImageKHR;
+ typedef EGLImageKHR (EGLAPIENTRYP PFNEGLCREATEIMAGEKHRPROC) (EGLDisplay dpy, EGLContext ctx, EGLenum target, EGLClientBuffer buffer, const EGLint *attrib_list);
+diff --git a/qtwayland/src/hardwareintegration/compositor/drm-egl-server/drm-egl-server.pri b/qtwayland/src/hardwareintegration/compositor/drm-egl-server/drm-egl-server.pri
+index 7d6841748c5a..553b49f3fe38 100644
+--- a/qtwayland/src/hardwareintegration/compositor/drm-egl-server/drm-egl-server.pri
++++ b/qtwayland/src/hardwareintegration/compositor/drm-egl-server/drm-egl-server.pri
+@@ -5,6 +5,9 @@ QMAKE_USE_PRIVATE += egl wayland-server
+ SOURCES += \
+     $$PWD/drmeglserverbufferintegration.cpp
+ 
++QT += egl_support-private
++
++DEFINES += QT_EGL_NO_X11
+ 
+ HEADERS += \
+     $$PWD/drmeglserverbufferintegration.h
+diff --git a/qtwayland/src/hardwareintegration/compositor/drm-egl-server/drmeglserverbufferintegration.h b/qtwayland/src/hardwareintegration/compositor/drm-egl-server/drmeglserverbufferintegration.h
+index ff329c1a17fc..3d4f23d9404f 100644
+--- a/qtwayland/src/hardwareintegration/compositor/drm-egl-server/drmeglserverbufferintegration.h
++++ b/qtwayland/src/hardwareintegration/compositor/drm-egl-server/drmeglserverbufferintegration.h
+@@ -52,8 +52,8 @@
+ #include <QtWaylandCompositor/private/qwayland-server-server-buffer-extension.h>
+ 
+ #include <QtCore/QDebug>
+-#include <EGL/egl.h>
+-#include <EGL/eglext.h>
++
++#include <QtEglSupport/private/qt_egl_p.h>
+ 
+ #ifndef EGL_KHR_image
+ typedef void *EGLImageKHR;
+diff --git a/qtwayland/src/hardwareintegration/compositor/wayland-egl/wayland-egl.pri b/qtwayland/src/hardwareintegration/compositor/wayland-egl/wayland-egl.pri
+index e20c6802c200..078b74839cb1 100644
+--- a/qtwayland/src/hardwareintegration/compositor/wayland-egl/wayland-egl.pri
++++ b/qtwayland/src/hardwareintegration/compositor/wayland-egl/wayland-egl.pri
+@@ -4,6 +4,8 @@ QMAKE_USE_PRIVATE += egl wayland-server wayland-egl
+ 
+ QT += egl_support-private
+ 
++DEFINES += QT_EGL_NO_X11
++
+ SOURCES += \
+     $$PWD/waylandeglclientbufferintegration.cpp
+ 

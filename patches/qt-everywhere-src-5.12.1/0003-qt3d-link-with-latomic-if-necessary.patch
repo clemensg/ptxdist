@@ -12,7 +12,7 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 file changed, 2 insertions(+)
 
 diff --git a/qt3d/src/core/nodes/nodes.pri b/qt3d/src/core/nodes/nodes.pri
-index 64823813e1d3..d4cd1b5b923a 100644
+index 785ae2b21472..de97caee8662 100644
 --- a/qt3d/src/core/nodes/nodes.pri
 +++ b/qt3d/src/core/nodes/nodes.pri
 @@ -1,5 +1,7 @@
