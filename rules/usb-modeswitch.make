@@ -38,10 +38,10 @@ USB_MODESWITCH_MAKE_ENV		:= \
 	HOST_TCL=$(PTXCONF_SYSROOT_HOST)/usr/bin/jimsh
 USB_MODESWITCH_MAKE_OPT		:= \
 	$(CROSS_ENV_PROGS) \
-	shared
+	$(call ptx/ifdef,PTXCONF_USB_MODESWITCH_JIM,shared,script)
 USB_MODESWITCH_INSTALL_OPT	:= \
 	UDEVDIR=$(USB_MODESWITCH_PKGDIR)/usr/lib/udev \
-	install-shared
+	$(call ptx/ifdef,PTXCONF_USB_MODESWITCH_JIM,install-shared,install-script)
 
 # ----------------------------------------------------------------------------
 # Install
