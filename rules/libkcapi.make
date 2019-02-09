@@ -77,29 +77,29 @@ $(STATEDIR)/libkcapi.targetinstall:
 	@$(call install_link, libkcapi, /usr/bin/kcapi-hasher, /usr/bin/sha384hmac);
 	@$(call install_link, libkcapi, /usr/bin/kcapi-hasher, /usr/bin/sha512hmac);
 
-#ifdef PTXCONF_LIBKCAPI_MD5SUM
+ifdef PTXCONF_LIBKCAPI_MD5SUM
 	@$(call install_link, libkcapi, /usr/bin/kcapi-hasher, /usr/bin/md5sum);
-#endif
+endif
 
-#ifdef PTXCONF_LIBKCAPI_SHA1SUM
+ifdef PTXCONF_LIBKCAPI_SHA1SUM
 	@$(call install_link, libkcapi, /usr/bin/kcapi-hasher, /usr/bin/sha1sum);
-#endif
+endif
 
-#ifdef PTXCONF_LIBKCAPI_SHA256SUM
+ifdef PTXCONF_LIBKCAPI_SHA256SUM
 	@$(call install_link, libkcapi, /usr/bin/kcapi-hasher, /usr/bin/sha256sum);
-#endif
+endif
 
-#ifdef PTXCONF_LIBKCAPI_SHA384SUM
+ifdef PTXCONF_LIBKCAPI_SHA384SUM
 	@$(call install_link, libkcapi, /usr/bin/kcapi-hasher, /usr/bin/sha384sum);
-#endif
+endif
 
-#ifdef PTXCONF_LIBKCAPI_SHA512SUM
+ifdef PTXCONF_LIBKCAPI_SHA512SUM
 	@$(call install_link, libkcapi, /usr/bin/kcapi-hasher, /usr/bin/sha512sum);
-#endif
+endif
 
-#ifdef PTXCONF_LIBKCAPI_TEST
+ifdef PTXCONF_LIBKCAPI_TEST
 	@$(call install_tree, libkcapi, 0, 0, -, /usr/libexec/libkcapi);
-#endif
+endif
 
 	@$(call install_finish, libkcapi)
 
