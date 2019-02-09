@@ -2,11 +2,40 @@ From: Michael Olbrich <m.olbrich@pengutronix.de>
 Date: Fri, 30 Mar 2018 16:35:56 +0200
 Subject: [PATCH] fix parallel building
 
+Just use the original config.h instead of copying it. The directory is
+already in the include path anyways. This is easier than adding all missing
+dependencies on config.h.
+
+Make sure that the elfdir is created before using it.
+
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
- src/Makefile.in | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ modules/Makefile.in | 4 +---
+ src/Makefile.in     | 2 +-
+ 2 files changed, 2 insertions(+), 4 deletions(-)
 
+diff --git a/modules/Makefile.in b/modules/Makefile.in
+index f82f0edbb1c9..f3a677076526 100644
+--- a/modules/Makefile.in
++++ b/modules/Makefile.in
+@@ -21,7 +21,7 @@ CC_SHARED_FLAGS = @CC_SHARED_FLAGS@
+ CC_SHARED 	= $(CC) $(INCS) $(CC_SHARED_FLAGS) $(CFLAGS)
+ CONFIG_DIR	= @CONFIG_DIR@
+ SRCDIR		= $(CONFIG_DIR)/modules
+-CONFIG_H        = $(SRCDIR)/config.h
++CONFIG_H        = $(CONFIG_DIR)/src/config.h
+ SLINT_H         = $(SRCDIR)/slint.h
+ OBJDIR		= $(ARCH)objs
+ OBJDIR_TSTAMP	= $(OBJDIR)/tstamp
+@@ -95,8 +95,6 @@ COMPILE_CMD = $(CC_SHARED) $(INCS)
+ # ---------------------------------------------------------------------------
+ all: $(OBJDIR)/Makefile
+ 	cd $(OBJDIR) && $(MAKE) $(MODULES)
+-$(CONFIG_H): $(CONFIG_DIR)/src/config.h
+-	cp $(CONFIG_DIR)/src/config.h $(CONFIG_H)
+ $(SLINT_H): $(CONFIG_DIR)/src/_slint.h
+ 	cp $(CONFIG_DIR)/src/_slint.h $(SLINT_H)
+ $(OBJDIR_TSTAMP):
 diff --git a/src/Makefile.in b/src/Makefile.in
 index 60681422ddfc..2df737816742 100644
 --- a/src/Makefile.in
