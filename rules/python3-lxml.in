@@ -3,6 +3,8 @@
 config PYTHON3_LXML
 	tristate
 	select PYTHON3
+	select LIBXML2
+	select LIBXML2_SCHEMAS
 	select LIBXSLT
 	prompt "lxml"
 	help
