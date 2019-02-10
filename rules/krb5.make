@@ -60,7 +60,7 @@ KRB5_CONF_OPT	:= \
 	--enable-pkinit \
 	--without-size-optimizations \
 	--with-system-et \
-	--with-system-ss \
+	--$(call ptx/wwo,PTXCONF_KRB5_ADMIN_TOOLS)-system-ss \
 	--without-system-db \
 	--without-netlib \
 	--without-hesiod \
@@ -71,7 +71,7 @@ KRB5_CONF_OPT	:= \
 	--with-prng-alg=fortuna \
 	--with-pkinit-crypto-impl=openssl \
 	--with-tls-impl=openssl \
-	--with-libedit \
+	--without-libedit \
 	--without-readline \
 	--without-system-verto
 

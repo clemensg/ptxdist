@@ -5,10 +5,9 @@ menuconfig KRB5
 	select HOST_E2FSPROGS
 	select E2FSPROGS
 	select E2FSPROGS_LIBCOM_ERR
-	select E2FSPROGS_LIBSS
+	select E2FSPROGS_LIBSS		if KRB5_ADMIN_TOOLS
+	select KEYUTILS			if KRB5_CLIENT_TOOLS
 	select OPENSSL
-	select LIBEDIT
-	select KEYUTILS if KRB5_CLIENT_TOOLS
 	prompt "Kerberos"
 	help
 	  This is the MIT implementation of the Kerberos network authentication
