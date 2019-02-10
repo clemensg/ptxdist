@@ -34,6 +34,10 @@ config SPEEX_FFT_SMALLFT
 	bool
 	default SPEEXDSP_FFT_SMALLFT
 
+config SPEEX_VORBIS_PSY
+	bool
+	default !SPEEXDSP_FIXED_POINT && SPEEX_FFT_SMALLFT
+
 config SPEEX_BINARIES
 	bool
 

@@ -49,7 +49,7 @@ SPEEX_CONF_OPT := \
 	--$(call ptx/endis, PTXCONF_ARCH_BLACKFIN)-blackfin-asm \
 	--disable-fixed-point-debug \
 	--disable-ti-c55x \
-	--$(call ptx/disen, PTXCONF_SPEEX_FIXED_POINT)-vorbis-psy \
+	--$(call ptx/endis, PTXCONF_SPEEX_VORBIS_PSY)-vorbis-psy \
 	--with-fft=$(SPEEX_FFT-y)
 
 # ----------------------------------------------------------------------------
