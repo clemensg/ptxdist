@@ -42,6 +42,7 @@ POLKIT_CONF_OPT		:= \
 	--disable-examples \
 	--disable-nls \
 	--with-gnu-ld \
+	--with-systemdsystemunitdir=$(call ptx/ifdef,PTXCONF_POLKIT_SYSTEMD,/usr/lib/systemd/system) \
 	--with-authfw=shadow \
 	--with-os-type=ptxdist
 
