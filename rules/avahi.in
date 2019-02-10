@@ -100,6 +100,7 @@ config AVAHI_SERVICES
 
 config AVAHI_UTILS
 	bool
+	select AVAHI_DBUS
 	depends on AVAHI_DAEMON
 	prompt "avahi utils"
 	help
