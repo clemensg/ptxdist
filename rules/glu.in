@@ -4,6 +4,6 @@ config GLU
 	tristate
 	prompt "glu"
 	select MESALIB
-	select MESALIB_OPENGL
+	select MESALIB_GLX
 	help
 	  Mesa OpenGL utility library (GLU)
