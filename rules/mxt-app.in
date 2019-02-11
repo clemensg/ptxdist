@@ -1,0 +1,11 @@
+## SECTION=shell_and_console
+
+config MXT_APP
+	tristate
+	prompt "mxt-app"
+	select LIBC_PTHREAD
+	select LIBC_RT
+	select LIBUSB
+	help
+	  mxt-app is the command line utility for
+	  Atmel maXTouch devices.
