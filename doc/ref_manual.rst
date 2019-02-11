@@ -807,9 +807,9 @@ PTXdist with the ``print`` parameter:
 ``install_alternative`` is used by upstream PTXdist packages to install
 config files. In some rare use-cases the file should not be installed at
 all. For example if the config file is generated at runtime or provided by
-a special configuration package. This is possibly by creating a symlink to
+a special configuration package. This is possible by creating a symlink to
 ``/dev/null`` instead of a file at one of the locations described above.
-PTXdist skip installing the file if it detects such a symlink.
+PTXdist skips installing the file if it detects such a symlink.
 
 install_link
 ~~~~~~~~~~~~
