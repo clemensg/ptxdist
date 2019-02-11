@@ -1,0 +1,7 @@
+## SECTION=shell_and_console
+
+config NVME_CLI
+	tristate
+	prompt "nvme-cli"
+	help
+	  NVM-Express user space tools.
