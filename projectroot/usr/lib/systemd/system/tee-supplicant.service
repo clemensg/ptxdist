@@ -1,0 +1,9 @@
+[Unit]
+Description=TEE Supplicant
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/tee-supplicant
+
+[Install]
+WantedBy=multi-user.target

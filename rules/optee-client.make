@@ -54,6 +54,12 @@ $(STATEDIR)/optee-client.targetinstall:
 
 	@$(call install_lib, optee-client, 0, 0, 0644, libteec)
 	@$(call install_copy, optee-client, 0, 0, 0755, -, /usr/bin/tee-supplicant)
+ifdef PTXCONF_OPTEE_CLIENT_SYSTEMD_UNIT
+	@$(call install_alternative, optee-client, 0, 0, 0644, \
+		/usr/lib/systemd/system/tee-supplicant.service)
+	@$(call install_link, optee-client, ../tee-supplicant.service,\
+		/usr/lib/systemd/system/multi-user.target.wants/tee-supplicant.service)
+endif
 
 	@$(call install_finish, optee-client)
 
