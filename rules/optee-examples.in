@@ -1,0 +1,10 @@
+## SECTION=security
+
+config OPTEE_EXAMPLES
+	tristate
+	select OPTEE
+	select OPTEE_CLIENT
+	prompt "optee-examples"
+	help
+	  Install the optee examples package from
+	  https://github.com/linaro-swg/optee_examples
