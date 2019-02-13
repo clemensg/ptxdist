@@ -1,0 +1,12 @@
+## SECTION=security
+
+config OPTEE_TEST
+	tristate
+	select OPTEE_CLIENT
+	select OPTEE
+	select OPENSSL
+	prompt "optee-test"
+	help
+	  The optee_test git contains the source code for the TEE sanity
+	  testsuite in Linux using the ARM(R) TrustZone(R) technology. It is
+	  distributed under the GPLv2 and BSD 2-clause open-source licenses.
