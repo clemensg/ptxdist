@@ -5,6 +5,7 @@ menuconfig LIBRSVG
 	prompt "librsvg                       "
 	select GTK
 	select LIBXML2
+	select LIBXML2_PUSH
 	select LIBGSF	if LIBRSVG_SVGZ
 	select LIBCROCO	if LIBRSVG_CROCO
 	help
