@@ -1,0 +1,4 @@
+## SECTION=security
+
+config OPTEE
+	   tristate

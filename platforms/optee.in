@@ -1,0 +1,40 @@
+## SECTION=bootloader
+
+menuconfig OPTEE
+	prompt "OP-TEE                        "
+	bool
+	depends on ARCH_ARM || ARCH_ARM64
+	depends on !ARCH_ARM64 || BROKEN
+	help
+	  OP-TEE is an open source project which contains a full implementation
+	  to make up a complete Trusted Execution Environment. The project has
+	  roots in a proprietary solution, initially created by ST-Ericsson and
+	  then owned and maintained by STMicroelectronics. In 2014, Linaro
+	  started working with STMicroelectronics to transform the proprietary
+	  TEE solution into an open source TEE solution instead.
+
+if OPTEE
+
+config OPTEE_PLATFORM
+	string
+	prompt "OP-TEE Platform"
+	help
+	  Platform to use for OP-TEE.
+	  i.e. imx for the NXP imx platform or vexpress for versatile express
+	  platforms.
+
+config OPTEE_PLATFORM_FLAVOUR
+	string
+	prompt "OP-TEE Platform Flavour"
+	help
+	  Platform Flavour for the selected platform, i.e. mx6qsabresd for the
+	  imx platform.
+
+config OPTEE_CFG
+	string
+	prompt "OP-TEE CFG Flags"
+	help
+	  Refer to the following file for the CFG_FLAGS:
+	  https://github.com/OP-TEE/optee_os/blob/master/mk/config.mk
+
+endif
