@@ -11,7 +11,7 @@
 #
 # We provide this package
 #
-PACKAGES-$(PTXCONF_OPTEE_TEST) += optee-test
+PACKAGES-$(PTXCONF_ARCH_ARM)-$(PTXCONF_OPTEE_TEST) += optee-test
 
 #
 # Paths and names

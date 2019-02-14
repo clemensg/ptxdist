@@ -11,7 +11,7 @@
 #
 # We provide this package
 #
-PACKAGES-$(PTXCONF_OPTEE_EXAMPLES) += optee-examples
+PACKAGES-$(PTXCONF_ARCH_ARM)-$(PTXCONF_OPTEE_EXAMPLES) += optee-examples
 
 #
 # Paths and names
