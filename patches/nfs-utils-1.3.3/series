@@ -3,7 +3,8 @@
 #tag:upstream --start-number 1
 0001-systemd-Decouple-the-starting-and-stopping-of-rpcbin.patch
 0002-rpc.c-added-include-file-so-UINT16_MAX-is-defined.patch
+0003-fix-building-w-newer-C-libraries.patch
 #tag:ptxdist --start-number 100
 0100-rpcgen-don-t-link-to-libtirpc.patch
 0101-allow-installing-all-tools-in-usr.patch
-# 9e2fa6772abb1fdd36012b23950e5d18  - git-ptx-patches magic
+# 97af92530acbf1a38d73438665f8e71d  - git-ptx-patches magic
