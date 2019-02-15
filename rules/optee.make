@@ -11,7 +11,9 @@
 #
 # We provide this package
 #
-PACKAGES-$(PTXCONF_ARCH_ARM)-$(PTXCONF_OPTEE) += optee
+ifdef PTXCONF_OPTEE_PLATFORM
+PACKAGES-$(PTXCONF_OPTEE) += optee
+endif
 
 #
 # Paths and names
