@@ -532,6 +532,33 @@ Removes the given directory ``<directory path>``
 
 .. _install_copy:
 
+world/get, world/extract, world/prepare, world/compile, world/install
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Usage:
+
+.. code-block:: make
+
+ $(call world/get, <PKG>)
+
+The same for all other macros. These are the default build commands for the
+corresponding stages. For more details see the documentation of the default
+stages below.
+
+compile
+~~~~~~~
+
+Usage:
+
+.. code-block:: make
+
+ $(call compile, <PKG>, <build args>)
+
+This macro is very similar to ``world/compile``. The only differences is
+that is uses the specified ``build args`` instead of ``<PKG>_MAKE_OPT``.
+This is usefull if ``make`` needs to be called more than once in the
+compile stage.
+
 install_copy
 ~~~~~~~~~~~~~
 
