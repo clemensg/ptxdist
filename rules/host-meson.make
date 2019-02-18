@@ -36,8 +36,7 @@ HOST_MESON_CONF_TOOL	:= NO
 
 $(STATEDIR)/host-meson.compile:
 	@$(call targetinfo)
-	cd $(HOST_MESON_DIR) && \
-		$(SYSTEMPYTHON3) setup.py build
+	@$(call world/execute, HOST_MESON, $(SYSTEMPYTHON3) setup.py build)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -54,9 +53,8 @@ HOST_MESON_INSTALL_OPT	:= \
 
 $(STATEDIR)/host-meson.install:
 	@$(call targetinfo)
-	@rm -rf $(HOST_MESON_PKGDIR)
-	@cd $(HOST_MESON_DIR) && \
-		$(SYSTEMPYTHON3) setup.py $(HOST_MESON_INSTALL_OPT)
+	@$(call world/execute, HOST_MESON, \
+		$(SYSTEMPYTHON3) setup.py $(HOST_MESON_INSTALL_OPT))
 	@mkdir -vp $(HOST_MESON_PKGDIR)/bin
 	@ln -svf ../lib/meson/meson $(HOST_MESON_PKGDIR)/bin/meson
 	@$(call touch)
