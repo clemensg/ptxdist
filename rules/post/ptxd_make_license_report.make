@@ -68,12 +68,12 @@ PHONY += license-compliance-data
 license-compliance-data: \
 	$(RELEASEDIR)/license-compliance.yaml
 
-$(RELEASEDIR)/license-compliance.yaml: $(addprefix $(STATEDIR)/,$(addsuffix .report,$(PTX_PACKAGES_TARGET)))
+$(RELEASEDIR)/license-compliance.yaml: $(addprefix $(STATEDIR)/,$(addsuffix .report,$(PTX_PACKAGES_SELECTED) $(IMAGE_PACKAGES)))
 	@$(call targetinfo)
 	@mkdir -p $(RELEASEDIR)
 	@$(image/env) \
 	ptx_license_target="$@" \
-	ptxd_make_license_compliance_yaml $(sort $(PTX_PACKAGES_TARGET))
+	ptxd_make_license_compliance_yaml $(sort $(PTX_PACKAGES_SELECTED) $(IMAGE_PACKAGES))
 	@$(call finish)
 
 # vim: syntax=make

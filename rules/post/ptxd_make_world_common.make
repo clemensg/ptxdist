@@ -81,6 +81,7 @@ world/env/impl = \
 	pkg_path="$(call ptx/escape,$($(1)_PATH))"				\
 	pkg_src="$(call ptx/escape,$($(1)_SOURCE))"				\
 	pkg_srcs="$(call ptx/escape,$($(1)_SOURCES))"				\
+	pkg_md5s="$(call ptx/escape,$(foreach s,$($(1)_SOURCES),$($($(s))_MD5):))"\
 	pkg_md5="$(call ptx/escape,$($(1)_MD5))"				\
 	pkg_url="$(call ptx/escape,$($(1)_URL))"				\
 	pkg_cfghash="$(call ptx/escape,$($(1)_CFGHASH))"			\

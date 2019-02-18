@@ -15,6 +15,18 @@ world/license = \
 	$(call world/env, $(1)) \
 	ptxd_make_world_license
 
+#
+# image/license
+#
+image/license = \
+	$(call world/image/env, $(1)) \
+	ptxd_make_world_license
+
+$(STATEDIR)/image-%.report:
+	@$(call targetinfo)
+	@$(call image/license, $(PTX_MAP_TO_PACKAGE_image-$(*)))
+	@$(call touch)
+
 $(STATEDIR)/%.report:
 	@$(call targetinfo)
 	@$(call world/license, $(PTX_MAP_TO_PACKAGE_$(*)))
