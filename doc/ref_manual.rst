@@ -552,12 +552,34 @@ Usage:
 
 .. code-block:: make
 
- $(call compile, <PKG>, <build args>)
+ $(call compile, <PKG>, <build arguments>)
 
 This macro is very similar to ``world/compile``. The only differences is
-that is uses the specified ``build args`` instead of ``<PKG>_MAKE_OPT``.
-This is usefull if ``make`` needs to be called more than once in the
-compile stage.
+that is uses the specified ``build arguments`` instead of
+``<PKG>_MAKE_OPT``.  This is usefull if ``make`` needs to be called more
+than once in the compile stage.
+
+world/execute, execute
+~~~~~~~~~~~~~~~~~~~~~~
+
+Usage:
+
+.. code-block:: make
+
+ $(call execute, <PKG>, <command with arguments>)
+ $(call world/execute, <PKG>, <command with arguments>)
+
+These macros make it possible to execute arbitrary commands during the
+build stages. This is usefull because the environment is identical to the
+default build commands ``world/*``.
+
+``world/execute`` also handles the generic setup handled in the current
+build stage. For ``prepare`` this means that, for out ot tree builds, the
+build directory is deleted prior to executing the specified command.
+For ``install`` the package directory is deleted.
+
+When ``--verbose`` is used then the full command is logged. With
+``--quiet`` both stdout and stderr are redirected to the logfile.
 
 install_copy
 ~~~~~~~~~~~~~
