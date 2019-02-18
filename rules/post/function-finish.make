@@ -9,9 +9,7 @@
 #
 
 finish =					\
-	target="$(strip $(@))";			\
-	target="$${target\#\#*/}";		\
-	$(_touch_opt_output)			\
-	echo "finished target $${target}"
+	$(call _touch_opt_output,$(@))		\
+	echo "finished target $(notdir $(@))"
 
 # vim: syntax=make

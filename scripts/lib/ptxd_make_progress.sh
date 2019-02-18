@@ -12,8 +12,8 @@ ptxd_make_setup_progress() {
     if [ -n "${PTXDIST_PROGRESS}" -a -n "${PTXDIST_QUIET}" ]; then
 	ptxd_make_target_count=$( \
 	    MAKE=false "${PTXCONF_SETUP_HOST_MAKE}" --dry-run \
-	    -f "${RULESDIR}/other/Toplevel.make" "${@}" | \
-		grep -E '^target=.*\.(get|extract|prepare|compile|install|targetinstall|report).* touch' | \
+	    -f "${RULESDIR}/other/Toplevel.make" "${@}" | tee a | \
+		grep -E '^target=.*(\.(get|extract|prepare|compile|install|targetinstall|report)|/images/).*finished:' | \
 		wc -l ; exit ${PIPESTATUS[0]})
 	if [ $? -ne 0 ]; then
 	    echo "Failed to initialize progress data!" >&2
@@ -30,7 +30,7 @@ ptxd_make_setup_progress() {
 ptxd_make_print_progress() {
     if [ -n "${ptxd_make_target_count}" ]; then
 	local start stop len
-	if [[ "${2}" =~ .*\.(get|extract|prepare|compile|install|targetinstall|report).* ]]; then
+	if [[ "${2}" =~ .*(\.(get|extract|prepare|compile|install|targetinstall|report)|/images/).* ]]; then
 	    local ptr="ptxd_make_target_count_${1}"
 	    echo -n + >&${!ptr}
 	    if [ "${2}" = "world.targetinstall" ]; then

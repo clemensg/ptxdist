@@ -14,15 +14,13 @@
 #
 ifdef PTXDIST_QUIET
 ifdef PTXDIST_FD_STDOUT
-_touch_opt_output := echo "$$(ptxd_make_print_progress stop $${target})finished: $(PTX_COLOR_GREEN)$${target}$(PTX_COLOR_OFF)" >&$(PTXDIST_FD_STDOUT);
+_touch_opt_output = echo "$$(ptxd_make_print_progress stop $(1))finished: $(PTX_COLOR_GREEN)$(notdir $(1))$(PTX_COLOR_OFF)" >&$(PTXDIST_FD_STDOUT);
 endif
 endif
 
 touch =						\
-	target="$(strip $(@))";			\
-	touch "$${target}";			\
-	target="$${target\#\#*/}";		\
-	$(_touch_opt_output)			\
-	echo "finished target $${target}"
+	touch "$(@)";				\
+	$(call _touch_opt_output,$(@))		\
+	echo "finished target $(notdir $(@))"
 
 # vim: syntax=make
