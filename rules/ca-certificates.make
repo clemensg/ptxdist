@@ -54,7 +54,7 @@ CA_CERTIFICATES_CONF_TOOL	:= NO
 
 $(STATEDIR)/ca-certificates.compile:
 	@$(call targetinfo)
-	@cd $(CA_CERTIFICATES_DIR) && $(CA_CERTIFICATES_CERTDATA2PEM)
+	@$(call world/execute, CA_CERTIFICATES, $(CA_CERTIFICATES_CERTDATA2PEM))
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -63,8 +63,8 @@ $(STATEDIR)/ca-certificates.compile:
 
 $(STATEDIR)/ca-certificates.install:
 	@$(call targetinfo)
-	@rm -rf $(CA_CERTIFICATES_PKGDIR)
-	@install -d -m 0755 $(CA_CERTIFICATES_PKGDIR)/etc/ssl/certs/
+	@$(call world/execute, CA_CERTIFICATES, \
+		install -d -m 0755 $(CA_CERTIFICATES_PKGDIR)/etc/ssl/certs/)
 ifdef PTXCONF_CA_CERTIFICATES_BUNDLE
 	@for crt in $(CA_CERTIFICATES_DIR)/*.crt; do \
 		sed -e '$$a\\' "$${crt}" >> \
@@ -74,8 +74,9 @@ endif
 ifdef PTXCONF_CA_CERTIFICATES_CERTS
 	@install -m 0644 $(CA_CERTIFICATES_DIR)/*.crt \
 		$(CA_CERTIFICATES_PKGDIR)/etc/ssl/certs/
-	@OPENSSL_CONF=$(SYSROOT)/usr/lib/ssl/openssl.cnf SSL_CERT_FILE="" \
-		c_rehash $(CA_CERTIFICATES_PKGDIR)/etc/ssl/certs/
+	@$(call execute, CA_CERTIFICATES, \
+		OPENSSL_CONF=$(SYSROOT)/usr/lib/ssl/openssl.cnf SSL_CERT_FILE="" \
+		c_rehash $(CA_CERTIFICATES_PKGDIR)/etc/ssl/certs/)
 endif
 	@$(call touch)
 
