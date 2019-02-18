@@ -29,16 +29,14 @@ HOST_NINJA_LICENSE	:= Apache-2.0
 # Compile
 # ----------------------------------------------------------------------------
 
-HOST_NINJA_PATH		:= PATH=$(HOST_PATH)
 HOST_NINJA_CONF_OPT	:= \
 	--bootstrap \
 	$(if $(filter 1,$(PTXDIST_VERBOSE)),--verbose)
 
 $(STATEDIR)/host-ninja.compile:
 	@$(call targetinfo)
-	cd $(HOST_NINJA_DIR) && \
-		$(HOST_NINJA_PATH) \
-		$(SYSTEMPYTHON3) ./configure.py $(HOST_NINJA_CONF_OPT)
+	@$(call world/execute, HOST_NINJA, \
+		$(SYSTEMPYTHON3) ./configure.py $(HOST_NINJA_CONF_OPT))
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -47,7 +45,8 @@ $(STATEDIR)/host-ninja.compile:
 
 $(STATEDIR)/host-ninja.install:
 	@$(call targetinfo)
-	@install -vD -m755 $(HOST_NINJA_DIR)/ninja $(HOST_NINJA_PKGDIR)/bin/ninja
+	@$(call world/execute, HOST_NINJA, \
+		install -vD -m755 $(HOST_NINJA_DIR)/ninja $(HOST_NINJA_PKGDIR)/bin/ninja)
 	@$(call touch)
 
 # vim: syntax=make
