@@ -83,7 +83,7 @@ man/ptxdist.1: doc/ptxdist.man doc/ref_parameter.inc
 
 .INTERMEDIATE: man/ptxdist.1
 man/ptxdist.1.gz: man/ptxdist.1
-	gzip $<
+	gzip -f $<
 
 clean:
 	@rm -f .done
