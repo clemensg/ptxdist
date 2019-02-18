@@ -157,6 +157,15 @@ ptxd_make_world_prepare_meson() {
 }
 export -f ptxd_make_world_prepare_meson
 
+ptxd_make_world_prepare_init() {
+    # delete existing build_dir
+    if [ -n "${pkg_build_oot}" ]; then
+	rm -rf   -- "${pkg_build_dir}" &&
+	mkdir -p -- "${pkg_build_dir}"
+    fi
+
+}
+export -f ptxd_make_world_prepare_init
 
 #
 # generic prepare
@@ -171,11 +180,7 @@ ptxd_make_world_prepare() {
 	return
     fi
 
-    # delete existing build_dir
-    if [ -n "${pkg_build_oot}" ]; then
-	rm -rf   -- "${pkg_build_dir}" &&
-	mkdir -p -- "${pkg_build_dir}" || return
-    fi
+    ptxd_make_world_prepare_init || return
 
     case "${pkg_conf_tool}" in
 	autoconf|cmake|qmake|kconfig|perl|meson)
