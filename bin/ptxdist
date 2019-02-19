@@ -970,6 +970,7 @@ Misc:
 				use 'newpackage help' for a longer description
   nfsroot			run a userspace NFS server and export the nfsroot
   gdb				run cross gdb with configured sysroot etc.
+  bsp-info			print some basic information about the BSP
   package-info <package>	print some basic information about the package
   print <var>			print the contents of a variable, in the way
 				it is known by "make"
@@ -1883,6 +1884,11 @@ EOF
 				"${@}"
 			fi
 			exit
+			;;
+		bsp-info)
+			check_config &&
+			check_deps &&
+			ptxd_make_log bsp-info
 			;;
 		clean)
 			check_config &&

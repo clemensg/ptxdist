@@ -8,7 +8,7 @@
 # see the README file.
 #
 
-PHONY += ptx-package-info
+PHONY += ptx-package-info bsp-info
 ptx-package-info:
 
 world/package-info = \
@@ -27,6 +27,16 @@ $(STATEDIR)/image-%.package-info: ptx-package-info
 $(STATEDIR)/%.package-info: ptx-package-info
 	@$(call targetinfo)
 	@$(call world/package-info, $(PTX_MAP_TO_PACKAGE_$(*)))
+	@$(call finish)
+
+ptx/bsp-info = \
+	$(ptx/env) \
+	bsp_images="$(IMAGE_PACKAGES)" \
+	ptxd_make_bsp_info
+
+bsp-info:
+	@$(call targetinfo)
+	@$(call ptx/bsp-info)
 	@$(call finish)
 
 # vim: syntax=make

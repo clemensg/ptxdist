@@ -196,6 +196,10 @@ Misc Actions
   run the cross gdb from the toolchain. The sysroot and other search paths
   are configured to ensure that gdb finds all available debug files.
 
+``bsp-info``
+  show some basic information about the BSP. The currently used configs,
+  all layers, the images that are build, etc.
+
 ``package-info <pkg>``
   show some basic information about the package. This includes the version,
   URL and various paths and directories. The paths for menu and rule file

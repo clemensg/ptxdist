@@ -60,3 +60,49 @@ ptxd_make_world_package_info() {
     do_echo "${image_pkgs}"
 }
 export -f ptxd_make_world_package_info
+
+ptxd_make_bsp_info() {
+    ptxd_make_world_init || return
+    do_echo() {
+	if [ -n "${!#}" ]; then
+	    if [ ${#} -gt 1 ]; then
+		printf "%-17s %s\n" "${1}" "${2}"
+	    else
+		echo
+	    fi
+	fi
+    }
+    do_echo "vendor:" "$(ptxd_get_ptxconf PTXCONF_PROJECT_VENDOR)"
+    do_echo "project:" "$(ptxd_get_ptxconf PTXCONF_PROJECT)"
+    do_echo "version:" "$(ptxd_get_ptxconf PTXCONF_PROJECT_VERSION)"
+    echo
+    do_echo "platform:" "$(ptxd_get_ptxconf PTXCONF_PLATFORM)"
+    do_echo "platform version:" "$(ptxd_get_ptxconf PTXCONF_PLATFORM_VERSION)"
+    echo
+
+    for layer in "${PTXDIST_LAYERS[@]}"; do
+	if [ "${layer}" = "${PTXDIST_WORKSPACE}" ]; then
+	    do_echo "BSP:" "${layer}"
+	elif [ "${layer}" = "${PTXDIST_TOPDIR}" ]; then
+	    do_echo "PTXdist:" "${layer}"
+	elif [ -h "${layer}" ]; then
+	    do_echo "Layer:" "$(ptxd_print_path "${layer}") -> $(ptxd_print_path "$(readlink "${layer}")")"
+	else
+	    do_echo "Layer:" "$(ptxd_print_path "${layer}")"
+	fi
+    done
+    echo
+
+    do_echo "ptxconfig:" "$(ptxd_print_path "${PTXDIST_PTXCONFIG}")"
+    do_echo "platformconfig:" "$(ptxd_print_path "${PTXDIST_PLATFORMCONFIG}")"
+    do_echo "collectionconfig:" "$(ptxd_print_path "${PTXDIST_COLLECTIONCONFIG}")"
+    echo
+
+    prefix="images:"
+    for image in ${bsp_images}; do
+	do_echo "${prefix}" "${image}"
+	unset prefix
+    done
+    echo
+}
+export -f ptxd_make_bsp_info
