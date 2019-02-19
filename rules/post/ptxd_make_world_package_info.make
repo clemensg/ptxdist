@@ -15,6 +15,15 @@ world/package-info = \
 	$(call world/env, $(1)) \
 	ptxd_make_world_package_info
 
+image/package-info = \
+	$(call world/image/env, $(1)) \
+	ptxd_make_world_package_info
+
+$(STATEDIR)/image-%.package-info: ptx-package-info
+	@$(call targetinfo)
+	@$(call image/package-info, $(PTX_MAP_TO_PACKAGE_image-$(*)))
+	@$(call finish)
+
 $(STATEDIR)/%.package-info: ptx-package-info
 	@$(call targetinfo)
 	@$(call world/package-info, $(PTX_MAP_TO_PACKAGE_$(*)))

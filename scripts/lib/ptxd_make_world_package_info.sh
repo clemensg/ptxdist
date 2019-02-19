@@ -9,53 +9,54 @@
 #
 
 ptxd_make_world_package_info() {
-    ptxd_make_world_patchin_init || return
-    if [ -z "${pkg_version}" ]; then
+    ptxd_make_world_init || return
+    do_echo() {
+	if [ -n "${!#}" ]; then
+	    if [ ${#} -gt 1 ]; then
+		printf "%-13s %s\n" "${1}" "${2}"
+	    else
+		echo
+	    fi
+	fi
+    }
+    if [ -z "${pkg_version}" -a -z "${image_image}" ]; then
 	ptxd_bailout "'${pkg_label}' is not a valid package"
     fi
-    echo "package:   ${pkg_label}"
-    echo "version:   ${pkg_version}"
+    do_echo "package:" "${pkg_label}"
+    do_echo "version:" "${pkg_version}"
+    do_echo "image:" "$(ptxd_print_path "${image_image}")"
     echo
-    if [ -n "${pkg_config}" ]; then
-	echo "config:    $(ptxd_print_path "${pkg_config}")"
-	echo
-    fi
-    if [ -n "${pkg_license}" ]; then
-	echo "license:   ${pkg_license}"
-    fi
-    if [ -n "${pkg_license_files}" ]; then
-	echo "  files:   ${pkg_license_files}"
-    fi
-    if [ -n "${pkg_license}" ]; then
-	echo
-    fi
-    if [ -n "${pkg_src}" ]; then
-	echo "source:    $(ptxd_print_path "${pkg_src}")"
-    fi
-    if [ -n "${pkg_url}" ]; then
-	echo "url:       ${pkg_url}"
-    fi
-    if [ -n "${pkg_src}" -o -n "${pkg_url}" ]; then
-	echo
-    fi
-    if [ -n "${pkg_dir}" ]; then
-	echo "src dir:   $(ptxd_print_path "${pkg_dir}")"
-    fi
-    if [ "${pkg_build_dir}" != "${pkg_dir}" ]; then
-	echo "build dir: $(ptxd_print_path "${pkg_build_dir}")"
-    fi
-    if [ -n "${pkg_pkg_dir}" ]; then
-	echo "pkg dir:   $(ptxd_print_path "${pkg_pkg_dir}")"
-    fi
-    if [ -n "${pkg_dir}" -o -n "${pkg_pkg_dir}" ]; then
-	echo
-    fi
-    echo "rule file: $(ptxd_print_path "${pkg_makefile}")"
-    echo "menu file: $(ptxd_print_path "${pkg_infile}")"
+
+    do_echo "config:" "$(ptxd_print_path "${pkg_config}")"
+    do_echo "ref config:" "$(ptxd_print_path "${pkg_ref_config}")"
+    do_echo "${pkg_config}"
+
+    do_echo "license:" "${pkg_license}"
+    do_echo "  files:" "${pkg_license_files}"
+    do_echo "${pkg_license}"
+
+    do_echo "source:" "$(ptxd_print_path "${pkg_src}")"
+    do_echo "md5:" "${pkg_md5}"
+    do_echo "url:" "${pkg_url}"
+    do_echo "${pkg_src}${pkg_url}"
+
+    do_echo "src dir:" "$(ptxd_print_path "${pkg_dir}")"
+    do_echo "build dir:" "$(ptxd_print_path "${pkg_build_dir}")"
+    do_echo "pkg dir:" "$(ptxd_print_path "${pkg_pkg_dir}")"
+    do_echo "${pkg_dir}${pkg_pkg_dir}"
+
+    do_echo "rule file:" "$(ptxd_print_path "${pkg_makefile}")"
+    do_echo "menu file:" "$(ptxd_print_path "${pkg_infile}")"
     echo
-    if [ -n "${pkg_patch_dir}" ]; then
-	echo "patches:   $(ptxd_print_path "${pkg_patch_dir}")"
-	echo
-    fi
+
+    do_echo "patches:" "$(ptxd_print_path "${pkg_patch_dir}")"
+    do_echo "${pkg_patch_dir}"
+
+    do_echo "build deps:" "${pkg_build_deps}"
+    do_echo "runtime deps:" "${pkg_run_deps}"
+    do_echo "${pkg_build_deps}${pkg_run_deps}"
+
+    do_echo "pkgs:" "${image_pkgs}"
+    do_echo "${image_pkgs}"
 }
 export -f ptxd_make_world_package_info
