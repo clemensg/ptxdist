@@ -128,6 +128,10 @@ ptxd_kconfig_create_config_merge() {
 	elif [ -z "${saved_md5}" -a -z "${b}" ]; then
 	    saved_md5="${a}"
 	    continue
+	elif [ -z "${b}" ]; then
+	    ptxd_bailout "Failed to parse" \
+		"$(ptxd_print_path "${diff}")" \
+		"parse error in:" "'${a}'"
 	fi
 	arg=
 	case "${b}" in
