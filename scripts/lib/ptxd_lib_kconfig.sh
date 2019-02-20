@@ -121,7 +121,7 @@ ptxd_kconfig_create_config_merge() {
     IFS="="
     exec {diff_fd}< "${diff}"
     while read a b line <&${diff_fd}; do
-	if [[ -z "${b}" && "${a}" =~ ^'# '[A-Z0-9_]*' is not set'$ ]]; then
+	if [[ -z "${b}" && "${a}" =~ ^'# '[^\ ]*' is not set'$ ]]; then
 	    a="${a% is not set}"
 	    a="${a#\# }"
 	    b="n"
