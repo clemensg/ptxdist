@@ -7,6 +7,7 @@ menuconfig FONTCONFIG
 	select FREETYPE
 	select EXPAT
 	select LIBUUID
+	select RC_ONCE		if FONTCONFIG_UTILS && RUNTIME
 	help
 	  Fontconfig is a font configuration and
 	  customization library, which does not depend on
@@ -23,7 +24,8 @@ menuconfig FONTCONFIG
 if FONTCONFIG
 
 config FONTCONFIG_UTILS
-	bool "install utilities for Fontconfig     "
+	bool
+	prompt "install utilities for Fontconfig     "
 	help
 	  The fontconfig utilities package contains fc-list,
 	  fc-match, and fc-cache.

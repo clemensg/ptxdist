@@ -80,6 +80,8 @@ ifdef PTXCONF_FONTCONFIG_UTILS
 
 	@$(call install_copy, fontconfig, 0, 0, 0755, -, \
 		/usr/bin/fc-match)
+
+	@$(call install_alternative, fontconfig, 0, 0, 0755, /etc/rc.once.d/fc-cache)
 endif
 
 	@$(call install_finish, fontconfig)
