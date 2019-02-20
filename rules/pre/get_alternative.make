@@ -17,13 +17,13 @@ ptx/get_alternative = $(error ptx/get_alternative has been renamed to ptx/get-al
 #
 # Strip whitespaces introduced by the multiline macros
 define ptx/in-path3
-$(if $(strip $(1)),$(strip $(2)),$(strip $(3)))
+$(if $(strip $(1)),$(strip $(call ptx/force-shell,$(2))),$(strip $(3)))
 endef
 # fallback to shell if a relative path is found
 define ptx/in-path2
 $(call ptx/in-path3,
 $(filter-out /%,$(3)),
-$(call ptx/force-shell, p='$($(strip $(1)))' ptxd_in_path p $(2) && echo $$ptxd_reply),
+p='$($(strip $(1)))' ptxd_in_path p $(2) && echo $$ptxd_reply,
 $(firstword $(wildcard $(addsuffix /$(strip $(2)),$(3)))))
 endef
 # create a path ist from the variable with ':' separated paths
