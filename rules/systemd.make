@@ -17,11 +17,13 @@ PACKAGES-$(PTXCONF_SYSTEMD) += systemd
 #
 # Paths and names
 #
-SYSTEMD_VERSION	:= 241
-SYSTEMD_MD5	:= c5953c24c850b44fcf714326e567dc37
+SYSTEMD_VERSION	:= 241-7-ga09c170122cf
+SYSTEMD_MD5	:= 8727ee060d128457965e1be937e0cdd2
 SYSTEMD		:= systemd-$(SYSTEMD_VERSION)
 SYSTEMD_SUFFIX	:= tar.gz
-SYSTEMD_URL	:= https://github.com/systemd/systemd/archive/v$(SYSTEMD_VERSION).$(SYSTEMD_SUFFIX)
+SYSTEMD_URL	:= \
+	https://github.com/systemd/systemd/archive/v$(SYSTEMD_VERSION).$(SYSTEMD_SUFFIX) \
+	https://github.com/systemd/systemd-stable/archive/v$(SYSTEMD_VERSION).$(SYSTEMD_SUFFIX)
 SYSTEMD_SOURCE	:= $(SRCDIR)/$(SYSTEMD).$(SYSTEMD_SUFFIX)
 SYSTEMD_DIR	:= $(BUILDDIR)/$(SYSTEMD)
 SYSTEMD_LICENSE	:= GPL-2.0-or-later AND LGPL-2.1-only
@@ -165,6 +167,7 @@ SYSTEMD_CONF_OPT	:= \
 	-Dutmp=false \
 	-Dvalgrind=false \
 	-Dvconsole=$(call ptx/truefalse,PTXCONF_SYSTEMD_VCONSOLE) \
+	-Dversion-tag=$(SYSTEMD_VERSION)
 	-Dwheel-group=false \
 	-Dxkbcommon=false \
 	-Dxz=$(call ptx/truefalse,PTXCONF_SYSTEMD_XZ) \
@@ -290,7 +293,7 @@ $(STATEDIR)/systemd.targetinstall:
 #	#
 
 	@$(call install_lib, systemd, 0, 0, 0644, libsystemd)
-	@$(call install_lib, systemd, 0, 0, 0644, systemd/libsystemd-shared-$(SYSTEMD_VERSION))
+	@$(call install_lib, systemd, 0, 0, 0644, systemd/libsystemd-shared-$(firstword $(subst -, ,$(SYSTEMD_VERSION))))
 
 	@$(call install_lib, systemd, 0, 0, 0644, libnss_myhostname)
 	@$(call install_lib, systemd, 0, 0, 0644, libnss_systemd)
