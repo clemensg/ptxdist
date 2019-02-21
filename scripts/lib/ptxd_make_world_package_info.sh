@@ -9,7 +9,8 @@
 #
 
 ptxd_make_world_package_info() {
-    ptxd_make_world_init || return
+    # use patchin_init for  pkg_patch_dir
+    ptxd_make_world_patchin_init || return
     do_echo() {
 	if [ -n "${!#}" ]; then
 	    if [ ${#} -gt 1 ]; then
