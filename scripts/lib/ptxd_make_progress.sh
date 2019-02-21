@@ -12,8 +12,8 @@ ptxd_make_setup_progress() {
     if [ -n "${PTXDIST_PROGRESS}" -a -n "${PTXDIST_QUIET}" ]; then
 	ptxd_make_target_count=$( \
 	    MAKE=false "${PTXCONF_SETUP_HOST_MAKE}" --dry-run \
-	    -f "${RULESDIR}/other/Toplevel.make" "${@}" | tee a | \
-		grep -E '^target=.*(\.(get|extract|prepare|compile|install|targetinstall|report)|/images/).*finished:' | \
+	    -f "${RULESDIR}/other/Toplevel.make" "${@}" | \
+		grep -E 'ptxd_make_print_progress stop /.*(\.(get|extract|prepare|compile|install|targetinstall|report)|/images/).*finished:' | \
 		wc -l ; exit ${PIPESTATUS[0]})
 	if [ $? -ne 0 ]; then
 	    echo "Failed to initialize progress data!" >&2
