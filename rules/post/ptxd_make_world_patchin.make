@@ -10,7 +10,6 @@
 
 world/patchin = \
 	$(call world/env, $(1)) \
-	pkg_patch_series="$(call ptx/escape,$(call remove_quotes, $(PTXCONF_$(strip $(1))_SERIES)))" \
 	ptxd_make_world_patchin
 
 patchin = \
