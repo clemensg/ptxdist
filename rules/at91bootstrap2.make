@@ -32,6 +32,7 @@ AT91BOOTSTRAP2_LICENSE	:= unknown
 # ----------------------------------------------------------------------------
 
 AT91BOOTSTRAP2_WRAPPER_BLACKLIST := \
+	TARGET_HARDEN_STACKCLASH \
 	TARGET_HARDEN_RELRO \
 	TARGET_HARDEN_BINDNOW \
 	TARGET_HARDEN_PIE \

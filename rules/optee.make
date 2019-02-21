@@ -32,6 +32,7 @@ OPTEE_LICENSE	:= BSD-2-Clause AND BSD-3-Clause
 # ----------------------------------------------------------------------------
 
 OPTEE_WRAPPER_BLACKLIST := \
+	TARGET_HARDEN_STACKCLASH \
 	TARGET_HARDEN_FORTIFY \
 	TARGET_HARDEN_RELRO \
 	TARGET_HARDEN_BINDNOW \

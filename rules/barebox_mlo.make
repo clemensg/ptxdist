@@ -32,6 +32,7 @@ BAREBOX_MLO_CONFIG	:= $(call ptx/in-platformconfigdir, \
 # ----------------------------------------------------------------------------
 
 BAREBOX_MLO_WRAPPER_BLACKLIST := \
+	TARGET_HARDEN_STACKCLASH \
 	TARGET_HARDEN_RELRO \
 	TARGET_HARDEN_BINDNOW \
 	TARGET_HARDEN_PIE \

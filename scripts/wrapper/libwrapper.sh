@@ -193,6 +193,7 @@ cc_add_stack() {
 		add_opt_arg TARGET_HARDEN_STACK_STRONG "-fstack-protector-strong"
 		add_opt_arg TARGET_HARDEN_STACK_ALL "-fstack-protector-all"
 	fi
+	add_opt_arg TARGET_HARDEN_STACKCLASH "-fstack-clash-protection"
 }
 
 cc_add_pie() {
