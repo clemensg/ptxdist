@@ -16,6 +16,7 @@ HOST_PACKAGES-$(PTXCONF_HOST_P11_KIT) += host-p11-kit
 #
 # Paths and names
 #
+HOST_P11_KIT_DEVPKG	:= NO
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -28,7 +29,7 @@ HOST_PACKAGES-$(PTXCONF_HOST_P11_KIT) += host-p11-kit
 #
 HOST_P11_KIT_CONF_TOOL	:= autoconf
 HOST_P11_KIT_CONF_OPT	:= \
-	$(HOST_AUTOCONF) \
+	$(HOST_AUTOCONF_SYSROOT) \
 	--disable-nls \
 	--disable-trust-module \
 	--disable-doc \
