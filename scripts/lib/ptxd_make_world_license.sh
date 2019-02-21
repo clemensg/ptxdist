@@ -237,6 +237,9 @@ ptxd_make_world_license_yaml() {
     fi
     do_list "sources:" "${pkg_srcs}"
     do_echo "patches:" "${pkg_patch_dir}"
+    if [ "${pkg_patch_series}" != "series" -a -n "${pkg_patch_dir}" ]; then
+	do_echo "series:" "${pkg_patch_series}"
+    fi
     do_echo "srcdir:" "${pkg_dir}"
     do_echo "builddir:" "${pkg_build_dir}"
     do_echo "pkgdir:" "${pkg_pkg_dir}"
@@ -444,7 +447,8 @@ ptxd_make_world_license_flags() {
 export -f ptxd_make_world_license_flags
 
 ptxd_make_world_license_init() {
-    ptxd_make_world_init || return
+    # use patchin_init for  pkg_patch_dir
+    ptxd_make_world_patchin_init || return
 
     local name
 
