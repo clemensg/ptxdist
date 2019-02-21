@@ -24,6 +24,7 @@ HOST_PCSC_LITE_CONF_TOOL := autoconf
 HOST_PCSC_LITE_CONF_OPT := \
 	$(HOST_AUTOCONF) \
 	--disable-libusb \
-	--disable-libudev
+	--disable-libudev \
+	--disable-libsystemd
 
 # vim: syntax=make

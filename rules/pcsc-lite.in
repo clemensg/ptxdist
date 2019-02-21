@@ -2,6 +2,7 @@
 
 menuconfig PCSC_LITE
 	tristate "pcsc-lite                     "
+	select SYSTEMD		if PCSC_LITE_SYSTEMD_UNIT
 	select UDEV		if PCSC_LITE_LIBUDEV
 	select UDEV_LIBUDEV	if PCSC_LITE_LIBUDEV
 	help
@@ -27,7 +28,7 @@ config PCSC_LITE_DEBUGATR
 
 config PCSC_LITE_SYSTEMD_UNIT
 	bool "install systemd unit"
-	depends on SYSTEMD
+	depends on INITMETHOD_SYSTEMD
 	default y
 
 endif
