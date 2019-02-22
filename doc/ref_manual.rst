@@ -681,6 +681,8 @@ Copy a file from the package install directory to the root filesystem:
 
  $(call install_copy, foo, 0, 0, 0755, -, /usr/bin/foo)
 
+.. _install_tree,reference:
+
 install_tree
 ~~~~~~~~~~~~
 
