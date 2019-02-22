@@ -881,9 +881,10 @@ add on demand to the ``configure`` parameters:
 
     endif
 
-.. note:: To extend the base name by a suboption name as a trailing
-  component gives PTXdist the ability to detect a change in the package’s
-  settings to force its rebuild.
+.. important:: Always follow the rule to extend the base name by a suboption
+  name as the trailing part of the variable name. This gives PTXdist the ability
+  to detect a change in the package’s settings (via menuconfig) to force its
+  rebuild on demand.
 
 To make usage of the new menu entries, we must check them in the rule
 file and add the correct parameters:
