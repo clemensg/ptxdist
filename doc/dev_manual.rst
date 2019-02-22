@@ -812,9 +812,10 @@ in this line and supplement this expression as follows:
 
 .. code-block:: make
 
-    FOO_CONF_OPT := $(CROSS_AUTOCONF_USR) \
-    	--enable-debug \
-    	--with-bar
+    FOO_CONF_OPT := \
+        $(CROSS_AUTOCONF_USR) \
+        --enable-debug \
+        --with-bar
 
 .. note:: We recommend to use this format with each parameter on a line of
  its own. This format is easier to read and a diff shows more exactly any
