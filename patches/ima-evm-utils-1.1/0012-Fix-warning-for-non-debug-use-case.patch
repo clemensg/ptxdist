@@ -1,0 +1,28 @@
+From: Juergen Borleis <jbe@pengutronix.de>
+Date: Wed, 18 Nov 2015 15:15:15 +0100
+Subject: [PATCH] Fix warning for non-debug use case
+
+This change fixes:
+
+ evmctl.c:1194:12: warning: 'cmd_hmac_evm' defined but not used [-Wunused-function]
+
+Note: this change is GCC specific
+
+Signed-off-by: Juergen Borleis <jbe@pengutronix.de>
+---
+ src/evmctl.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/evmctl.c b/src/evmctl.c
+index 9003f7640c0f..4422c0e84d4a 100644
+--- a/src/evmctl.c
++++ b/src/evmctl.c
+@@ -1191,7 +1191,7 @@ static int hmac_evm(const char *file, const char *key)
+ 	return 0;
+ }
+ 
+-static int cmd_hmac_evm(struct command *cmd)
++static __attribute__((unused)) int cmd_hmac_evm(struct command *cmd)
+ {
+ 	const char *key, *file = g_argv[optind++];
+ 	int err;

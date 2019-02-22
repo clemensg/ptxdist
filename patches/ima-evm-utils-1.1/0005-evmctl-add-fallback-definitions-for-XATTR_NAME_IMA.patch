@@ -10,7 +10,7 @@ Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
  1 file changed, 5 insertions(+)
 
 diff --git a/src/evmctl.c b/src/evmctl.c
-index a5355f6c0ee1..f120bf96b69d 100644
+index 55fc619f5990..de53be37b69b 100644
 --- a/src/evmctl.c
 +++ b/src/evmctl.c
 @@ -62,6 +62,11 @@

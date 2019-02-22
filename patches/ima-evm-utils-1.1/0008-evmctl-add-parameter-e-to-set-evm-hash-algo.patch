@@ -14,33 +14,33 @@ Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
  3 files changed, 25 insertions(+), 4 deletions(-)
 
 diff --git a/src/evmctl.c b/src/evmctl.c
-index 559e4cbf9176..d7352d87ef71 100644
+index b0f3b6362528..5d664005e915 100644
 --- a/src/evmctl.c
 +++ b/src/evmctl.c
-@@ -319,6 +319,7 @@ static int calc_evm_hash(const char *file, unsigned char *hash)
- 	char uuid[16];
- 	struct h_misc_64 hmac_misc;
- 	int hmac_size;
+@@ -336,6 +336,7 @@ static int calc_evm_hash(const char *file, unsigned char *hash)
+ #else
+ 	pctx = EVP_MD_CTX_new();
+ #endif
 +	const EVP_MD *md;
  
  	if (lstat(file, &st)) {
  		log_err("Failed to stat: %s\n", file);
-@@ -350,7 +351,13 @@ static int calc_evm_hash(const char *file, unsigned char *hash)
+@@ -379,7 +380,13 @@ static int calc_evm_hash(const char *file, unsigned char *hash)
  		return -1;
  	}
  
--	err = EVP_DigestInit(&ctx, EVP_sha1());
+-	err = EVP_DigestInit(pctx, EVP_sha1());
 +	md = EVP_get_digestbyname(params.evm_hash_algo);
 +	if (!md) {
 +		log_err("EVP_get_digestbyname() failed\n");
 +		return 1;
 +	}
 +
-+	err = EVP_DigestInit(&ctx, md);
++	err = EVP_DigestInit(pctx, md);
  	if (!err) {
  		log_err("EVP_DigestInit() failed\n");
  		return 1;
-@@ -454,7 +461,7 @@ static int sign_evm(const char *file, const char *key)
+@@ -503,7 +510,7 @@ static int sign_evm(const char *file, const char *key)
  	if (len <= 1)
  		return len;
  
@@ -49,30 +49,30 @@ index 559e4cbf9176..d7352d87ef71 100644
  	if (len <= 1)
  		return len;
  
-@@ -860,6 +867,7 @@ static int calc_evm_hmac(const char *file, const char *keyfile, unsigned char *h
- 	ssize_t list_size;
- 	struct h_misc_64 hmac_misc;
- 	int hmac_size;
+@@ -992,6 +999,7 @@ static int calc_evm_hmac(const char *file, const char *keyfile, unsigned char *h
+ #else
+ 	pctx = HMAC_CTX_new();
+ #endif
 +	const EVP_MD *md;
  
  	key = file2bin(keyfile, NULL, &keylen);
  	if (!key) {
-@@ -905,7 +913,13 @@ static int calc_evm_hmac(const char *file, const char *keyfile, unsigned char *h
+@@ -1038,7 +1046,13 @@ static int calc_evm_hmac(const char *file, const char *keyfile, unsigned char *h
  		goto out;
  	}
  
--	err = !HMAC_Init(&ctx, evmkey, sizeof(evmkey), EVP_sha1());
+-	err = !HMAC_Init_ex(pctx, evmkey, sizeof(evmkey), EVP_sha1(), NULL);
 +	md = EVP_get_digestbyname(params.evm_hash_algo);
 +	if (!md) {
 +		log_err("EVP_get_digestbyname() failed\n");
 +		return 1;
 +	}
 +
-+	err = !HMAC_Init(&ctx, evmkey, sizeof(evmkey), md);
++	err = !HMAC_Init_ex(pctx, evmkey, sizeof(evmkey), md, NULL);
  	if (err) {
  		log_err("HMAC_Init() failed\n");
  		goto out;
-@@ -1464,6 +1478,7 @@ static void usage(void)
+@@ -1635,6 +1649,7 @@ static void usage(void)
  	printf(
  		"\n"
  		"  -a, --hashalgo     sha1 (default), sha224, sha256, sha384, sha512\n"
@@ -80,7 +80,7 @@ index 559e4cbf9176..d7352d87ef71 100644
  		"  -s, --imasig       make IMA signature\n"
  		"  -d, --imahash      make IMA hash\n"
  		"  -f, --sigfile      store IMA signature in .sig file instead of xattr\n"
-@@ -1508,6 +1523,7 @@ static struct option opts[] = {
+@@ -1691,6 +1706,7 @@ static struct option opts[] = {
  	{"imasig", 0, 0, 's'},
  	{"imahash", 0, 0, 'd'},
  	{"hashalgo", 1, 0, 'a'},
@@ -88,16 +88,16 @@ index 559e4cbf9176..d7352d87ef71 100644
  	{"pass", 2, 0, 'p'},
  	{"sigfile", 0, 0, 'f'},
  	{"uuid", 2, 0, 'u'},
-@@ -1565,7 +1581,7 @@ int main(int argc, char *argv[])
+@@ -1758,7 +1774,7 @@ int main(int argc, char *argv[])
  	g_argc = argc;
  
  	while (1) {
--		c = getopt_long(argc, argv, "hvnsda:p::fu::k:t:ri", opts, &lind);
-+		c = getopt_long(argc, argv, "hvnsda:e:p::fu::k:t:ri", opts, &lind);
+-		c = getopt_long(argc, argv, "hvnsda:op::fu::k:t:ri", opts, &lind);
++		c = getopt_long(argc, argv, "hvnsda:e:op::fu::k:t:ri", opts, &lind);
  		if (c == -1)
  			break;
  
-@@ -1591,6 +1607,9 @@ int main(int argc, char *argv[])
+@@ -1784,6 +1800,9 @@ int main(int argc, char *argv[])
  		case 'a':
  			params.hash_algo = optarg;
  			break;
@@ -108,10 +108,10 @@ index 559e4cbf9176..d7352d87ef71 100644
  			if (optarg)
  				params.keypass = optarg;
 diff --git a/src/imaevm.h b/src/imaevm.h
-index 711596c3f3fa..ef7858b8faa0 100644
+index 1bafaad0f4ab..ed92e4d8981d 100644
 --- a/src/imaevm.h
 +++ b/src/imaevm.h
-@@ -178,6 +178,7 @@ struct libevm_params {
+@@ -179,6 +179,7 @@ struct libevm_params {
  	int verbose;
  	int x509;
  	const char *hash_algo;
@@ -120,7 +120,7 @@ index 711596c3f3fa..ef7858b8faa0 100644
  	const char *keypass;
  };
 diff --git a/src/libimaevm.c b/src/libimaevm.c
-index 1c5da965468c..595908395514 100644
+index b6c328801708..4c093a038b72 100644
 --- a/src/libimaevm.c
 +++ b/src/libimaevm.c
 @@ -129,6 +129,7 @@ struct libevm_params params = {

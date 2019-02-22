@@ -2,23 +2,23 @@ From: Sascha Hauer <s.hauer@pengutronix.de>
 Date: Mon, 1 Dec 2014 15:23:21 +0100
 Subject: [PATCH] evmctl: add support for offline image preparation
 
-With this patch it's possible to sign a directory hierarchy, so that a
-filesystem image (e.g. an ubifs) can be generated.
+With this change it's possible to sign a directory hierarchy, so that a
+filesystem image (e.g. a 'ubifs') can be generated.
 
-Creating the ima and evm signatues for an images with evmctl has to problems:
+Creating the ima and evm signatues for an image with 'evmctl' has two problems:
 1) The inode-numbers of the files are different in the to be created image and
    in the current filesystem.
 2) The inode generation can be different, too.
 
 These problems are solved in a 4-step process:
 
-1) evmctl generates signatures and writes them to the extended attributed
+1) 'evmctl' generates signatures and writes them to the extended attribute
    (the usual process so far).
-2) The image, for example an ubifs image, is generted. mkfs.ubifs generates
+2) The image, for example a 'ubifs' image, is generated. 'mkfs.ubifs' generates
    the image (including extended attributes) and stores the used inode number
-   in an extended attribute "user.image-inode-number".
-3) evmct is started again to generate the signatures, this time with the
-   additional paramter "--image". Instead of using an ioctl to get the inode
+   into an extended attribute "user.image-inode-number".
+3) 'evmct' is re-started to generate the signatures, this time with the
+   additional paramter "--image". Instead of using an 'ioctl' to get the inode
    number and generation, the inode is read from the extended attribute
    "user.image-inode-number", the generation is set to "0".
 4) The image (omitting the exteneded attribute "user.image-inode-number") is
@@ -37,18 +37,18 @@ Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
  3 files changed, 74 insertions(+), 9 deletions(-)
 
 diff --git a/src/evmctl.c b/src/evmctl.c
-index d7352d87ef71..ec1fed395656 100644
+index 5d664005e915..9003f7640c0f 100644
 --- a/src/evmctl.c
 +++ b/src/evmctl.c
-@@ -320,6 +320,7 @@ static int calc_evm_hash(const char *file, unsigned char *hash)
- 	struct h_misc_64 hmac_misc;
- 	int hmac_size;
+@@ -337,6 +337,7 @@ static int calc_evm_hash(const char *file, unsigned char *hash)
+ 	pctx = EVP_MD_CTX_new();
+ #endif
  	const EVP_MD *md;
 +	ino_t ino;
  
  	if (lstat(file, &st)) {
  		log_err("Failed to stat: %s\n", file);
-@@ -342,9 +343,25 @@ static int calc_evm_hash(const char *file, unsigned char *hash)
+@@ -371,9 +372,25 @@ static int calc_evm_hash(const char *file, unsigned char *hash)
  			}
  			close(fd);
  		}
@@ -75,42 +75,42 @@ index d7352d87ef71..ec1fed395656 100644
  	list_size = llistxattr(file, list, sizeof(list));
  	if (list_size < 0) {
  		log_err("llistxattr() failed\n");
-@@ -396,7 +413,7 @@ static int calc_evm_hash(const char *file, unsigned char *hash)
- 		struct h_misc *hmac = (struct h_misc *)&hmac_misc;
+@@ -439,7 +456,7 @@ static int calc_evm_hash(const char *file, unsigned char *hash)
  
  		hmac_size = sizeof(*hmac);
--		hmac->ino = st.st_ino;
-+		hmac->ino = ino;
- 		hmac->generation = generation;
+ 		if (!evm_portable) {
+-			hmac->ino = st.st_ino;
++			hmac->ino = ino;
+ 			hmac->generation = generation;
+ 		}
  		hmac->uid = st.st_uid;
- 		hmac->gid = st.st_gid;
-@@ -405,7 +422,7 @@ static int calc_evm_hash(const char *file, unsigned char *hash)
- 		struct h_misc_64 *hmac = (struct h_misc_64 *)&hmac_misc;
+@@ -450,7 +467,7 @@ static int calc_evm_hash(const char *file, unsigned char *hash)
  
  		hmac_size = sizeof(*hmac);
--		hmac->ino = st.st_ino;
-+		hmac->ino = ino;
- 		hmac->generation = generation;
+ 		if (!evm_portable) {
+-			hmac->ino = st.st_ino;
++			hmac->ino = ino;
+ 			hmac->generation = generation;
+ 		}
  		hmac->uid = st.st_uid;
- 		hmac->gid = st.st_gid;
-@@ -414,7 +431,7 @@ static int calc_evm_hash(const char *file, unsigned char *hash)
- 		struct h_misc_32 *hmac = (struct h_misc_32 *)&hmac_misc;
+@@ -461,7 +478,7 @@ static int calc_evm_hash(const char *file, unsigned char *hash)
  
  		hmac_size = sizeof(*hmac);
--		hmac->ino = st.st_ino;
-+		hmac->ino = ino;
- 		hmac->generation = generation;
+ 		if (!evm_portable) {
+-			hmac->ino = st.st_ino;
++			hmac->ino = ino;
+ 			hmac->generation = generation;
+ 		}
  		hmac->uid = st.st_uid;
- 		hmac->gid = st.st_gid;
-@@ -868,6 +885,7 @@ static int calc_evm_hmac(const char *file, const char *keyfile, unsigned char *h
- 	struct h_misc_64 hmac_misc;
- 	int hmac_size;
+@@ -1000,6 +1017,7 @@ static int calc_evm_hmac(const char *file, const char *keyfile, unsigned char *h
+ 	pctx = HMAC_CTX_new();
+ #endif
  	const EVP_MD *md;
 +	ino_t ino;
  
  	key = file2bin(keyfile, NULL, &keylen);
  	if (!key) {
-@@ -905,10 +923,26 @@ static int calc_evm_hmac(const char *file, const char *keyfile, unsigned char *h
+@@ -1038,10 +1056,26 @@ static int calc_evm_hmac(const char *file, const char *keyfile, unsigned char *h
  		close(fd);
  	}
  
@@ -137,7 +137,7 @@ index d7352d87ef71..ec1fed395656 100644
  		log_err("llistxattr() failed: %s\n", file);
  		goto out;
  	}
-@@ -951,7 +985,7 @@ static int calc_evm_hmac(const char *file, const char *keyfile, unsigned char *h
+@@ -1084,7 +1118,7 @@ static int calc_evm_hmac(const char *file, const char *keyfile, unsigned char *h
  		struct h_misc *hmac = (struct h_misc *)&hmac_misc;
  
  		hmac_size = sizeof(*hmac);
@@ -146,7 +146,7 @@ index d7352d87ef71..ec1fed395656 100644
  		hmac->generation = generation;
  		hmac->uid = st.st_uid;
  		hmac->gid = st.st_gid;
-@@ -960,7 +994,7 @@ static int calc_evm_hmac(const char *file, const char *keyfile, unsigned char *h
+@@ -1093,7 +1127,7 @@ static int calc_evm_hmac(const char *file, const char *keyfile, unsigned char *h
  		struct h_misc_64 *hmac = (struct h_misc_64 *)&hmac_misc;
  
  		hmac_size = sizeof(*hmac);
@@ -155,7 +155,7 @@ index d7352d87ef71..ec1fed395656 100644
  		hmac->generation = generation;
  		hmac->uid = st.st_uid;
  		hmac->gid = st.st_gid;
-@@ -969,7 +1003,7 @@ static int calc_evm_hmac(const char *file, const char *keyfile, unsigned char *h
+@@ -1102,7 +1136,7 @@ static int calc_evm_hmac(const char *file, const char *keyfile, unsigned char *h
  		struct h_misc_32 *hmac = (struct h_misc_32 *)&hmac_misc;
  
  		hmac_size = sizeof(*hmac);
@@ -164,48 +164,48 @@ index d7352d87ef71..ec1fed395656 100644
  		hmac->generation = generation;
  		hmac->uid = st.st_uid;
  		hmac->gid = st.st_gid;
-@@ -1494,6 +1528,9 @@ static void usage(void)
+@@ -1666,6 +1700,9 @@ static void usage(void)
  		"      --smack        use extra SMACK xattrs for EVM\n"
  		"      --m32          force EVM hmac/signature for 32 bit target system\n"
  		"      --m64          force EVM hmac/signature for 64 bit target system\n"
 +		"  -m, --image        image generation mode:\n"
 +		"                     Read inode number from xattr 'user.image-inode-number',\n"
 +		"                     and force inode generation to 0.\n"
- 		"  -v                 increase verbosity level\n"
- 		"  -h, --help         display this help and exit\n"
- 		"\n");
-@@ -1533,6 +1570,7 @@ static struct option opts[] = {
+ 		"      --ino          use custom inode for EVM\n"
+ 		"      --uid          use custom UID for EVM\n"
+ 		"      --gid          use custom GID for EVM\n"
+@@ -1716,6 +1753,7 @@ static struct option opts[] = {
  	{"recursive", 0, 0, 'r'},
  	{"m32", 0, 0, '3'},
  	{"m64", 0, 0, '6'},
 +	{"image", 0, 0, 'm'},
- 	{"smack", 0, 0, 256},
- 	{"version", 0, 0, 257},
- 	{}
-@@ -1581,7 +1619,7 @@ int main(int argc, char *argv[])
+ 	{"portable", 0, 0, 'o'},
+ 	{"smack", 0, 0, 128},
+ 	{"version", 0, 0, 129},
+@@ -1774,7 +1812,7 @@ int main(int argc, char *argv[])
  	g_argc = argc;
  
  	while (1) {
--		c = getopt_long(argc, argv, "hvnsda:e:p::fu::k:t:ri", opts, &lind);
-+		c = getopt_long(argc, argv, "hvnsda:e:p::fu::k:t:rim", opts, &lind);
+-		c = getopt_long(argc, argv, "hvnsda:e:op::fu::k:t:ri", opts, &lind);
++		c = getopt_long(argc, argv, "hvnsda:e:op::fu::k:t:rim", opts, &lind);
  		if (c == -1)
  			break;
  
-@@ -1648,6 +1686,9 @@ int main(int argc, char *argv[])
+@@ -1847,6 +1885,9 @@ int main(int argc, char *argv[])
  		case '6':
  			msize = 64;
  			break;
 +		case 'm':
 +			params.image_mode = true;
 +			break;
- 		case 256:
+ 		case 128:
  			evm_config_xattrnames = evm_extra_smack_xattrs;
  			break;
 diff --git a/src/imaevm.h b/src/imaevm.h
-index ef7858b8faa0..79f70974015a 100644
+index ed92e4d8981d..7e32d09c6538 100644
 --- a/src/imaevm.h
 +++ b/src/imaevm.h
-@@ -181,6 +181,7 @@ struct libevm_params {
+@@ -182,6 +182,7 @@ struct libevm_params {
  	const char *evm_hash_algo;
  	const char *keyfile;
  	const char *keypass;
@@ -214,7 +214,7 @@ index ef7858b8faa0..79f70974015a 100644
  
  struct RSA_ASN1_template {
 diff --git a/src/libimaevm.c b/src/libimaevm.c
-index 595908395514..ea8e4f41488c 100644
+index 4c093a038b72..866f74b39b41 100644
 --- a/src/libimaevm.c
 +++ b/src/libimaevm.c
 @@ -40,6 +40,7 @@
@@ -233,7 +233,7 @@ index 595908395514..ea8e4f41488c 100644
  
  #include <openssl/pem.h>
  #include <openssl/evp.h>
-@@ -223,7 +225,28 @@ static int add_dir_hash(const char *file, EVP_MD_CTX *ctx)
+@@ -224,7 +226,28 @@ static int add_dir_hash(const char *file, EVP_MD_CTX *ctx)
  	}
  
  	while ((de = readdir(dir))) {

@@ -11,4 +11,5 @@
 0009-evmctl-add-support-for-offline-image-preparation.patch
 0010-evmctl-Do-not-account-.-and-.-for-directory-hash-gen.patch
 0011-HACK-don-t-generate-man-page.patch
-# fd0c40bbcc8fc866030c326fe29b69aa  - git-ptx-patches magic
+0012-Fix-warning-for-non-debug-use-case.patch
+# 25e6f60853e6b27e45f386bbca0730ab  - git-ptx-patches magic
