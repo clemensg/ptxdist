@@ -892,24 +892,18 @@ file and add the correct parameters:
     #
     # autoconf
     #
-    FOO_CONF_OPT := $(CROSS_AUTOCONF_USR)
+    FOO_CONF_OPT := \
+        $(CROSS_AUTOCONF_USR) \
+        --$(call ptx/endis, PTXCONF_FOO_DEBUG)-debug \
+        --$(call ptx/wwo, PTXCONF_FOO_BAR)-bar
 
-    ifdef PTXCONF_FOO_DEBUG
-    FOO_CONF_OPT += --enable-debug
-    else
-    FOO_CONF_OPT += --disable-debug
-    endif
-
-    ifdef PTXCONF_FOO_BAR
-    FOO_CONF_OPT += --with-bar
-    else
-    FOO_CONF_OPT += --without-bar
-    endif
-
-.. important:: Please note the trailing ``PTXCONF_`` for each define. While Kconfig is
+.. important:: Please note the leading ``PTXCONF_`` for each define. While Kconfig is
   using ``FOO_BAR``, the rule file must use ``PTXCONF_FOO_BAR`` instead.
 
-It is a good practice to add both settings, e.g. ``--disable-debug``
+.. note:: Refer :ref:`Rule File Macro Reference <param_macros>` for further
+   details about these special kind of option macros (e.g. ``ptx/...``).
+
+It is a good practice to always add both settings, e.g. ``--disable-debug``
 even if this is the default case. Sometimes ``configure`` tries to guess
 something and the binary result might differ depending on the build
 order. For example some kind of package would also build some X related
@@ -949,22 +943,6 @@ output with the settings from ``FOO_CONF_OPT``:
 In this example, many configure options from libsigrok (marked with ``+``)
 are not yet present in ``LIBSIGROK_CONF_OPT`` and must be added, possibly also
 by providing more dynamic options in the package definition.
-
-Since every optional parameter adds four lines of code to the rule
-files, PTXdist provides some shortcuts to handle it. Refer to section
-:ref:`param_macros` for further details.
-
-With these special macros in use, the file content shown above looks
-much simpler:
-
-.. code-block:: make
-
-    #
-    # autoconf
-    #
-    FOO_CONF_OPT := $(CROSS_AUTOCONF_USR) \
-    	$(call ptx/endis, PTXCONF_FOO_DEBUG)-debug \
-    	$(call ptx/wwo, PTXCONF_FOO_BAR)-bar
 
 If some parts of a package are built on demand only, they must also be
 installed on demand only. Besides the *prepare* stage, we also must
