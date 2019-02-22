@@ -48,7 +48,8 @@ $(STATEDIR)/host-autotools-autoconf.install.post:
 	@$(call targetinfo)
 	@sed -i \
 		-e "s;'\(/share/autoconf\)';'$(PTXDIST_SYSROOT_HOST)\1';g" \
-		-e "s;'\(/bin/\(m4\)\?\(auto[^']*\)\)';'$(PTXDIST_SYSROOT_HOST)\1';g" \
+		-e "s;'\(/bin/auto[^']*\)';'$(PTXDIST_SYSROOT_HOST)\1';g" \
+		-e "s;'/[^']*/sysroot-host\(/bin/m4\)';'$(PTXDIST_SYSROOT_HOST)\1';g" \
 		$(HOST_AUTOTOOLS_AUTOCONF_PKGDIR)/bin/* \
 		$(HOST_AUTOTOOLS_AUTOCONF_PKGDIR)/share/autoconf/autom4te.cfg
 	@$(call world/install.post, HOST_AUTOTOOLS_AUTOCONF)
