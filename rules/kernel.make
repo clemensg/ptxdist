@@ -105,30 +105,31 @@ KERNEL_INITRAMFS_SOURCE_$(PTXCONF_IMAGE_KERNEL_INITRAMFS) += $(STATEDIR)/empty.c
 
 $(STATEDIR)/kernel.prepare:
 	@$(call targetinfo)
-
-	@$(call world/kconfig-setup, KERNEL)
+#
+# Make sure there is a non empty INITRAMFS_SOURCE in $(KERNEL_CONFIG), but
+# not the real expanded path because it contains local workdir path which
+# is not relevant to other developers.
+#
+ifdef KERNEL_INITRAMFS_SOURCE_y
+	@sed -i -e 's,^CONFIG_INITRAMFS_SOURCE.*$$,CONFIG_INITRAMFS_SOURCE=\"# Automatically set by PTXDist\",g' \
+		"$(KERNEL_CONFIG)"
+endif
 ifdef PTXCONF_KERNEL_IMAGE_SIMPLE
 	cp $(PTXCONF_KERNEL_IMAGE_SIMPLE_DTS) \
 		$(KERNEL_DIR)/arch/$(PTXCONF_KERNEL_ARCH_STRING)/boot/dts/$(PTXCONF_KERNEL_IMAGE_SIMPLE_TARGET).dts
 endif
 
+	@$(call world/prepare, KERNEL)
+
+#
+# Use a existing dummy INITRAMFS_SOURCE for the fist 'make' call. The
+# kernel image will be rebuilt in the image-kernel package with the real
+# initramfs.
+#
 ifdef KERNEL_INITRAMFS_SOURCE_y
 	@touch "$(KERNEL_INITRAMFS_SOURCE_y)"
 	@sed -i -e 's,^CONFIG_INITRAMFS_SOURCE.*$$,CONFIG_INITRAMFS_SOURCE=\"$(KERNEL_INITRAMFS_SOURCE_y)\",g' \
 		"$(KERNEL_DIR)/.config"
-endif
-
-	@$(call ptx/oldconfig, KERNEL)
-	@$(call world/kconfig-sync, KERNEL)
-
-#
-# Don't keep the expanded path to INITRAMS_SOURCE in $(KERNEL_CONFIG),
-# because it contains local workdir path which is not relevant to
-# other developers.
-#
-ifdef KERNEL_INITRAMFS_SOURCE_y
-	@sed -i -e 's,^CONFIG_INITRAMFS_SOURCE.*$$,CONFIG_INITRAMFS_SOURCE=\"# Automatically set by PTXDist\",g' \
-		"$(<)"
 endif
 	@$(call touch)
 
