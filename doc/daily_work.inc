@@ -1297,3 +1297,61 @@ non-interactive user, e.g. a different application.
    should use the **LGPL license for both parts** from the beginning. Else
    you may cannot move source code in such a way, because it would require a
    license change for this specific piece of source code (to be pedantic!).
+
+.. _external_dependencies_variants:
+
+Controling Package Dependencies in more Detail
+----------------------------------------------
+
+In section :ref:`external_dependencies` a simple method is shown how to define
+an external package dependency a particular package can have in order to build
+it.
+
+Implicit Dependencies
+~~~~~~~~~~~~~~~~~~~~~
+
+For the simple dependency definition PTXdist adds internally a dependency
+to the *install* stage of the defined external dependency (or to a different
+package to use PTXdist glossary).
+
+We must keep this in mind, because there are packages out there, which don't
+install anything in their *install* stage. They install something in their
+*targetinstall* stage instead. In this case even if the dependency is defined
+like shown in :ref:`external_dependencies`, building the particular package may
+fail depending on the build order.
+
+To avoid this, an explicit ``make`` style dependency must be added to the rule
+file. If the *compile* stage of package ``foo`` has a dependency to package
+``bar``'s *targetinstall* stage just add the following lines to your rule file:
+
+.. code-block:: make
+
+   $(STATEDIR)/foo.compile: $(STATEDIR)/bar.targetinstall
+
+Build-Time only Dependency
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Sometimes packages have a compile-time dependency to a different package, but
+can live without its content at run-time. An example can be a static library
+which is linked at compile-time and not required as a separate package at
+run-time. Another example is making use of this detailed dependency can make
+developer's life easier when using individual package lists for dedicated
+image files. Think about a development image and a production image which should
+be built at the same time but should contain a different packages list each
+(refer :ref:`multi_image_individual_root_filesystems` for details).
+
+Marking a menu file based dependency with ``if BUILDTIME`` limits the dependency
+to compile-time only. In this case its possible to have the package in one
+image's list, but not its dependency.
+
+Run-Time only Dependency
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+The other way round is ``if RUNTIME``. This forces the dependency package is
+part of the final image as well, but PTXdist can improve its build-time job by
+reordering package's build.
+A use case for this run-time dependency can be a package which just installs a
+shell script. This shell script makes use of some shell commands which must be
+present at run-time and thus depends on a package which provides these shell
+commands. But these shell commands are not required to build the shell script
+itself. In this case PTXdist can build both packages independently.

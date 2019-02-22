@@ -992,6 +992,8 @@ as expected:
 Whenever we change a *FOO* related menu entry, PTXdist should detect it
 and re-build the package when a new build is started.
 
+.. _external_dependencies:
+
 Managing External Compile Time Dependencies
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -1034,6 +1036,9 @@ file looks like:
     endif
 
 PTXdist now builds the *zlib* first and our new package thereafter.
+
+Refer :ref:`external_dependencies_variants` for more specific dependency
+description.
 
 Managing External Compile Time Dependencies on Demand
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
