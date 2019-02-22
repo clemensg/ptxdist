@@ -314,7 +314,7 @@ Next we will build the BSP to show some of PTXdist’s main features.
 Selecting a Userland Configuration
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-First of all we have to select a userland configuration. This step
+First we have to select a userland configuration. This step
 defines what kind of applications will be built for the hardware
 platform. The |ptxdistBSPName| project comes
 with a predefined configuration we select in the following step:

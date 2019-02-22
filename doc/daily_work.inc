@@ -356,7 +356,7 @@ Using available CPU Cores
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
 PTXdist uses all available CPU cores when building a project by default.
-But there are some exceptions:
+There are some exceptions:
 
 -  the prepare stage of all autotools build system based packages can
    use only one CPU core. This is due to the fact, the running
