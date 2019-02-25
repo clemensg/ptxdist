@@ -30,8 +30,9 @@ BASH_LICENSE	:= GPL-3.0-only
 # ----------------------------------------------------------------------------
 
 BASH_PATH	:= PATH=$(CROSS_PATH)
-BASH_ENV	:= $(CROSS_ENV)
-
+BASH_ENV	:= \
+	$(CROSS_ENV) \
+	bash_cv_job_control_missing=$(call ptx/ifdef, PTXCONF_BASH_JOBS, present, missing)
 
 BASH_AUTOCONF	:= \
 	$(CROSS_AUTOCONF_USR) \
@@ -71,15 +72,8 @@ BASH_AUTOCONF	:= \
 	--$(call ptx/endis, PTXCONF_BASH_SEP_HELPFILES)-separate-helpfiles \
 	--$(call ptx/endis, PTXCONF_BASH_SINGLE_HELPLINE)-single-help-strings \
 	--$(call ptx/endis, PTXCONF_BASH_GPROF)-profiling \
-	--$(call ptx/endis, PTXCONF_BASH_STATIC)-static-link
-
-ifdef PTXCONF_BASH_CURSES
-BASH_AUTOCONF += --with-curses
-endif
-
-ifdef PTXCONF_BASH_JOBS
-BASH_ENV	+= bash_cv_job_control_missing=present
-endif
+	--$(call ptx/endis, PTXCONF_BASH_STATIC)-static-link \
+	--$(call ptx/wwo, PTXCONF_BASH_CURSES)-curses
 
 # ----------------------------------------------------------------------------
 # Target-Install
