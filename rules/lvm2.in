@@ -6,6 +6,7 @@ menuconfig LVM2
 	select GCCLIBS_GCC_S
 	select READLINE
 	select NCURSES
+	select SYSTEMD if LVM2_SYSTEMD
 	prompt "lvm2                          "
 	help
 	  LVM2 refers to a new userspace toolset that provide logical volume management
@@ -51,4 +52,7 @@ config LVM2_DEVICE_MODE
 	help
 	  The effective access mode of the device nodes create by LVM
 
+config LVM2_SYSTEMD
+	bool
+	default INITMETHOD_SYSTEMD
 endif

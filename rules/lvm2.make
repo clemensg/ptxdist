@@ -60,6 +60,8 @@ LVM2_CONF_OPT := \
 	--disable-dmfilemapd \
 	--disable-notify-dbus \
 	--disable-blkid_wiping \
+	--$(call ptx/endis, PTXCONF_LVM2_SYSTEMD)-udev_sync \
+	--$(call ptx/endis, PTXCONF_LVM2_SYSTEMD)-udev_rules \
 	--disable-compat \
 	--disable-units-compat \
 	--enable-ioctl \
@@ -158,6 +160,10 @@ ifneq ($(call remove_quotes,$(PTXCONF_LVM2_BBINIT_LINK)),)
 		../init.d/lvm2, \
 		/etc/rc.d/$(PTXCONF_LVM2_BBINIT_LINK))
 endif
+endif
+
+ifdef PTXCONF_LVM2_SYSTEMD
+	@$(call install_tree, lvm2, 0, 0, -, /usr/lib/udev/rules.d/)
 endif
 	@$(call install_finish, lvm2)
 
