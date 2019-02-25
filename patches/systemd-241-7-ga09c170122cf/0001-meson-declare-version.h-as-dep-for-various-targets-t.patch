@@ -1,0 +1,110 @@
+From: =?UTF-8?q?Zbigniew=20J=C4=99drzejewski-Szmek?= <zbyszek@in.waw.pl>
+Date: Sun, 24 Feb 2019 22:49:38 +0100
+Subject: [PATCH] meson: declare version.h as dep for various targets that
+ include build.h
+
+Should fix #11565.
+---
+ meson.build          | 19 +++++++++++++------
+ src/core/meson.build |  3 ++-
+ src/udev/meson.build |  1 +
+ 3 files changed, 16 insertions(+), 7 deletions(-)
+
+diff --git a/meson.build b/meson.build
+index 56c98b9c1b7b..3972f7097290 100644
+--- a/meson.build
++++ b/meson.build
+@@ -1639,7 +1639,8 @@ exe = executable('systemd-analyze',
+                  include_directories : includes,
+                  link_with : [libcore,
+                               libshared],
+-                 dependencies : [threads,
++                 dependencies : [versiondep,
++                                 threads,
+                                  librt,
+                                  libseccomp,
+                                  libselinux,
+@@ -2185,7 +2186,8 @@ if conf.get('ENABLE_IMPORTD') == 1
+                                   systemd_pull_sources,
+                                   include_directories : includes,
+                                   link_with : [libshared],
+-                                  dependencies : [libcurl,
++                                  dependencies : [versiondep,
++                                                  libcurl,
+                                                   libz,
+                                                   libbzip2,
+                                                   libxz,
+@@ -2234,7 +2236,8 @@ if conf.get('ENABLE_REMOTE') == 1 and conf.get('HAVE_LIBCURL') == 1
+                          systemd_journal_upload_sources,
+                          include_directories : includes,
+                          link_with : [libshared],
+-                         dependencies : [threads,
++                         dependencies : [versiondep,
++                                         threads,
+                                          libcurl,
+                                          libgnutls,
+                                          libxz,
+@@ -2560,6 +2563,7 @@ exe = executable('systemd-stdio-bridge',
+                  'src/stdio-bridge/stdio-bridge.c',
+                  include_directories : includes,
+                  link_with : [libshared],
++                 dependencies : [versiondep],
+                  install_rpath : rootlibexecdir,
+                  install : true)
+ public_programs += exe
+@@ -2643,7 +2647,8 @@ exe = executable('systemd-udevd',
+                  link_with : [libudev_core,
+                               libsystemd_network,
+                               libudev_static],
+-                 dependencies : [threads,
++                 dependencies : [versiondep,
++                                 threads,
+                                  libkmod,
+                                  libidn,
+                                  libacl,
+@@ -2660,7 +2665,8 @@ exe = executable('udevadm',
+                  link_with : [libudev_core,
+                               libsystemd_network,
+                               libudev_static],
+-                 dependencies : [threads,
++                 dependencies : [versiondep,
++                                 threads,
+                                  libkmod,
+                                  libidn,
+                                  libacl,
+@@ -2800,7 +2806,8 @@ foreach tuple : tests
+                         sources,
+                         include_directories : incs,
+                         link_with : link_with,
+-                        dependencies : dependencies,
++                        dependencies : [versiondep,
++                                        dependencies],
+                         c_args : defs,
+                         build_by_default : want_tests != 'false',
+                         install_rpath : rootlibexecdir,
+diff --git a/src/core/meson.build b/src/core/meson.build
+index 85021bdc0100..88fb093732b6 100644
+--- a/src/core/meson.build
++++ b/src/core/meson.build
+@@ -150,7 +150,8 @@ libcore = static_library(
+         load_fragment_gperf_c,
+         load_fragment_gperf_nulstr_c,
+         include_directories : includes,
+-        dependencies : [threads,
++        dependencies : [versiondep,
++                        threads,
+                         librt,
+                         libseccomp,
+                         libpam,
+diff --git a/src/udev/meson.build b/src/udev/meson.build
+index 9d3f6d1c5624..973a75ec8b6a 100644
+--- a/src/udev/meson.build
++++ b/src/udev/meson.build
+@@ -180,6 +180,7 @@ foreach prog : [['ata_id/ata_id.c'],
+                    prog,
+                    include_directories : includes,
+                    c_args : ['-DLOG_REALM=LOG_REALM_UDEV'],
++                   dependencies : [versiondep],
+                    link_with : [libudev_static],
+                    install_rpath : udev_rpath,
+                    install : true,
