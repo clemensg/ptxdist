@@ -32,7 +32,8 @@ BASH_LICENSE	:= GPL-3.0-only
 BASH_PATH	:= PATH=$(CROSS_PATH)
 BASH_ENV	:= \
 	$(CROSS_ENV) \
-	bash_cv_job_control_missing=$(call ptx/ifdef, PTXCONF_BASH_JOBS, present, missing)
+	bash_cv_job_control_missing=$(call ptx/ifdef, PTXCONF_BASH_JOBS, present, missing) \
+	bash_cv_termcap_lib=$(call ptx/ifdef, PTXCONF_BASH_CURSES, libncurses, libtermcap)
 
 BASH_AUTOCONF	:= \
 	$(CROSS_AUTOCONF_USR) \
