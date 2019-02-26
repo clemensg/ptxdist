@@ -990,7 +990,7 @@ Overwrite defaults:
   --platformconfig=<config>	use specified platformconfig
   --collectionconfig=<config>	use specified collectionconfig
   --toolchain=<toolchain>	use specified toolchain
-  --force			select config even if MOJO is missing
+  --force, -f			select config even if MOJO is missing
   --force-download		allow downloading, even if disabled by setup
 
 Options:
