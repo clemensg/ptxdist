@@ -441,6 +441,10 @@ ifdef PTXCONF_SYSTEMD_UDEV_CUST_RULES
 	@$(call install_alternative_tree, systemd, 0, 0, /usr/lib/udev/rules.d)
 endif
 
+ifdef PTXCONF_SYSTEMD_POLKIT
+	@$(call install_alternative_tree, systemd, 0, 0, /usr/share/polkit-1)
+endif
+
 	@$(call install_finish, systemd)
 
 	@$(call touch)
