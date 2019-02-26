@@ -60,20 +60,20 @@ There are two ways to mange the package list for the image:
 
      IMAGE_ROOT_BOARD_A_PKGS := $(PTX_PACKAGES_INSTALL) board-a-extra
 
-   This is not recommended for larger changes to the packages list. Is is easy
+   This is not recommended for larger changes to the packages list, as it is easy
    to break dependencies this way.
 
 2. Use a collection config to create the package list
 
    To prepare for this, all packages that are not part of _all_ variants
-   must be set 'M' in menuconfig.
+   must be set ``M`` in menuconfig.
 
    Then a new collection for the variant is created:
 
    .. code-block:: text
 
      $ touch configs/collectionconfig-board-a
-     $ ptxdist ----collectionconfig=configs/collectionconfig-board-a menuconfig collection
+     $ ptxdist --collectionconfig=configs/collectionconfig-board-a menuconfig collection
 
    All extra packages for this variant are selected here. Then the
    collection config is configured for the image:
