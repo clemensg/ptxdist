@@ -4,6 +4,7 @@ config BAREBOX_ARCH_STRING
 	string
 	default "arm"			if ARCH_ARM || ARCH_ARM64
 	default "blackfin"		if ARCH_BLACKFIN
+	default "mips"			if ARCH_MIPS
 	default "ppc"			if ARCH_PPC
 	default "x86"			if ARCH_X86
 
