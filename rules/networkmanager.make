@@ -50,7 +50,7 @@ NETWORKMANAGER_CONF_OPT = \
 	--disable-qt \
 	--disable-teamdctl \
 	--disable-json-validation \
-	--disable-polkit \
+	--$(call ptx/endis,PTXCONF_NETWORKMANAGER_POLKIT)-polkit \
 	--disable-polkit-agent \
 	--disable-modify-system \
 	--$(call ptx/endis,PTXCONF_NETWORKMANAGER_PPP)-ppp \
@@ -224,6 +224,10 @@ endif
 
 	@$(call install_tree, networkmanager, 0, 0, -, /usr/share/dbus-1/system.d/)
 	@$(call install_tree, networkmanager, 0, 0, -, /usr/share/dbus-1/system-services/)
+
+ifdef PTXCONF_NETWORKMANAGER_POLKIT
+	@$(call install_tree, networkmanager, 0, 0, -, /usr/share/polkit-1/actions)
+endif
 
 ifdef PTXCONF_NETWORKMANAGER_EXAMPLES
 	@$(call install_glob, networkmanager, 0, 0, -, /usr/bin, */nm-*-*)

@@ -89,6 +89,10 @@ config NETWORKMANAGER_EXAMPLES
 	bool
 	prompt "install examples for Network Manager"
 
+config NETWORKMANAGER_POLKIT
+	bool
+	default POLKIT
+
 endif
 
 menu "networkmanager plugins        "
