@@ -4,7 +4,6 @@
 menuconfig PHP5
 	tristate
 	prompt "php5                          "
-	select APACHE2		if PHP5_SAPI_APXS2 || PHP5_SAPI_APXS2FILTER
 	select LIBCURL		if PHP5_EXT_CURL
 	select LIBXML2		if PHP5_XML_LIBXML2
 	select LIBXML2_C14N	if PHP5_XML_LIBXML2
@@ -49,7 +48,8 @@ config PHP5_SAPI_AOLSERVER
 
 config PHP5_SAPI_APXS2FILTER
 	bool
-	depends on STAGING
+	# needs apache
+	depends on BROKEN
 	prompt "apxs2filter"
 	help
 	  EXPERIMENTAL: Build shared Apache 2.0 Filter module. FILE is the optional
@@ -57,7 +57,8 @@ config PHP5_SAPI_APXS2FILTER
 
 config PHP5_SAPI_APXS2
 	bool
-	depends on STAGING
+	# needs apache
+	depends on BROKEN
 	prompt "apache mod_php (apxs2)"
 	help
 	  Build shared Apache 2.0 Handler module.
