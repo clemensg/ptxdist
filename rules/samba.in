@@ -3,14 +3,22 @@
 menuconfig SAMBA
 	tristate
 	prompt "samba                         "
+	select HOST_SYSTEM_PERL
+	select LIBC_CRYPT
+	select LIBC_DL
 	select LIBC_NSL
 	select LIBC_RESOLV
-	select LIBC_DL
-	select LIBC_CRYPT if SAMBA_SERVER
 	select GCCLIBS_GCC_S
-	select READLINE
+	select ACL
+	select BUSYBOX_START_STOP_DAEMON	if SAMBA_STARTSCRIPT
+	select CUPS				if SAMBA_CUPS
+	select KRB5
+	select LIBBSD
+	select LIBCAP
 	select LIBPOPT
-	select BUSYBOX_START_STOP_DAEMON if SAMBA_STARTSCRIPT
+	select READLINE
+	select SYSTEMD				if SAMBA_SYSTEMD_UNIT
+	select ZLIB
 	help
 	  Samba is an Open Source/Free Software suite that has, since
 	  1992, provided file and print services to all manner of
@@ -20,85 +28,10 @@ menuconfig SAMBA
 
 	  See http://www.samba.org for details.
 
-# Optional Features:
-#   --enable-static=PKGS    build static libraries default=no
-#   --enable-shared=PKGS    build shared libraries default=yes
-#   --enable-pie            Turn on pie support if available (default=yes)
-#   --enable-debug          Turn on compiler debugging information (default=no)
-#   --enable-socket-wrapper         Turn on socket wrapper library (default=no)
-#   --enable-developer      Turn on developer warnings and debugging (default=no)
-#   --enable-krb5developer  Turn on developer warnings and debugging, except -Wstrict-prototypes (default=no)
-#   --enable-dmalloc        Enable heap debugging default=no
-
-
-#   --enable-iprint         Turn on iPrint support (default=yes if cups is yes)
-#
-# Optional Packages:
-#   --with-PACKAGE[=ARG]    use PACKAGE [ARG=yes]
-#   --without-PACKAGE       do not use PACKAGE (same as --with-PACKAGE=no)
-#   --with-fhs              Use FHS-compliant paths (default=no)
-#   --with-privatedir=DIR   Where to put smbpasswd ($ac_default_prefix/private)
-#   --with-rootsbindir=DIR  Which directory to use for root sbin ($ac_default_prefix/sbin)
-#   --with-lockdir=DIR      Where to put lock files ($ac_default_prefix/var/locks)
-#   --with-piddir=DIR       Where to put pid files ($ac_default_prefix/var/locks)
-#   --with-swatdir=DIR      Where to put SWAT files ($ac_default_prefix/swat)
-#   --with-configdir=DIR    Where to put configuration files ($libdir)
-#   --with-logfilebase=DIR  Where to put log files ($VARDIR)
-#   --with-libdir=DIR       Where to put libdir ($libdir)
-#   --with-pammodulesdir=DIR  Which directory to use for PAM modules ($ac_default_prefix/$libdir/security)
-#   --with-mandir=DIR       Where to put man pages ($mandir)
-#   --with-cfenc=HEADERDIR  Use internal CoreFoundation encoding API
-# 			  for optimization (Mac OS X/Darwin only)
-#   --with-selftest-prefix=DIR    The prefix where make test will be runned ($selftest_prefix)
-#   --with-smbtorture4-path=PATH    The path to a samba4 smbtorture for make test (none)
-#   --with-profiling-data   Include gathering source code profile information (default=no)
-#   --with-readline=DIR     Look for readline include/libs in DIR (default=auto)
-#   --with-smbwrapper       Include SMB wrapper support (default=no)
-#   --with-afs              Include AFS clear-text auth support (default=no)
-#   --with-fake-kaserver    Include AFS fake-kaserver support (default=no)
-#   --with-vfs-afsacl       Include AFS to NT ACL mapping module (default=no)
-#   --with-dce-dfs          Include DCE/DFS clear-text auth support (default=no)
-#   --with-ldap             LDAP support (default yes)
-#   --with-ads              Active Directory support (default auto)
-#   --with-krb5=base-dir    Locate Kerberos 5 support (default=/usr)
-#   --with-automount        Include automount support (default=no)
-#   --with-smbmount         Include smbmount (Linux only) support (default=no)
-#   --with-cifsmount        Include mount.cifs and umount.cifs (Linux only) support (default=yes)
-#   --with-pam              Include PAM support (default=no)
-#   --with-pam_smbpass      Build PAM module for authenticating against passdb backends (default=no)
-#   --with-nisplus-home     Include NISPLUS_HOME support (default=no)
-#   --with-syslog           Include experimental SYSLOG support (default=no)
-#   --with-quotas           Include disk-quota support (default=no)
-#   --with-sys-quotas       Include lib/sysquotas.c support (default=auto)
-#   --with-utmp             Include utmp accounting (default, if supported by OS)
-#   --with-libmsrpc         Build the libmsrpc shared library (default=yes if shared libs supported)
-#   --with-libsmbclient     Build the libsmbclient shared library (default=yes if shared libs supported)
-#   --with-libsmbsharemodes     Build the libsmbsharemodes shared library (default=yes if shared libs supported)
-#   --with-spinlocks        Use spin locks instead of fcntl locks (default=no)
-#   --with-cluster-support  Enable cluster extensions (default=no)
-#   --with-acl-support      Include ACL support (default=no)
-#   --with-aio-support      Include asynchronous io support (default=no)
-#   --with-sendfile-support Check for sendfile support (default=yes)
-#   --with-winbind          Build winbind (default, if supported by OS)
-#   --with-included-popt    use bundled popt library, not from system
-#   --with-included-iniparser    use bundled iniparser library, not from system
-#   --with-python=PYTHONNAME  build Python libraries
-#   --with-static-modules=MODULES  Comma-seperated list of names of modules to statically link in
-#   --with-shared-modules=MODULES  Comma-seperated list of names of modules to build shared
-
 if SAMBA
 
 config SAMBA_COMMON
 	bool
-	default y
-	prompt "Samba common files"
-	help
-	  Install common samba files.
-
-config SAMBA_SMB_CONF
-	bool
-	default y
-	prompt "install /etc/samba/smb.conf"
 
 config SAMBA_SERVER
 	bool
@@ -107,19 +40,6 @@ config SAMBA_SERVER
 	help
 	  Installs samba server. ATTENTION: You need rw access to your
 	  rootfs before starting the samba server!
-
-if SAMBA_SERVER
-
-config SAMBA_SECRETS_USER
-	bool
-	prompt "User defined smb password Database"
-	help
-	  This will install the /etc/samba/secrets.tdb from
-	  projectroot/etc/samba/secrets.tdb. If you wish to run samba
-	  in user security level and use you own userdatabase. You will
-	  have to enable this. If you say n here. The samba server will
-	  generates his own secrets.tdb after initialisation.
-endif
 
 config SAMBA_CLIENT
 	bool
@@ -135,16 +55,8 @@ config SAMBA_LIBCLIENT
 	help
 	  Installs the libsmbclient shared library.
 
-config SAMBA_SMBFS
-	bool
-	select SAMBA_COMMON
-	prompt "Samba file system"
-	help
-	  Enables the system to mount windows share via SMB protocol
-
 config SAMBA_CUPS
 	bool
-	depends on BROKEN
 	prompt "cups support"
 	help
 	  Turn on CUPS support
@@ -154,5 +66,11 @@ config SAMBA_STARTSCRIPT
 	default y
 	depends on SAMBA_SERVER
 	prompt "install /etc/init.d/samba"
+
+config SAMBA_SYSTEMD_UNIT
+	bool
+	default y
+	depends on SAMBA_SERVER && INITMETHOD_SYSTEMD
+	prompt "install systemd unit files"
 
 endif

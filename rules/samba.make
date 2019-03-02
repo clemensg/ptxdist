@@ -17,105 +17,118 @@ PACKAGES-$(PTXCONF_SAMBA) += samba
 #
 # Paths and names
 #
-SAMBA_VERSION	:= 3.0.37
-SAMBA_MD5	:= 11ed2bfef4090bd5736b194b43f67289
+SAMBA_VERSION	:= 4.9.4
+SAMBA_MD5	:= 5e94705ae741bc6e4c893cea7b5de0d5
 SAMBA		:= samba-$(SAMBA_VERSION)
 SAMBA_SUFFIX	:= tar.gz
+SAMBA_URL	:= https://download.samba.org/pub/samba/stable/$(SAMBA).$(SAMBA_SUFFIX)
 SAMBA_SOURCE	:= $(SRCDIR)/$(SAMBA).$(SAMBA_SUFFIX)
 SAMBA_DIR	:= $(BUILDDIR)/$(SAMBA)
-SAMBA_LICENSE	:= GPL-2.0-only
-
-SAMBA_URL	:= \
-	http://www.samba.org/samba/ftp/stable/$(SAMBA).$(SAMBA_SUFFIX) \
-	http://www.samba.org/samba/ftp/old-versions/$(SAMBA).$(SAMBA_SUFFIX)
+SAMBA_LICENSE	:= GPL-3.0-or-later AND LGPL-3.0-or-later
+# cross-compile runtime checks. Initial file generated with
+# --cross-execute=$(PTXDIST_SYSROOT_CROSS)/bin/qemu-cross
+SAMBA_CONFIG	:= $(shell ptxd_get_alternative config/samba cross-answers && echo $$ptxd_reply)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-SAMBA_PATH	:= PATH=$(CROSS_PATH)
-SAMBA_ENV	:= \
-	$(CROSS_ENV) \
-	CFLAGS=-O2 \
-	libreplace_cv_READDIR_NEEDED=no \
-	samba_cv_HAVE_BROKEN_FCNTL64_LOCKS=no \
-	samba_cv_HAVE_BROKEN_GETGROUPS=no \
-	samba_cv_HAVE_C99_VSNPRINTF=yes \
-	samba_cv_HAVE_DEVICE_MAJOR_FN=yes \
-	samba_cv_HAVE_DEVICE_MINOR_FN=yes \
-	samba_cv_HAVE_FCNTL_LOCK=yes \
-	samba_cv_HAVE_FTRUNCATE_EXTEND=yes \
-	samba_cv_HAVE_GETTIMEOFDAY_TZ=yes \
-	samba_cv_HAVE_IFACE_AIX=no \
-	samba_cv_HAVE_IFACE_IFCONF=yes \
-	samba_cv_HAVE_IFACE_IFREQ=yes \
-	samba_cv_HAVE_KERNEL_CHANGE_NOTIFY=yes \
-	samba_cv_HAVE_KERNEL_OPLOCKS_LINUX=yes \
-	samba_cv_HAVE_KERNEL_SHARE_MODES=yes \
-	samba_cv_HAVE_MAKEDEV=yes \
-	samba_cv_HAVE_MMAP=yes \
-	samba_cv_HAVE_NATIVE_ICONV=yes \
-	samba_cv_HAVE_SECURE_MKSTEMP=yes \
-	samba_cv_HAVE_STRUCT_FLOCK64=yes \
-	samba_cv_HAVE_TRUNCATED_SALT=no \
-	samba_cv_HAVE_WORKING_AF_LOCAL=yes \
-	samba_cv_LINUX_LFS_SUPPORT=yes \
-	samba_cv_REALPATH_TAKES_NULL=yes \
-	samba_cv_REPLACE_INET_NTOA=no \
-	samba_cv_USE_SETRESUID=yes \
-	samba_cv_USE_SETREUID=yes \
-	samba_cv_have_longlong=yes \
-	samba_cv_have_setresgid=yes \
-	samba_cv_have_setresuid=yes
-
 #
 # autoconf
 #
-SAMBA_AUTOCONF := \
-	$(CROSS_AUTOCONF_USR) \
-	--disable-pie \
-	--libdir=/usr/lib/samba \
-	--sysconfdir=/etc \
-	--with-configdir=/etc/samba \
-	--with-libdir=/usr/lib \
-	--with-libsmbclient \
-	--with-lockdir=/var/lock \
-	--with-logfilebase=/var/log \
-	--with-piddir=/var/run \
-	--with-privatedir=/etc/samba \
-	--with-readline \
-	--with-syslog \
+SAMBA_CONF_TOOL	:= NO
+SAMBA_CONF_OPT	:= \
+	--nocache \
+	--without-json-audit \
+	--without-gettext \
+	--disable-python \
+	--without-gpgme \
+	--without-winbind \
 	--without-ads \
-	--without-automount \
-	--without-included-popt \
-	--without-krb5 \
 	--without-ldap \
+	--$(call ptx/endis,PTXCONF_SAMBA_CUPS)-cups \
+	--disable-iprint \
 	--without-pam \
-	--without-utmp \
-	--without-winbind
+	--with-quotas \
+	--with-sendfile-support \
+	--with-utmp \
+	--disable-avahi \
+	--$(call ptx/wwo, PTXCONF_ICONV)-iconv \
+	--with-acl-support \
+	--with-dnsupdate \
+	--with-syslog \
+	--without-automount \
+	--without-dmapi \
+	--without-fam \
+	--without-profiling-data \
+	--without-libarchive \
+	--without-cluster-support \
+	--without-regedit \
+	--without-fake-kaserver \
+	--disable-glusterfs \
+	--disable-cephfs \
+	--disable-spotlight \
+	--with-systemd \
+	--without-lttng \
+	--accel-aes=$(call ptx/ifdef,PTXCONF_ARCH_X86_64,intelaesni,none) \
+	--enable-pthreadpool \
+	--with-system-mitkrb5 \
+	--without-ad-dc \
+	--without-ntvfs-fileserver \
+	$(CROSS_AUTOCONF_SYSROOT_USR) \
+	--bundled-libraries=NONE,cmocka,tdb,talloc,tevent,ldb \
+	--disable-rpath \
+	--disable-rpath-install \
+	--enable-auto-reconfigure \
+	--cross-compile \
+	--cross-execute=/does/not/exist/and/triggers/exceptions \
+	--cross-answers=$(SAMBA_DIR)/cross-answers \
+	--hostcc=$(HOSTCC) \
+	--enable-fhs \
+	--with-piddir=/run/samba \
+	--with-lockdir=/var/lib/samba/lock \
+	--systemd-install-services \
+	--with-systemddir=/usr/lib/systemd/system
 
-ifdef PTXCONF_SAMBA_CUPS
-SAMBA_AUTOCONF += --enable-cups
-else
-SAMBA_AUTOCONF += --disable-cups
-endif
+$(STATEDIR)/samba.prepare:
+	@$(call targetinfo)
+	@UNAME_M=$(PTXCONF_ARCH_STRING) \
+		UNAME_R=$(KERNEL_VERSION) \
+		UNAME_V=$(if $(KERNEL_HEADER_VERSION),$(KERNEL_HEADER_VERSION),$(KERNEL_VERSION)) \
+		HAS_64BIT=$(call ptx/ifdef,PTXCONF_ARCH_LP64,OK,NO) \
+		ptxd_replace_magic $(SAMBA_CONFIG) > $(SAMBA_DIR)/cross-answers
+	@$(call world/execute, SAMBA, $(SYSTEMPYTHON) ./buildtools/bin/waf configure $(SAMBA_CONF_OPT))
+	@$(call touch)
 
-ifdef PTXCONF_SAMBA_SMBFS
-SAMBA_AUTOCONF += --with-smbmount
-endif
-
-ifdef PTXCONF_ICONV
-SAMBA_AUTOCONF += --with-libiconv=$(SYSROOT)/usr
-else
-SAMBA_AUTOCONF += --without-libiconv
-endif
-
-SAMBA_SUBDIR := source
-SAMBA_MAKE_PAR := NO
+SAMBA_COMPILE_ENV := \
+	PTXDIST_ICECC=
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
+
+SAMBA_COMMON_LIBS := \
+	libdcerpc \
+	libdcerpc-binding \
+	libndr-krb5pac \
+	libndr-nbt \
+	libndr-standard \
+	libndr \
+	libnetapi \
+	libsamba-credentials \
+	libsamba-errors \
+	libsamba-hostconfig \
+	libsamba-passdb \
+	libsamba-util \
+	libsamdb \
+	libsmbconf \
+	libtevent-util \
+	libwbclient \
+	samba/libldb \
+	samba/libtalloc \
+	samba/libtdb \
+	samba/libtevent
+
 
 $(STATEDIR)/samba.targetinstall:
 	@$(call targetinfo)
@@ -126,9 +139,15 @@ $(STATEDIR)/samba.targetinstall:
 	@$(call install_fixup, samba,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, samba,DESCRIPTION,missing)
 
-	@$(call install_copy, samba, 0, 0, 0755, /etc/samba)
+	@$(call install_alternative_tree, samba, 0, 0, /etc/samba)
 
 ifdef PTXCONF_SAMBA_COMMON
+	@$(call install_glob, samba, 0, 0, -, \
+		/usr/lib/samba,*-samba4.so)
+
+	@$(foreach lib, $(SAMBA_COMMON_LIBS), \
+		$(call install_lib, samba, 0, 0, 0644, $(lib))$(ptx/nl))
+
 	@$(call install_copy, samba, 0, 0, 0755, -, \
 		/usr/bin/nmblookup)
 	@$(call install_copy, samba, 0, 0, 0755, -, \
@@ -137,12 +156,6 @@ ifdef PTXCONF_SAMBA_COMMON
 		/usr/bin/smbpasswd)
 	@$(call install_copy, samba, 0, 0, 0755, -, \
 		/usr/bin/testparm)
-	@$(call install_copy, samba, 0, 0, 0644, -, \
-		/usr/lib/lowcase.dat)
-	@$(call install_copy, samba, 0, 0, 0644, -, \
-		/usr/lib/upcase.dat)
-	@$(call install_copy, samba, 0, 0, 0644, -, \
-		/usr/lib/valid.dat)
 endif
 
 ifdef PTXCONF_SAMBA_SERVER
@@ -158,16 +171,27 @@ ifdef PTXCONF_SAMBA_SERVER
 		/usr/bin/smbstatus)
 	@$(call install_copy, samba, 0, 0, 0755, -, \
 		/usr/bin/tdbbackup)
-endif
-
-ifdef PTXCONF_SAMBA_SMB_CONF
+	@$(call install_copy, samba, 0, 0, 0755, /var/cache/samba)
+	@$(call install_copy, samba, 0, 0, 0755, /var/lib/samba)
 	@$(call install_alternative, samba, 0, 0, 0644, \
-		/etc/samba/smb.conf)
+		/usr/lib/tmpfiles.d/samba.conf)
 endif
 
-ifdef PTXCONF_SAMBA_SECRETS_USER
-	@$(call install_alternative, samba, 0, 0, 0600, \
-		/etc/samba/secrets.tdb)
+ifdef PTXCONF_SAMBA_CLIENT
+	@$(call install_copy, samba, 0, 0, 0755, -, \
+		/usr/bin/smbcacls)
+	@$(call install_copy, samba, 0, 0, 0755, -, \
+		/usr/bin/smbcquotas)
+	@$(call install_copy, samba, 0, 0, 0755, -, \
+		/usr/bin/smbtree)
+	@$(call install_copy, samba, 0, 0, 0755, -, \
+		/usr/bin/smbclient)
+	@$(call install_copy, samba, 0, 0, 0755, -, \
+		/usr/bin/rpcclient)
+endif
+
+ifdef PTXCONF_SAMBA_LIBCLIENT
+	@$(call install_lib, samba, 0, 0, 0644, libsmbclient)
 endif
 
 #	#
@@ -185,29 +209,16 @@ endif
 endif
 endif
 
-ifdef PTXCONF_SAMBA_CLIENT
-	@$(call install_copy, samba, 0, 0, 0755, -, \
-		/usr/bin/smbcacls)
-	@$(call install_copy, samba, 0, 0, 0755, -, \
-		/usr/bin/smbcquotas)
-	@$(call install_copy, samba, 0, 0, 0755, -, \
-		/usr/bin/smbtree)
-	@$(call install_copy, samba, 0, 0, 0755, -, \
-		/usr/bin/smbclient)
-	@$(call install_copy, samba, 0, 0, 0755, -, \
-		/usr/bin/rpcclient)
-endif
+ifdef PTXCONF_SAMBA_SYSTEMD_UNIT
+	@$(call install_alternative, samba, 0, 0, 0644, \
+		/usr/lib/systemd/system/smb.service)
+	@$(call install_link, samba, ../smb.service, \
+		/usr/lib/systemd/system/multi-user.target.wants/smb.service)
 
-ifdef PTXCONF_SAMBA_LIBCLIENT
-	@$(call install_copy, samba, 0, 0, 0644, -, \
-		/usr/lib/libsmbclient.so)
-endif
-
-ifdef PTXCONF_SAMBA_SMBFS
-	@$(call install_copy, samba, 0, 0, 0755, -, \
-		/usr/bin/smbmount)
-	@$(call install_copy, samba, 0, 0, 0755, -, \
-		/usr/bin/smbumount)
+	@$(call install_alternative, samba, 0, 0, 0644, \
+		/usr/lib/systemd/system/nmb.service)
+	@$(call install_link, samba, ../nmb.service, \
+		/usr/lib/systemd/system/multi-user.target.wants/nmb.service)
 endif
 
 	@$(call install_finish, samba)
