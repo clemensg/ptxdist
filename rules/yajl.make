@@ -17,10 +17,10 @@ PACKAGES-$(PTXCONF_YAJL) += yajl
 # Paths and names
 #
 YAJL_VERSION	:= 2.1.0
-YAJL_MD5	:= 8df8a92a2799bc949577e8e7a9f43670
+YAJL_MD5	:= 8df8a92a2799bc949577e8e7a9f43670 6887e0ed7479d2549761a4d284d3ecb0
 YAJL		:= yajl-$(YAJL_VERSION)
 YAJL_SUFFIX	:= tar.gz
-YAJL_URL	:= https://github.com/lloyd/yajl/archive/$(YAJL).$(YAJL_SUFFIX)
+YAJL_URL	:= https://github.com/lloyd/yajl/archive/$(YAJL_VERSION).$(YAJL_SUFFIX)
 YAJL_SOURCE	:= $(SRCDIR)/$(YAJL).$(YAJL_SUFFIX)
 YAJL_DIR	:= $(BUILDDIR)/$(YAJL)
 YAJL_LICENSE	:= ISC
