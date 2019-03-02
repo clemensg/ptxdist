@@ -347,7 +347,12 @@ ptxd_make_world_init() {
 
 	    unset conf_opt_ptr
 	    ;;
-	*) ;;
+	*)
+	    local conf_env_ptr="ptx_conf_env_${pkg_type}"
+	    pkg_conf_env="PTXDIST_ICECC= ${pkg_conf_env:-${!conf_env_ptr}}"
+
+	    unset conf_env_ptr
+	    ;;
     esac
     local -a deps_host deps_target
     local whitelist_host whitelist_target
