@@ -1,5 +1,6 @@
-Subject: xmlstarlet: fix linking
 From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Mon, 11 Jan 2010 16:03:22 +0100
+Subject: [PATCH] xmlstarlet: fix linking
 
 xmlstarlet links libexslt statically. The configure script does not check for
 the dependencies. This fails if libexslt links agains libgcrypt.
@@ -11,13 +12,13 @@ For ptxdist this is ok. We install the libs already.
 Not for upstream.
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
-
+Forwarded: not-needed
 ---
- configure.in |   16 ++++++++--------
+ configure.in | 16 ++++++++--------
  1 file changed, 8 insertions(+), 8 deletions(-)
 
-Index: b/configure.in
-===================================================================
+diff --git a/configure.in b/configure.in
+index 856a451cac7f..713d2b34dd32 100644
 --- a/configure.in
 +++ b/configure.in
 @@ -31,7 +31,7 @@ AC_ARG_WITH(libxml-prefix,

@@ -1,5 +1,6 @@
-Subject: xmlstarlet: bail out if no dtd parsing support in libxml2
 From: Robert Schwebel <r.schwebel@pengutronix.de>
+Date: Sun, 29 Nov 2009 00:00:00 +0100
+Subject: [PATCH] xmlstarlet: bail out if no dtd parsing support in libxml2
 
 We use xmlParseDTD without testing if libxml2 has support
 for it enabled. This can result in the following linker error:
@@ -9,19 +10,16 @@ xmlstarlet-1.0.1/src/xml_validate.c:229:
 undefined reference to `xmlParseDTD'
 
 Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
-
+Applied-Upstream: 1.0.2, commit:5f2a71f57c1500b98ee2d1f9f6757854349e0072
 ---
-#20091129: rsc: submitted to upstream:
-#          https://sourceforge.net/tracker/?func=detail&aid=2905714&group_id=66612&atid=515108
-
- src/xml_validate.c |    5 +++++
+ src/xml_validate.c | 5 +++++
  1 file changed, 5 insertions(+)
 
-Index: xmlstarlet-1.0.1/src/xml_validate.c
-===================================================================
---- xmlstarlet-1.0.1.orig/src/xml_validate.c
-+++ xmlstarlet-1.0.1/src/xml_validate.c
-@@ -226,6 +226,11 @@ valAgainstDtd(valOptionsPtr ops, char* d
+diff --git a/src/xml_validate.c b/src/xml_validate.c
+index 911bb16d1d5f..a7f55b8da864 100644
+--- a/src/xml_validate.c
++++ b/src/xml_validate.c
+@@ -226,6 +226,11 @@ valAgainstDtd(valOptionsPtr ops, char* dtdvalid, xmlDocPtr doc, char* filename)
      {
          xmlDtdPtr dtd;
  
