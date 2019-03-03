@@ -3,5 +3,5 @@
 0001-xmlstarlet-use-debug-functions-only-if-libxml2-has-d.patch
 0002-xmlstarlet-fix-semicolon-in-wrong-place.patch
 0003-xmlstarlet-bail-out-if-no-dtd-parsing-support-in-lib.patch
-0004-xmlstarlet-fix-linking.patch
-# 5ce4c70ec2f7f73bf4105b9adcc9682e  - git-ptx-patches magic
+0004-xmlstarlet-link-against-shared-instead-of-static-lib.patch
+# 338410071307078bc0758338bee4bf1c  - git-ptx-patches magic
