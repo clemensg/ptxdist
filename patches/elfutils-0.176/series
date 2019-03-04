@@ -1,0 +1,13 @@
+hppa_backend.diff
+arm_backend.diff
+mips_backend.diff
+testsuite-ignore-elflint.diff
+mips_readelf_w.patch
+kfreebsd_path.patch
+0001-Ignore-differences-between-mips-machine-identifiers.patch
+0002-Add-support-for-mips64-abis-in-mips_retval.c.patch
+0003-Add-mips-n64-relocation-format-hack.patch
+hurd_path.patch
+ignore_strmerge.diff
+disable_werror.patch
+mips_cfi.patch
