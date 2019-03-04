@@ -1,7 +1,6 @@
-From 59d4b8c48e5040af7e02b34eb26ea602ec82a38e Mon Sep 17 00:00:00 2001
 From: James Cowgill <james410@cowgill.org.uk>
 Date: Mon, 5 Jan 2015 15:17:02 +0000
-Subject: [PATCH 3/3] Add mips n64 relocation format hack
+Subject: [PATCH] Add mips n64 relocation format hack
 
 MIPSEL N64 ELF files use a slightly different format for storing relocation
 entries which is incompatible with the normal R_SYM / R_INFO macros.
@@ -12,6 +11,10 @@ This patch also ensures that strip.c sets the correct value of e_machine
 before manipulating relocations so that these changes take effect.
 
 Signed-off-by: James Cowgill <james410@cowgill.org.uk>
+
+Imported from elfutils_0.176-1.debian.tar.xz
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
  libelf/gelf_getrel.c      | 25 +++++++++++++++++++++++--
  libelf/gelf_getrela.c     | 25 +++++++++++++++++++++++--
@@ -20,10 +23,10 @@ Signed-off-by: James Cowgill <james410@cowgill.org.uk>
  src/strip.c               | 17 +++++++++++++++++
  5 files changed, 101 insertions(+), 6 deletions(-)
 
-Index: elfutils-0.175/libelf/gelf_getrel.c
-===================================================================
---- elfutils-0.175.orig/libelf/gelf_getrel.c
-+++ elfutils-0.175/libelf/gelf_getrel.c
+diff --git a/libelf/gelf_getrel.c b/libelf/gelf_getrel.c
+index 309e3d37457b..2a81a97c9a45 100644
+--- a/libelf/gelf_getrel.c
++++ b/libelf/gelf_getrel.c
 @@ -36,6 +36,7 @@
  
  #include "libelfP.h"
@@ -32,7 +35,7 @@ Index: elfutils-0.175/libelf/gelf_getrel.c
  
  GElf_Rel *
  gelf_getrel (Elf_Data *data, int ndx, GElf_Rel *dst)
-@@ -89,8 +90,28 @@ gelf_getrel (Elf_Data *data, int ndx, GE
+@@ -89,8 +90,28 @@ gelf_getrel (Elf_Data *data, int ndx, GElf_Rel *dst)
  	  result = NULL;
  	}
        else
@@ -63,10 +66,10 @@ Index: elfutils-0.175/libelf/gelf_getrel.c
      }
  
    rwlock_unlock (scn->elf->lock);
-Index: elfutils-0.175/libelf/gelf_getrela.c
-===================================================================
---- elfutils-0.175.orig/libelf/gelf_getrela.c
-+++ elfutils-0.175/libelf/gelf_getrela.c
+diff --git a/libelf/gelf_getrela.c b/libelf/gelf_getrela.c
+index d695f6593dc4..1f42a80b4c7e 100644
+--- a/libelf/gelf_getrela.c
++++ b/libelf/gelf_getrela.c
 @@ -36,6 +36,7 @@
  
  #include "libelfP.h"
@@ -75,7 +78,7 @@ Index: elfutils-0.175/libelf/gelf_getrela.c
  
  GElf_Rela *
  gelf_getrela (Elf_Data *data, int ndx, GElf_Rela *dst)
-@@ -90,8 +91,28 @@ gelf_getrela (Elf_Data *data, int ndx, G
+@@ -90,8 +91,28 @@ gelf_getrela (Elf_Data *data, int ndx, GElf_Rela *dst)
  	  result = NULL;
  	}
        else
@@ -106,10 +109,10 @@ Index: elfutils-0.175/libelf/gelf_getrela.c
      }
  
    rwlock_unlock (scn->elf->lock);
-Index: elfutils-0.175/libelf/gelf_update_rel.c
-===================================================================
---- elfutils-0.175.orig/libelf/gelf_update_rel.c
-+++ elfutils-0.175/libelf/gelf_update_rel.c
+diff --git a/libelf/gelf_update_rel.c b/libelf/gelf_update_rel.c
+index 14f62e973a5e..90955566e4ad 100644
+--- a/libelf/gelf_update_rel.c
++++ b/libelf/gelf_update_rel.c
 @@ -36,6 +36,7 @@
  
  #include "libelfP.h"
@@ -118,7 +121,7 @@ Index: elfutils-0.175/libelf/gelf_update_rel.c
  
  int
  gelf_update_rel (Elf_Data *dst, int ndx, GElf_Rel *src)
-@@ -86,6 +87,9 @@ gelf_update_rel (Elf_Data *dst, int ndx,
+@@ -86,6 +87,9 @@ gelf_update_rel (Elf_Data *dst, int ndx, GElf_Rel *src)
      }
    else
      {
@@ -128,7 +131,7 @@ Index: elfutils-0.175/libelf/gelf_update_rel.c
        /* Check whether we have to resize the data buffer.  */
        if (INVALID_NDX (ndx, Elf64_Rel, &data_scn->d))
  	{
-@@ -93,7 +97,21 @@ gelf_update_rel (Elf_Data *dst, int ndx,
+@@ -93,7 +97,21 @@ gelf_update_rel (Elf_Data *dst, int ndx, GElf_Rel *src)
  	  goto out;
  	}
  
@@ -151,10 +154,10 @@ Index: elfutils-0.175/libelf/gelf_update_rel.c
      }
  
    result = 1;
-Index: elfutils-0.175/libelf/gelf_update_rela.c
-===================================================================
---- elfutils-0.175.orig/libelf/gelf_update_rela.c
-+++ elfutils-0.175/libelf/gelf_update_rela.c
+diff --git a/libelf/gelf_update_rela.c b/libelf/gelf_update_rela.c
+index 88252703976f..4caa85fb9f8e 100644
+--- a/libelf/gelf_update_rela.c
++++ b/libelf/gelf_update_rela.c
 @@ -36,6 +36,7 @@
  
  #include "libelfP.h"
@@ -163,7 +166,7 @@ Index: elfutils-0.175/libelf/gelf_update_rela.c
  
  int
  gelf_update_rela (Elf_Data *dst, int ndx, GElf_Rela *src)
-@@ -89,6 +90,9 @@ gelf_update_rela (Elf_Data *dst, int ndx
+@@ -89,6 +90,9 @@ gelf_update_rela (Elf_Data *dst, int ndx, GElf_Rela *src)
      }
    else
      {
@@ -173,7 +176,7 @@ Index: elfutils-0.175/libelf/gelf_update_rela.c
        /* Check whether we have to resize the data buffer.  */
        if (INVALID_NDX (ndx, Elf64_Rela, &data_scn->d))
  	{
-@@ -96,7 +100,21 @@ gelf_update_rela (Elf_Data *dst, int ndx
+@@ -96,7 +100,21 @@ gelf_update_rela (Elf_Data *dst, int ndx, GElf_Rela *src)
  	  goto out;
  	}
  
@@ -196,11 +199,11 @@ Index: elfutils-0.175/libelf/gelf_update_rela.c
      }
  
    result = 1;
-Index: elfutils-0.175/src/strip.c
-===================================================================
---- elfutils-0.175.orig/src/strip.c
-+++ elfutils-0.175/src/strip.c
-@@ -1062,6 +1062,23 @@ handle_elf (int fd, Elf *elf, const char
+diff --git a/src/strip.c b/src/strip.c
+index a73009d980e6..75bd7ba60eb8 100644
+--- a/src/strip.c
++++ b/src/strip.c
+@@ -1062,6 +1062,23 @@ handle_elf (int fd, Elf *elf, const char *prefix, const char *fname,
        goto fail;
      }
  

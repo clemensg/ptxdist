@@ -1,12 +1,22 @@
-Description: Add MIPS ABI CFI callback
-Author: Kurt Roeckx <kurt@roeckx.be>
-Last-Update: 2018-12-30
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Mon, 4 Mar 2019 13:20:36 +0100
+Subject: [PATCH] mips_cfi
 
-Index: elfutils-0.175/backends/Makefile.am
-===================================================================
---- elfutils-0.175.orig/backends/Makefile.am
-+++ elfutils-0.175/backends/Makefile.am
-@@ -141,7 +141,7 @@ parisc_SRCS = parisc_init.c parisc_symbo
+Imported from elfutils_0.176-1.debian.tar.xz
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ backends/Makefile.am |  2 +-
+ backends/mips_cfi.c  | 80 ++++++++++++++++++++++++++++++++++++++++++++++++++++
+ backends/mips_init.c |  1 +
+ 3 files changed, 82 insertions(+), 1 deletion(-)
+ create mode 100644 backends/mips_cfi.c
+
+diff --git a/backends/Makefile.am b/backends/Makefile.am
+index ba84da61cd20..8949a59210c3 100644
+--- a/backends/Makefile.am
++++ b/backends/Makefile.am
+@@ -141,7 +141,7 @@ parisc_SRCS = parisc_init.c parisc_symbol.c parisc_regs.c parisc_retval.c
  libebl_parisc_pic_a_SOURCES = $(parisc_SRCS)
  am_libebl_parisc_pic_a_OBJECTS = $(parisc_SRCS:.c=.os)
  
@@ -15,10 +25,11 @@ Index: elfutils-0.175/backends/Makefile.am
  libebl_mips_pic_a_SOURCES = $(mips_SRCS)
  am_libebl_mips_pic_a_OBJECTS = $(mips_SRCS:.c=.os)
  
-Index: elfutils-0.175/backends/mips_cfi.c
-===================================================================
+diff --git a/backends/mips_cfi.c b/backends/mips_cfi.c
+new file mode 100644
+index 000000000000..9ffdab5beb03
 --- /dev/null
-+++ elfutils-0.175/backends/mips_cfi.c
++++ b/backends/mips_cfi.c
 @@ -0,0 +1,80 @@
 +/* MIPS ABI-specified defaults for DWARF CFI.
 +   Copyright (C) 2018 Kurt Roeckx, Inc.
@@ -100,11 +111,11 @@ Index: elfutils-0.175/backends/mips_cfi.c
 +
 +  return 0;
 +}
-Index: elfutils-0.175/backends/mips_init.c
-===================================================================
---- elfutils-0.175.orig/backends/mips_init.c
-+++ elfutils-0.175/backends/mips_init.c
-@@ -50,6 +50,7 @@ mips_init (Elf *elf __attribute__ ((unus
+diff --git a/backends/mips_init.c b/backends/mips_init.c
+index 8482e7fe6e96..bce5abe1d98a 100644
+--- a/backends/mips_init.c
++++ b/backends/mips_init.c
+@@ -50,6 +50,7 @@ mips_init (Elf *elf __attribute__ ((unused)),
    HOOK (eh, reloc_simple_type);
    HOOK (eh, return_value_location);
    HOOK (eh, register_info);
