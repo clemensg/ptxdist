@@ -109,7 +109,7 @@ ptxd_kconfig_create_config_merge() {
     local diff="${3}"
     local orig_IFS="${IFS}"
     local file_md5 saved_md5
-    local diff_fd a b c prefix option arg
+    local diff_fd a b c prefix option arg conflict
     local -a args cmd
 
     set -- $(md5sum "${target}")
@@ -125,8 +125,20 @@ ptxd_kconfig_create_config_merge() {
 	    a="${a% is not set}"
 	    a="${a#\# }"
 	    b="n"
-	elif [ -z "${saved_md5}" -a -z "${b}" ]; then
-	    saved_md5="${a}"
+	elif [[ "${a}" =~ ^('<<<<<<<'|'>>>>>>>') ]]; then
+	    if [ "${#args[@]}" -eq 0 ]; then
+		conflict=1
+	    else
+		ptxd_bailout "Merge conflict found in" \
+		    "$(ptxd_print_path "${diff}")"
+	    fi
+	    continue
+	elif [ -n "${conflict}" -a -z "${a}" -a "${b}" = "======" ]; then
+	    continue
+	elif [[ "${a}" =~ ^[a-f0-9]{32}$ && -z "${b}" ]]; then
+	    if [ -z "${conflict}" ]; then
+		saved_md5="${a}"
+	    fi
 	    continue
 	elif [ -z "${b}" ]; then
 	    ptxd_bailout "Failed to parse" \
@@ -166,7 +178,11 @@ ptxd_kconfig_create_config_merge() {
     IFS="${orig_IFS}"
     CONFIG_="${prefix}" "${cmd[@]}" "${args[@]}" &&
     if [ "${file_md5}" != "${saved_md5}" ]; then
-	echo -e "\nOutdated diff, forcing config update...\n"
+	if [ -n "${conflict}" ]; then
+	    echo -e "\nFound merge conflict for diff hash, forcing config update...\n"
+	else
+	    echo -e "\nOutdated diff, forcing config update...\n"
+	fi
 	# this will be dropped, but forces kconfig to write the config
 	echo "# ${prefix}OPTION_DOES_NOT_EXIST is not set" >> "${target}"
     fi
