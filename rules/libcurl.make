@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_LIBCURL) += libcurl
 #
 # Paths and names
 #
-LIBCURL_VERSION	:= 7.62.0
-LIBCURL_MD5	:= 7adf426f80c68bbdd04d44b9bc171d61
+LIBCURL_VERSION	:= 7.64.0
+LIBCURL_MD5	:= d0bcc586873cfef08b4b9594e5395a33
 LIBCURL		:= curl-$(LIBCURL_VERSION)
 LIBCURL_SUFFIX	:= tar.bz2
 LIBCURL_URL	:= https://curl.haxx.se/download/$(LIBCURL).$(LIBCURL_SUFFIX)
@@ -84,7 +84,6 @@ LIBCURL_CONF_OPT	:= \
 	--without-mbedtls \
 	--without-cyassl \
 	--without-nss \
-	--without-axtls \
 	--with-ca-bundle=$(PTXCONF_LIBCURL_SSL_CABUNDLE_PATH) \
 	--with-ca-path=$(PTXCONF_LIBCURL_SSL_CAPATH_PATH) \
 	--without-ca-fallback \
