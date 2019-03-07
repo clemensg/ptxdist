@@ -19,6 +19,12 @@ menuconfig POCO
 
 if POCO
 
+config POCO_POQUITO
+	bool
+	prompt "smaller code-size"
+	help
+	  Omit a few features for smaller codesize.
+
 config POCO_ENCODINGS
 	bool
 	prompt "double-byte encodings library"
