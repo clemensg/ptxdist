@@ -1,0 +1,32 @@
+From: Baruch Siach <baruch@tkos.co.il>
+Date: Sun, 2 Dec 2018 18:56:34 +0200
+Subject: [PATCH] include: extend the headers conflict workaround to in6.h
+
+Commit 8d9d7e4b9ef ("include: fix build with kernel headers before 4.2")
+introduced a kernel/user headers conflict workaround that allows build
+of iptables with kernel headers older than 4.2. This minor extension
+allows build with kernel headers older than 3.12, which is the version
+that introduced explicit IP headers synchronization.
+
+Fixes: 8d9d7e4b9ef4 ("include: fix build with kernel headers before 4.2")
+Cc: Florian Westphal <fw@strlen.de>
+Signed-off-by: Baruch Siach <baruch@tkos.co.il>
+Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
+---
+ include/linux/netfilter.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/include/linux/netfilter.h b/include/linux/netfilter.h
+index bacf8cd92116..042d8b1478e0 100644
+--- a/include/linux/netfilter.h
++++ b/include/linux/netfilter.h
+@@ -5,8 +5,8 @@
+ 
+ #ifndef _NETINET_IN_H
+ #include <linux/in.h>
+-#endif
+ #include <linux/in6.h>
++#endif
+ #include <limits.h>
+ 
+ /* Responses from hook functions. */
