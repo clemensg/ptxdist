@@ -557,7 +557,7 @@ QT5_PLUGINS-$(PTXCONF_QT5_MODULE_QTWAYLAND)			+= wayland-shell-integration/libxd
 QT5_PLUGINS-$(PTXCONF_QT5_MODULE_QTWAYLAND)			+= wayland-shell-integration/libxdg-shell
 QT5_PLUGINS-$(PTXCONF_QT5_MODULE_QTWAYLAND)			+= wayland-decoration-client/libbradient
 
-QT5_QML-$(PTXCONF_QT5_MODULE_QTWAYLAND)				+= QtWayland
+QT5_QML-$(PTXCONF_QT5_MODULE_QTWAYLAND_QUICK)			+= QtWayland
 
 ### QtWebChannel ###
 QT5_LIBS-$(PTXCONF_QT5_MODULE_QTWEBCHANNEL)			+= Qt5WebChannel
