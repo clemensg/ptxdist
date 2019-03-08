@@ -2,6 +2,7 @@
 
 menuconfig IGT_GPU_TOOLS
 	tristate
+	select HOST_MESON
 	select GLIB
 	select CAIRO
 	select LIBKMOD
