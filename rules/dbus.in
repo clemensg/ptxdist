@@ -52,4 +52,9 @@ config DBUS_SYSTEMD_UNIT
 	depends on DBUS_SYSTEMD
 	prompt "install systemd unit files for dbus"
 
+config DBUS_SYSTEMD_USER_UNIT
+	bool
+	default y
+	depends on SYSTEMD_UNITS_USER && DBUS_SYSTEMD_UNIT
+
 endif

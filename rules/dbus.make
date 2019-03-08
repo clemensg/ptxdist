@@ -146,6 +146,15 @@ ifdef PTXCONF_DBUS_SYSTEMD_UNIT
 	@$(call install_link, dbus, ../dbus.service, \
 		/usr/lib/systemd/system/multi-user.target.wants/dbus.service)
 endif
+ifdef PTXCONF_DBUS_SYSTEMD_USER_UNIT
+	@$(call install_copy, dbus, 0, 0, 0644, -, \
+		/usr/lib/systemd/user/dbus.socket)
+	@$(call install_link, dbus, ../dbus.socket, \
+		/usr/lib/systemd/user/sockets.target.wants/dbus.socket)
+	@$(call install_copy, dbus, 0, 0, 0644, -, \
+		/usr/lib/systemd/user/dbus.service)
+endif
+
 	@$(call install_finish, dbus)
 
 	@$(call touch)
