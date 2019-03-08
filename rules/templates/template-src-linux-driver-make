@@ -30,21 +30,17 @@ endif
 # Prepare
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/@package@.prepare:
-	@$(call targetinfo)
-	@$(call touch)
+@PACKAGE@_CONF_TOOL := NO
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/@package@.compile:
-	@$(call targetinfo)
-	$(KERNEL_PATH) $(KERNEL_ENV) $(MAKE) $(KERNEL_MAKE_OPT) \
-		-C $(KERNEL_DIR) \
-		M=$(@PACKAGE@_DIR) \
-		modules
-	@$(call touch)
+@PACKAGE@_MAKE_OPT = \
+	$(KERNEL_MAKE_OPT) \
+	-C $(KERNEL_DIR) \
+	M=$(@PACKAGE@_DIR) \
+	modules
 
 # ----------------------------------------------------------------------------
 # Install
@@ -60,18 +56,7 @@ $(STATEDIR)/@package@.install:
 
 $(STATEDIR)/@package@.targetinstall:
 	@$(call targetinfo)
-	$(KERNEL_PATH) $(KERNEL_ENV) $(MAKE) $(KERNEL_MAKE_OPT) \
-		-C $(KERNEL_DIR) \
-		M=$(@PACKAGE@_DIR) \
-		modules_install
+	@$(call compile, CB1FPGA, $(CB1FPGA_MAKE_OPT)_install)
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-#$(STATEDIR)/@package@.clean:
-#	@$(call targetinfo)
-#	@$(call clean_pkg, @PACKAGE@)
 
 # vim: syntax=make
