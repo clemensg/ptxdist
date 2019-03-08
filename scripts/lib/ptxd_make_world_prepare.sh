@@ -183,6 +183,29 @@ ptxd_make_world_prepare() {
     ptxd_make_world_prepare_init || return
 
     case "${pkg_conf_tool}" in
+	cmake|meson)
+	    if ! [[ "${pkg_build_deps}" =~ "host-${pkg_conf_tool}" ]]; then
+		ptxd_bailout "'${pkg_label}' uses '${pkg_conf_tool}' but does not select 'host-${pkg_conf_tool}'"
+	    fi
+	    ;;
+	qmake)
+	    if ! [[ " ${pkg_build_deps} " =~ ' 'qt[45]' ' ]]; then
+		ptxd_bailout "'${pkg_label}' uses 'qmake' but does not select 'qt4' or 'qt5'"
+	    fi
+	    ;;
+	perl)
+	    if ! [[ " ${pkg_build_deps} " =~ ' perl ' ]]; then
+		ptxd_bailout "'${pkg_label}' uses 'perl' but does not select 'perl' <${pkg_build_deps}>"
+	    fi
+	    ;;
+	python*)
+	    if ! [[ "${pkg_build_deps}" =~ (host-(system-)?)?"${pkg_conf_tool}" ]]; then
+		ptxd_bailout "'${pkg_label}' uses '${pkg_conf_tool}' but does not select any python"
+	    fi
+	    ;;
+    esac
+
+    case "${pkg_conf_tool}" in
 	autoconf|cmake|qmake|kconfig|perl|meson)
 	    cd -- "${pkg_build_dir}" &&
 	    ptxd_make_world_prepare_"${pkg_conf_tool}" ;;
