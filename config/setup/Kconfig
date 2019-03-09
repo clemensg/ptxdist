@@ -79,20 +79,6 @@ config SETUP_NO_PROXY
 
 endmenu
 
-menu "Project Searchpath"
-
-config SETUP_PROJECTPATH
-	prompt "Project Searchpath "
-	string
-	default "${PTXDIST_TOPDIR}/projects"
-	help
-	  This path is used to search for project templates when
-	  running 'ptxdist projects'. You can clone the projects
-	  specified in this path with 'ptxdist clone'. The path
-	  is a : separated list.
-
-endmenu
-
 menu "Source Directories"
 
 config SETUP_SRCDIR
