@@ -16,12 +16,12 @@ PACKAGES-$(PTXCONF_LIBNFTNL) += libnftnl
 #
 # Paths and names
 #
-LIBNFTNL_VERSION	:= 1.0.9
-LIBNFTNL_MD5	:= 6c4f392faab5745933553b4354be5d8d
+LIBNFTNL_VERSION	:= 1.1.2
+LIBNFTNL_MD5		:= 14093a238d5025d4a452e6d1cef88c58
 LIBNFTNL		:= libnftnl-$(LIBNFTNL_VERSION)
-LIBNFTNL_SUFFIX	:= tar.bz2
+LIBNFTNL_SUFFIX		:= tar.bz2
 LIBNFTNL_URL		:= http://ftp.netfilter.org/pub/libnftnl/$(LIBNFTNL).$(LIBNFTNL_SUFFIX)
-LIBNFTNL_SOURCE	:= $(SRCDIR)/$(LIBNFTNL).$(LIBNFTNL_SUFFIX)
+LIBNFTNL_SOURCE		:= $(SRCDIR)/$(LIBNFTNL).$(LIBNFTNL_SUFFIX)
 LIBNFTNL_DIR		:= $(BUILDDIR)/$(LIBNFTNL)
 LIBNFTNL_LICENSE	:= GPL-2.0-only
 
@@ -29,9 +29,6 @@ LIBNFTNL_LICENSE	:= GPL-2.0-only
 # autoconf
 #
 LIBNFTNL_CONF_TOOL	:= autoconf
-LIBNFTNL_CONF_OPT	:= \
-	$(CROSS_AUTOCONF_USR) \
-	--$(call ptx/wwo, PTXCONF_LIBNFTNL_JSON)-json-parsing
 
 # ----------------------------------------------------------------------------
 # Target-Install
