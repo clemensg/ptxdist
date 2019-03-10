@@ -4,8 +4,8 @@
 \defaultfontfeatures{Scale=MatchLowercase,Mapping=tex-text}
 \IfFileExists{iffont.sty}{
   \usepackage{iffont}
-  \settofirstfound{\mainfont}{LTProjekt, DejaVu Sans, Liberation Sans}
-  \settofirstfound{\boldfont}{LTProjekt Heavy, DejaVu Sans Bold, Liberation Sans Bold}
+  \settofirstfound{\mainfont}{Open Sans, DejaVu Sans, Liberation Sans}
+  \settofirstfound{\boldfont}{Open Sans Bold, DejaVu Sans Bold, Liberation Sans Bold}
   \setmainfont[BoldFont=\boldfont]{\mainfont}
   \setsansfont[BoldFont=\boldfont]{\mainfont}
   \settofirstfound{\monofont}{Inconsolata, DejaVu Sans Mono, Liberation Sans Mono}
