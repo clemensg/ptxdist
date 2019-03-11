@@ -56,7 +56,7 @@ $(STATEDIR)/@package@.install:
 
 $(STATEDIR)/@package@.targetinstall:
 	@$(call targetinfo)
-	@$(call compile, CB1FPGA, $(CB1FPGA_MAKE_OPT)_install)
+	@$(call compile, @PACKAGE@, $(@PACKAGE@_MAKE_OPT)_install)
 	@$(call touch)
 
 # vim: syntax=make
