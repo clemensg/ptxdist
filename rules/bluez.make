@@ -95,7 +95,6 @@ $(STATEDIR)/bluez.targetinstall:
 
 	@$(call install_copy, bluez, 0, 0, 0755, -, /usr/libexec/bluetooth/bluetoothd)
 	@$(call install_copy, bluez, 0, 0, 0755, -, /usr/libexec/bluetooth/obexd)
-	@$(call install_lib, bluez, 0, 0, 0644, libbluetooth)
 
 ifdef PTXCONF_BLUEZ_TOOLS
 	@$(foreach binprogram, bccmd bluemoon btattach btmon hex2hcd l2ping \
