@@ -18,8 +18,8 @@ PACKAGES-$(PTXCONF_PANGO) += pango
 #
 # Paths and names
 #
-PANGO_VERSION	:= 1.42.1
-PANGO_MD5	:= d66d2f29e92d33b6da5e19c563520f7c
+PANGO_VERSION	:= 1.43.0
+PANGO_MD5	:= 2df040d3f6a4ed9bc316a70b35adcd8b
 PANGO		:= pango-$(PANGO_VERSION)
 PANGO_SUFFIX	:= tar.xz
 PANGO_URL	:= http://ftp.gnome.org/pub/GNOME/sources/pango/$(basename $(PANGO_VERSION))/$(PANGO).$(PANGO_SUFFIX)
@@ -31,21 +31,11 @@ PANGO_LICENSE	:= LGPL-2.0-or-later
 # Prepare
 # ----------------------------------------------------------------------------
 
-#
-# autoconf
-#
-PANGO_AUTOCONF := \
-	$(CROSS_AUTOCONF_USR) \
-	--disable-debug \
-	--disable-rebuilds \
-	--$(call ptx/endis, PTXCONF_PANGO_INTROSPECTION)-introspection \
-	--disable-gtk-doc \
-	--disable-gtk-doc-html \
-	--disable-gtk-doc-pdf \
-	--disable-doc-cross-references \
-	--disable-installed-tests \
-	--without-xft \
-	--with-cairo
+PANGO_CONF_TOOL	:= meson
+PANGO_CONF_OPT	:= \
+	$(CROSS_MESON_USR) \
+	-Denable_docs=false \
+	-Dgir=$(call ptx/truefalse,PTXCONF_PANGO_INTROSPECTION)
 
 # ----------------------------------------------------------------------------
 # Target-Install

@@ -3,6 +3,7 @@
 menuconfig PANGO
 	tristate
 	prompt "pango                         "
+	select HOST_MESON
 	select LIBC_M
 	select CAIRO
 	select CAIRO_FREETYPE
