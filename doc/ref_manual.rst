@@ -1201,6 +1201,33 @@ Depending on the state of FOO_VARIABLE this line results into
  FOO_CONF_OPT += --with-something=/usr (if FOO_VARIABLE is set)
  FOO_CONF_OPT += --with-something=none (if FOO_VARIABLE is unset)
 
+ptx/truefalse
+~~~~~~~~~~~~~
+
+To convert the state (set/unset) of a variable into a ``true/false``
+string use the ``ptx/truefalse`` macro.
+If the given <variable> is set this macro expands to
+the string ``true``, if unset to ``false`` instead.
+
+Usage:
+
+.. code-block:: none
+
+ -Dwith-something=$(call ptx/truefalse,<variable>)
+
+An example:
+
+.. code-block:: make
+
+ FOO_CONF_OPT += -Dwith-something=$(call ptx/truefalse,<variable>)
+
+Depending on the state of FOO_VARIABLE this line results into
+
+.. code-block:: make
+
+ FOO_CONF_OPT += -Dwith-something=true (if FOO_VARIABLE is set)
+ FOO_CONF_OPT += -Dwith-something=false (if FOO_VARIABLE is unset)
+
 ptx/get-alternative
 ~~~~~~~~~~~~~~~~~~~
 
