@@ -64,6 +64,7 @@ ptxd_make_world_patchin_apply_git_init()
 	git config alias.ptx-patches "!${PTXDIST_TOPDIR}/scripts/git-ptx-patches \"\${@}\"" &&
 	git config diff.renames false &&
 	git config core.abbrev 12 &&
+	git config core.autocrlf false &&
 	echo "patchin: git: done"
     fi
 }
