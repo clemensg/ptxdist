@@ -49,7 +49,7 @@ endif
 SYSTEMD_CONF_TOOL	:= meson
 SYSTEMD_CONF_OPT	:= \
 	$(CROSS_MESON_USR) \
-	-Dacl=false \
+	-Dacl=$(call ptx/truefalse,PTXCONF_SYSTEMD_UNITS_USER) \
 	-Dadm-group=true \
 	-Dapparmor=false \
 	-Daudit=false \

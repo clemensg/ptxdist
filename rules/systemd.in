@@ -10,6 +10,7 @@ menuconfig SYSTEMD
 	select LIBC_RT
 	select LIBC_DL		if SYSTEMD_NETWORK
 	select LIBC_M		if SYSTEMD_NETWORK || SYSTEMD_TIMEDATE
+	select ACL		if SYSTEMD_UNITS_USER
 	select LIBCAP
 	select LIBKMOD
 	select LIBKMOD_TOOLS
