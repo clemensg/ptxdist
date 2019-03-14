@@ -322,3 +322,11 @@ s/^\(\(# \)\?PTXCONF_BLUEZ\)_UTILS\(.*$\)/\1_TOOLS\2/
 # reason : change __ -> _
 #
 s/^\(\(# \)\?PTXCONF_FUSE_\)_/\1\2/
+
+#
+# from   : ptxdist-2019.03.0
+# to     : ptxdist-2019.04.0
+# symbol : MESALIB_DRI_IMX -> MESALIB_DRI_KMSRO
+# reason : renderonly drivers consolidated into kmsro
+#
+s/^\(\(# \)\?PTXCONF_\)MESALIB_DRI_IMX\>/\1MESALIB_DRI_KMSRO/

@@ -5,6 +5,6 @@ config HOST_MESALIB
 	default y if ALLYES
 	select HOST_EXPAT
 	select HOST_MAKEDEPEND
+	select HOST_MESON
 	select HOST_SYSTEM_PYTHON
-	select HOST_LIBPTHREAD_STUBS
 	select HOST_ZLIB

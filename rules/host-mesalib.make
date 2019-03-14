@@ -17,64 +17,62 @@ HOST_PACKAGES-$(PTXCONF_HOST_MESALIB) += host-mesalib
 # Prepare
 # ----------------------------------------------------------------------------
 
-HOST_MESALIB_CONF_ENV := \
-	$(HOST_ENV) \
-	ac_cv_prog_PYTHON2=$(PTXDIST_TOPDIR)/bin/python
-
-HOST_MESALIB_BUILD_OOT	:= YES
-HOST_MESALIB_CONF_TOOL	:= autoconf
+HOST_MESALIB_CONF_TOOL	:= meson
 HOST_MESALIB_CONF_OPT	:= \
-	$(HOST_AUTOCONF) \
-	--enable-static \
-	--disable-shared \
-	--disable-pwr8 \
-	--disable-debug \
-	--disable-profile \
-	--disable-sanitize \
-	--disable-asm \
-	--disable-selinux \
-	--disable-llvm-shared-libs \
-	--disable-libunwind \
-	--enable-opengl \
-	--disable-gles1 \
-	--disable-gles2 \
-	--disable-dri \
-	--disable-gallium-extra-hud \
-	--disable-lmsensors \
-	--disable-dri3 \
-	--disable-glx \
-	--disable-osmesa \
-	--disable-gallium-osmesa \
-	--disable-egl \
-	--disable-xa \
-	--disable-gbm \
-	--disable-nine \
-	--disable-xvmc \
-	--disable-vdpau \
-	--disable-omx-tizonia \
-	--disable-omx-bellagio \
-	--disable-va \
-	--disable-opencl \
-	--disable-opencl-icd \
-	--disable-gallium-tests \
-	--disable-libglvnd \
-	--disable-mangling \
-	--enable-shared-glapi \
-	--disable-driglx-direct \
-	--disable-glx-tls \
-	--disable-llvm-shared-libs \
-	--disable-glx-read-only-text \
-	--disable-xlib-lease \
-	--disable-llvm \
-	--disable-valgrind \
-	--with-gallium-drivers= \
-	--with-dri-drivers= \
-	--without-vulkan-drivers \
-	--with-platforms=
+	$(HOST_MESON_OPT) \
+	-Dasm=false \
+	-Dbuild-tests=false \
+	-Dd3d-drivers-path=/usr/lib/d3d \
+	-Ddri-drivers= \
+	-Ddri-drivers-path=/usr/lib/dri \
+	-Ddri-search-path=/usr/lib/dri \
+	-Ddri3=false \
+	-Degl=false \
+	-Dgallium-drivers= \
+	-Dgallium-extra-hud=false \
+	-Dgallium-nine=false \
+	-Dgallium-omx=disabled \
+	-Dgallium-opencl=disabled \
+	-Dgallium-va=false \
+	-Dgallium-vdpau=false \
+	-Dgallium-xa=false \
+	-Dgallium-xvmc=false \
+	-Dgbm=false \
+	-Dgles1=false \
+	-Dgles2=false \
+	-Dglvnd=false \
+	-Dglx=disabled \
+	-Dglx-direct=false \
+	-Dglx-read-only-text=false \
+	-Dlibunwind=false \
+	-Dllvm=false \
+	-Dlmsensors=false \
+	-Domx-libs-path=/usr/lib/dri \
+	-Dopengl=true \
+	-Dosmesa=none \
+	-Dosmesa-bits=8 \
+	-Dplatforms= \
+	-Dpower8=false \
+	-Dselinux=false \
+	-Dshader-cache=false \
+	-Dshared-glapi=true \
+	-Dshared-llvm=false \
+	-Dswr-arches=[] \
+	-Dtools=glsl \
+	-Dva-libs-path=/usr/lib/dri \
+	-Dvalgrind=false \
+	-Dvdpau-libs-path=/usr/lib/vdpau \
+	-Dvulkan-drivers=[] \
+	-Dvulkan-icd-dir=/etc/vulkan/icd.d \
+	-Dxlib-lease=false \
+	-Dxvmc-libs-path=/usr/lib
+
+HOST_MESALIB_MAKE_OPT	:= \
+	src/compiler/glsl/glsl_compiler
 
 $(STATEDIR)/host-mesalib.install:
 	@$(call targetinfo)
-	install -D -m755 $(HOST_MESALIB_DIR)-build/src/compiler/glsl_compiler $(HOST_MESALIB_PKGDIR)/bin/mesa/glsl_compiler
+	install -D -m755 $(HOST_MESALIB_DIR)-build/src/compiler/glsl/glsl_compiler $(HOST_MESALIB_PKGDIR)/bin/mesa/glsl_compiler
 	@$(call touch)
 
 # vim: syntax=make
