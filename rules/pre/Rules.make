@@ -249,11 +249,11 @@ CROSS_PYTHON_INSTALL := install --prefix=/usr
 HOST_PYTHON_INSTALL := install --prefix=/.
 
 CROSS_MESON_USR := \
-	--prefix /usr \
-	--libdir $(CROSS_LIB_DIR) \
-	--backend ninja \
-	--buildtype debugoptimized \
-	--cross-file '${PTXDIST_MESON_CROSS_FILE}'
+	--cross-file '${PTXDIST_MESON_CROSS_FILE}' \
+	-Dbackend=ninja \
+	-Dbuildtype=debugoptimized \
+	-Dlibdir=$(CROSS_LIB_DIR) \
+	-Dprefix=/usr
 
 CROSS_MESON_ENV = \
 	$(HOST_ENV_PROGS)
@@ -319,10 +319,10 @@ HOST_CMAKE_OPT_SYSROOT := \
 	-DCMAKE_TOOLCHAIN_FILE='${PTXDIST_CMAKE_TOOLCHAIN_HOST}'
 
 HOST_MESON_OPT := \
-	--prefix / \
-	--libdir lib \
-	--backend ninja \
-	--buildtype debugoptimized
+	-Dbackend=ninja \
+	-Dbuildtype=debugoptimized \
+	-Dlibdir=lib \
+	-Dprefix=/
 
 # ----------------------------------------------------------------------------
 # HOST_CROSS stuff
