@@ -97,4 +97,24 @@ config BERLIOS_CAN_UTILS_SLCANPTY
 	bool
 	prompt "slcanpty"
 
+config BERLIOS_CAN_UTILS_JSPY
+	bool
+	prompt "jspy"
+
+config BERLIOS_CAN_UTILS_JSR
+	bool
+	prompt "jsr"
+
+config BERLIOS_CAN_UTILS_JACD
+	bool
+	prompt "jacd"
+
+config BERLIOS_CAN_UTILS_JCAT
+	bool
+	prompt "jcat"
+
+config BERLIOS_CAN_UTILS_TESTJ1939
+	bool
+	prompt "testj1939"
+
 endif
