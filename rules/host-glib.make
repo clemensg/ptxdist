@@ -22,44 +22,26 @@ HOST_GLIB_DIR	= $(HOST_BUILDDIR)/$(GLIB)
 # Prepare
 # ----------------------------------------------------------------------------
 
-HOST_GLIB_CONF_ENV	:= \
-	$(HOST_ENV) \
-	ac_cv_path_MSGFMT="" \
-	ac_cv_path_XGETTEXT="" \
-	ac_cv_prog_GTKDOC_CHECK="" \
-	ac_cv_path_GTKDOC_REBASE="" \
-	ac_cv_path_GTKDOC_MKPDF=""
-
 #
-# autoconf
+# meson
 #
-HOST_GLIB_CONF_TOOL	:= autoconf
+HOST_GLIB_CONF_TOOL	:= meson
 HOST_GLIB_CONF_OPT	:= \
-	$(HOST_AUTOCONF) \
-	--disable-maintainer-mode \
-	--disable-debug \
-	--disable-gc-friendly \
-	--enable-mem-pools \
-	--disable-installed-tests \
-	--disable-always-build-tests \
-	--disable-static \
-	--enable-shared \
-	--disable-included-printf \
-	--disable-selinux \
-	--disable-fam \
-	--disable-xattr \
-	--disable-libelf \
-	--disable-libmount \
-	--disable-gtk-doc \
-	--disable-gtk-doc-html \
-	--disable-gtk-doc-pdf \
-	--disable-man \
-	--disable-dtrace \
-	--disable-systemtap \
-	--disable-coverage \
-	--with-libiconv=no \
-	--with-threads=posix \
-	--with-pcre=system
+	$(HOST_MESON_OPT) \
+	-Dbsymbolic_functions=true \
+	-Ddtrace=false \
+	-Dfam=false \
+	-Dforce_posix_threads=true \
+	-Dgtk_doc=false \
+	-Diconv=libc \
+	-Dinstalled_tests=false \
+	-Dinternal_pcre=false \
+	-Dlibmount=false \
+	-Dman=false \
+	-Dnls=disabled \
+	-Dselinux=disabled \
+	-Dsystemtap=false \
+	-Dxattr=false
 
 $(STATEDIR)/host-glib.install.post:
 	@$(call targetinfo)
