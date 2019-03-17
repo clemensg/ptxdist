@@ -40,21 +40,17 @@ LIBQXT_MODULES-$(PTXCONF_LIBQXT_ZEROCONF)	+= Zeroconf
 LIBQXT_MODULES-$(PTXCONF_LIBQXT_WEB)		+= Web
 
 LIBQXT_CONF_TOOL	:= autoconf
-LIBQXT_CONF_OPT	:= \
+LIBQXT_CONF_OPT		= \
 	-verbose \
 	-prefix /usr \
 	-featuredir /usr/mkspecs/features \
 	-release \
-	-nomake "$(shell echo $(LIBQXT_MODULES-) | tr "A-Z" "a-z")"
+	-nomake "$(shell echo $(LIBQXT_MODULES-) | tr "A-Z" "a-z")" \
+	$(call ptx/ifdef,PTXCONF_QT4_PLATFORM_EMBEDDED,-qws) \
+	$(call ptx/ifdef,PTXCONF_QT4_X11_XRANDR,,-no-xrandr)
 
-ifdef PTXCONF_QT4_PLATFORM_EMBEDDED
-LIBQXT_CONF_OPT += -qws
-endif
-ifndef PTXCONF_QT4_X11_XRANDR
-LIBQXT_CONF_OPT += -no-xrandr
-endif
 ifdef PTXCONF_LIBQXT_ZEROCONF
-LIBQXT_CONF_OPT += -I "$(SYSROOT)/usr/include/avahi-compat-libdns_sd"
+LIBQXT_CXXFLAGS := -isystem "$(SYSROOT)/usr/include/avahi-compat-libdns_sd"
 endif
 
 # ----------------------------------------------------------------------------
