@@ -26,6 +26,10 @@ IFS=":"
 # make sure no other sysroot is set
 # it conflicts with our own sysroot handling
 unset PKG_CONFIG_SYSROOT_DIR
+# never allow systemd paths
+# they may include /usr/{lib,include} which is never correct
+unset PKG_CONFIG_ALLOW_SYSTEM_CFLAGS
+unset PKG_CONFIG_ALLOW_SYSTEM_LIBS
 # default pkg-config searchs
 export PKG_CONFIG_LIBDIR="${libdir[*]}"
 # default search path that will be dropped from --libs
