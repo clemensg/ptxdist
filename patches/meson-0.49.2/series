@@ -2,4 +2,5 @@
 #tag:base --start-number 1
 0001-only-use-paths-for-shared-libaries-in-get_link_dep_s.patch
 0002-don-t-add-rpaths-for-build-directories-when-cross-co.patch
-# 64a38f30e6d78c37e38a2d143fa8ed71  - git-ptx-patches magic
+0003-HACK-don-t-loose-the-rpath-for-host-packages.patch
+# 5cb122e1f6a7d12f6e2fc7dd5a2d329b  - git-ptx-patches magic
