@@ -1,0 +1,28 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Mon, 18 Mar 2019 10:42:15 +0100
+Subject: [PATCH] don't add rpaths for build directories when cross-compiling
+
+The binaries cannot be executed anyways, so this just increases the binary
+size unnecessarily.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ mesonbuild/compilers/compilers.py | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/mesonbuild/compilers/compilers.py b/mesonbuild/compilers/compilers.py
+index e27ae2b3b574..8fb4bf0004f1 100644
+--- a/mesonbuild/compilers/compilers.py
++++ b/mesonbuild/compilers/compilers.py
+@@ -1181,7 +1181,10 @@ class Compiler:
+         # Need to deduplicate rpaths, as macOS's install_name_tool
+         # is *very* allergic to duplicate -delete_rpath arguments
+         # when calling depfixer on installation.
+-        all_paths = OrderedSet([os.path.join(origin_placeholder, p) for p in processed_rpaths])
++        if not self.is_cross:
++            all_paths = OrderedSet([os.path.join(origin_placeholder, p) for p in processed_rpaths])
++        else:
++            all_paths = OrderedSet()
+         # Build_rpath is used as-is (it is usually absolute).
+         if build_rpath != '':
+             all_paths.add(build_rpath)
