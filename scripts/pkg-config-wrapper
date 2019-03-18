@@ -28,9 +28,9 @@ IFS=":"
 unset PKG_CONFIG_SYSROOT_DIR
 # default pkg-config searchs
 export PKG_CONFIG_LIBDIR="${libdir[*]}"
-# default search path that will be dropped from --cflags
-export PKG_CONFIG_SYSTEM_LIBRARY_PATH="${system_libpath[*]}"
 # default search path that will be dropped from --libs
+export PKG_CONFIG_SYSTEM_LIBRARY_PATH="${system_libpath[*]}"
+# default search path that will be dropped from --cflags
 export PKG_CONFIG_SYSTEM_INCLUDE_PATH="${system_incpath[*]}"
 IFS="${orig_IFS}"
 
