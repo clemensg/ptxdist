@@ -67,6 +67,7 @@ endif
 #
 OPENSSL_CONF_OPT := \
 	--prefix=/usr \
+	--libdir=/usr/lib \
 	--openssldir=/usr/lib/ssl \
 	shared \
 	no-idea \
