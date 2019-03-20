@@ -44,7 +44,7 @@ BLUEZ_CONF_OPT	:= $(CROSS_AUTOCONF_USR) \
 	--disable-pie \
 	--enable-threads \
 	--disable-backtrace \
-	--enable-library \
+	--$(call ptx/endis, PTXCONF_BLUEZ_LIBBLUETOOTH)-library \
 	--$(call ptx/endis, PTXCONF_BLUEZ_INSTALL_TESTSCRIPTS)-test \
 	--disable-nfc \
 	--disable-sap \
@@ -91,7 +91,9 @@ $(STATEDIR)/bluez.targetinstall:
 	@$(call install_fixup, bluez,AUTHOR,"Uwe Kleine-Koenig <u.kleine-koenig@pengutronix.de>")
 	@$(call install_fixup, bluez,DESCRIPTION, "Bluetooth protocol stack")
 
+ifdef PTXCONF_BLUEZ_LIBBLUETOOTH
 	@$(call install_lib, bluez, 0, 0, 0644, libbluetooth)
+endif
 
 	@$(call install_copy, bluez, 0, 0, 0755, -, /usr/libexec/bluetooth/bluetoothd)
 	@$(call install_copy, bluez, 0, 0, 0755, -, /usr/libexec/bluetooth/obexd)

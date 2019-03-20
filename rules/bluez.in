@@ -21,6 +21,12 @@ menuconfig BLUEZ
 
 if BLUEZ
 
+config BLUEZ_LIBBLUETOOTH
+	bool "install libbluetooth"
+	help
+	  Install libbluetooth used by applications not directly talking
+	  to the bluez daemon via dbus.
+
 config BLUEZ_SYSTEMD_UNIT
 	bool
 	default y
