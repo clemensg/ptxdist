@@ -16,9 +16,9 @@ PACKAGES-$(PTXCONF_OPENLDAP) += openldap
 #
 # Paths and names
 #
-OPENLDAP_VERSION	:= 2.4.31
+OPENLDAP_VERSION	:= 2.4.47
 OPENLDAP_LIBVERSION	:= 2.4
-OPENLDAP_MD5		:= 804c6cb5698db30b75ad0ff1c25baefd
+OPENLDAP_MD5		:= e508f97bfd778fec7799f286e5c07176
 OPENLDAP		:= openldap-$(OPENLDAP_VERSION)
 OPENLDAP_SUFFIX		:= tgz
 OPENLDAP_URL		:= ftp://ftp.openldap.org/pub/OpenLDAP/openldap-release/$(OPENLDAP).$(OPENLDAP_SUFFIX)
@@ -30,6 +30,10 @@ OPENLDAP_LICENSE	:= OpenLDAP Public License
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
+
+OPENLDAP_CONF_ENV	:= \
+	$(CROSS_ENV) \
+	ac_cv_header_uuid_uuid_h=no
 
 OPENLDAP_TLS_CONF_OPT-$(PTXCONF_OPENLDAP_TLS_GNUTLS)	:= gnutls
 OPENLDAP_TLS_CONF_OPT-$(PTXCONF_OPENLDAP_TLS_OPENSSL)	:= openssl
