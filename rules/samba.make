@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_SAMBA) += samba
 #
 # Paths and names
 #
-SAMBA_VERSION	:= 4.9.4
-SAMBA_MD5	:= 5e94705ae741bc6e4c893cea7b5de0d5
+SAMBA_VERSION	:= 4.9.5
+SAMBA_MD5	:= e761ba58bdbcb903bd3692283d46103a
 SAMBA		:= samba-$(SAMBA_VERSION)
 SAMBA_SUFFIX	:= tar.gz
 SAMBA_URL	:= https://download.samba.org/pub/samba/stable/$(SAMBA).$(SAMBA_SUFFIX)
