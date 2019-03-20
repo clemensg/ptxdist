@@ -42,6 +42,7 @@ SAMBA_CONF_OPT	:= \
 	--without-json-audit \
 	--without-gettext \
 	--disable-python \
+	--disable-gnutls \
 	--without-gpgme \
 	--without-winbind \
 	--without-ads \
