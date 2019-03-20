@@ -5,6 +5,9 @@ ar = '@AR@'
 strip = '@STRIP@'
 pkgconfig = '@PKG_CONFIG@'
 
+[properties]
+needs_exe_wrapper = true
+
 [host_machine]
 system = 'linux'
 cpu_family = '@PTXCONF_ARCH_STRING@'
