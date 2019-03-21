@@ -1948,6 +1948,7 @@ EOF
 		gdb)
 			check_premake_compiler &&
 			compiler_prefix="$(ptxd_get_ptxconf PTXCONF_COMPILER_PREFIX)" &&
+			ptxdist_trap_exit_handler &&
 			exec "${PTXDIST_PLATFORMDIR}/sysroot-host/lib/wrapper/${compiler_prefix}gdb" "${@}"
 			;;
 		get|urlcheck)
