@@ -146,6 +146,9 @@ $(STATEDIR)/kernel.tags:
 # Compile
 # ----------------------------------------------------------------------------
 
+# -Werror=implicit-fallthrough= issues in tools/objtool/parse-options.c
+KERNEL_MAKE_ENV := ICECC_VERSION_HOST=
+
 KERNEL_MAKE_OPT		:= $(KERNEL_CONF_OPT)
 KERNEL_TOOL_PERF_OPTS	:= \
 	WERROR=0 \
