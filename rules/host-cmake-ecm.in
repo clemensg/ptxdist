@@ -1,0 +1,9 @@
+## SECTION=hosttools_noprompt
+
+config HOST_CMAKE_ECM
+	tristate
+	select HOST_CMAKE
+	default y if ALLYES
+	help
+	  Extra CMake Modules adds CMake modules commonly used
+	  by software produced by the KDE community.
