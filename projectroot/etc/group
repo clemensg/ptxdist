@@ -27,4 +27,5 @@ systemd-journal-gateway:x:206:
 systemd-journal-remote:x:203:
 systemd-journal-upload:x:208:
 render:x:209:
+pulse:x:210:
 nogroup:x:65534:

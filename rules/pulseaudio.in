@@ -8,12 +8,16 @@ config PULSEAUDIO
 	select LIBC_PTHREAD
 	select ALSA_LIB
 	select ALSA_LIB_MIXER
-	select JSON_C
 	select LIBCAP
 	select LIBLTDL
 	select LIBSNDFILE
 	select ORC
-	select SYSTEMD		if PULSEAUDIO_SYSTEMD
+	select SYSTEMD			if PULSEAUDIO_SYSTEMD
+	select SBC			if PULSEAUDIO_BLUETOOTH
+	select DBUS			if PULSEAUDIO_BLUETOOTH
+	select BLUEZ			if PULSEAUDIO_BLUETOOTH && RUNTIME
+	select SPEEXDSP			if PULSEAUDIO_SPEEX
+	select SPEEXDSP_FLOAT_API	if PULSEAUDIO_SPEEX
 	select UDEV
 	select UDEV_LIBUDEV
 	prompt "pulseaudio"
@@ -28,5 +32,18 @@ if PULSEAUDIO
 config PULSEAUDIO_SYSTEMD
 	bool
 	default INITMETHOD_SYSTEMD
+
+config PULSEAUDIO_BLUETOOTH
+        bool
+        prompt "enable bluetooth support"
+
+config PULSEAUDIO_SPEEX
+	bool
+	default y
+	prompt "enable speex based resamplers"
+	help
+	  The speex based resamplers provide the best cost/quality
+	  trade-off on most platforms. It's recommended to only disable
+	  this when no resampling is required.
 
 endif

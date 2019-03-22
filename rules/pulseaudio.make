@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_PULSEAUDIO) += pulseaudio
 #
 # Paths and names
 #
-PULSEAUDIO_VERSION	:= 8.0
-PULSEAUDIO_MD5		:= 8678442ba0bb4b4c33ac6f62542962df
+PULSEAUDIO_VERSION	:= 12.2
+PULSEAUDIO_MD5		:= c42f1f1465e8df9859d023dc184734bf
 PULSEAUDIO		:= pulseaudio-$(PULSEAUDIO_VERSION)
 PULSEAUDIO_SUFFIX	:= tar.xz
 PULSEAUDIO_URL		:= http://freedesktop.org/software/pulseaudio/releases/$(PULSEAUDIO).$(PULSEAUDIO_SUFFIX)
@@ -25,7 +25,7 @@ PULSEAUDIO_SOURCE	:= $(SRCDIR)/$(PULSEAUDIO).$(PULSEAUDIO_SUFFIX)
 PULSEAUDIO_DIR		:= $(BUILDDIR)/$(PULSEAUDIO)
 PULSEAUDIO_LICENSE	:= MIT AND GPL-2.0-or-later AND LGPL-2.1-or-later AND Rdisc AND ADRIAN
 PULSEAUDIO_LICENSE_FILES	:= \
-	file://LICENSE;md5=d9ae089c8dc5339f8ac9d8563038a29f \
+	file://LICENSE;md5=0e5cd938de1a7a53ea5adac38cc10c39 \
 	file://GPL;md5=4325afd396febcb659c36b49533135d4 \
 	file://LGPL;md5=2d5025d4aa3495befef8f17206a5b0a1 \
 	file://src/pulsecore/g711.c;startline=2;endline=24;md5=663902612456e1794f328632f8b6a20a \
@@ -51,6 +51,7 @@ PULSEAUDIO_CONF_OPT	:= \
 	--enable-atomic-arm-memory-barrier \
 	--$(call ptx/endis, PTXCONF_ARCH_ARM_NEON)-neon-opt \
 	$(GLOBAL_LARGE_FILE_OPTION) \
+	--enable-memfd \
 	--disable-x11 \
 	--disable-tests \
 	--disable-samplerate \
@@ -63,22 +64,23 @@ PULSEAUDIO_CONF_OPT	:= \
 	--disable-waveout \
 	--disable-glib2 \
 	--disable-gtk3 \
+	--disable-gsettings \
 	--disable-gconf \
+	--disable-schemas-compile \
 	--disable-avahi \
 	--disable-jack \
 	--disable-asyncns \
 	--disable-tcpwrap \
-	--disable-tcpwrap \
-	--disable-dbus \
+	--disable-lirc \
+	--$(call ptx/endis, PTXCONF_PULSEAUDIO_BLUETOOTH)-dbus \
 	--disable-bluez4 \
-	--disable-bluez5 \
+	--$(call ptx/endis, PTXCONF_PULSEAUDIO_BLUETOOTH)-bluez5 \
 	--disable-bluez5-ofono-headset \
 	--disable-bluez5-native-headset \
 	--enable-udev \
 	--disable-hal-compat \
 	$(GLOBAL_IPV6_OPTION) \
 	--disable-openssl \
-	--disable-xen \
 	--disable-gcov \
 	--enable-orc \
 	--$(call ptx/endis, PTXCONF_PULSEAUDIO_SYSTEMD)-systemd-daemon \
@@ -95,10 +97,20 @@ PULSEAUDIO_CONF_OPT	:= \
 	--disable-force-preopen \
 	--with-caps \
 	--with-database=simple \
+	--with-pulsedsp-location= \
 	--without-fftw \
-	--without-speex \
+	--$(call ptx/wwo, PTXCONF_PULSEAUDIO_SPEEX)-speex \
 	--without-soxr \
-	--with-systemduserunitdir=/usr/lib/systemd/user
+	--with-systemduserunitdir=/usr/lib/systemd/user \
+	--with-system-user= \
+	--with-system-group= \
+	--with-access-group=pulse-access \
+	--with-mac-version-min= \
+	--with-mac-sysroot= \
+	--with-preopen-mods=all \
+	--with-module-dir=/usr/lib/pulse-$(PULSEAUDIO_VERSION)/modules \
+	--with-udev-rules-dir=lib/udev/rules.d \
+	--with-zsh-completion-dir=
 
 PULSEAUDIO_LDFLAGS	:= -Wl,-rpath,/usr/lib/pulseaudio:/usr/lib/pulse-$(PULSEAUDIO_VERSION)/modules
 
@@ -128,6 +140,11 @@ $(STATEDIR)/pulseaudio.targetinstall:
 	@$(call install_alternative, pulseaudio, 0, 0, 0644, /etc/pulse/daemon.conf)
 	@$(call install_alternative, pulseaudio, 0, 0, 0644, /etc/pulse/system.pa)
 	@$(call install_alternative, pulseaudio, 0, 0, 0644, /etc/pulse/default.pa)
+
+ifdef PTXCONF_PULSEAUDIO_BLUETOOTH
+	@$(call install_alternative, pulseaudio, 0, 0, 0644, \
+		/etc/dbus-1/system.d/pulseaudio-system.conf)
+endif
 
 ifdef PTXCONF_PULSEAUDIO_SYSTEMD
 	@$(call install_alternative, pulseaudio, 0, 0, 0644, \
