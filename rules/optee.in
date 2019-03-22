@@ -1,4 +1,6 @@
 ## SECTION=security
 
 config OPTEE
-	   tristate
+	tristate
+	select HOST_SYSTEM_PYTHON
+	select HOST_SYSTEM_PYTHON_CRYPTO
