@@ -1,0 +1,13 @@
+## SECTION=qt
+
+config BLUEZ_QT
+	tristate
+	prompt "bluez-qt"
+	select HOST_CMAKE
+	select HOST_CMAKE_ECM
+	select QT5
+	select QT5_DBUS
+	select QT5_MODULE_QTBASE
+	select QT5_MODULE_QTDECLARATIVE
+	help
+	  Qt wrapper for BlueZ 5 DBus API
