@@ -47,6 +47,12 @@ ifdef PTXCONF_HOST_SYSTEM_PYTHON_NUMPY
 		ptxd_bailout "Python numpy module not found! \
 	Please install python-numpy (debian)";
 endif
+ifdef PTXCONF_HOST_SYSTEM_PYTHON_CRYPTO
+	@echo "Checking for Python Crypto ..."
+	@python -c 'import Crypto' 2>/dev/null || \
+		ptxd_bailout "Python Crypto module not found! \
+	Please install python-crypto (debian)";
+endif
 	@echo
 	@$(call touch)
 

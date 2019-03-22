@@ -17,4 +17,7 @@ config HOST_SYSTEM_PYTHON_SIX
 config HOST_SYSTEM_PYTHON_NUMPY
 	bool
 
+config HOST_SYSTEM_PYTHON_CRYPTO
+	bool
+
 endif
