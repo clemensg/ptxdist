@@ -55,3 +55,8 @@ function drop(stage) {
 
 	drop(stage)
 }
+
+/^({{{|}})/ {
+	for (stage in cache)
+		drop(stage)
+}
