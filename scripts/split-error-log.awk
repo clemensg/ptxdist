@@ -42,8 +42,8 @@ function drop(stage) {
 	last = $0
 }
 
-/.*platform.*\/state\/.*\..*\] Error [1-9][0-9]*$/ {
-	stage = gensub(/.*\/state\/(.+\..+)\] Error.*/, "\\1", 1, $0)
+/.*platform.*\/(state|images)\/.*\..*\] Error [1-9][0-9]*$/ {
+	stage = gensub(/.*\/(state|images)\/(.+\..+)\] Error.*/, "\\2", 1, $0)
 	targetfile = FILENAME "." stage ".txt"
 
 	print targetfile
