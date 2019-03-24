@@ -6,13 +6,14 @@ BEGIN {
 
 /^target: / {
 	n = split(stages, l, " ")
-	for (i = 0; i < n; i++) {
+	for (i = 1; i <= n; i++) {
 		switch (l[i]) {
-			case ".*.(get|extract|prepare|compile|install|targetinstall|urlcheck)(.[a-z]+)?":
-				stages = stages " " l[i]
+			case /.*\.(get|extract|prepare|compile|install|targetinstall|urlcheck)(.[a-z]+)?/:
 				break
 			# other stuff, such as archive downloads may not have a explicit end
+			# so stop them when the next target starts
 			default:
+				drop(l[i])
 				break
 		}
 	}
