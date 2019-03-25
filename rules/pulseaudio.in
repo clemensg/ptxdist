@@ -33,6 +33,11 @@ config PULSEAUDIO_SYSTEMD
 	bool
 	default INITMETHOD_SYSTEMD
 
+config PULSEAUDIO_SYSTEMD_USER
+	bool
+	depends on PULSEAUDIO_SYSTEMD
+	default y if SYSTEMD_UNITS_USER
+
 config PULSEAUDIO_BLUETOOTH
         bool
         prompt "enable bluetooth support"
