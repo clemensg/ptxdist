@@ -20,7 +20,3 @@ Welcome to the PTXdist Universe
    contributing
    faq
    getting_help
-
-* :ref:`search`
-* :ref:`genindex`
-
