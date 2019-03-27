@@ -52,7 +52,6 @@ HOST_PYTHON3_CONF_OPT	:= \
 	--without-doc-strings \
 	--with-pymalloc \
 	--with-c-locale-coercion \
-	--with-c-locale-warning \
 	--without-valgrind \
 	--without-dtrace \
 	--with-computed-gotos \

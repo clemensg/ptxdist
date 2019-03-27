@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_PYTHON3) += python3
 #
 # Paths and names
 #
-PYTHON3_VERSION		:= 3.7.0
-PYTHON3_MD5		:= eb8c2a6b1447d50813c02714af4681f3
+PYTHON3_VERSION		:= 3.7.3
+PYTHON3_MD5		:= 93df27aec0cd18d6d42173e601ffbbfd
 PYTHON3_MAJORMINOR	:= $(basename $(PYTHON3_VERSION))
 PYTHON3_SITEPACKAGES	:= /usr/lib/python$(PYTHON3_MAJORMINOR)/site-packages
 PYTHON3			:= Python-$(PYTHON3_VERSION)
@@ -73,7 +73,6 @@ PYTHON3_CONF_OPT	:= \
 	--without-doc-strings \
 	--with-pymalloc \
 	--with-c-locale-coercion \
-	--with-c-locale-warning \
 	--without-valgrind \
 	--without-dtrace \
 	--with-computed-gotos \
