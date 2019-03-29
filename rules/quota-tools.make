@@ -36,7 +36,8 @@ QUOTA_TOOLS_AUTOCONF := $(CROSS_AUTOCONF_USR) \
 			--disable-netlink \
 			--disable-nls \
 			--disable-libwrap \
-			--disable-rpc
+			--disable-rpc \
+			--$(call ptx/endis, PTXCONF_QUOTA_TOOLS_QUOTACHECK_EXT2)-ext2direct
 
 # ----------------------------------------------------------------------------
 # Compile

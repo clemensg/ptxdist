@@ -3,9 +3,9 @@
 menuconfig QUOTA_TOOLS
 	tristate
 	prompt "quota tools                   "
-	select E2FSPROGS
-	select E2FSPROGS_LIBEXT2FS
-	select E2FSPROGS_LIBCOM_ERR
+	select E2FSPROGS		if QUOTA_TOOLS_QUOTACHECK_EXT2
+	select E2FSPROGS_LIBEXT2FS	if QUOTA_TOOLS_QUOTACHECK_EXT2
+	select E2FSPROGS_LIBCOM_ERR	if QUOTA_TOOLS_QUOTACHECK_EXT2
 	help
 	  Tools and patches for the Linux Diskquota system as part of the
 	  Linux kernel (http://sourceforge.net/projects/linuxquota)
@@ -59,6 +59,13 @@ config QUOTA_TOOLS_QUOTACHECK
 	prompt "install quotacheck"
 	help
 	  scan a filesystem for disk usage, create, check and repair quota files
+
+config QUOTA_TOOLS_QUOTACHECK_EXT2
+	bool
+	prompt "Enable extfs support for quotacheck"
+	depends on QUOTA_TOOLS_QUOTACHECK
+	help
+	  Enable this option to get direct extfs support in quotacheck
 
 config QUOTA_TOOLS_CONVERTQUOTA
 	bool
