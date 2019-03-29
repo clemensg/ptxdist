@@ -130,6 +130,9 @@ endif
 	@$(call install_copy, weston, 0, 0, 0755, -, /usr/bin/weston-simple-touch)
 endif
 	@$(call install_copy, weston, 0, 0, 0755, -, /usr/bin/weston-terminal)
+ifdef PTXCONF_WESTON_TOUCH_CALIBRATOR
+	@$(call install_copy, weston, 0, 0, 0755, -, /usr/bin/weston-touch-calibrator)
+endif
 
 ifdef PTXCONF_WESTON_WCAP_TOOLS
 	@$(call install_copy, weston, 0, 0, 0755, -, /usr/bin/wcap-decode)

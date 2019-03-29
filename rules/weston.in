@@ -132,4 +132,11 @@ config WESTON_SIMPLE_DMABUF_DRM_ETNAVIV
         bool
         default LIBDRM_ETNAVIV
 
+config WESTON_TOUCH_CALIBRATOR
+	bool
+	prompt "touch calibrator"
+	help
+	  Install weston-touch-calibrator tool, interface must be enabled in
+	  weston.ini.
+
 endif
