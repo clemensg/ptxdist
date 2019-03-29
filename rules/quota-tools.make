@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_QUOTA_TOOLS) += quota-tools
 #
 # Paths and names
 #
-QUOTA_TOOLS_VERSION	:= 3.17
-QUOTA_TOOLS_MD5		:= cb3e98a039c0cf98e7c1ad4b50a5bda7
+QUOTA_TOOLS_VERSION	:= 4.04
+QUOTA_TOOLS_MD5		:= f46f3b0b5141f032f25684005dac49d3
 QUOTA_TOOLS		:= quota-tools
 QUOTA_TOOLS_SUFFIX	:= tar.gz
 QUOTA_TOOLS_PACKAGE	:= quota-$(QUOTA_TOOLS_VERSION).${QUOTA_TOOLS_SUFFIX}
@@ -30,6 +30,13 @@ QUOTA_TOOLS_LICENSE	:= GPL-2.0-only
 # autoconf
 #
 QUOTA_TOOLS_CONF_TOOL	:= autoconf
+
+QUOTA_TOOLS_AUTOCONF := $(CROSS_AUTOCONF_USR) \
+			--disable-ldapmail \
+			--disable-netlink \
+			--disable-nls \
+			--disable-libwrap \
+			--disable-rpc
 
 # ----------------------------------------------------------------------------
 # Compile
