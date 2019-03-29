@@ -6,6 +6,7 @@ menuconfig QUOTA_TOOLS
 	select E2FSPROGS		if QUOTA_TOOLS_QUOTACHECK_EXT2
 	select E2FSPROGS_LIBEXT2FS	if QUOTA_TOOLS_QUOTACHECK_EXT2
 	select E2FSPROGS_LIBCOM_ERR	if QUOTA_TOOLS_QUOTACHECK_EXT2
+	select LIBTIRPC			if QUOTA_TOOLS_RQUOTAD
 	help
 	  Tools and patches for the Linux Diskquota system as part of the
 	  Linux kernel (http://sourceforge.net/projects/linuxquota)
