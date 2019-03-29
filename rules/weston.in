@@ -114,6 +114,12 @@ config WESTON_REMOTING
 	bool
 	prompt "remoting plugin"
 
+config WESTON_SIMPLE_CLIENTS
+	bool
+	prompt "simple clients"
+	help
+	  Install the weston-simple-* test clients.
+
 config WESTON_SIMPLE_DMABUF_DRM_INTEL
         bool
         default LIBDRM_INTEL

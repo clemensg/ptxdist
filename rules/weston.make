@@ -119,6 +119,16 @@ ifdef PTXCONF_WESTON_LAUNCH
 	@$(call install_copy, weston, 0, 0, 0755, -, /usr/bin/weston-launch)
 endif
 	@$(call install_copy, weston, 0, 0, 0755, -, /usr/bin/weston-screenshooter)
+ifdef PTXCONF_WESTON_SIMPLE_CLIENTS
+	@$(call install_copy, weston, 0, 0, 0755, -, /usr/bin/weston-simple-damage)
+	@$(call install_copy, weston, 0, 0, 0755, -, /usr/bin/weston-simple-dmabuf-drm)
+ifdef PTXCONF_WESTON_GL
+	@$(call install_copy, weston, 0, 0, 0755, -, /usr/bin/weston-simple-egl)
+	@$(call install_copy, weston, 0, 0, 0755, -, /usr/bin/weston-simple-dmabuf-egl)
+endif
+	@$(call install_copy, weston, 0, 0, 0755, -, /usr/bin/weston-simple-shm)
+	@$(call install_copy, weston, 0, 0, 0755, -, /usr/bin/weston-simple-touch)
+endif
 	@$(call install_copy, weston, 0, 0, 0755, -, /usr/bin/weston-terminal)
 
 ifdef PTXCONF_WESTON_WCAP_TOOLS
