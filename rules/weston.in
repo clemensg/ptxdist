@@ -31,6 +31,13 @@ menuconfig WESTON
 	select SYSTEMD			if WESTON_SYSTEMD
 	select SYSTEMD_LOGIND		if WESTON_SYSTEMD_LOGIND
 	select DBUS			if WESTON_SYSTEMD_LOGIND
+	select GSTREAMER1		if WESTON_REMOTING
+	select GST_PLUGINS_BASE1	if WESTON_REMOTING
+	select GST_PLUGINS_BASE1_APP	if WESTON_REMOTING
+	select GST_PLUGINS_GOOD1	if WESTON_REMOTING && RUNTIME
+	select GST_PLUGINS_GOOD1_JPEG	if WESTON_REMOTING && RUNTIME
+	select GST_PLUGINS_GOOD1_RTP	if WESTON_REMOTING && RUNTIME
+	select GST_PLUGINS_GOOD1_UDP	if WESTON_REMOTING && RUNTIME
 	select PANGO			if WESTON_IVISHELL_EXAMPLE
 	prompt "weston                        "
 	help
@@ -102,6 +109,10 @@ config WESTON_IVISHELL_EXAMPLE
 	  Install the example hmi-controller, the IVI-Shell user interface
 	  application, a few demo clients and the weston.ini configuration for
 	  the IVI-Shell.
+
+config WESTON_REMOTING
+	bool
+	prompt "remoting plugin"
 
 config WESTON_SIMPLE_DMABUF_DRM_INTEL
         bool

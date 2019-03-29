@@ -58,7 +58,7 @@ WESTON_CONF_OPT		:= \
 	-Dimage-jpeg=true \
 	-Dimage-webp=false \
 	-Dlauncher-logind=$(call ptx/truefalse,PTXCONF_SYSTEMD_LOGIND) \
-	-Dremoting=false \
+	-Dremoting=$(call ptx/truefalse,PTXCONF_WESTON_REMOTING) \
 	-Drenderer-gl=$(call ptx/truefalse,PTXCONF_WESTON_GL) \
 	-Dresize-pool=true \
 	-Dscreenshare=false \
@@ -142,6 +142,9 @@ endif
 ifdef PTXCONF_WESTON_GL
 	@$(call install_lib, weston, 0, 0, 0644, libweston-$(LIBWESTON_MAJOR)/wayland-backend)
 	@$(call install_lib, weston, 0, 0, 0644, libweston-$(LIBWESTON_MAJOR)/gl-renderer)
+endif
+ifdef PTXCONF_WESTON_REMOTING
+	@$(call install_lib, weston, 0, 0, 0644, libweston-$(LIBWESTON_MAJOR)/remoting-plugin)
 endif
 	@$(call install_lib, weston, 0, 0, 0644, weston/desktop-shell)
 	@$(call install_lib, weston, 0, 0, 0644, weston/fullscreen-shell)
