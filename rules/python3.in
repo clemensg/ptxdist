@@ -53,7 +53,7 @@ config PYTHON3_SQLITE
 	bool "sqlite bindings"
 
 config PYTHON3_SSL
-	bool "ssl bindings"
+	bool "ssl & hashlib bindings"
 
 config PYTHON3_SYMLINK
         depends on !PYTHON_SYMLINK
