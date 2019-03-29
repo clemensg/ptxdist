@@ -2,6 +2,7 @@
 
 menuconfig WESTON
 	tristate
+	select HOST_MESON
 	select LIBC_UTIL
 	select PIXMAN
 	select WAYLAND
@@ -30,6 +31,7 @@ menuconfig WESTON
 	select SYSTEMD			if WESTON_SYSTEMD
 	select SYSTEMD_LOGIND		if WESTON_SYSTEMD_LOGIND
 	select DBUS			if WESTON_SYSTEMD_LOGIND
+	select PANGO			if WESTON_IVISHELL_EXAMPLE
 	prompt "weston                        "
 	help
 	  Wayland compositor reference implementation
@@ -100,5 +102,17 @@ config WESTON_IVISHELL_EXAMPLE
 	  Install the example hmi-controller, the IVI-Shell user interface
 	  application, a few demo clients and the weston.ini configuration for
 	  the IVI-Shell.
+
+config WESTON_SIMPLE_DMABUF_DRM_INTEL
+        bool
+        default LIBDRM_INTEL
+
+config WESTON_SIMPLE_DMABUF_DRM_FREEDRENO
+        bool
+        default LIBDRM_FREEDRENO
+
+config WESTON_SIMPLE_DMABUF_DRM_ETNAVIV
+        bool
+        default LIBDRM_ETNAVIV
 
 endif

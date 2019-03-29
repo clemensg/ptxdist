@@ -17,9 +17,9 @@ PACKAGES-$(PTXCONF_WESTON) += weston
 #
 # Paths and names
 #
-WESTON_VERSION	:= 5.0.0
-LIBWESTON_MAJOR := 5
-WESTON_MD5	:= 752a04ce3c65af4884cfac4e57231bdb
+WESTON_VERSION	:= 6.0.0
+LIBWESTON_MAJOR := 6
+WESTON_MD5	:= 7c634e262f8a464a076c97fd50ad36b3
 WESTON		:= weston-$(WESTON_VERSION)
 WESTON_SUFFIX	:= tar.xz
 WESTON_URL	:= http://wayland.freedesktop.org/releases/$(WESTON).$(WESTON_SUFFIX)
@@ -31,48 +31,49 @@ WESTON_LICENSE	:= MIT
 # Prepare
 # ----------------------------------------------------------------------------
 
-#
-# autoconf
-#
-WESTON_CONF_TOOL	:= autoconf
+ifdef PTXCONF_ARCH_X86
+WESTON_SIMPLE_DMABUF_DRM-$(PTXCONF_WESTON_SIMPLE_DMABUF_DRM_INTEL) += intel
+endif
+WESTON_SIMPLE_DMABUF_DRM-$(PTXCONF_WESTON_SIMPLE_DMABUF_DRM_FREEDRENO) += freedreno
+WESTON_SIMPLE_DMABUF_DRM-$(PTXCONF_WESTON_SIMPLE_DMABUF_DRM_ETNAVIV) += etnaviv
+
+WESTON_SIMPLE_CLIENTS-y := damage im shm touch
+WESTON_SIMPLE_CLIENTS-$(PTXCONF_WESTON_GL) += egl dmabuf-egl
+
+WESTON_CONF_TOOL	:= meson
 WESTON_CONF_OPT		:= \
-	$(CROSS_AUTOCONF_USR) \
-	$(GLOBAL_LARGE_FILE_OPTION) \
-	--disable-static \
-	--enable-shared \
-	--disable-devdocs \
-	--$(call ptx/endis, PTXCONF_WESTON_GL)-egl \
-	--disable-setuid-install \
-	--$(call ptx/endis, PTXCONF_WESTON_XWAYLAND)-xwayland \
-	--disable-xwayland-test \
-	--disable-x11-compositor \
-	--$(call ptx/endis, PTXCONF_WESTON_DRM_COMPOSITOR)-drm-compositor \
-	--$(call ptx/endis, PTXCONF_WESTON_GL)-wayland-compositor \
-	--$(call ptx/endis, PTXCONF_WESTON_HEADLESS_COMPOSITOR)-headless-compositor \
-	--$(call ptx/endis, PTXCONF_WESTON_FBDEV_COMPOSITOR)-fbdev-compositor \
-	--disable-rdp-compositor \
-	--disable-screen-sharing \
-	--disable-vaapi-recorder \
-	--enable-simple-clients \
-	--$(call ptx/endis, PTXCONF_WESTON_GL)-simple-egl-clients \
-	--disable-simple-dmabuf-drm-client \
-	--disable-simple-dmabuf-v4l-client \
-	--enable-clients \
-	--enable-resize-optimization \
-	--$(call ptx/endis, PTXCONF_WESTON_LAUNCH)-weston-launch \
-	--enable-fullscreen-shell \
-	--disable-colord \
-	--$(call ptx/endis, PTXCONF_WESTON_SYSTEMD_LOGIND)-dbus \
-	--$(call ptx/endis, PTXCONF_WESTON_SYSTEMD_LOGIND)-systemd-login \
-	--disable-junit-xml \
-	--$(call ptx/endis, PTXCONF_WESTON_IVISHELL)-ivi-shell \
-	--$(call ptx/endis, PTXCONF_WESTON_WCAP_TOOLS)-wcap-tools \
-	--$(call ptx/endis, PTXCONF_WESTON_IVISHELL_EXAMPLE)-demo-clients-install \
-	--disable-lcms \
-	--$(call ptx/endis, PTXCONF_WESTON_SYSTEMD)-systemd-notify \
-	--with-cairo=$(call ptx/ifdef, PTXCONF_WESTON_GL,glesv2,image) \
-	--with-jpeg \
-	--without-webp
+	$(CROSS_MESON_USR) \
+	-Dbackend-default=drm \
+	-Dbackend-drm=$(call ptx/truefalse,PTXCONF_WESTON_DRM_COMPOSITOR) \
+	-Dbackend-drm-screencast-vaapi=false \
+	-Dbackend-fbdev=$(call ptx/truefalse,PTXCONF_WESTON_FBDEV_COMPOSITOR) \
+	-Dbackend-headless=$(call ptx/truefalse,PTXCONF_WESTON_HEADLESS_COMPOSITOR) \
+	-Dbackend-rdp=false \
+	-Dbackend-wayland=$(call ptx/truefalse,PTXCONF_WESTON_GL) \
+	-Dbackend-x11=false \
+	-Dcolor-management-colord=false \
+	-Dcolor-management-lcms=false \
+	-Ddemo-clients=$(call ptx/truefalse,PTXCONF_WESTON_IVISHELL_EXAMPLE) \
+	-Ddesktop-shell-client-default=weston-desktop-shell \
+	-Dimage-jpeg=true \
+	-Dimage-webp=false \
+	-Dlauncher-logind=$(call ptx/truefalse,PTXCONF_SYSTEMD_LOGIND) \
+	-Dremoting=false \
+	-Drenderer-gl=$(call ptx/truefalse,PTXCONF_WESTON_GL) \
+	-Dresize-pool=true \
+	-Dscreenshare=false \
+	-Dshell-desktop=true \
+	-Dshell-fullscreen=true \
+	-Dshell-ivi=$(call ptx/truefalse,PTXCONF_WESTON_IVISHELL) \
+	-Dsimple-clients=$(subst $(space),$(comma),$(WESTON_SIMPLE_CLIENTS-y)) \
+	-Dsimple-dmabuf-drm=$(subst $(space),$(comma),$(WESTON_SIMPLE_DMABUF_DRM-y)) \
+	-Dsystemd=$(call ptx/truefalse,PTXCONF_WESTON_SYSTEMD) \
+	-Dtest-junit-xml=false \
+	-Dtools=calibrator,debug,info,terminal,touch-calibrator \
+	-Dwcap-decode=$(call ptx/truefalse,PTXCONF_WESTON_WCAP_TOOLS) \
+	-Dweston-launch=$(call ptx/truefalse,PTXCONF_WESTON_LAUNCH) \
+	-Dxwayland=$(call ptx/truefalse,PTXCONF_WESTON_XWAYLAND) \
+	-Dxwayland-path=/usr/bin/Xwayland
 
 # ----------------------------------------------------------------------------
 # Install
@@ -113,9 +114,11 @@ $(STATEDIR)/weston.targetinstall:
 
 	@$(call install_copy, weston, 0, 0, 0755, -, /usr/bin/weston)
 	@$(call install_copy, weston, 0, 0, 0755, -, /usr/bin/weston-info)
+	@$(call install_copy, weston, 0, 0, 0755, -, /usr/bin/weston-debug)
 ifdef PTXCONF_WESTON_LAUNCH
 	@$(call install_copy, weston, 0, 0, 0755, -, /usr/bin/weston-launch)
 endif
+	@$(call install_copy, weston, 0, 0, 0755, -, /usr/bin/weston-screenshooter)
 	@$(call install_copy, weston, 0, 0, 0755, -, /usr/bin/weston-terminal)
 
 ifdef PTXCONF_WESTON_WCAP_TOOLS
@@ -150,7 +153,6 @@ ifdef PTXCONF_WESTON_SYSTEMD
 endif
 
 	@$(call install_copy, weston, 0, 0, 0755, -, /usr/libexec/weston-simple-im)
-	@$(call install_copy, weston, 0, 0, 0755, -, /usr/libexec/weston-screenshooter)
 	@$(call install_copy, weston, 0, 0, 0755, -, /usr/libexec/weston-desktop-shell)
 	@$(call install_copy, weston, 0, 0, 0755, -, /usr/libexec/weston-keyboard)
 
