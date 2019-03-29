@@ -33,6 +33,8 @@ BLUEZ_QT_LICENSE_FILES	:= file://COPYING.LIB;md5=4fbd65380cdd255951079008b364516
 BLUEZ_QT_CONF_TOOL	:= cmake
 BLUEZ_QT_CONF_OPT	:= \
 		$(CROSS_CMAKE_USR) \
+		-DBUILD_QCH=OFF \
+		-DBUILD_TESTING=OFF \
 		-DECM_DIR=$(PTXCONF_SYSROOT_HOST)/share/ECM/cmake/
 
 # ----------------------------------------------------------------------------
