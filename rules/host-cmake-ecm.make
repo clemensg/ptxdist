@@ -30,5 +30,8 @@ HOST_CMAKE_ECM_LICENSE		:= BSD-3-Clause
 # ----------------------------------------------------------------------------
 
 HOST_CMAKE_ECM_CONF_TOOL	:= cmake
+HOST_CMAKE_ECM_CONF_OPT		:= \
+		$(HOST_CMAKE_OPT) \
+		-DBUILD_TESTING=OFF
 
 # vim: syntax=make
