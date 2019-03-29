@@ -41,8 +41,8 @@ parser = argparse.ArgumentParser()
 parser.add_argument('-s', '--separator', type=parse_separator, default=',',
     help='field separator [,]')
 parser.add_argument('-f', '--fields', type=parse_fields,
-    default=['name', 'version', 'section', 'licenses', 'flags'],
-    help='field list [name,version,section,licenses,flags]')
+    default=['name', 'version', 'section', 'licenses', 'license-flags'],
+    help='field list [name,version,section,licenses,license-flags]')
 parser.add_argument('input', nargs='?', type=parse_input,
     default=sys.stdin, help='license yaml file [stdin]')
 
@@ -56,6 +56,10 @@ for (_, record) in yaml.load(args.input.read(), Loader=yaml.loader.BaseLoader).i
         value = record.get(field, None)
         if not value:
             value = ''
+        if field == 'license-flags':
+            value = " ".join(value)
+        elif not isinstance(value, str):
+            value = str(value)
         quote = args.separator in value or '"' in value
         if quote:
             line += '"'
