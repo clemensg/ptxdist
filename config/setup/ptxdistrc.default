@@ -32,7 +32,7 @@ PTXCONF_SETUP_SRCDIR="${PTXDIST_WORKSPACE}/src"
 # PTXCONF_SETUP_NO_DOWNLOAD is not set
 # PTXCONF_SETUP_PTXMIRROR_ONLY is not set
 PTXCONF_SETUP_PTXMIRROR="http://www.pengutronix.de/software/ptxdist/temporary-src"
-PTXCONF_SETUP_DEBMIRROR="http://ftp.uni-kl.de/debian"
+PTXCONF_SETUP_DEBMIRROR="http://ftp.uni-kl.de/debian http://archive.debian.org/debian"
 PTXCONF_SETUP_SFMIRROR="http://downloads.sourceforge.net/sourceforge"
 PTXCONF_SETUP_GNUMIRROR="https://ftp.gnu.org/gnu http://ftp.uni-kl.de/pub/gnu"
 PTXCONF_SETUP_XORGMIRROR="https://ftp.x.org/archive https://xorg.freedesktop.org/releases"
