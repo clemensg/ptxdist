@@ -523,6 +523,26 @@ config QT5_MODULE_QTQUICKCONTROLS2
 	select QT5_MODULE_QTGRAPHICALEFFECTS
 	prompt "QtQuickControls2"
 
+if QT5_MODULE_QTQUICKCONTROLS2
+
+config QT5_MODULE_QTQUICKCONTROLS2_STYLE_FUSION
+	bool
+	prompt "Fusion Style"
+
+config QT5_MODULE_QTQUICKCONTROLS2_STYLE_IMAGINE
+	bool
+	prompt "Imagine Style"
+
+config QT5_MODULE_QTQUICKCONTROLS2_STYLE_MATERIAL
+	bool
+	prompt "Material Style"
+
+config QT5_MODULE_QTQUICKCONTROLS2_STYLE_UNIVERSAL
+	bool
+	prompt "Universal Style"
+
+endif
+
 config QT5_MODULE_QTREMOTEOBJECTS
 	bool
 	prompt "QtRemoteObjects"

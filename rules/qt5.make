@@ -233,6 +233,14 @@ QT5_CONF_OPT	:= \
 	--$(call ptx/endis, PTXCONF_QT5_MODULE_QTBASE_SQL_SQLITE)-sql-sqlite \
 	$(call ptx/qt5-system, PTXCONF_QT5_MODULE_QTBASE_SQL_SQLITE)-sqlite
 
+ifdef PTXCONF_QT5_MODULE_QTQUICKCONTROLS2
+QT5_CONF_OPT	+= \
+	--$(call ptx/endis, PTXCONF_QT5_MODULE_QTQUICKCONTROLS2_STYLE_FUSION)-style-fusion \
+	--$(call ptx/endis, PTXCONF_QT5_MODULE_QTQUICKCONTROLS2_STYLE_IMAGINE)-style-imagine \
+	--$(call ptx/endis, PTXCONF_QT5_MODULE_QTQUICKCONTROLS2_STYLE_MATERIAL)-style-material \
+	--$(call ptx/endis, PTXCONF_QT5_MODULE_QTQUICKCONTROLS2_STYLE_UNIVERSAL)-style-universal
+endif
+
 ifdef PTXCONF_QT5_MODULE_QTMULTIMEDIA
 QT5_CONF_OPT	+= \
 	--disable-pulseaudio \
