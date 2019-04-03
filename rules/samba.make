@@ -27,7 +27,7 @@ SAMBA_DIR	:= $(BUILDDIR)/$(SAMBA)
 SAMBA_LICENSE	:= GPL-3.0-or-later AND LGPL-3.0-or-later
 # cross-compile runtime checks. Initial file generated with
 # --cross-execute=$(PTXDIST_SYSROOT_CROSS)/bin/qemu-cross
-SAMBA_CONFIG	:= $(shell ptxd_get_alternative config/samba cross-answers && echo $$ptxd_reply)
+SAMBA_CONFIG	 = $(call ptx/get-alternative, config/samba, cross-answers)
 
 # ----------------------------------------------------------------------------
 # Prepare
