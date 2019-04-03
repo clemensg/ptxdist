@@ -69,6 +69,12 @@ endif
 endif
 endif
 
+ifdef PTXCONF_NFTABLES_SYSTEMD_UNIT
+	@$(call install_alternative, nftables, 0, 0, 0644, /usr/lib/systemd/system/nftables.service)
+	@$(call install_link, nftables, ../nftables.service, \
+		/usr/lib/systemd/system/multi-user.target.wants/nftables.service)
+endif
+
 	@$(call install_finish, nftables)
 
 	@$(call touch)

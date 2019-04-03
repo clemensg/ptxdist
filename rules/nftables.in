@@ -36,4 +36,10 @@ config NFTABLES_STARTSCRIPT
 	bool
 	prompt "install /etc/init.d/nftables"
 
+config NFTABLES_SYSTEMD_UNIT
+	bool
+	default y
+	depends on INITMETHOD_SYSTEMD
+	prompt "install systemd unit file for nftables"
+
 endif
