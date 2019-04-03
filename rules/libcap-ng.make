@@ -59,6 +59,13 @@ $(STATEDIR)/libcap-ng.targetinstall:
 
 	@$(call install_lib, libcap-ng, 0, 0, 0644, libcap-ng)
 
+ifdef PTXCONF_LIBCAP_NG_TOOLS
+	@$(call install_copy, libcap-ng, 0, 0, 0755, -, /usr/bin/captest)
+	@$(call install_copy, libcap-ng, 0, 0, 0755, -, /usr/bin/filecap)
+	@$(call install_copy, libcap-ng, 0, 0, 0755, -, /usr/bin/netcap)
+	@$(call install_copy, libcap-ng, 0, 0, 0755, -, /usr/bin/pscap)
+endif
+
 	@$(call install_finish, libcap-ng)
 
 	@$(call touch)

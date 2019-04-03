@@ -1,9 +1,19 @@
 ## SECTION=system_libraries
 
-config LIBCAP_NG
+menuconfig LIBCAP_NG
 	tristate
-	prompt "libcap-ng"
+	prompt "libcap-ng                     "
 	help
 	  The libcap-ng library should make programming with posix capabilities
 	  easier. The library has some utilities to help you analyse a system
 	  for apps that may have too much privileges.
+
+if LIBCAP_NG
+
+config LIBCAP_NG_TOOLS
+	bool
+	prompt "install tools"
+	help
+	  Install captest, filecap, netcap and pscap.
+
+endif
