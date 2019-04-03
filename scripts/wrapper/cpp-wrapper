@@ -9,5 +9,6 @@ unset PTXDIST_CCACHE
 
 cpp_add_target_extra
 cc_add_fortify
+cc_add_glibcxx
 
 wrapper_exec "$@"

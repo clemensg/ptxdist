@@ -206,6 +206,10 @@ cc_add_pie() {
 	fi
 }
 
+cc_add_glibcxx() {
+	add_opt_arg TARGET_HARDEN_GLIBCXX_ASSERTIONS "-D_GLIBCXX_ASSERTIONS"
+}
+
 cc_add_debug() {
 	# TARGET_DEBUG is no real option but used to blacklist all debug options
 	PTXCONF_TARGET_DEBUG=y test_opt TARGET_DEBUG || return 0

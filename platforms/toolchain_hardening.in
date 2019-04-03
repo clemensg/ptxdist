@@ -73,5 +73,12 @@ config TARGET_HARDEN_PIE
 	  Space Layout randomization.
 	  http://en.wikipedia.org/wiki/ASLR
 
+config TARGET_HARDEN_GLIBCXX_ASSERTIONS
+	bool
+	prompt "Build with '-D_GLIBCXX_ASSERTIONS'"
+	help
+	  Enables extra error checking in the form of precondition
+	  assertions, such as bounds checking in strings and null pointer
+	  checks when dereferencing smart pointers (libstdc++).
 
 endmenu
