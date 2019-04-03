@@ -40,9 +40,9 @@ HOST_OPENSC_CONF_OPT	:= \
 	--enable-openssl \
 	--disable-openpace \
 	--disable-openct \
-	--disable-pcsc \
+	--$(call ptx/endis, PTXCONF_HOST_OPENSC_PCSC)-pcsc \
 	--disable-cryptotokenkit \
-	--enable-ctapi \
+	--$(call ptx/disen, PTXCONF_HOST_OPENSC_PCSC)-ctapi \
 	--disable-minidriver \
 	--enable-sm \
 	--disable-man \

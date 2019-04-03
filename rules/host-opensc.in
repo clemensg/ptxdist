@@ -5,6 +5,14 @@ config HOST_OPENSC
 	# libz is disabled, but it still links against libz
 	# it links against libdl
 	select HOST_OPENSSL
+	select HOST_PCSC_LITE		if HOST_OPENSC_PCSC
 	default y if ALLYES
 	help
 	  https://github.com/OpenSC/OpenSC/wiki
+
+if HOST_OPENSC
+
+config HOST_OPENSC_PCSC
+	bool
+
+endif
