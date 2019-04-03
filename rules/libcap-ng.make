@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_LIBCAP_NG) += libcap-ng
 #
 # Paths and names
 #
-LIBCAP_NG_VERSION	:= 0.7.8
-LIBCAP_NG_MD5		:= 0dece96644bd798020e170fbf7663802
+LIBCAP_NG_VERSION	:= 0.7.9
+LIBCAP_NG_MD5		:= 2398d695508fab9ce33668c53a89b0e9
 LIBCAP_NG		:= libcap-ng-$(LIBCAP_NG_VERSION)
 LIBCAP_NG_SUFFIX	:= tar.gz
 LIBCAP_NG_URL		:= http://people.redhat.com/sgrubb/libcap-ng/$(LIBCAP_NG).$(LIBCAP_NG_SUFFIX)
