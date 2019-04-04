@@ -1,0 +1,31 @@
+## SECTION=system_libraries
+
+menuconfig LIBWEBP
+	tristate
+	prompt "libwebp                       "
+	help
+	  Library to encode and decode images in WebP format.
+
+if LIBWEBP
+
+config LIBWEBP_DECODER
+	bool
+	prompt "additional decoder-only library"
+
+config LIBWEBP_MUX
+	bool
+	prompt "webpmux support"
+
+config LIBWEBP_DEMUX
+	bool
+	prompt "webpdemux support"
+
+config LIBWEBP_CWEBP
+	bool
+	prompt "install cwebp tool"
+
+config LIBWEBP_DWEBP
+	bool
+	prompt "install dwebp tool"
+
+endif
