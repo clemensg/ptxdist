@@ -133,6 +133,8 @@ For ``install`` the package directory is deleted.
 When ``--verbose`` is used then the full command is logged. With
 ``--quiet`` both stdout and stderr are redirected to the logfile.
 
+.. _install_copy,reference:
+
 install_copy
 ~~~~~~~~~~~~~
 
@@ -242,7 +244,7 @@ Usage:
 
 .. code-block:: make
 
- $(call install_tree, <package>, <UID>, <GID>, <source dir>, <destination dir>)
+ $(call install_tree, <package>, <UID>, <GID>, <source dir>, <destination dir>, <strip>])
 
 Installs the whole directory tree with all files from the given directory into:
 
@@ -264,6 +266,8 @@ Some of the parameters have fixed meanings:
   be ``-`` to use the package directory of the current package instead
 **<destination dir>**
   The basename of the to-be-installed tree in the root filesystem
+**<strip>**
+  same as for :ref:`install_copy,reference`.
 
 Note: This installation macro
 
