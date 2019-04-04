@@ -640,149 +640,76 @@ be installed with some other ``install_*`` command before
    		$(PTXCONF_TIMEZONE_LOCALTIME))
 
 .. _param_macros:
-
 .. _ptxEndis:
-
-ptx/endis
-~~~~~~~~~
-
-To convert the state (set/unset) of a variable into an ``enable/disable``
-string use the ``ptx/endis`` macro.
-If the given <variable> is set this macro expands to
-the string ``enable``, if unset to ``disable`` instead.
-
-Usage:
-
-.. code-block:: none
-
- --$(call ptx/endis, <variable>)-<parameter>
-
-An example:
-
-.. code-block:: make
-
- FOO_CONF_OPT += --$(call ptx/endis,FOO_VARIABLE)-something
-
-Depending on the state of FOO_VARIABLE this line results into
-
-.. code-block:: make
-
- FOO_CONF_OPT += --enable-something (if FOO_VARIABLE is set)
- FOO_CONF_OPT += --disable-something (if FOO_VARIABLE is unset)
-
-Refer :ref:`ptxDisen` for the opposite string expansion.
-
 .. _ptxDisen:
+.. _ptx_wwo:
+.. _ptx_ifdef:
+.. _ptx_truefalse:
 
-ptx/disen
-~~~~~~~~~
-
-To convert the state (set/unset) of a variable into a ``disable/enable``
-string use the ``ptx/disen`` macro.
-If the given <variable> is set this macro expands to
-the string ``disable``, if unset to ``enable`` instead.
-
-Usage:
-
-.. code-block:: none
-
- --$(call ptx/disen, <variable>)-<parameter>
-
-An example:
-
-.. code-block:: make
-
- FOO_CONF_OPT += --$(call ptx/disen,FOO_VARIABLE)-something
-
-Depending on the state of FOO_VARIABLE this line results into
-
-.. code-block:: make
-
- FOO_CONF_OPT += --disable-something (if FOO_VARIABLE is set)
- FOO_CONF_OPT += --enable-something (if FOO_VARIABLE is unset)
-
-Refer :ref:`ptxEndis` for the opposite string expansion.
-
-ptx/wwo
-~~~~~~~
-
-To convert the state (set/unset) of a variable into a ``with/without``
-string use the ``ptx/wwo`` macro.
-If the given <variable> is set this macro expands to
-the string ``with``, if unset to ``without`` instead.
-
-Usage:
-
-.. code-block:: none
-
- --$(call ptx/wwo, <variable>)-<parameter>
-
-An example:
-
-.. code-block:: make
-
- FOO_CONF_OPT += --$(call ptx/wwo,FOO_VARIABLE)-something
-
-Depending on the state of FOO_VARIABLE this line results into
-
-.. code-block:: make
-
- FOO_CONF_OPT += --with-something (if FOO_VARIABLE is set)
- FOO_CONF_OPT += --without-something (if FOO_VARIABLE is unset)
-
-ptx/ifdef
-~~~~~~~~~
-
-To convert the state (set/unset) of a variable into one of two strings use the
-``ptx/ifdef`` macro.
-If the given <variable> is set this macro expands to
-the first given string, if unset to the second given string.
+ptx/endis, ptx/disen, ptx/wwo, ptx/truefalse, ptx/ifdef
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Usage:
 
 .. code-block:: make
 
- --with-something=$(call ptx/ifdef, <variable>, <first-string>, <second-string)
+ $(call ptx/endis, VARIABLE)
+ $(call ptx/disen, VARIABLE)
+ $(call ptx/wwo, VARIABLE)
+ $(call ptx/truefalse, VARIABLE)
+ $(call ptx/ifdef, VARIABLE, [expansion-if-true], [expansion-if-false])
 
-An example:
+Several macros exist to convert the state (set/unset) of a variable into a string.
+These are useful for ``<PKG>_CONF_OPT`` variables, and expand as follows:
 
-.. code-block:: make
++--------------------+-------------------------------+---------------------------------+---------------------+
+| Macro name         | Expansion if ``VARIABLE`` set | Expansion if ``VARIABLE`` unset | Exemplary use case  |
++====================+===============================+=================================+=====================+
+| ptx/endis          | ``enable``                    | ``disable``                     | autoconf            |
++--------------------+-------------------------------+---------------------------------+---------------------+
+| ptx/disen          | ``disable``                   | ``enable``                      | autoconf            |
++--------------------+-------------------------------+---------------------------------+---------------------+
+| ptx/wwo            | ``with``                      | ``without``                     | autoconf            |
++--------------------+-------------------------------+---------------------------------+---------------------+
+| ptx/truefalse      | ``true``                      | ``false``                       | meson               |
++--------------------+-------------------------------+---------------------------------+---------------------+
+| ptx/ifdef          | *the second parameter*        | *the third parameter*           | *(multiple)*        |
++--------------------+-------------------------------+---------------------------------+---------------------+
 
- FOO_CONF_OPT += --with-something=$(call ptx/ifdef,FOO_VARIABLE,/usr,none)
-
-Depending on the state of FOO_VARIABLE this line results into
-
-.. code-block:: make
-
- FOO_CONF_OPT += --with-something=/usr (if FOO_VARIABLE is set)
- FOO_CONF_OPT += --with-something=none (if FOO_VARIABLE is unset)
-
-ptx/truefalse
-~~~~~~~~~~~~~
-
-To convert the state (set/unset) of a variable into a ``true/false``
-string use the ``ptx/truefalse`` macro.
-If the given <variable> is set this macro expands to
-the string ``true``, if unset to ``false`` instead.
-
-Usage:
-
-.. code-block:: none
-
- -Dwith-something=$(call ptx/truefalse,<variable>)
-
-An example:
+Some real-life examples:
 
 .. code-block:: make
+ :linenos:
 
- FOO_CONF_OPT += -Dwith-something=$(call ptx/truefalse,<variable>)
+ BASH_CONF_OPT      += --$(call ptx/endis, PTXCONF_BASH_DEBUGGER)-debugger
+ OPENOCD_CONF_OPT   += --$(call ptx/disen, PTXCONF_OPENOCD_PARPORT_DISABLE_PARPORT_PPDEV)-parport-ppdev
+ COREUTILS_CONF_OPT += --$(call ptx/wwo, PTXCONF_GLOBAL_SELINUX)-selinux
+ SYSTEMD_CONF_OPT   += -Dmicrohttpd=$(call ptx/truefalse,PTXCONF_SYSTEMD_MICROHTTPD)
+ CUPS_CONF_OPT      += $(call ptx/ifdef,PTXCONF_CUPS_PERL,--with-perl=/usr/bin/perl,--without-perl)
 
-Depending on the state of FOO_VARIABLE this line results into
+If the respective variable is set, these statements would expand to:
 
 .. code-block:: make
+ :linenos:
 
- FOO_CONF_OPT += -Dwith-something=true (if FOO_VARIABLE is set)
- FOO_CONF_OPT += -Dwith-something=false (if FOO_VARIABLE is unset)
+ BASH_CONF_OPT      += --enable-debugger
+ OPENOCD_CONF_OPT   += --disable-parport-ppdev
+ COREUTILS_CONF_OPT += --with-selinux
+ SYSTEMD_CONF_OPT   += -Dmicrohttpd=true
+ CUPS_CONF_OPT      += --with-perl=/usr/bin/perl
+
+whereas if the respective variable is unset, they would expand to the opposite:
+
+.. code-block:: make
+ :linenos:
+
+ BASH_CONF_OPT      += --disable-debugger
+ OPENOCD_CONF_OPT   += --enable-parport-ppdev
+ COREUTILS_CONF_OPT += --without-selinux
+
+ SYSTEMD_CONF_OPT   += -Dmicrohttpd=false
+
+ CUPS_CONF_OPT      += --without-perl
 
 ptx/get-alternative
 ~~~~~~~~~~~~~~~~~~~
