@@ -671,7 +671,13 @@ These are useful for ``<PKG>_CONF_OPT`` variables, and expand as follows:
 +--------------------+-------------------------------+---------------------------------+---------------------+
 | ptx/wwo            | ``with``                      | ``without``                     | autoconf            |
 +--------------------+-------------------------------+---------------------------------+---------------------+
+| ptx/yesno          | ``yes``                       | ``no``                          | autoconf cache vars |
++--------------------+-------------------------------+---------------------------------+---------------------+
 | ptx/truefalse      | ``true``                      | ``false``                       | meson               |
++--------------------+-------------------------------+---------------------------------+---------------------+
+| ptx/falsetrue      | ``false``                     | ``true``                        | meson               |
++--------------------+-------------------------------+---------------------------------+---------------------+
+| ptx/onoff          | ``ON``                        | ``OFF``                         | cmake               |
 +--------------------+-------------------------------+---------------------------------+---------------------+
 | ptx/ifdef          | *the second parameter*        | *the third parameter*           | *(multiple)*        |
 +--------------------+-------------------------------+---------------------------------+---------------------+
@@ -684,7 +690,13 @@ Some real-life examples:
  BASH_CONF_OPT      += --$(call ptx/endis, PTXCONF_BASH_DEBUGGER)-debugger
  OPENOCD_CONF_OPT   += --$(call ptx/disen, PTXCONF_OPENOCD_PARPORT_DISABLE_PARPORT_PPDEV)-parport-ppdev
  COREUTILS_CONF_OPT += --$(call ptx/wwo, PTXCONF_GLOBAL_SELINUX)-selinux
+ LESS_CONF_ENV      += ac_cv_lib_ncurses_initscr=$(call ptx/yesno, PTXCONF_LESS_NCURSES)
+
  SYSTEMD_CONF_OPT   += -Dmicrohttpd=$(call ptx/truefalse,PTXCONF_SYSTEMD_MICROHTTPD)
+ SYSTEMD_CONF_OPT   += -Drandomseed=$(call ptx/falsetrue,PTXCONF_SYSTEMD_DISABLE_RANDOM_SEED)
+
+ MYSQL_CONF_OPT     += -DWITH_SYSTEMD=$(call ptx/onoff, PTXCONF_MYSQL_SYSTEMD)
+
  CUPS_CONF_OPT      += $(call ptx/ifdef,PTXCONF_CUPS_PERL,--with-perl=/usr/bin/perl,--without-perl)
 
 If the respective variable is set, these statements would expand to:
@@ -695,7 +707,13 @@ If the respective variable is set, these statements would expand to:
  BASH_CONF_OPT      += --enable-debugger
  OPENOCD_CONF_OPT   += --disable-parport-ppdev
  COREUTILS_CONF_OPT += --with-selinux
+ LESS_CONF_ENV      += ac_cv_lib_ncurses_initscr=yes
+
  SYSTEMD_CONF_OPT   += -Dmicrohttpd=true
+ SYSTEMD_CONF_OPT   += -Drandomseed=false
+
+ MYSQL_CONF_OPT     += -DWITH_SYSTEMD=on
+
  CUPS_CONF_OPT      += --with-perl=/usr/bin/perl
 
 whereas if the respective variable is unset, they would expand to the opposite:
@@ -706,8 +724,12 @@ whereas if the respective variable is unset, they would expand to the opposite:
  BASH_CONF_OPT      += --disable-debugger
  OPENOCD_CONF_OPT   += --enable-parport-ppdev
  COREUTILS_CONF_OPT += --without-selinux
+ LESS_CONF_ENV      += ac_cv_lib_ncurses_initscr=no
 
  SYSTEMD_CONF_OPT   += -Dmicrohttpd=false
+ SYSTEMD_CONF_OPT   += -Drandomseed=true
+
+ MYSQL_CONF_OPT     += -DWITH_SYSTEMD=off
 
  CUPS_CONF_OPT      += --without-perl
 
