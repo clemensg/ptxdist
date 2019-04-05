@@ -23,7 +23,7 @@ TMUX_SUFFIX	:= tar.gz
 TMUX_URL	:= https://github.com/tmux/tmux/releases/download/$(TMUX_VERSION)/$(TMUX).$(TMUX_SUFFIX)
 TMUX_SOURCE	:= $(SRCDIR)/$(TMUX).$(TMUX_SUFFIX)
 TMUX_DIR	:= $(BUILDDIR)/$(TMUX)
-TMUX_LICENSE	:= BSD
+TMUX_LICENSE	:= ISC
 
 # ----------------------------------------------------------------------------
 # Prepare
