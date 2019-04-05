@@ -23,6 +23,7 @@ INETUTILS		:= inetutils-$(INETUTILS_VERSION)
 INETUTILS_SUFFIX	:= tar.gz
 INETUTILS_URL		:= $(call ptx/mirror, GNU, inetutils/$(INETUTILS).$(INETUTILS_SUFFIX))
 INETUTILS_SOURCE	:= $(SRCDIR)/$(INETUTILS).$(INETUTILS_SUFFIX)
+INETUTILS_LICENSE	:= GPL-3.0-or-later
 INETUTILS_DIR		:= $(BUILDDIR)/$(INETUTILS)
 
 # ----------------------------------------------------------------------------
