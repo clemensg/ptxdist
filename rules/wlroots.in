@@ -1,0 +1,30 @@
+## SECTION=multimedia_wayland
+
+config WLROOTS
+	tristate
+	select HOST_MESON
+	select WAYLAND
+	select WAYLAND_PROTOCOLS
+	select LIBDRM
+	select MESALIB
+	select MESALIB_EGL
+	select MESALIB_GBM
+	select MESALIB_GLES2
+	select LIBINPUT
+	select LIBXKBCOMMON
+	select UDEV
+	select XCB_UTIL
+	select UDEV_LIBUDEV
+	select PIXMAN
+	prompt "wlroots"
+	help
+	  wlroots provides pluggable, composable, unopinionated modules for
+	  building a Wayland compositor.
+
+if WLROOTS
+
+config WLROOTS_ROOTSTON
+	bool
+	prompt "install Rootston example compositor"
+
+endif
