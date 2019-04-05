@@ -1,0 +1,8 @@
+## SECTION=multimedia_tools
+
+config UVC_GADGET
+	tristate
+	select HOST_CMAKE
+	prompt "uvc-gadget"
+	help
+	  UVC gadget userspace sample application
