@@ -23,7 +23,7 @@ TAR_SUFFIX	:= tar.xz
 TAR_URL		:= $(call ptx/mirror, GNU, tar/$(TAR).$(TAR_SUFFIX))
 TAR_SOURCE	:= $(SRCDIR)/$(TAR).$(TAR_SUFFIX)
 TAR_DIR		:= $(BUILDDIR)/$(TAR)
-TAR_LICENSE	:= unknown
+TAR_LICENSE	:= GPL-3.0-or-later
 
 # ----------------------------------------------------------------------------
 # Prepare
