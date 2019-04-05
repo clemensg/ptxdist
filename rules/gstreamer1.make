@@ -82,7 +82,7 @@ GSTREAMER1_CONF_OPT	:= \
 	--disable-poisoning \
 	--$(call ptx/endis, PTXCONF_GSTREAMER1_INTROSPECTION)-introspection \
 	\
-	--disable-check \
+	--$(call ptx/endis, PTXCONF_GSTREAMER1_CHECK)-check \
 	--with-ptp-helper-setuid-user=nobody \
 	--with-ptp-helper-setuid-group=nogroup \
 	--with-ptp-helper-permissions=setuid-root \
@@ -121,6 +121,9 @@ endif
 	@$(call install_lib, gstreamer1, 0, 0, 0644, libgstcontroller-1.0)
 	@$(call install_lib, gstreamer1, 0, 0, 0644, libgstnet-1.0)
 	@$(call install_lib, gstreamer1, 0, 0, 0644, libgstreamer-1.0)
+ifdef PTXCONF_GSTREAMER1_CHECK
+	@$(call install_lib, gstreamer1, 0, 0, 0644, libgstcheck-1.0)
+endif
 
 	@$(call install_lib, gstreamer1, 0, 0, 0644, \
 		gstreamer-1.0/libgstcoreelements)

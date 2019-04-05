@@ -29,6 +29,10 @@ if GSTREAMER1
 		default y
 		prompt "enable debug support"
 
+	config GSTREAMER1_CHECK
+		bool
+		prompt "install gst-check library"
+
 	config GSTREAMER1_INSTALL_TOOLS
 		bool
 		default y
