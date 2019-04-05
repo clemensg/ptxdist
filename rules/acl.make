@@ -23,11 +23,12 @@ ACL_SUFFIX	:= tar.gz
 ACL_URL		:= http://download.savannah.gnu.org/releases/acl/$(ACL).src.$(ACL_SUFFIX)
 ACL_SOURCE	:= $(SRCDIR)/$(ACL).src.$(ACL_SUFFIX)
 ACL_DIR		:= $(BUILDDIR)/$(ACL)
-ACL_LICENSE	:= GPL-2.0-only AND LGPL-2.1-only
-ACL_LICENSE_FILES := \
-	file://doc/COPYING;md5=c781d70ed2b4d48995b790403217a249 \
-	file://doc/COPYING.LGPL;md5=9e9a206917f8af112da634ce3ab41764
-
+ACL_LICENSE	:= LGPL-2.1-or-later
+ACL_LICENSE_FILES:= file://doc/COPYING.LGPL;md5=9e9a206917f8af112da634ce3ab41764
+ifdef PTXCONF_ACL_TOOLS
+ACL_LICENSE+= AND GPL-2.0.or-later
+ACL_LICENSE_FILES+= file://doc/COPYING;md5=c781d70ed2b4d48995b790403217a249
+endif
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
