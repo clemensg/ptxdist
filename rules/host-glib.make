@@ -45,9 +45,12 @@ HOST_GLIB_CONF_OPT	:= \
 
 $(STATEDIR)/host-glib.install.post:
 	@$(call targetinfo)
+	@mkdir -p $(HOST_GLIB_PKGDIR)/share/glib-2.0/gettext
 	@$(call world/install.post, HOST_GLIB)
 	@sed -i "s:'/share':'$(PTXCONF_SYSROOT_HOST)/share':" "$(PTXCONF_SYSROOT_HOST)/bin/gdbus-codegen"
-	@sed -i "s:^prefix=.*:prefix=$(PTXCONF_SYSROOT_HOST):" "$(PTXCONF_SYSROOT_HOST)/bin/glib-gettextize"
+	@sed -i -e 's:^prefix=.*:prefix=$(PTXDIST_SYSROOT_HOST):' \
+		-e 's:^\(datarootdir\|datadir\)=.*:\1=$(PTXDIST_SYSROOT_HOST)/share:' \
+		$(PTXCONF_SYSROOT_HOST)/bin/glib-gettextize
 	@$(call touch)
 
 # vim: syntax=make
