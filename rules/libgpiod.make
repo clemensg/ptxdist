@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_LIBGPIOD) += libgpiod
 #
 # Paths and names
 #
-LIBGPIOD_VERSION	:= 1.2
-LIBGPIOD_MD5		:= 1587cef32ac9edab6cc0440e6368860f
+LIBGPIOD_VERSION	:= 1.3
+LIBGPIOD_MD5		:= 70a3d4738495f4ec0c5f3fa6aeb999ed
 LIBGPIOD		:= libgpiod-$(LIBGPIOD_VERSION)
 LIBGPIOD_SUFFIX		:= tar.gz
 LIBGPIOD_URL		:= https://www.kernel.org/pub/software/libs/libgpiod/$(LIBGPIOD).$(LIBGPIOD_SUFFIX)
@@ -34,6 +34,7 @@ LIBGPIOD_CONF_TOOL	:= autoconf
 LIBGPIOD_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	--$(call ptx/endis, PTXCONF_LIBGPIOD_TOOLS)-tools \
+	--disable-install-tests \
 	--disable-tests \
 	--disable-bindings-cxx \
 	--$(call ptx/endis, PTXCONF_LIBGPIOD_PYTHON3)-bindings-python
