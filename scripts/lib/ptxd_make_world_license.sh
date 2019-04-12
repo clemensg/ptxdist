@@ -566,7 +566,7 @@ ptxd_make_world_release() {
 	    if [[ "${pkg_url}" =~ "file://" ]]; then
 		echo "Note: this package has BSP internal source code" > "${pkg_release_dir}/source"
 	    else
-		if [[ "${pkg_url}" =~ "lndir://${PTXDIST_WORKSPACE}" ]]; then
+		if [[ "${pkg_url}" =~ "lndir://" ]]; then
 		    echo "Note: this package has BSP internal source code" > "${pkg_release_dir}/source"
 		else
 		    echo "Warning: direct/plain sources outside the BSP are unsupported!" > "${pkg_release_dir}/source"
