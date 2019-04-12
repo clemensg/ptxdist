@@ -24,14 +24,8 @@ ptxd_make_image_extract_xpkg_files() {
     local work_dir="$1"
     local -a list ptxd_reply
     echo "option force_postinstall 1" > "${xpkg_conf}"
-    list=( \
-	"${PTXDIST_WORKSPACE}/projectroot${PTXDIST_PLATFORMSUFFIX}${src}" \
-	"${PTXDIST_WORKSPACE}/projectroot${src}${PTXDIST_PLATFORMSUFFIX}" \
-	"${PTXDIST_WORKSPACE}/projectroot${src}" \
-	"${PTXDIST_TOPDIR}/projectroot${src}" \
-	)
 
-    if ! ptxd_get_path "${list[@]}"; then
+    if ! ptxd_get_alternative projectroot "${src}" ; then
 	local IFS="
 "
 	ptxd_bailout "
