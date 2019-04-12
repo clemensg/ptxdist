@@ -473,7 +473,7 @@ QT5_LIBS-$(PTXCONF_QT5_MODULE_QTMULTIMEDIA)			+= Qt5Multimedia
 QT5_LIBS-$(PTXCONF_QT5_MODULE_QTMULTIMEDIA_QUICK)		+= Qt5MultimediaQuick
 QT5_LIBS-$(PTXCONF_QT5_MODULE_QTMULTIMEDIA_WIDGETS)		+= Qt5MultimediaWidgets
 QT5_LIBS-$(PTXCONF_QT5_MODULE_QTMULTIMEDIA_GST)			+= Qt5MultimediaGstTools
-QT5_PLUGINS-$(PTXCONF_QT5_MODULE_QTMULTIMEDIA_GST)		+= audio/libqtaudio_alsa
+QT5_PLUGINS-$(PTXCONF_QT5_MODULE_QTMULTIMEDIA)			+= audio/libqtaudio_alsa
 QT5_PLUGINS-$(PTXCONF_QT5_MODULE_QTMULTIMEDIA_GST)		+= mediaservice/libgstaudiodecoder
 
 #libgstcamerabin pulls in a dependency to gst-plugins-bad1 that we can't properly describe in the rules
