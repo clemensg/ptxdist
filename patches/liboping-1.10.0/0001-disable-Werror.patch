@@ -1,0 +1,24 @@
+From: Ladislav Michl <ladis@linux-mips.org>
+Date: Fri, 12 Apr 2019 09:12:58 +0200
+Subject: [PATCH] disable -Werror
+
+It fails with gcc-8 with -Werror=format-truncation.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ src/Makefile.in | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/Makefile.in b/src/Makefile.in
+index d7d5f5b59819..38b6b8bef54a 100644
+--- a/src/Makefile.in
++++ b/src/Makefile.in
+@@ -388,7 +388,7 @@ top_builddir = @top_builddir@
+ top_srcdir = @top_srcdir@
+ AUTOMAKE_OPTIONS = foreign no-dependencies
+ SUBDIRS = mans
+-@COMPILER_IS_GCC_TRUE@AM_CFLAGS = -Wall -Werror
++@COMPILER_IS_GCC_TRUE@AM_CFLAGS = -Wall
+ include_HEADERS = oping.h
+ lib_LTLIBRARIES = liboping.la
+ 
