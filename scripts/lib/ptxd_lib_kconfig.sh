@@ -655,19 +655,15 @@ ptxd_kconfig() {
 
     case "${part}" in
     ptx)
-	if [ -e "${PTXDIST_WORKSPACE}/Kconfig" ]; then
-	    file_kconfig="${PTXDIST_WORKSPACE}/Kconfig"
-	else
-	    file_kconfig="config/Kconfig"
+	if ! ptxd_in_path PTXDIST_PATH_LAYERS "Kconfig"; then
+	    ptxd_in_path PTXDIST_PATH_LAYERS "config/Kconfig"
 	fi
+	file_kconfig="${ptxd_reply}"
 	file_dotconfig="${PTXDIST_PTXCONFIG}"
 	;;
     platform)
-	if [ -e "${PTXDIST_WORKSPACE}/platforms/Kconfig" ]; then
-	    file_kconfig="${PTXDIST_WORKSPACE}/platforms/Kconfig"
-	else
-	    file_kconfig="${PTXDIST_TOPDIR}/platforms/Kconfig"
-	fi
+	ptxd_in_path PTXDIST_PATH_LAYERS "platforms/Kconfig"
+	file_kconfig="${ptxd_reply}"
 	file_dotconfig="${PTXDIST_PLATFORMCONFIG}"
 	;;
     collection)
@@ -681,11 +677,8 @@ ptxd_kconfig() {
 	file_dotconfig="${3}"
 	;;
     board)
-	if [ -e "${PTXDIST_WORKSPACE}/boardsetup/Kconfig" ]; then
-	    file_kconfig="${PTXDIST_WORKSPACE}/boardsetup/Kconfig"
-	else
-	    file_kconfig="${PTXDIST_TOPDIR}/config/boardsetup/Kconfig"
-	fi
+	ptxd_in_path PTXDIST_PATH_LAYERS "boardsetup/Kconfig"
+	file_kconfig="${ptxd_reply}"
 	file_dotconfig="${PTXDIST_BOARDSETUP}"
 	;;
     user)
