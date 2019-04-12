@@ -135,7 +135,7 @@ XORG_SERVER_CONF_OPT	= \
 	$(XORG_OPTIONS_DOCS) \
 	--with-vendor-name=Ptxdist \
 	--with-vendor-name-short=PTX \
-	--with-vendor-web=http://www.pengutronix.de/software/ptxdist/index_en.html \
+	--with-vendor-web=https://www.ptxdist.org/pages/support.html \
 	--with-os-name=Linux-$(KERNEL_HEADER_VERSION) \
 	--with-os-vendor=Ptxdist \
 	--with-fontrootdir=$(XORG_FONTDIR) \
