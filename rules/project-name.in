@@ -80,4 +80,65 @@ config PROJECT_CHECK_LICENSES
 	  If this is enabled <pkg>.report is build during the normal build
 	  process. As a result all specified md5 sums for license files are
 	  verified.
+
+comment "------------------------------------"
+comment "reproducible builds"
+comment "------------------------------------"
+
+
+choice
+	prompt "SOURCE_DATE_EPOCH timestamps source"
+	default REPRODUCIBLE_TIMESTAMP_PTXDIST
+	help
+	  Use the specifies source to provide a stable SOURCE_DATE_EPOCH.
+	  This helps making builds more reproducible. See
+	  https://reproducible-builds.org/specs/source-date-epoch/ for more
+	  details about SOURCE_DATE_EPOCH.
+
+	  For development this can be disabled in 'ptxdist setup'.
+
+config REPRODUCIBLE_TIMESTAMP_PTXDIST
+	bool
+	prompt "ptxdist version"
+	help
+	  Use the year and month of the PTXdist version to generated the
+	  timestamp.
+
+config REPRODUCIBLE_TIMESTAMP_TOOLCHAIN
+	bool
+	prompt "toolchain version"
+	help
+	  Use the year and month of the toolchain version to generated the
+	  timestamp. This only works for OSELAS.Toolchain.
+	  This is useful to keep the timestamp stable across PTXdist
+	  version updates. When a toolchain update happens, then the
+	  compiler will probably produce different code, so a different
+	  timestamp is ok as well.
+
+config REPRODUCIBLE_TIMESTAMP_CUSTOM
+	bool
+	prompt "custom timestamp"
+
+endchoice
+
+config REPRODUCIBLE_TIMESTAMP
+	string
+	default "toolchain" if REPRODUCIBLE_TIMESTAMP_TOOLCHAIN
+	default "ptxdist" if REPRODUCIBLE_TIMESTAMP_PTXDIST
+	default "custom" if REPRODUCIBLE_TIMESTAMP_CUSTOM
+
+if REPRODUCIBLE_TIMESTAMP_CUSTOM
+
+config REPRODUCIBLE_TIMESTAMP_STRING
+	string
+	prompt "custom timestamp"
+	help
+	  Supply a custom fake timestamp to be injected to the build.
+	  The timestamp is passed to 'date --date', e.g. "2018-11-01 UTC".
+
+	  Note: the timestamp should contain include the timezone.
+	  Otherwise timezone changes may produce different results.
+
+endif
+
 endmenu

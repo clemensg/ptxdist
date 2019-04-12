@@ -250,6 +250,19 @@ config SETUP_DISABLE_LOCAL_CHECK
 	  may fail under certain circumstances.
 	  Disable this check at your own risk.
 
+config SETUP_DISABLE_REPRODUCIBLE
+	bool
+	prompt "disable reproducible builds"
+	help
+	  PTXdist tries to make building as reproducible as possible.
+	  This includes fixed user names and especially timestamps by
+	  setting SOURCE_DATE_EPOCH and similar variables.
+
+	  This can be confusing during development. E.g. The Linux kernel
+	  build timestamp never changes and cannot be used to ensure that
+	  the correct kernel image is used.
+	  Enable this option to get a new timestamp for every PTXdist call.
+
 config SETUP_ENV_WHITELIST
 	string "environment variable whitelist (space separated)"
 	help
