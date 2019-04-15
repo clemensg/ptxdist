@@ -2,6 +2,7 @@
 #
 # Copyright (C) 2007 by Sascha Hauer
 #               2009, 2010 by Marc Kleine-Budde <mkl@pengutronix.de>
+#               2018 by Ahmad Fatoum <a.fatoum@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -33,6 +34,13 @@ endif
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
+
+ifdef PTXCONF_U_BOOT_BOOT_SCRIPT
+U_BOOT_BOOT_SCRIPT_TXT := $(call ptx/in-platformconfigdir, uboot.scr)
+U_BOOT_BOOT_SCRIPT_BIN := $(call remove_quotes, \
+	$(PTXCONF_U_BOOT_BOOT_SCRIPT_ROOTFS_PATH))
+$(STATEDIR)/u-boot.compile: $(U_BOOT_BOOT_SCRIPT_TXT)
+endif
 
 U_BOOT_WRAPPER_BLACKLIST := \
 	TARGET_HARDEN_STACKCLASH \
@@ -82,6 +90,20 @@ $(STATEDIR)/u-boot.prepare:
 endif
 
 # ----------------------------------------------------------------------------
+# Compile
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/u-boot.compile:
+	@$(call targetinfo)
+	@$(call world/compile, U_BOOT)
+ifdef PTXCONF_U_BOOT_BOOT_SCRIPT
+	@$(U_BOOT_DIR)/tools/mkimage -T script -C none \
+		-d $(U_BOOT_BOOT_SCRIPT_TXT) \
+		$(U_BOOT_DIR)/boot.scr.uimg
+endif
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
@@ -121,6 +143,19 @@ endif
 ifdef PTXCONF_U_BOOT_INSTALL_U_BOOT_WITH_SPL_PBL
 	@install -v -D -m644 $(U_BOOT_DIR)/u-boot-with-spl-pbl.bin \
 		$(IMAGEDIR)/u-boot-with-spl-pbl.bin
+endif
+
+ifdef PTXCONF_U_BOOT_BOOT_SCRIPT
+	@$(call install_init, u-boot)
+	@$(call install_fixup, u-boot, PRIORITY, optional)
+	@$(call install_fixup, u-boot, SECTION, base)
+	@$(call install_fixup, u-boot, AUTHOR, "Ahmad Fatoum <afa@pengutronix.de>")
+	@$(call install_fixup, u-boot, DESCRIPTION, "U-Boot boot script")
+
+	@$(call install_copy, u-boot, 0, 0, 0644, \
+		$(U_BOOT_DIR)/boot.scr.uimg, $(U_BOOT_BOOT_SCRIPT_BIN))
+
+	@$(call install_finish, u-boot)
 endif
 	@$(call touch)
 

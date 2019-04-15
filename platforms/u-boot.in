@@ -71,6 +71,24 @@ config U_BOOT_CONFIG
 
 endif
 
+config U_BOOT_BOOT_SCRIPT
+	prompt "Compile U-Boot boot script"
+	bool
+	help
+	  Use U-Boot's mkimage to compile a U-Boot boot script and install it
+	  into the rootfs
+
+if U_BOOT_BOOT_SCRIPT
+
+config U_BOOT_BOOT_SCRIPT_ROOTFS_PATH
+	string
+	default "/boot/boot.scr.uimg"
+	prompt "Installation path"
+	help
+	  Target rootfs path where the U-Boot script should be located
+
+endif
+
 comment "target install"
 
 config U_BOOT_INSTALL_SREC
