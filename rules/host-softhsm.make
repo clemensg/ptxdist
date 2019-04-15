@@ -40,5 +40,7 @@ HOST_SOFTHSM_CONF_OPT	:= \
 	--with-objectstore-backend-db \
 	--without-migrate \
 	--with-p11-kit=/share/p11-kit/modules
+HOST_SOFTHSM_CPPFLAGS := \
+	-DDEBUG_LOG_STDERR=1
 
 # vim: syntax=make
