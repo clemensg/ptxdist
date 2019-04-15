@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_NSPR) += nspr
 #
 # Paths and names
 #
-NSPR_VERSION	:= 4.20
-NSPR_MD5	:= 1c198c7e73f6b0e2bb9153a644ba246b
+NSPR_VERSION	:= 4.21
+NSPR_MD5	:= b865586f19912a50acc3755d8a45dbaa
 NSPR		:= nspr-$(NSPR_VERSION)
 NSPR_SUFFIX	:= tar.gz
 NSPR_URL	:= https://ftp.mozilla.org/pub/nspr/releases/v$(NSPR_VERSION)/src/$(NSPR).$(NSPR_SUFFIX)
