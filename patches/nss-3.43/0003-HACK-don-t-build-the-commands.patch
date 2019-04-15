@@ -1,0 +1,21 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Mon, 15 Apr 2019 18:11:49 +0200
+Subject: [PATCH] HACK: don't build the commands
+
+They are not needed or installed and have zlib as extra dependency.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ nss/manifest.mn | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/nss/manifest.mn b/nss/manifest.mn
+index 500a5ad64b62..03d8e620ea4b 100644
+--- a/nss/manifest.mn
++++ b/nss/manifest.mn
+@@ -10,4 +10,4 @@ IMPORTS =	nspr20/v4.8 \
+ 
+ RELEASE = nss
+ 
+-DIRS = coreconf lib cmd cpputil gtests
++DIRS = coreconf lib cpputil gtests

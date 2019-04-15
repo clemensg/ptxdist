@@ -2,4 +2,5 @@
 #tag:base --start-number 1
 0001-nss-fix-nsinstall-build.patch
 0002-add-nss.pc.in.patch
-# 9b53c047a21dbd46d849e90d773bd0d8  - git-ptx-patches magic
+0003-HACK-don-t-build-the-commands.patch
+# 5a106339b1aacb64732e0a72df6e0416  - git-ptx-patches magic
