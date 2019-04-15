@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_LIBVA) += libva
 #
 # Paths and names
 #
-LIBVA_VERSION	:= 2.1.0
-LIBVA_MD5	:= 9d6e4f1d36c407566343e9dde5a972b8
+LIBVA_VERSION	:= 2.4.0
+LIBVA_MD5	:= cfc69c2a5f526dd1858e098fb8eebfa6
 LIBVA		:= libva-$(LIBVA_VERSION)
 LIBVA_SUFFIX	:= tar.bz2
 LIBVA_URL	:= https://github.com/intel/libva/releases/download/$(LIBVA_VERSION)/$(LIBVA).$(LIBVA_SUFFIX)
