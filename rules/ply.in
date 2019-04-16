@@ -1,0 +1,8 @@
+## SECTION=debug_tools
+
+config PLY
+	tristate
+	select KERNEL_HEADER
+	prompt "ply"
+	help
+	  FIXME
