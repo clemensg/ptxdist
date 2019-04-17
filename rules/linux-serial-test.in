@@ -1,0 +1,10 @@
+## SECTION=test_suites
+
+config LINUX_SERIAL_TEST
+	tristate
+	select HOST_CMAKE
+	prompt "linux-serial-test"
+	help
+	  Test application for serial ports under Linux.
+
+# vim: syntax=kconfig
