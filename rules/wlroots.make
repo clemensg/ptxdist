@@ -35,7 +35,8 @@ WLROOTS_CONF_OPT := \
 	-Denable-enable-examples=false \
 	-Denable-enable-rootston=$(call ptx/truefalse,PTXCONF_WLROOTS_ROOTSTON) \
 	-Denable-x11_backend=false \
-	-Denable-xwayland=false
+	-Denable-xwayland=false \
+	-Dwerror=false
 
 # ----------------------------------------------------------------------------
 # Target-Install
