@@ -11,7 +11,9 @@
 #
 # We provide this package
 #
+ifeq ($(PTXCONF_ARCH_X86),$(PTXCONF_ARCH_X86_64))
 PACKAGES-$(PTXCONF_PLY) += ply
+endif
 
 #
 # Paths and names
