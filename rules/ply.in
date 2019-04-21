@@ -5,4 +5,5 @@ config PLY
 	select KERNEL_HEADER
 	prompt "ply"
 	help
-	  FIXME
+	  Light-weight dynamic tracer for Linux using BPF with kprobes and
+	  tracepoints to attach probes to arbitrary points in the kernel.
