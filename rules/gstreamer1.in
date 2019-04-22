@@ -3,12 +3,13 @@
 menuconfig GSTREAMER1
 	tristate
 	prompt "gstreamer                     "
-	select LIBC_M
-	select LIBUNWIND
-	select GLIB
-	select HOST_GLIB
 	select HOST_FLEX
+	select HOST_GLIB
+	select HOST_MESON
+	select LIBC_M
+	select GLIB
 	select GOBJECT_INTROSPECTION	if GSTREAMER1_INTROSPECTION
+	select LIBUNWIND
 	help
 	  GStreamer is a streaming media framework, based on graphs of
 	  filters which operate on media data. Applications using this

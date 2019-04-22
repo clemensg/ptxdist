@@ -1,0 +1,22 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Mon, 22 Apr 2019 17:32:51 +0200
+Subject: [PATCH] meson: allow enabling gir when cross-compiling
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ meson.build | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/meson.build b/meson.build
+index e738c557f0d9..e1b8d9342dc3 100644
+--- a/meson.build
++++ b/meson.build
+@@ -451,7 +451,7 @@ rt_lib = cc.find_library('rt', required : false)
+ gir = find_program('g-ir-scanner', required : get_option('introspection'))
+ gnome = import('gnome')
+ 
+-build_gir = gir.found() and not meson.is_cross_build()
++build_gir = gir.found()
+ 
+ gir_init_section = [ '--add-init-section=extern void gst_init(gint*,gchar**);' + \
+     'g_setenv("GST_REGISTRY_DISABLE", "yes", TRUE);' + \
