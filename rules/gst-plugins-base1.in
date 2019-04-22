@@ -3,42 +3,41 @@
 menuconfig GST_PLUGINS_BASE1
 	tristate
 
-	# needed for autogen.sh
-	select HOST_GETTEXT
+	select HOST_MESON
+	select HOST_ORC
 
 	select GLIB
 	select GSTREAMER1
 	select ORC
-
-	select ALSA_LIB		if GST_PLUGINS_BASE1_ALSA
-	select ALSA_LIB_PCM	if GST_PLUGINS_BASE1_ALSA
-	select ALSA_LIB_MIXER	if GST_PLUGINS_BASE1_ALSA
-	select ALSA_LIB_SEQ	if GST_PLUGINS_BASE1_ALSA
-	select GLIB		if GST_PLUGINS_BASE1_GIO
-	select LIBOGG		if GST_PLUGINS_BASE1_OGG
-	select LIBTHEORA	if GST_PLUGINS_BASE1_THEORA
-	select LIBVORBIS	if GST_PLUGINS_BASE1_VORBIS
-	select PANGO		if GST_PLUGINS_BASE1_PANGO
-	select LIBXML2		if GST_PLUGINS_BASE1_SUBPARSE
-	select LIBXML2_HTML	if GST_PLUGINS_BASE1_SUBPARSE
-	select OPUS		if GST_PLUGINS_BASE1_OPUS
-	select ZLIB		if GST_PLUGINS_BASE1_ZLIB
-	select LIBTREMOR	if GST_PLUGINS_BASE1_IVORBIS
-	select LIBPNG		if GST_PLUGINS_BASE1_OPENGL
-	select LIBJPEG		if GST_PLUGINS_BASE1_OPENGL
-	select MESALIB		if GST_PLUGINS_BASE1_OPENGL || GST_PLUGINS_BASE1_GLES2 || GST_PLUGINS_BASE1_EGL
-	select MESALIB_OPENGL	if GST_PLUGINS_BASE1_OPENGL
-	select MESALIB_GLES2	if GST_PLUGINS_BASE1_GLES2
-	select MESALIB_EGL	if GST_PLUGINS_BASE1_EGL
-	select MESALIB_EGL_WAYLAND if GST_PLUGINS_BASE1_EGL_WAYLAND
-	select MESALIB_GLX	if GST_PLUGINS_BASE1_GLX
-	select XORG_LIB_X11	if GST_PLUGINS_BASE1_EGL_X11
-	select LIBGUDEV		if GST_PLUGINS_BASE1_EGL
+	select ALSA_LIB			if GST_PLUGINS_BASE1_ALSA
+	select ALSA_LIB_PCM		if GST_PLUGINS_BASE1_ALSA
+	select ALSA_LIB_MIXER		if GST_PLUGINS_BASE1_ALSA
+	select ALSA_LIB_SEQ		if GST_PLUGINS_BASE1_ALSA
+	select GLIB			if GST_PLUGINS_BASE1_GIO
+	select LIBOGG			if GST_PLUGINS_BASE1_OGG
+	select LIBTHEORA		if GST_PLUGINS_BASE1_THEORA
+	select LIBVORBIS		if GST_PLUGINS_BASE1_VORBIS
+	select PANGO			if GST_PLUGINS_BASE1_PANGO
+	select LIBXML2			if GST_PLUGINS_BASE1_SUBPARSE
+	select LIBXML2_HTML		if GST_PLUGINS_BASE1_SUBPARSE
+	select OPUS			if GST_PLUGINS_BASE1_OPUS
+	select ZLIB			if GST_PLUGINS_BASE1_ZLIB
+	select LIBTREMOR		if GST_PLUGINS_BASE1_TREMOR
+	select LIBPNG			if GST_PLUGINS_BASE1_OPENGL
+	select LIBJPEG			if GST_PLUGINS_BASE1_OPENGL
+	select MESALIB			if GST_PLUGINS_BASE1_OPENGL || GST_PLUGINS_BASE1_GLES2 || GST_PLUGINS_BASE1_EGL
+	select MESALIB_OPENGL		if GST_PLUGINS_BASE1_OPENGL
+	select MESALIB_GLES2		if GST_PLUGINS_BASE1_GLES2
+	select MESALIB_EGL		if GST_PLUGINS_BASE1_EGL
+	select MESALIB_EGL_WAYLAND	if GST_PLUGINS_BASE1_EGL_WAYLAND
+	select MESALIB_GLX		if GST_PLUGINS_BASE1_GLX
+	select XORG_LIB_X11		if GST_PLUGINS_BASE1_EGL_X11
+	select LIBGUDEV			if GST_PLUGINS_BASE1_EGL
 
 	# x features need libx11 + Xv
-	select XORG		if GST_PLUGINS_BASE1_X
-	select XORG_LIB_X11	if GST_PLUGINS_BASE1_X
-	select XORG_LIB_XV	if GST_PLUGINS_BASE1_X
+	select XORG			if GST_PLUGINS_BASE1_X
+	select XORG_LIB_X11		if GST_PLUGINS_BASE1_X
+	select XORG_LIB_XV		if GST_PLUGINS_BASE1_X
 	prompt "gst-plugins-base              "
 	help
 	  GStreamer is a streaming media framework, based on graphs of
@@ -55,7 +54,6 @@ menuconfig GST_PLUGINS_BASE1
 if GST_PLUGINS_BASE1
 
 comment "dependency-less plugins"
-# -------------------------------
 
 config GST_PLUGINS_BASE1_ADDER
 	bool
@@ -77,30 +75,42 @@ config GST_PLUGINS_BASE1_AUDIORATE
 	bool
 	prompt "audiorate"
 
+config GST_PLUGINS_BASE1_AUDIORESAMPLE
+	bool
+	prompt "audioresample"
+
 config GST_PLUGINS_BASE1_AUDIOTESTSRC
 	bool
 	prompt "audiotestsrc"
+
+config GST_PLUGINS_BASE1_COMPOSITOR
+	bool
+	prompt "compositor"
 
 config GST_PLUGINS_BASE1_ENCODING
 	bool
 	prompt "encoding"
 
-config GST_PLUGINS_BASE1_VIDEOCONVERT
-	bool
-	prompt "videoconvert"
-
 config GST_PLUGINS_BASE1_GIO
 	bool
 	prompt "gio"
+
+config GST_PLUGINS_BASE1_OVERLAYCOMPOSITION
+	bool
+	prompt "overlaycomposition"
+
+config GST_PLUGINS_BASE1_PBTYPES
+	bool
+	prompt "pbtypes"
 
 config GST_PLUGINS_BASE1_PLAYBACK
 	bool
 	select GST_PLUGINS_BASE1_TYPEFIND
 	prompt "playback"
 
-config GST_PLUGINS_BASE1_AUDIORESAMPLE
+config GST_PLUGINS_BASE1_RAWPARSE
 	bool
-	prompt "audioresample"
+	prompt "rawparse"
 
 config GST_PLUGINS_BASE1_SUBPARSE
 	bool
@@ -114,9 +124,9 @@ config GST_PLUGINS_BASE1_TYPEFIND
 	bool
 	prompt "typefind"
 
-config GST_PLUGINS_BASE1_VIDEOTESTSRC
+config GST_PLUGINS_BASE1_VIDEOCONVERT
 	bool
-	prompt "videotestsrc"
+	prompt "videoconvert"
 
 config GST_PLUGINS_BASE1_VIDEORATE
 	bool
@@ -126,31 +136,29 @@ config GST_PLUGINS_BASE1_VIDEOSCALE
 	bool
 	prompt "videoscale"
 
+config GST_PLUGINS_BASE1_VIDEOTESTSRC
+	bool
+	prompt "videotestsrc"
+
 config GST_PLUGINS_BASE1_VOLUME
 	bool
 	prompt "volume"
 
 comment "plugins with dependencies"
 
-config GST_PLUGINS_BASE1_X
-	bool
-	prompt "x based plugins"
-
-config GST_PLUGINS_BASE1_XVIDEO
-	bool
-	depends on GST_PLUGINS_BASE1_X
-	prompt "xv"
-	help
-	  This plugin offers an xlib based window that can display a video stream.
-
 config GST_PLUGINS_BASE1_ALSA
 	bool
 	prompt "alsa"
+	help
+	  ALSA audio source/sink plugin
 
 config GST_PLUGINS_BASE1_CDPARANOIA
 	bool
+	# needs cdparanoia
 	depends on BROKEN
-	prompt "cdparanoia [BROKEN]"
+	prompt "cdparanoia"
+	help
+	  cdparanoia plugin
 
 config GST_PLUGINS_BASE1_GL
 	bool
@@ -162,7 +170,6 @@ if GST_PLUGINS_BASE1_GL
 
 config GST_PLUGINS_BASE1_GLES2
 	bool
-	depends on !GST_PLUGINS_BASE1_OPENGL
 	prompt "gles2"
 
 config GST_PLUGINS_BASE1_OPENGL
@@ -197,47 +204,57 @@ config GST_PLUGINS_BASE1_X11
 
 endif
 
-config GST_PLUGINS_BASE1_IVORBIS
-	bool
-	prompt "ivorbis"
-
 config GST_PLUGINS_BASE1_LIBVISUAL
 	bool
+	# needs libvisual
 	depends on BROKEN
-	prompt "libvisual [BROKEN]"
+	prompt "libvisual"
+	help
+	  libvisual audio visualization plugin
 
 config GST_PLUGINS_BASE1_OGG
 	bool
 	prompt "ogg"
+	help
+	  ogg parser, muxer, demuxer plugin
 
 config GST_PLUGINS_BASE1_OPUS
 	bool
 	prompt "opus"
+	help
+	  OPUS audio codec plugin
 
 config GST_PLUGINS_BASE1_PANGO
 	bool
 	prompt "pango"
-
-config GST_PLUGINS_BASE1_RAWPARSE
-	bool
-	prompt "rawparse"
+	help
+	  Pango text rendering and overlay plugin
 
 config GST_PLUGINS_BASE1_THEORA
 	bool
 	prompt "theora"
+	help
+	  Theora video parser and codec plugin
+
+config GST_PLUGINS_BASE1_TREMOR
+	bool
+	prompt "tremor"
+	help
+	  Integer Vorbis decoder plugin for devices without floating point
 
 config GST_PLUGINS_BASE1_VORBIS
 	bool
 	prompt "vorbis"
+	help
+	  Vorbis audio parser, tagger, and codec plugin
+
+config GST_PLUGINS_BASE1_X
+	bool
+	prompt "x based plugins"
+	help
+	  X11 ximagesink, xvimagesink plugins and X11 support in libraries
 
 comment "Support options"
-
-config GST_PLUGINS_BASE1_XSHM
-	bool
-	depends on GST_PLUGINS_BASE1_X
-	prompt "xshm"
-	help
-	  xshm support for X and XVideo plaugins
 
 config GST_PLUGINS_BASE1_ZLIB
 	bool

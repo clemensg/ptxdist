@@ -330,3 +330,19 @@ s/^\(\(# \)\?PTXCONF_FUSE_\)_/\1\2/
 # reason : renderonly drivers consolidated into kmsro
 #
 s/^\(\(# \)\?PTXCONF_\)MESALIB_DRI_IMX\>/\1MESALIB_DRI_KMSRO/
+
+#
+# from   : ptxdist-2019.04.0
+# to     : ptxdist-2019.05.0
+# symbol : GST_PLUGINS_BASE1_IVORBIS -> GST_PLUGINS_BASE1_TREMOR
+# reason : option was rename
+#
+s/^\(\(# \)\?PTXCONF_GST_PLUGINS_BASE1_\)IVORBIS\>/\1TREMOR/
+
+#
+# from   : ptxdist-2019.04.0
+# to     : ptxdist-2019.05.0
+# symbol : GST_PLUGINS_BAD1_COMPOSITOR -> GST_PLUGINS_BASE1_COMPOSITOR
+# reason : plugin moved from bad to base
+#
+s/^\(\(# \)\?PTXCONF_GST_PLUGINS_\)BAD1_COMPOSITOR\>/\1BASE1_COMPOSITOR/
