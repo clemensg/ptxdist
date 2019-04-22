@@ -2,37 +2,40 @@
 
 menuconfig GST_PLUGINS_GOOD1
 	tristate
+	select HOST_MESON
+
 	select GLIB
 	select GSTREAMER1
 	select GST_PLUGINS_BASE1
 	select ORC
-	select LIBPNG			if GST_PLUGINS_GOOD1_LIBPNG
-	select LIBJPEG			if GST_PLUGINS_GOOD1_JPEG
-	select ZLIB			if GST_PLUGINS_GOOD1_ZLIB
 	select BZIP2			if GST_PLUGINS_GOOD1_BZ2
 	select BZIP2_LIBBZ2		if GST_PLUGINS_GOOD1_BZ2
-	select LIBCACA			if GST_PLUGINS_GOOD1_LIBCACA
-	select XORG_LIB_X11		if GST_PLUGINS_GOOD1_X
-	select XORG_LIB_XDAMAGE		if GST_PLUGINS_GOOD1_X
-	select XORG_LIB_XEXT		if GST_PLUGINS_GOOD1_X
-	select XORG_LIB_XFIXES		if GST_PLUGINS_GOOD1_X
+	select CAIRO			if GST_PLUGINS_GOOD1_CAIRO
+	select FLAC			if GST_PLUGINS_GOOD1_FLAC
 	select GDK_PIXBUF		if GST_PLUGINS_GOOD1_GDK_PIXBUF
 	select GTK			if GST_PLUGINS_GOOD1_GTK3
+	select LIBJPEG			if GST_PLUGINS_GOOD1_JPEG
 	select LAME			if GST_PLUGINS_GOOD1_LAME
+	select LIBCACA			if GST_PLUGINS_GOOD1_LIBCACA
+	select MPG123			if GST_PLUGINS_GOOD1_MPG123
+	select LIBPNG			if GST_PLUGINS_GOOD1_PNG
+	select PULSEAUDIO		if GST_PLUGINS_GOOD1_PULSE
+	select QT5			if GST_PLUGINS_GOOD1_QT5
+	select QT5_GUI			if GST_PLUGINS_GOOD1_QT5
+	select QT5_MODULE_QTDECLARATIVE	if GST_PLUGINS_GOOD1_QT5
+	select LIBSHOUT			if GST_PLUGINS_GOOD1_SHOUT2
 	select LIBSOUP			if GST_PLUGINS_GOOD1_SOUP
 	select SPEEX			if GST_PLUGINS_GOOD1_SPEEX
-	select FLAC			if GST_PLUGINS_GOOD1_FLAC
-	select CAIRO			if GST_PLUGINS_GOOD1_CAIRO
-	select UDEV			if GST_PLUGINS_GOOD1_GST_V4L2
-	select LIBGUDEV			if GST_PLUGINS_GOOD1_GST_V4L2
-	select V4L_UTILS		if GST_PLUGINS_GOOD1_GST_V4L2_LIBV4L2
-	select V4L_UTILS_LIBV4L2	if GST_PLUGINS_GOOD1_GST_V4L2_LIBV4L2
-	select LIBSHOUT			if GST_PLUGINS_GOOD1_SHOUT2
-	select PULSEAUDIO		if GST_PLUGINS_GOOD1_PULSE
-	select QT5			if GST_PLUGINS_GOOD1_QT
-	select QT5_GUI			if GST_PLUGINS_GOOD1_QT
-	select QT5_MODULE_QTDECLARATIVE	if GST_PLUGINS_GOOD1_QT
 	select TWOLAME			if GST_PLUGINS_GOOD1_TWOLAME
+	select LIBGUDEV			if GST_PLUGINS_GOOD1_V4L2
+	select UDEV			if GST_PLUGINS_GOOD1_V4L2
+	select V4L_UTILS		if GST_PLUGINS_GOOD1_V4L2_LIBV4L2
+	select V4L_UTILS_LIBV4L2	if GST_PLUGINS_GOOD1_V4L2_LIBV4L2
+	select XORG_LIB_X11		if GST_PLUGINS_GOOD1_XIMAGESRC
+	select XORG_LIB_XDAMAGE		if GST_PLUGINS_GOOD1_XIMAGESRC
+	select XORG_LIB_XEXT		if GST_PLUGINS_GOOD1_XIMAGESRC
+	select XORG_LIB_XFIXES		if GST_PLUGINS_GOOD1_XIMAGESRC
+	select ZLIB			if GST_PLUGINS_GOOD1_ZLIB
 
 	prompt "gst-plugins-good              "
 	help
@@ -44,9 +47,7 @@ menuconfig GST_PLUGINS_GOOD1
 
 if GST_PLUGINS_GOOD1
 
-# ------------------------------
 comment "dependency-less plugins"
-# ------------------------------
 
 config GST_PLUGINS_GOOD1_ALPHA
 	bool
@@ -132,7 +133,7 @@ config GST_PLUGINS_GOOD1_INTERLEAVE
 	bool
 	prompt "interleave"
 
-config GST_PLUGINS_GOOD1_QTDEMUX
+config GST_PLUGINS_GOOD1_ISOMP4
 	bool
 	prompt "isomp4"
 
@@ -220,140 +221,195 @@ config GST_PLUGINS_GOOD1_Y4M
 	bool
 	prompt "y4m"
 
-# ---------------------------------
 comment "plugins with dependencies"
-# ---------------------------------
-
-config GST_PLUGINS_GOOD1_OSS
-	bool
-	prompt "oss"
-
-config GST_PLUGINS_GOOD1_OSS4
-	bool
-	prompt "oss4"
-
-config GST_PLUGINS_GOOD1_GST_V4L2
-	bool
-	prompt "gst_v4l2"
-
-config GST_PLUGINS_GOOD1_GST_V4L2_LIBV4L2
-	bool
-	depends on GST_PLUGINS_GOOD1_GST_V4L2
-	prompt "build v4l2 plugin with libv4l2 support"
-
-config GST_PLUGINS_GOOD1_X
-	bool
-	prompt "x"
 
 config GST_PLUGINS_GOOD1_AALIB
 	bool
+	# needs libaa
 	depends on BROKEN
 	prompt "aalib"
+	help
+	  aalib text console video sink plugin
 
 config GST_PLUGINS_GOOD1_CAIRO
 	bool
 	prompt "cairo"
+	help
+	  Cairo overlay plugin
+
+config GST_PLUGINS_GOOD1_DV
+	bool
+	# needs libdv
+	depends on BROKEN
+	prompt "dv"
+	help
+	  Digital video decoder and demuxer plugin
+
+config GST_PLUGINS_GOOD1_DV1394
+	bool
+	# needs libraw1394, libavc1394, libiec61883
+	depends on BROKEN
+	prompt "dv1394"
+	help
+	  Digital IEEE1394 interface video source plugin
 
 config GST_PLUGINS_GOOD1_FLAC
 	bool
 	prompt "flac"
+	help
+	  FLAC audio codec plugin
 
 config GST_PLUGINS_GOOD1_GDK_PIXBUF
 	bool
-	prompt "gdk_pixbuf"
+	prompt "gdk-pixbuf"
+	help
+	  gdk-pixbuf image decoder, overlay, and sink plugin
 
 config GST_PLUGINS_GOOD1_GTK3
 	bool
 	prompt "gtk3"
+	help
+	  GTK+ video sink plugin
 
 config GST_PLUGINS_GOOD1_JACK
 	bool
-	prompt "jack"
+	# needs libjack
 	depends on BROKEN
+	prompt "jack"
+	help
+	  JACK audio source/sink plugin
 
 config GST_PLUGINS_GOOD1_JPEG
 	bool
 	prompt "jpeg"
+	help
+	  JPEG image codec plugin
 
 config GST_PLUGINS_GOOD1_LAME
 	bool
 	prompt "lame"
+	help
+	  LAME mp3 audio encoder plugin
 
 config GST_PLUGINS_GOOD1_LIBCACA
 	bool
 	prompt "libcaca"
-
-config GST_PLUGINS_GOOD1_LIBDV
-	bool
-	depends on BROKEN
-	prompt "libdv"
-
-config GST_PLUGINS_GOOD1_LIBPNG
-	bool
-	prompt "libpng"
+	help
+	  libcaca text console video sink plugin
 
 config GST_PLUGINS_GOOD1_MPG123
 	bool
 	prompt "mpg123"
-	# needs libmpg123
-	depends on BROKEN
+	help
+	  mpg123 mp3 audio decoder plugin
+
+config GST_PLUGINS_GOOD1_OSS
+	bool
+	prompt "oss"
+	help
+	  OSS audio source/sink plugin
+
+config GST_PLUGINS_GOOD1_OSS4
+	bool
+	prompt "oss4"
+	help
+	  OSSv4 audio source/sink plugin
+
+config GST_PLUGINS_GOOD1_PNG
+	bool
+	prompt "png"
+	help
+	  PNG image codec plugin
 
 config GST_PLUGINS_GOOD1_PULSE
 	bool
 	prompt "pulse"
+	help
+	  Pulseaudio audio source/sink plugin
 
-config GST_PLUGINS_GOOD1_DV1394
+config GST_PLUGINS_GOOD1_QT5
 	bool
-	depends on BROKEN
-	prompt "dv1394"
-
-config GST_PLUGINS_GOOD1_QT
-	bool
-	prompt "qt"
+	prompt "qt5"
+	help
+	  Qt5 QML video sink plugin
 
 config GST_PLUGINS_GOOD1_SHOUT2
 	bool
 	prompt "shout2"
+	help
+	  Shout-casting network sink plugin based on libshout2
 
 config GST_PLUGINS_GOOD1_SOUP
 	bool
 	prompt "soup"
+	help
+	  libsoup HTTP client source/sink plugin
 
 config GST_PLUGINS_GOOD1_SPEEX
 	bool
 	prompt "speex"
+	help
+	  Speex audio codec plugin
 
 config GST_PLUGINS_GOOD1_TAGLIB
 	bool
+	# needs libtag
 	depends on BROKEN
 	prompt "taglib"
+	help
+	  Tag-writing plugin based on taglib
 
 config GST_PLUGINS_GOOD1_TWOLAME
 	bool
 	prompt "twolame"
+	help
+	  twolame mp2 audio encoder plugin
+
+config GST_PLUGINS_GOOD1_V4L2
+	bool
+	prompt "v4l2"
+	help
+	  Build video4linux2 source/sink plugin
+
+config GST_PLUGINS_GOOD1_V4L2_LIBV4L2
+	bool
+	depends on GST_PLUGINS_GOOD1_V4L2
+	prompt "build v4l2 plugin with libv4l2 support"
 
 config GST_PLUGINS_GOOD1_VPX
 	bool
+	# needs libvpx
 	depends on BROKEN
 	prompt "vpx"
+	help
+	  VP8 and VP9 video codec plugin
 
 config GST_PLUGINS_GOOD1_WAVPACK
 	bool
+	# needs wavpack
 	depends on BROKEN
 	prompt "wavpack"
+	help
+	  Wavpack audio codec plugin
+
+config GST_PLUGINS_GOOD1_XIMAGESRC
+	bool
+	prompt "ximagesrc"
+	help
+	  X11 ximagesrc plugin
 
 comment "Support options"
-
-config GST_PLUGINS_GOOD1_ZLIB
-	bool
-	prompt "zlib"
-	help
-	  zlib support for id3demux/qtdemux/matroska
 
 config GST_PLUGINS_GOOD1_BZ2
 	bool
 	prompt "bz2"
 	help
-	  bz2 support for matroska
+	  libbz2 support in the matroska plugin
+
+config GST_PLUGINS_GOOD1_ZLIB
+	bool
+	prompt "zlib"
+	help
+	  zlib support for isomp4/matroska
 
 endif
