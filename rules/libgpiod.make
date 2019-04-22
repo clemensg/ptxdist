@@ -36,7 +36,7 @@ LIBGPIOD_CONF_OPT	:= \
 	--$(call ptx/endis, PTXCONF_LIBGPIOD_TOOLS)-tools \
 	--disable-install-tests \
 	--disable-tests \
-	--disable-bindings-cxx \
+	--$(call ptx/endis, PTXCONF_LIBGPIOD_CXX)-bindings-cxx \
 	--$(call ptx/endis, PTXCONF_LIBGPIOD_PYTHON3)-bindings-python
 
 LIBGPIOD_CONF_ENV := \
@@ -76,6 +76,9 @@ $(STATEDIR)/libgpiod.targetinstall:
 			/usr/bin/$$tool); \
 	done
 
+ifdef PTXCONF_LIBGPIOD_CXX
+	@$(call install_lib, libgpiod, 0, 0, 0644, libgpiodcxx)
+endif
 ifdef PTXCONF_LIBGPIOD_PYTHON3
 	@$(call install_glob, libgpiod, 0, 0, -, $(PYTHON3_SITEPACKAGES),, gpiod.*)
 endif
