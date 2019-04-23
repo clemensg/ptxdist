@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_GST_LIBAV1) += gst-libav1
 #
 # Paths and names
 #
-GST_LIBAV1_VERSION	:= 1.14.4
-GST_LIBAV1_MD5		:= 58342db11dbb201a66a62577dcf7bab5
+GST_LIBAV1_VERSION	:= 1.16.0
+GST_LIBAV1_MD5		:= e3a201a45985ddc1327cd496046ca818
 GST_LIBAV1		:= gst-libav-$(GST_LIBAV1_VERSION)
 GST_LIBAV1_SUFFIX	:= tar.xz
 GST_LIBAV1_URL		:= http://gstreamer.freedesktop.org/src/gst-libav/$(GST_LIBAV1).$(GST_LIBAV1_SUFFIX)
@@ -29,41 +29,14 @@ GST_LIBAV1_LICENSE	:= GPL-2.0-or-later AND LGPL-2.0-or-later
 # Prepare
 # ----------------------------------------------------------------------------
 
-GST_LIBAV1_CONF_ENV	:= \
-	$(CROSS_ENV) \
-	AS=$(CROSS_CC)
-
-ifdef PTXCONF_GST_LIBAV1
-GST_LIBAV1_CPU := $(strip $(shell ptxd_cross_cc_v | sed -n "s/COLLECT_GCC_OPTIONS=.*'-march=\([^']*\)'.*/\1/p" | tail -n1))
-ifeq ($(GST_LIBAV1_CPU),)
-GST_LIBAV1_CPU := $(strip $(shell ptxd_cross_cc_v | sed -n "s/COLLECT_GCC_OPTIONS=.*'-mcpu=\([^']*\)'.*/\1/p" | tail -n1))
-endif
-ifeq ($(GST_LIBAV1_CPU),)
-GST_LIBAV1_CPU := generic
-endif
-endif
-
 #
-# autoconf
+# meson
 #
-GST_LIBAV1_CONF_TOOL	:= autoconf
+GST_LIBAV1_CONF_TOOL	:= meson
 GST_LIBAV1_CONF_OPT	:= \
-	$(CROSS_AUTOCONF_USR) \
-	--enable-orc \
-	--disable-fatal-warnings \
-	--enable-extra-check \
-	--disable-valgrind \
-	--disable-gcov \
-	$(GLOBAL_LARGE_FILE_OPTION) \
-	--disable-gtk-doc \
-	--disable-gtk-doc-html \
-	--disable-gtk-doc-pdf \
-	--disable-gobject-cast-checks \
-	--disable-glib-asserts \
-	--disable-gpl \
-	--with-package-origin="PTXdist" \
-	--without-system-libav \
-	--with-libav-extra-configure="--x86asmexe=nasm --cpu=$(GST_LIBAV1_CPU)"
+	$(CROSS_MESON_USR) \
+	-Dpackage-name="GStreamer FFMPEG Plug-ins source release" \
+	-Dpackage-origin=PTXdist
 
 # ----------------------------------------------------------------------------
 # Target-Install

@@ -2,14 +2,11 @@
 
 config GST_LIBAV1
 	tristate
-	select CROSS_NASM
+	select HOST_MESON
 	select GLIB
 	select GSTREAMER1
 	select GST_PLUGINS_BASE1
-	select BZIP2
-	select BZIP2_LIBBZ2
-	select XZ
-	select ORC
+	select FFMPEG
 	prompt "gst-libav"
 	help
 	  Libav plugin for GStreamer
