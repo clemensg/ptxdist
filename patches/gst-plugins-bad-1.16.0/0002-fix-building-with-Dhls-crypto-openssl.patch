@@ -1,0 +1,21 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Tue, 23 Apr 2019 10:00:38 +0200
+Subject: [PATCH] fix building with -Dhls-crypto=openssl
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ ext/hls/meson.build | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/ext/hls/meson.build b/ext/hls/meson.build
+index 1f5f58d42b97..25c552fdedd2 100644
+--- a/ext/hls/meson.build
++++ b/ext/hls/meson.build
+@@ -15,6 +15,7 @@ hls_option = get_option('hls')
+ 
+ have_hls_crypto = false
+ if not hls_option.disabled()
++  hls_crypto_dep = disabler()
+   if ['auto', 'nettle'].contains(hls_crypto)
+     hls_crypto_dep = dependency('nettle', required : false)
+     if hls_crypto_dep.found()

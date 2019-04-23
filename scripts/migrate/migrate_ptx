@@ -386,3 +386,11 @@ s/^\(\(# \)\?PTXCONF_GST_PLUGINS_GOOD1_\)GST_V4L2\(_LIBV4L2\)\?\>/\1V4L2\3/
 # reason : option was rename
 #
 s/^\(\(# \)\?PTXCONF_GST_PLUGINS_GOOD1_\)X\>/\1XIMAGESRC/
+
+#
+# from   : ptxdist-2019.04.0
+# to     : ptxdist-2019.05.0
+# symbol : GST_PLUGINS_BAD1_STEREO -> GST_PLUGINS_GOOD1_AUDIOFX
+# reason : option was rename
+#
+s/^\(\(# \)\?PTXCONF_GST_PLUGINS_\)BAD1_STEREO\>/\1GOOD1_AUDIOFX/
