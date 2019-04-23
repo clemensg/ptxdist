@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_GST_RTSP_SERVER1) += gst-rtsp-server1
 #
 # Paths and names
 #
-GST_RTSP_SERVER1_VERSION	:= 1.14.4
-GST_RTSP_SERVER1_MD5		:= ab0fb5c829266a500e14b46b7bdf06bf
+GST_RTSP_SERVER1_VERSION	:= 1.16.0
+GST_RTSP_SERVER1_MD5		:= adc4460239ec2eccf58ad9752ce53bfd
 GST_RTSP_SERVER1		:= gst-rtsp-server-$(GST_RTSP_SERVER1_VERSION)
 GST_RTSP_SERVER1_SUFFIX		:= tar.xz
 GST_RTSP_SERVER1_URL		:= http://gstreamer.freedesktop.org/src/gst-rtsp/$(GST_RTSP_SERVER1).$(GST_RTSP_SERVER1_SUFFIX)
@@ -30,12 +30,16 @@ GST_RTSP_SERVER1_LICENSE	:= LGPL-2.0-or-later
 # ----------------------------------------------------------------------------
 
 #
-# autoconf
+# meson
 #
-GST_RTSP_SERVER1_CONF_TOOL	:= autoconf
+GST_RTSP_SERVER1_CONF_TOOL	= meson
 GST_RTSP_SERVER1_CONF_OPT	= \
-	$(CROSS_AUTOCONF_USR) \
-	$(GSTREAMER1_BASIC_CONF_OPT) \
+	$(CROSS_MESON_USR) \
+	$(call GSTREAMER1_GENERIC_CONF_OPT,GStreamer RTSP Server Library) \
+	-Dintrospection=$(call ptx/endis,PTXCONF_GSTREAMER1_INTROSPECTION)d \
+	-Drtspclientsink=auto
+
+foo = \
 	\
 	--disable-valgrind \
 	--disable-gcov \
