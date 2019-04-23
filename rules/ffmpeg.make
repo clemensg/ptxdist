@@ -1,14 +1,13 @@
 # -*-makefile-*-
 #
-# Copyright (C) 2006 by Erwin Rol
-#           (C) 2010 by Michael Olbrich <m.olbrich@pengutronix.de>
+# Copyright (C) 2015 by Michael Olbrich <m.olbrich@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
 # see the README file.
 #
-#
+
 #
 # We provide this package
 #
@@ -17,354 +16,233 @@ PACKAGES-$(PTXCONF_FFMPEG) += ffmpeg
 #
 # Paths and names
 #
-FFMPEG_VERSION	:= r12314
-FFMPEG_MD5	:=
+FFMPEG_VERSION	:= 4.1.3
+FFMPEG_MD5	:= dcc20dd2682ea01c678b7b8324339d43
 FFMPEG		:= ffmpeg-$(FFMPEG_VERSION)
-FFMPEG_SUFFIX	:= tar.bz2
-FFMPEG_URL	:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(FFMPEG).$(FFMPEG_SUFFIX)
+FFMPEG_SUFFIX	:= tar.xz
+FFMPEG_URL	:= https://www.ffmpeg.org/releases/$(FFMPEG).$(FFMPEG_SUFFIX)
 FFMPEG_SOURCE	:= $(SRCDIR)/$(FFMPEG).$(FFMPEG_SUFFIX)
 FFMPEG_DIR	:= $(BUILDDIR)/$(FFMPEG)
-
+# Note: any GPL only code is disabled below with --disable-gpl
+FFMPEG_LICENSE	:= LGPL-2.1-or-later AND BSD-3-Clause
+FFMPEG_LICENSE_FILES := \
+	file://LICENSE.md;md5=e6c05704638b696e6df04470d7fede29 \
+	file://COPYING.LGPLv2.1;md5=bd7a443320af8c812e4c18d1b79df004 \
+	file://libavcodec/arm/vp8dsp_armv6.S;startline=4;endline=52;md5=24eb31d8cad17de39e517e8d946cdee0 \
+	file://libavcodec/mips/ac3dsp_mips.c;startline=2;endline=27;md5=5f25aa1db1ecf13c29efc63800bf6ae8 \
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-FFMPEG_PATH	:= PATH=$(CROSS_PATH)
-FFMPEG_ENV 	:= $(CROSS_ENV)
+ifdef PTXCONF_FFMPEG
+FFMPEG_CPU := $(strip $(shell ptxd_cross_cc_v | sed -n "s/COLLECT_GCC_OPTIONS=.*'-march=\([^']*\)'.*/\1/p" | tail -n1))
+ifeq ($(FFMPEG_CPU),)
+FFMPEG_CPU := $(strip $(shell ptxd_cross_cc_v | sed -n "s/COLLECT_GCC_OPTIONS=.*'-mcpu=\([^']*\)'.*/\1/p" | tail -n1))
+endif
+ifeq ($(FFMPEG_CPU),)
+FFMPEG_CPU := generic
+endif
+endif
 
 #
 # autoconf
-# Carefull, ffmpeg has a home grown configure, and not all autoconf options work!!! :-/
-# for example it enables things by default and than only has a --disable-BLA option and no
-# --enable-BLA option.
 #
-FFMPEG_AUTOCONF := --prefix=/usr
-FFMPEG_AUTOCONF += --cross-prefix=$(COMPILER_PREFIX)
-#FFMPEG_AUTOCONF += --cc=$(CROSS_CC)
-#FFMPEG_AUTOCONF += --make=$(MAKE)
-FFMPEG_AUTOCONF += --source-path=$(FFMPEG_DIR)
-#FFMPEG_AUTOCONF += --build-suffix=SUFFIX
-FFMPEG_AUTOCONF += --extra-cflags="$(CROSS_CPPFLAGS) $(CROSS_CFLAGS) -L$(SYSROOT)/usr/lib"
-FFMPEG_AUTOCONF += --extra-ldflags="$(CROSS_LDFLAGS) -L$(SYSROOT)/usr/lib"
-FFMPEG_AUTOCONF += --extra-libs="$(CROSS_LIBS) -lm"
-#FFMPEG_AUTOCONF += --enable-mingw32
-#FFMPEG_AUTOCONF += --enable-mingwce
-#FFMPEG_AUTOCONF += --enable-sunmlib
-#FFMPEG_AUTOCONF += --disable-audio-beos
-
-ifdef PTXCONF_ARCH_X86
- FFMPEG_AUTOCONF += --disable-altivec
- FFMPEG_AUTOCONF += --disable-iwmmxt
- ifdef PTXCONF_ARCH_X86_I386
-  FFMPEG_AUTOCONF += \
-	--arch=x86_32 \
-	--cpu=i386 \
-	--tune=i386 \
-	--disable-mmx
- endif
- ifdef PTXCONF_ARCH_X86_I486
-  FFMPEG_AUTOCONF += \
-	--arch=x86_32 \
-	--cpu=i486 \
-	--tune=i486 \
-	--disable-mmx
- endif
- ifdef PTXCONF_ARCH_X86_I586
-  FFMPEG_AUTOCONF += \
-	--arch=x86_32 \
-	--cpu=i386 \
-	--cpu=i586 \
-	--tune=i586
- endif
- ifdef PTXCONF_ARCH_X86_I686
-  FFMPEG_AUTOCONF += \
-	--arch=x86_32 \
-	--cpu=i386 \
-	--cpu=i686 \
-	--tune=i686
- endif
- ifdef PTXCONF_ARCH_X86_P2
-  FFMPEG_AUTOCONF += \
-	--arch=x86_32 \
-	--cpu=i386 \
-	--cpu=i686 \
-	--tune=pentium2
- endif
- ifdef PTXCONF_ARCH_X86_P3M
-  FFMPEG_AUTOCONF += \
-	--arch=x86_32 \
-	--cpu=i386 \
-	--cpu=i686 \
-	--tune=pentium3
- endif
-endif
-
-ifdef PTXCONF_ARCH_ALPHA
-FFMPEG_AUTOCONF += \
-	--arch=alpha \
-        --cpu=alpha \
-        --disable-altivec \
-        --disable-mmx \
-        --disable-iwmmxt
-endif
-
-ifdef PTXCONF_ARCH_ARM
- ifdef PTXCONF_ARCH_ARM_IWMMXT
-   FFMPEG_AUTOCONF += \
-	--arch=arm \
-	--cpu=iwmmxt \
-	--disable-altivec \
-	--disable-mmx
- else
-# v5 fallback. Will not run on v4.
-   FFMPEG_AUTOCONF += \
-	--arch=arm \
-	--cpu=arm926ej-s \
-	--disable-altivec \
-	--disable-mmx \
-	--disable-iwmmxt
- endif
-endif
-
-ifdef PTXCONF_ARCH_PPC
-FFMPEG_AUTOCONF += \
-	--cpu=powerpc \
-	--disable-altivec \
-	--disable-mmx \
-	--disable-iwmmxt
-# FFMPEG_AUTOCONF += --powerpc-perf-enable
-endif
-
-ifdef PTXCONF_ARCH_M68K
-FFMPEG_AUTOCONF += \
-	--cpu=m68k \
-	--disable-altivec \
-	--disable-mmx \
-	--disable-iwmmxt
-endif
-
-ifdef PTXCONF_ARCH_SPARC
-FFMPEG_AUTOCONF += \
-	--cpu=sparc \
-	--disable-altivec \
-	--disable-mmx \
-	--disable-iwmmxt
-endif
-
-ifdef PTXCONF_ARCH_MIPS
-FFMPEG_AUTOCONF += \
-	--disable-altivec \
-	--disable-mmx \
-	--disable-iwmmxt
-endif
-
-ifdef PTXCONF_ARCH_CRIS
-FFMPEG_AUTOCONF += \
-	--cpu=cris \
-	--disable-altivec \
-	--disable-mmx \
-	--disable-iwmmxt
-endif
-
-ifdef PTXCONF_ARCH_PARISC
-FFMPEG_AUTOCONF += \
-	--cpu=parisc \
-	--disable-altivec \
-	--disable-mmx \
-	--disable-iwmmxt
-endif
-
-ifdef PTXCONF_ARCH_SH
-FFMPEG_AUTOCONF += \
-	--cpu=sh4 \
-	--disable-altivec \
-	--disable-mmx \
-	--disable-iwmmxt
-endif
-
-ifdef PTXCONF_FFMPEG_SHARED
-FFMPEG_AUTOCONF += --enable-shared
-else
-FFMPEG_AUTOCONF += --disable-shared
-endif
-
-ifdef PTXCONF_FFMPEG_STATIC
-FFMPEG_AUTOCONF += --enable-static
-else
-FFMPEG_AUTOCONF += --disable-static
-endif
-
-ifdef PTXCONF_FFMPEG_PTHREADS
-FFMPEG_AUTOCONF += --enable-pthreads
-endif
-
-ifndef PTXCONF_FFMPEG_FFSERVER
-FFMPEG_AUTOCONF += --disable-ffserver
-endif
-
-ifndef PTXCONF_FFMPEG_FFPLAY
-FFMPEG_AUTOCONF += --disable-ffplay
-endif
-
-ifdef PTXCONF_FFMPEG_SMALL
-FFMPEG_AUTOCONF += --enable-small
-endif
-
-ifdef PTXCONF_FFMPEG_MEMALIGN_HACK
-FFMPEG_AUTOCONF += --enable-memalign-hack
-endif
-
-ifndef PTXCONF_FFMPEG_STRIP
-FFMPEG_AUTOCONF += --disable-strip
-endif
-
-ifdef PTXCONF_FFMPEG_GPROF
-FFMPEG_AUTOCONF += --enable-gprof
-endif
-
-ifndef PTXCONF_FFMPEG_DEBUG
-FFMPEG_AUTOCONF += --disable-debug
-endif
-
-ifndef PTXCONF_FFMPEG_OPTS
-FFMPEG_AUTOCONF += --disable-opts
-endif
-
-ifdef PTXCONF_FFMPEG_GPL
-FFMPEG_AUTOCONF += --enable-gpl
-endif
-
-ifdef PTXCONF_FFMPEG_MP3LAME
-FFMPEG_AUTOCONF += --enable-mp3lame
-endif
-
-ifdef PTXCONF_FFMPEG_LIBOGG
-FFMPEG_AUTOCONF += --enable-libogg
-endif
-
-ifdef PTXCONF_FFMPEG_VORBIS
-FFMPEG_AUTOCONF += --enable-vorbis
-endif
-
-ifdef PTXCONF_FFMPEG_THEORA
-FFMPEG_AUTOCONF += --enable-theora
-endif
-
-ifdef PTXCONF_FFMPEG_FAAD
-FFMPEG_AUTOCONF += --enable-faad
-endif
-
-ifdef PTXCONF_FFMPEG_FAADBIN
-FFMPEG_AUTOCONF += --enable-faadbin
-endif
-
-ifdef PTXCONF_FFMPEG_FAAC
-FFMPEG_AUTOCONF += --enable-faac
-endif
-
-ifdef PTXCONF_FFMPEG_LIBGSM
-FFMPEG_AUTOCONF += --enable-libgsm
-endif
-
-ifdef PTXCONF_FFMPEG_XVID
-FFMPEG_AUTOCONF += --enable-xvid
-endif
-
-ifdef PTXCONF_FFMPEG_X264
-FFMPEG_AUTOCONF += --enable-x264
-endif
-
-ifdef PTXCONF_FFMPEG_A52
-FFMPEG_AUTOCONF += --enable-a52
-endif
-
-ifdef PTXCONF_FFMPEG_A52BIN
-FFMPEG_AUTOCONF += --enable-a52bin
-endif
-
-ifdef PTXCONF_FFMPEG_DTS
-FFMPEG_AUTOCONF += --enable-dts
-endif
-
-ifdef PTXCONF_FFMPEG_PP
-FFMPEG_AUTOCONF += --enable-pp
-endif
-
-ifdef PTXCONF_FFMPEG_AMR_NB
-FFMPEG_AUTOCONF += --enable-amr_nb
-endif
-
-ifdef PTXCONF_FFMPEG_AMR_NB_FIXED
-FFMPEG_AUTOCONF += --enable-amr_nb-fixed
-endif
-
-ifdef PTXCONF_FFMPEG_AMR_WB
-FFMPEG_AUTOCONF += --enable-amr_wb
-endif
-
-ifdef PTXCONF_FFMPEG_AMR_IF2
-FFMPEG_AUTOCONF += --enable-amr_if2
-endif
-
-ifdef PTXCONF_FFMPEG_DC1394
-FFMPEG_AUTOCONF += --enable-dc1394
-endif
-
-ifndef PTXCONF_FFMPEG_AUDIO_OSS
-FFMPEG_AUTOCONF += --disable-audio-oss
-endif
-
-ifndef PTXCONF_FFMPEG_V4L
-FFMPEG_AUTOCONF += --disable-v4l
-endif
-
-ifndef PTXCONF_FFMPEG_V4L2
-FFMPEG_AUTOCONF += --disable-v4l2
-endif
-
-ifndef PTXCONF_FFMPEG_BKTR
-FFMPEG_AUTOCONF += --disable-bktr
-endif
-
-ifndef PTXCONF_FFMPEG_DV1394
-FFMPEG_AUTOCONF += --disable-dv1394
-endif
-
-ifndef PTXCONF_FFMPEG_NETWORK
-FFMPEG_AUTOCONF += --disable-network
-endif
-
-ifndef PTXCONF_FFMPEG_ZLIB
-FFMPEG_AUTOCONF += --disable-zlib
-endif
-
-ifndef PTXCONF_FFMPEG_SIMPLE_IDCT
-FFMPEG_AUTOCONF += --disable-simple_idct
-endif
-
-ifndef PTXCONF_FFMPEG_VHOOK
-FFMPEG_AUTOCONF += --disable-vhook
-endif
-
-ifndef PTXCONF_FFMPEG_MPEGAUDIO_HP
-FFMPEG_AUTOCONF += --disable-mpegaudio-hp
-endif
-
-ifndef PTXCONF_FFMPEG_PROTOCOL
-FFMPEG_AUTOCONF += --disable-protocols
-endif
-
-# FIXME selectivly enable/disable decoders to reduce library size
-
-#--disable-encoder=NAME   disables encoder NAME
-#--enable-encoder=NAME    enables encoder NAME
-#--disable-decoder=NAME   disables decoder NAME
-#--enable-decoder=NAME    enables decoder NAME
-#--disable-encoders       disables all encoders
-#--disable-decoders       disables all decoders
-#--disable-muxers         disables all muxers
-#--disable-demuxers       disables all demuxers
+FFMPEG_CONF_TOOL	:= autoconf
+FFMPEG_CONF_OPT		:= \
+	--prefix=/usr \
+	--libdir=/usr/$(CROSS_LIB_DIR) \
+	--disable-rpath \
+	--disable-gpl \
+	--disable-version3 \
+	--disable-nonfree \
+	--disable-static \
+	--enable-shared \
+	--disable-small \
+	--enable-runtime-cpudetect \
+	--disable-gray \
+	--enable-swscale-alpha \
+	\
+	--disable-autodetect \
+	--disable-programs \
+	--disable-ffmpeg \
+	--disable-ffplay \
+	--disable-ffprobe \
+	--disable-doc \
+	--disable-htmlpages \
+	--disable-manpages \
+	--disable-podpages \
+	--disable-txtpages \
+	\
+	--disable-avdevice \
+	--enable-avcodec \
+	--enable-avformat \
+	--enable-swresample \
+	--disable-swscale \
+	--disable-postproc \
+	--enable-avfilter \
+	--disable-avresample \
+	\
+	--enable-pthreads \
+	--disable-network \
+	--enable-dct \
+	--enable-dwt \
+	--enable-error-resilience \
+	--enable-lsp \
+	--enable-lzo \
+	--enable-mdct \
+	--enable-rdft \
+	--enable-fft \
+	--enable-faan \
+	--enable-pixelutils \
+	\
+	--enable-encoders \
+	--enable-decoders \
+	--disable-hwaccels \
+	--enable-muxers \
+	--enable-demuxers \
+	--enable-parsers \
+	--enable-bsfs \
+	--disable-protocols \
+	--disable-indevs \
+	--disable-outdevs \
+	--disable-devices \
+	--disable-filters \
+	\
+	--disable-alsa \
+	--disable-appkit \
+	--disable-avfoundation \
+	--disable-avisynth \
+	--disable-bzlib \
+	--disable-coreimage \
+	--disable-chromaprint \
+	--disable-frei0r \
+	--disable-gcrypt \
+	--disable-gmp \
+	--disable-gnutls \
+	--disable-iconv \
+	--disable-jni \
+	--disable-ladspa \
+	--disable-libaom \
+	--disable-libass \
+	--disable-libbluray \
+	--disable-libbs2b \
+	--disable-libcaca \
+	--disable-libcelt \
+	--disable-libcdio \
+	--disable-libcodec2 \
+	--disable-libdavs2 \
+	--disable-libdc1394 \
+	--disable-libfdk-aac \
+	--disable-libflite \
+	--disable-libfontconfig \
+	--disable-libfreetype \
+	--disable-libfribidi \
+	--disable-libgme \
+	--disable-libgsm \
+	--disable-libiec61883 \
+	--disable-libilbc \
+	--disable-libjack \
+	--disable-libklvanc \
+	--disable-libkvazaar \
+	--disable-liblensfun \
+	--disable-libmodplug \
+	--disable-libmp3lame \
+	--disable-libopencore-amrnb \
+	--disable-libopencore-amrwb \
+	--disable-libopencv \
+	--disable-libopenh264 \
+	--disable-libopenjpeg \
+	--disable-libopenmpt \
+	--disable-libopus \
+	--disable-libpulse \
+	--disable-librsvg \
+	--disable-librubberband \
+	--disable-librtmp \
+	--disable-libshine \
+	--disable-libsmbclient \
+	--disable-libsnappy \
+	--disable-libsoxr \
+	--disable-libspeex \
+	--disable-libsrt \
+	--disable-libssh \
+	--disable-libtensorflow \
+	--disable-libtesseract \
+	--disable-libtheora \
+	--disable-libtls \
+	--disable-libtwolame \
+	--disable-libv4l2 \
+	--disable-libvidstab \
+	--disable-libvmaf \
+	--disable-libvo-amrwbenc \
+	--disable-libvorbis \
+	--disable-libvpx \
+	--disable-libwavpack \
+	--disable-libwebp \
+	--disable-libx264 \
+	--disable-libx265 \
+	--disable-libxavs \
+	--disable-libxavs2 \
+	--disable-libxcb \
+	--disable-libxcb-shm \
+	--disable-libxcb-xfixes \
+	--disable-libxcb-shape \
+	--disable-libxvid \
+	--disable-libxml2 \
+	--disable-libzimg \
+	--disable-libzmq \
+	--disable-libzvbi \
+	--disable-lv2 \
+	--disable-lzma \
+	--disable-decklink \
+	--disable-libndi_newtek \
+	--disable-mbedtls \
+	--disable-mediacodec \
+	--disable-libmysofa \
+	--disable-openal \
+	--disable-opencl \
+	--disable-opengl \
+	--disable-openssl \
+	--disable-sndio \
+	--disable-schannel \
+	--disable-sdl2 \
+	--disable-securetransport \
+	--disable-vapoursynth \
+	--disable-xlib \
+	--disable-zlib \
+	--disable-amf \
+	--disable-audiotoolbox \
+	--disable-cuda-sdk \
+	--disable-cuvid \
+	--disable-d3d11va \
+	--disable-dxva2 \
+	--disable-ffnvcodec \
+	--disable-libdrm \
+	--disable-libmfx \
+	--disable-libnpp \
+	--disable-mmal \
+	--disable-nvdec \
+	--disable-nvenc \
+	--disable-omx \
+	--disable-omx-rpi \
+	--disable-rkmpp \
+	--disable-v4l2_m2m \
+	--disable-vaapi \
+	--disable-vdpau \
+	--disable-videotoolbox \
+	\
+	--arch=$(PTXCONF_ARCH_STRING) \
+	--cpu=$(FFMPEG_CPU) \
+	--cross-prefix=$(PTXCONF_COMPILER_PREFIX) \
+	--enable-cross-compile \
+	--target-os=linux \
+	--target-exec=false \
+	--doxygen=false \
+	--enable-pic \
+	--disable-lto \
+	\
+	--enable-optimizations \
+	--disable-stripping
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -376,46 +254,14 @@ $(STATEDIR)/ffmpeg.targetinstall:
 	@$(call install_init, ffmpeg)
 	@$(call install_fixup, ffmpeg,PRIORITY,optional)
 	@$(call install_fixup, ffmpeg,SECTION,base)
-	@$(call install_fixup, ffmpeg,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
+	@$(call install_fixup, ffmpeg,AUTHOR,"Michael Olbrich <m.olbrich@pengutronix.de>")
 	@$(call install_fixup, ffmpeg,DESCRIPTION,missing)
 
-	@$(call install_copy, ffmpeg, 0, 0, 0644, -, \
-		/usr/lib/libavcodec.so, n)
-	@$(call install_link, ffmpeg, \
-		libavcodec.so, \
-		/usr/lib/libavcodec.so.51)
-	@$(call install_link, ffmpeg, \
-		libavcodec.so, \
-		/usr/lib/libavcodec.so.51.7.0)
-
-	@$(call install_copy, ffmpeg, 0, 0, 0644, -, \
-		/usr/lib/libavformat.so, n)
-	@$(call install_link, ffmpeg, \
-		libavformat.so, \
-		/usr/lib/libavformat.so.50)
-	@$(call install_link, ffmpeg, \
-		libavformat.so, \
-		/usr/lib/libavformat.so.50.3.0)
-
-	@$(call install_copy, ffmpeg, 0, 0, 0644, -, \
-		/usr/lib/libavutil.so, n)
-	@$(call install_link, ffmpeg, \
-		libavutil.so, \
-		/usr/lib/libavutil.so.49)
-	@$(call install_link, ffmpeg, \
-		libavcodec.so, \
-		/usr/lib/libavutil.so.49.0.0)
-
-ifdef PTXCONF_FFMPEG_PP
-	@$(call install_copy, ffmpeg, 0, 0, 0644, -, \
-		/usr/lib/libpostproc.so, n)
-	@$(call install_link, ffmpeg, \
-		libpostproc.so, \
-		/usr/lib/libpostproc.so.51)
-	@$(call install_link, ffmpeg, \
-		libpostproc.so, \
-		/usr/lib/libpostproc.so.51.0.0)
-endif
+	@$(call install_lib, ffmpeg, 0, 0, 0644, libavcodec)
+	@$(call install_lib, ffmpeg, 0, 0, 0644, libavfilter)
+	@$(call install_lib, ffmpeg, 0, 0, 0644, libavformat)
+	@$(call install_lib, ffmpeg, 0, 0, 0644, libavutil)
+	@$(call install_lib, ffmpeg, 0, 0, 0644, libswresample)
 
 	@$(call install_finish, ffmpeg)
 
