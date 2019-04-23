@@ -1,0 +1,17 @@
+## SECTION=multimedia_libs
+
+config LIBNICE
+	tristate
+	prompt "libnice"
+	# for autogen.sh
+	select HOST_GTK_DOC
+
+	select GLIB
+	select GSTREAMER1
+	select OPENSSL
+	help
+	  Nice is an implementation of the IETF's draft Interactive
+	  Connectivity Establishment standard (ICE). ICE is useful for
+	  applications that want to establish peer-to-peer UDP data
+	  streams. It automates the process of traversing NATs and provides
+	  security against some attacks.
