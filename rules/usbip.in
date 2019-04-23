@@ -1,0 +1,10 @@
+## SECTION=core
+
+config USBIP
+	tristate
+	select UDEV
+	select UDEV_LIBUDEV
+	prompt "usbip"
+	help
+	  USB/IP system for sharing USB devices over the network.
+	  Contains 'usbipd' server and 'usbip' client tool.
