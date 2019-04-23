@@ -2,11 +2,13 @@
 
 menuconfig GST_PLUGINS_UGLY1
 	tristate
+	select HOST_MESON
+
 	select GLIB
 	select GSTREAMER1
 	select GST_PLUGINS_BASE1
 	select ORC
-	select LIBMPEG2		if GST_PLUGINS_UGLY1_MPEG2DEC
+	select LIBMPEG2			if GST_PLUGINS_UGLY1_MPEG2DEC
 	prompt "gst-plugins-ugly              "
 	help
 	  GStreamer Ugly Plug-ins is a set of plug-ins that
@@ -17,6 +19,8 @@ menuconfig GST_PLUGINS_UGLY1
 	  known to present patent problems.
 
 if GST_PLUGINS_UGLY1
+
+comment "dependency-less plugins"
 
 config GST_PLUGINS_UGLY1_ASFDEMUX
 	bool
@@ -30,52 +34,77 @@ config GST_PLUGINS_UGLY1_DVDSUB
 	bool
 	prompt "dvdsub"
 
-config GST_PLUGINS_UGLY1_XINGMUX
-	bool
-	prompt "xingmux"
-
 config GST_PLUGINS_UGLY1_REALMEDIA
 	bool
 	prompt "realmedia"
 
+config GST_PLUGINS_UGLY1_XINGMUX
+	bool
+	prompt "xingmux"
+
+comment "plugins with dependencies"
+
 config GST_PLUGINS_UGLY1_A52DEC
 	bool
+	# needs liba52
 	depends on BROKEN
 	prompt "a52dec"
+	help
+	  Dolby Digital (AC-3) audio decoder plugin
 
 config GST_PLUGINS_UGLY1_AMRNB
 	bool
+	# needs opencore-amrnb
 	depends on BROKEN
 	prompt "amrnb"
+	help
+	  Adaptive Multi-Rate Narrow-Band audio codec plugin
 
 config GST_PLUGINS_UGLY1_AMRWBDEC
 	bool
+	# needs opencore-amrwb
 	depends on BROKEN
 	prompt "amrwbdec"
+	help
+	  Adaptive Multi-Rate Wide-Band audio decoder plugin
 
 config GST_PLUGINS_UGLY1_CDIO
 	bool
+	# needs libcdio
 	depends on BROKEN
 	prompt "cdio"
+	help
+	  CD audio source plugin
 
-config GST_PLUGINS_UGLY1_DVDREADSRC
+config GST_PLUGINS_UGLY1_DVDREAD
 	bool
+	# needs glib & dvdread
 	depends on BROKEN
-	prompt "dvdreadsrc"
+	prompt "dvdread"
+	help
+	  DVD video source plugin
 
 config GST_PLUGINS_UGLY1_MPEG2DEC
 	bool
 	prompt "mpeg2dec"
+	help
+	  MPEG 2 video decoder plugin
 
-config GST_PLUGINS_UGLY1_SID
+config GST_PLUGINS_UGLY1_SIDPLAY
 	bool
+	# needs sidplay
 	depends on BROKEN
-	prompt "sid"
+	prompt "sidplay"
+	help
+	  Commodore 64 audio decoder plugin
 
 config GST_PLUGINS_UGLY1_X264
 	bool
+	# needs x264
 	depends on BROKEN
 	prompt "x264"
+	help
+	  H.264 video encoder plugin
 
 endif
 
