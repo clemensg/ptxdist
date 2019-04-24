@@ -2,6 +2,7 @@
 
 config GSTREAMER_VAAPI1
 	tristate
+	select HOST_MESON
 	select LIBVA
 	select GSTREAMER1
 	select GSTREAMER1_DEBUG
