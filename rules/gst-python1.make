@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_GST_PYTHON1) += gst-python1
 #
 # Paths and names
 #
-GST_PYTHON1_VERSION	:= 1.14.4
-GST_PYTHON1_MD5		:= d4c0e3915f547feef49208ee08981e5a
+GST_PYTHON1_VERSION	:= 1.16.0
+GST_PYTHON1_MD5		:= 877b2ed2aaffdb62e63f38ea9469b70f
 GST_PYTHON1		:= gst-python-$(GST_PYTHON1_VERSION)
 GST_PYTHON1_SUFFIX	:= tar.xz
 GST_PYTHON1_URL		:= http://gstreamer.freedesktop.org/src/gst-python/$(GST_PYTHON1).$(GST_PYTHON1_SUFFIX)
@@ -30,18 +30,14 @@ GST_PYTHON1_LICENSE	:= LGPL-2.1-or-later
 # Prepare
 # ----------------------------------------------------------------------------
 
-GST_PYTHON1_CONF_ENV	:= \
-	$(CROSS_ENV) \
-	PYTHON=$(CROSS_PYTHON3)
-
 #
-# autoconf
+# meson
 #
-GST_PYTHON1_CONF_TOOL	:= autoconf
+GST_PYTHON1_CONF_TOOL	:= meson
 GST_PYTHON1_CONF_OPT	:= \
-	$(CROSS_AUTOCONF_USR) \
-	--disable-valgrind \
-	--with-libpython-dir=/usr/lib
+	$(CROSS_MESON_USR) \
+	-Dlibpython-dir=/usr/lib \
+	-Dpython=$(CROSS_PYTHON3)
 
 # ----------------------------------------------------------------------------
 # Install
