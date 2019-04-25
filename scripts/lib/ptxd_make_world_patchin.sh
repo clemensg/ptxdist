@@ -399,9 +399,9 @@ ptxd_make_world_patchin_fixup()
 	# might pick up libs from the host or break otherwise, we
 	# don't need it on linux anyway)
 	#
- 	sed -i \
- 	    -e "s:\(need_relink\)=yes:\1=\"no\":" \
- 	    "${file}" || return
+	sed -i \
+	    -e "s:\(need_relink\)=yes:\1=\"no\":" \
+	    "${file}" || return
     done &&
 
     ptxd_get_alternative scripts/autoconf config.sub
