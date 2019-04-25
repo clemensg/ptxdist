@@ -495,7 +495,7 @@ ptxd_make_world_patchin_post() {
     ptxd_make_world_patchin_init || return
 
     if [ -n "${pkg_patchin_dir}" ]; then (
-	cd "${pkg_patchin_dir}" &&
+	cd "${pkg_conf_dir_abs}" &&
 	if [ -n "${pkg_patch_dir}" ]; then
 	    ptxd_make_world_autogen
 	fi
