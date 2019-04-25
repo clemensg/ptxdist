@@ -149,7 +149,7 @@ def abort(message):
 	exit(1)
 
 def ask_ptxdist(pkg):
-	ptxdist = os.environ.get("ptxdist", "ptxdist")
+	ptxdist = os.environ.get("PTXDIST", os.environ.get("ptxdist", "ptxdist"))
 	p = subprocess.Popen([ ptxdist, "-k", "make",
 		"/print-%s_DIR" % pkg,
 		"/print-%s_SUBDIR" % pkg,
