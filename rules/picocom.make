@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_PICOCOM) += picocom
 #
 # Paths and names
 #
-PICOCOM_VERSION	:= 2.2
-PICOCOM_MD5	:= 65da5cd32f8cfa456bbe79bbcc908daf
+PICOCOM_VERSION	:= 3.1
+PICOCOM_MD5	:= b755ea852c0e9ac9d5e058d76003e21d
 PICOCOM		:= picocom-$(PICOCOM_VERSION)
 PICOCOM_SUFFIX	:= tar.gz
 PICOCOM_URL	:= https://github.com/npat-efault/picocom/archive/$(PICOCOM_VERSION).$(PICOCOM_SUFFIX)
