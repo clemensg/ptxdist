@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_WPA_SUPPLICANT) += wpa_supplicant
 # Paths and names
 #
 WPA_SUPPLICANT_NAME	:= wpa_supplicant
-WPA_SUPPLICANT_VERSION	:= 2.7
-WPA_SUPPLICANT_MD5	:= a68538fb62766f40f890125026c42c10
+WPA_SUPPLICANT_VERSION	:= 2.8
+WPA_SUPPLICANT_MD5	:= 0af5998c5d924e985cab16b9a1c77904
 WPA_SUPPLICANT		:= $(WPA_SUPPLICANT_NAME)-$(WPA_SUPPLICANT_VERSION)
 WPA_SUPPLICANT_SUFFIX	:= tar.gz
 WPA_SUPPLICANT_URL	:= https://w1.fi/releases/$(WPA_SUPPLICANT).$(WPA_SUPPLICANT_SUFFIX)
@@ -70,8 +70,6 @@ $(STATEDIR)/wpa_supplicant.install:
 
 	@install -vD -m 644 "$(WPA_SUPPLICANT_DIR)/$(WPA_SUPPLICANT_SUBDIR)/dbus/dbus-wpa_supplicant.conf" \
 		"$(WPA_SUPPLICANT_PKGDIR)/usr/share/dbus-1/system.d/wpa_supplicant.conf"
-	@install -vD -m 644 "$(WPA_SUPPLICANT_DIR)/$(WPA_SUPPLICANT_SUBDIR)/dbus/fi.epitest.hostap.WPASupplicant.service" \
-		"$(WPA_SUPPLICANT_PKGDIR)/usr/share/dbus-1/system-services/fi.epitest.hostap.WPASupplicant.service"
 	@install -vD -m 644 "$(WPA_SUPPLICANT_DIR)/$(WPA_SUPPLICANT_SUBDIR)/dbus/fi.w1.wpa_supplicant1.service" \
 		"$(WPA_SUPPLICANT_PKGDIR)/usr/share/dbus-1/system-services/fi.w1.wpa_supplicant1.service"
 
@@ -108,8 +106,6 @@ endif
 ifdef PTXCONF_WPA_SUPPLICANT_CTRL_IFACE_DBUS
 	@$(call install_alternative, wpa_supplicant, 0, 0, 0644, \
 		/usr/share/dbus-1/system.d/wpa_supplicant.conf)
-	@$(call install_alternative, wpa_supplicant, 0, 0, 0644, \
-		/usr/share/dbus-1/system-services/fi.epitest.hostap.WPASupplicant.service)
 	@$(call install_alternative, wpa_supplicant, 0, 0, 0644, \
 		/usr/share/dbus-1/system-services/fi.w1.wpa_supplicant1.service)
 endif
