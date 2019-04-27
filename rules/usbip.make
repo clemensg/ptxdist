@@ -17,14 +17,13 @@ PACKAGES-$(PTXCONF_USBIP) += usbip
 # Paths and names
 #
 USBIP_VERSION	:= 5.0
-USBIP		:= linux-$(USBIP_VERSION)
+USBIP		:= usbip-$(USBIP_VERSION)
 USBIP_MD5	:= 7381ce8aac80a01448e065ce795c19c0
 USBIP_SUFFIX	:= tar.xz
-USBIP_URL	:= $(call kernel-url, USBIP)
-USBIP_SOURCE	:= $(SRCDIR)/$(USBIP).$(USBIP_SUFFIX)
+USBIP_URL	:= https://www.kernel.org/pub/linux/kernel/v5.x/linux-$(USBIP_VERSION).$(USBIP_SUFFIX)
+USBIP_SOURCE	:= $(SRCDIR)/linux-$(USBIP_VERSION).$(USBIP_SUFFIX)
 USBIP_SUBDIR	:= tools/usb/usbip
-USBIP_DIR	:= $(BUILDDIR)/usbip-$(USBIP_VERSION)
-USBIP_PKGDIR	:= $(PKGDIR)/usbip-$(USBIP_VERSION)
+USBIP_DIR	:= $(BUILDDIR)/$(USBIP)
 USBIP_LICENSE	:= GPL-2.0-only
 
 # ----------------------------------------------------------------------------
