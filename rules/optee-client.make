@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_OPTEE_CLIENT) += optee-client
 #
 # Paths and names
 #
-OPTEE_CLIENT_VERSION	:= 3.4.0
-OPTEE_CLIENT_MD5	:= ccefa79858454e9255d1a5f93335e322
+OPTEE_CLIENT_VERSION	:= 3.5.0
+OPTEE_CLIENT_MD5	:= 2738729cb2457f2b4993ef6b91a6519d
 OPTEE_CLIENT		:= optee-client-$(OPTEE_CLIENT_VERSION)
 OPTEE_CLIENT_SUFFIX	:= tar.gz
 OPTEE_CLIENT_URL	:= https://github.com/OP-TEE/optee_client/archive/$(OPTEE_CLIENT_VERSION).$(OPTEE_CLIENT_SUFFIX)
@@ -33,7 +33,6 @@ OPTEE_CLIENT_CONF_TOOL := NO
 OPTEE_CLIENT_MAKE_ENV := \
 	$(CROSS_ENV) \
 	LIBDIR=/usr/lib \
-	BINDIR=/usr/bin \
 	INCLUDEDIR=/usr/include
 
 ifdef PTXDIST_ICECC
@@ -53,7 +52,7 @@ $(STATEDIR)/optee-client.targetinstall:
 	@$(call install_fixup, optee-client,DESCRIPTION,missing)
 
 	@$(call install_lib, optee-client, 0, 0, 0644, libteec)
-	@$(call install_copy, optee-client, 0, 0, 0755, -, /usr/bin/tee-supplicant)
+	@$(call install_copy, optee-client, 0, 0, 0755, -, /usr/sbin/tee-supplicant)
 ifdef PTXCONF_OPTEE_CLIENT_SYSTEMD_UNIT
 	@$(call install_alternative, optee-client, 0, 0, 0644, \
 		/usr/lib/systemd/system/tee-supplicant.service)

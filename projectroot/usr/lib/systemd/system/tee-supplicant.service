@@ -3,7 +3,7 @@ Description=TEE Supplicant
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/tee-supplicant
+ExecStart=/usr/sbin/tee-supplicant
 
 [Install]
 WantedBy=multi-user.target
