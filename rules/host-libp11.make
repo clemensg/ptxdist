@@ -30,7 +30,7 @@ HOST_LIBP11_CONF_OPT	:= \
 	--disable-strict \
 	--disable-pedantic \
 	--disable-api-doc \
-	--with-enginesdir=/lib/engines \
+	--with-enginesdir=/lib/engines-1.1 \
 	--with-pkcs11-module=
 
 HOST_LIBP11_MAKE_PAR	:= NO
