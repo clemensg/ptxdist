@@ -17,11 +17,15 @@ PACKAGES-$(PTXCONF_SYSTEMD) += systemd
 #
 # Paths and names
 #
-SYSTEMD_VERSION	:= 242
-SYSTEMD_MD5	:= 5e004a4007cebbc4c7a06bfd2b9b3d4c
+SYSTEMD_VERSION	:= 242-19-gdb2e367bfc3b
+SYSTEMD_MD5	:= ce89a1cf5d9aa00bd88319e30436f254
 SYSTEMD		:= systemd-$(SYSTEMD_VERSION)
 SYSTEMD_SUFFIX	:= tar.gz
+ifeq ($(subst -g,,$(SYSTEMD_VERSION)),$(SYSTEMD_VERSION))
 SYSTEMD_URL	:= https://github.com/systemd/systemd/archive/v$(SYSTEMD_VERSION).$(SYSTEMD_SUFFIX)
+else
+SYSTEMD_URL	:= https://github.com/systemd/systemd-stable/archive/v$(SYSTEMD_VERSION).$(SYSTEMD_SUFFIX)
+endif
 SYSTEMD_SOURCE	:= $(SRCDIR)/$(SYSTEMD).$(SYSTEMD_SUFFIX)
 SYSTEMD_DIR	:= $(BUILDDIR)/$(SYSTEMD)
 SYSTEMD_LICENSE	:= GPL-2.0-or-later AND LGPL-2.1-only
