@@ -40,9 +40,4 @@ HOST_LIBELF_CONF_OPT	:= \
 	--without-lzma \
 	--without-biarch
 
-ifdef PTXDIST_ICECC
-HOST_LIBELF_CFLAGS := -C
-endif
-
-
 # vim: syntax=make
