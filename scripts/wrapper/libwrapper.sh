@@ -275,6 +275,9 @@ cxx_add_host_extra() {
 add_icecc_args() {
 	if [ -n "${PTXDIST_ICECC}" ]; then
 		add_late_arg "-fno-diagnostics-show-caret"
+		if [ "${PTXDIST_ICECC_REMOTE_CPP}" != 1 -o "${ICECC_REMOTE_CPP}" = "0" ]; then
+		    add_late_arg "-Wno-implicit-fallthrough"
+		fi
 	fi
 }
 

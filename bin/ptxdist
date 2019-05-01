@@ -559,6 +559,9 @@ check_compiler_icecc() {
 		if ! "${PTXDIST_ICECC}" --version | grep -q 'ICECC 1\.'; then
 			ptxd_bailout "PTXdist only supports icecc 1.x"
 		fi
+		if "${PTXDIST_ICECC}" --help | grep -q ICECC_REMOTE_CPP; then
+			export PTXDIST_ICECC_REMOTE_CPP=1
+		fi &&
 		mkdir -p "${icecc_dir}/target" "${icecc_dir}/host" &&
 		(
 			echo "Creating icecc host environment..."
