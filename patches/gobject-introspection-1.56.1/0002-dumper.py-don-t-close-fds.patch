@@ -1,0 +1,24 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Wed, 1 May 2019 10:35:55 +0200
+Subject: [PATCH] dumper.py: don't close fds
+
+The toolchain wrapper uses fd 9 to write the commandline to the logfile.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ giscanner/dumper.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/giscanner/dumper.py b/giscanner/dumper.py
+index 3c7220bc036a..58f62ee7a284 100644
+--- a/giscanner/dumper.py
++++ b/giscanner/dumper.py
+@@ -288,7 +288,7 @@ class DumpCompiler(object):
+             shell = utils.which(shell)
+             args = [shell, tf_name.replace('\\', '/')]
+         try:
+-            subprocess.check_call(args)
++            subprocess.check_call(args, close_fds=False)
+         except subprocess.CalledProcessError as e:
+             raise LinkerError(e)
+         finally:
