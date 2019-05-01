@@ -59,10 +59,6 @@ ifdef PTXCONF_ARCH_ARM64
 LIBELF_ARCH := aarch64
 endif
 
-ifdef PTXDIST_ICECC
-LIBELF_CFLAGS := -C
-endif
-
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
