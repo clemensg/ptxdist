@@ -1,0 +1,30 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Mon, 29 Apr 2019 11:16:17 +0200
+Subject: [PATCH] don't close open fds
+
+PTXdist uses fd 9 to write debug information to the logfile.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ configure.py | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/configure.py b/configure.py
+index 41d95469c00d..d5e34a0eeb3a 100755
+--- a/configure.py
++++ b/configure.py
+@@ -186,7 +186,7 @@ class Bootstrap:
+         try:
+             if self.verbose:
+                 print(cmdline)
+-            subprocess.check_call(cmdline, shell=True)
++            subprocess.check_call(cmdline, shell=True, close_fds=False)
+         except subprocess.CalledProcessError:
+             print('when running: ', cmdline)
+             raise
+@@ -683,4 +683,4 @@ if options.bootstrap:
+     if options.verbose:
+         rebuild_args.append('-v')
+ 
+-    subprocess.check_call(rebuild_args)
++    subprocess.check_call(rebuild_args, close_fds=False)

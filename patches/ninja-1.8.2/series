@@ -6,4 +6,5 @@
 0004-Honor-lN-from-MAKEFLAGS.patch
 0005-Use-LinePrinter-for-TokenPool-messages.patch
 0006-Prepare-PR-for-merging.patch
-# d3f8b2e9621f8f2490c54704a2621fb2  - git-ptx-patches magic
+0007-don-t-close-open-fds.patch
+# e4c44c2e231b79ea6c0263de5d69c6d3  - git-ptx-patches magic
