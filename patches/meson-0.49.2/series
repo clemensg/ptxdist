@@ -3,4 +3,5 @@
 0001-only-use-paths-for-shared-libaries-in-get_link_dep_s.patch
 0002-don-t-add-rpaths-for-build-directories-when-cross-co.patch
 0003-HACK-don-t-loose-the-rpath-for-host-packages.patch
-# 5cb122e1f6a7d12f6e2fc7dd5a2d329b  - git-ptx-patches magic
+0004-Don-t-close-fds-when-executing-programs.patch
+# 648fdcce3df1dd2e0d3234bdbf0c8bff  - git-ptx-patches magic
