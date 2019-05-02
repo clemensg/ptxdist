@@ -37,6 +37,8 @@ config OPENSC_TOOLS
 	bool "install tools"
 
 config OPENSC_TESTSUITE
+	# needs cmocka
+	depends on BROKEN
 	bool "install testsuite"
 
 endif

@@ -15,11 +15,11 @@ PACKAGES-$(PTXCONF_OPENSC) += opensc
 #
 # Paths and names
 #
-OPENSC_VERSION	:= 0.15.0
-OPENSC_MD5	:= f266024e5a9630821ffa0ac14f72e369
+OPENSC_VERSION	:= 0.19.0
+OPENSC_MD5	:= 40734b2343cf83c62c4c403f8a37475e
 OPENSC		:= OpenSC-$(OPENSC_VERSION)
 OPENSC_SUFFIX	:= tar.gz
-OPENSC_URL	:= https://github.com/OpenSC/OpenSC/archive/$(OPENSC_VERSION).$(OPENSC_SUFFIX)
+OPENSC_URL	:= https://github.com/OpenSC/OpenSC/releases/download/$(OPENSC_VERSION)/$(OPENSC).$(OPENSC_SUFFIX)
 OPENSC_SOURCE	:= $(SRCDIR)/$(OPENSC).$(OPENSC_SUFFIX)
 OPENSC_DIR	:= $(BUILDDIR)/$(OPENSC)
 OPENSC_LICENSE	:= LGPL-2.1-or-later AND Expat AND ISC
@@ -38,17 +38,25 @@ OPENSC_CONF_TOOL := autoconf
 OPENSC_CONF_OPT := \
 	$(CROSS_AUTOCONF_USR) \
 	--sysconfdir=/etc/opensc \
+	--enable-optimization \
+	--disable-strict \
+	--disable-pedantic \
+	--enable-thread-locking \
 	--enable-zlib \
 	--$(call ptx/endis,PTXCONF_OPENSC_READLINE)-readline \
 	--disable-openssl \
+	--disable-openpace \
 	--$(call ptx/endis,PTXCONF_OPENSC_OPENCT)-openct \
 	--$(call ptx/endis,PTXCONF_OPENSC_PCSC)-pcsc \
+	--disable-cryptotokenkit \
 	--disable-ctapi \
 	--disable-minidriver \
 	--enable-sm \
 	--disable-man \
 	--disable-doc \
 	--disable-dnie-ui \
+	--disable-notify \
+	--$(call ptx/endis,PTXCONF_OPENSC_TESTSUITE)-tests \
 	--disable-static
 
 # ----------------------------------------------------------------------------
