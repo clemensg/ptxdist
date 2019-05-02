@@ -6,6 +6,7 @@ menuconfig OPENSC
 	select READLINE		if OPENSC_READLINE
 	select OPENCT		if OPENSC_OPENCT
 	select PCSC_LITE	if OPENSC_PCSC
+	select OPENSSL		if OPENSC_OPENSSL
 	help
 	  Smart card utilities with support for PKCS#15 compatible cards
 
@@ -32,6 +33,12 @@ endchoice
 
 config OPENSC_READLINE
 	bool "readline support"
+
+config OPENSC_OPENSSL
+	bool "openssl support"
+	help
+	  Enable OpenSSL support for opensc and tools.
+	  This allows the import of X.509 certificates with pkcs11-tool.
 
 config OPENSC_TOOLS
 	bool "install tools"

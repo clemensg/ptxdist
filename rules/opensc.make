@@ -44,7 +44,7 @@ OPENSC_CONF_OPT := \
 	--enable-thread-locking \
 	--enable-zlib \
 	--$(call ptx/endis,PTXCONF_OPENSC_READLINE)-readline \
-	--disable-openssl \
+	--$(call ptx/endis,PTXCONF_OPENSC_OPENSSL)-openssl \
 	--disable-openpace \
 	--$(call ptx/endis,PTXCONF_OPENSC_OPENCT)-openct \
 	--$(call ptx/endis,PTXCONF_OPENSC_PCSC)-pcsc \
