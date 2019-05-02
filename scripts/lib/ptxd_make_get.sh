@@ -61,9 +61,9 @@ ptxd_make_get_http() {
 	# remove any pending or half downloaded files
 	rm -f -- "${path}."*
 
-	temp_file="$(mktemp "${path}.XXXXXXXXXX")" || ptxd_bailout "failed to create tempfile"
 	ptxd_make_serialize_take
 	if [ "${ptxd_make_get_dryrun}" != "y" ]; then
+	    temp_file="$(mktemp "${path}.XXXXXXXXXX")" || ptxd_bailout "failed to create tempfile"
 	    wget \
 		--passive-ftp \
 		--progress=bar:force \
