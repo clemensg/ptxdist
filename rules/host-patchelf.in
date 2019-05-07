@@ -1,0 +1,15 @@
+## SECTION=hosttools_noprompt
+## SECTION=hosttools_platform
+
+config HOST_PATCHELF
+	tristate
+	default y if ALLYES
+	help
+	  PatchELF is a simple utility for modifying existing ELF
+	  executables and libraries.  In particular, it can do the
+	  following:
+	  * Change the dynamic loader ("ELF interpreter") of
+            executables
+	  * Change the RPATH of executables and libraries
+	  * Remove declared dependencies on dynamic libraries
+            (DT_NEEDED entries)
