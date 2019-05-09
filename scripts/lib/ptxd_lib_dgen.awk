@@ -55,7 +55,7 @@ FNR == 1 {
 #
 # skip comments and empty lines
 #
-/^\#|^$/ {
+/^#|^$/ {
 	next;
 }
 
