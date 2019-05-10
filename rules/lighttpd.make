@@ -24,8 +24,11 @@ LIGHTTPD_SUFFIX		:= tar.xz
 LIGHTTPD_URL		:= http://download.lighttpd.net/lighttpd/releases-1.4.x/$(LIGHTTPD).$(LIGHTTPD_SUFFIX)
 LIGHTTPD_SOURCE		:= $(SRCDIR)/$(LIGHTTPD).$(LIGHTTPD_SUFFIX)
 LIGHTTPD_DIR		:= $(BUILDDIR)/$(LIGHTTPD)
-LIGHTTPD_LICENSE	:= BSD-3-Clause
-LIGHTTPD_LICENSE_FILES := file://COPYING;md5=e4dac5c6ab169aa212feb5028853a579
+LIGHTTPD_LICENSE	:= BSD-3-Clause AND OML AND RSA-MD
+LIGHTTPD_LICENSE_FILES	:= \
+	file://COPYING;md5=e4dac5c6ab169aa212feb5028853a579 \
+	file://src/fastcgi.h;startline=7;endline=15;md5=fe9ffe753772839aace9c90e814bc356 \
+	file://src/md5.c;startline=6;endline=26;md5=b5be3b6afd4afa7bb89b16361244f9b6
 
 # ----------------------------------------------------------------------------
 # Prepare
