@@ -179,7 +179,6 @@ config XORG_SERVER_XWAYLAND
 	select XORG_SERVER_EXT_COMPOSITE
 	select XORG_SERVER_EXT_DRI3
 	prompt "Xwayland server"
-	help
 
 config XORG_SERVER_XWIN
 	bool
