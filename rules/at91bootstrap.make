@@ -27,6 +27,10 @@ AT91BOOTSTRAP_URL	:= \
         http://sources.buildroot.net/$(AT91BOOTSTRAP_TARBALL)
 AT91BOOTSTRAP_SOURCE	:= $(SRCDIR)/$(AT91BOOTSTRAP_TARBALL)
 AT91BOOTSTRAP_DIR	:= $(BUILDDIR)/$(AT91BOOTSTRAP)
+AT91BOOTSTRAP_LICENSE	:= BSD-Source-Code AND GPL-2.0-or-later
+AT91BOOTSTRAP_LICENSE_FILES := \
+	file://main.c;startline=4;endline=26;md5=3492153edbe9064d12ba58818b73983d \
+	file://lib/div0.c;startline=2;endline=21;md5=e0212951661974539b2490564f7050fe
 
 # ----------------------------------------------------------------------------
 # Compile
