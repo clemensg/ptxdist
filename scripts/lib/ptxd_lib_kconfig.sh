@@ -601,7 +601,7 @@ ptxd_kconfig_update() {
 	"${relative_file_dotconfig}" "${file_dotconfig}" &&
 
     if [ "${mode}" = check ]; then
-	if ! "${conf}" --silentoldconfig "${file_kconfig}" < /dev/null; then
+	if ! "${conf}" --oldconfig "${file_kconfig}" < /dev/null; then
 	    # error handling in ptxd_kconfig_sync_config()
 	    :> .config
 	fi
@@ -619,7 +619,7 @@ ptxd_kconfig_update() {
 		# migrate touches the config, so update the timestamp
 		stat -c '%y' ".config" > ".config.stamp"
 	    fi &&
-	    "${conf}" "${oldconfig}" "${file_kconfig}"
+	    "${conf}" --oldconfig "${file_kconfig}"
 	    ;;
 	all*config|randconfig)
 	    "${conf}" --${config} "${file_kconfig}"
@@ -701,18 +701,6 @@ ptxd_kconfig() {
 
     if [ -z "${confdir}" ]; then
 	local confdir="${PTXDIST_TEMPDIR}/kconfig"
-    fi
-
-
-    #
-    # In silent mode, we cannot redirect input. So use
-    # oldconfig instead of silentoldconfig if somebody
-    # tries to automate us.
-    #
-    if tty -s; then
-	local oldconfig="--silentoldconfig"
-    else
-	local oldconfig="--oldconfig"
     fi
 
     (
