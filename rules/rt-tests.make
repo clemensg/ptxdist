@@ -21,7 +21,6 @@ PACKAGES-$(PTXCONF_RT_TESTS) += rt-tests
 #
 RT_TESTS_VERSION	:= 1.0
 RT_TESTS_MD5		:= 3818d2d0a3069291864bf85fde40883b
-RT_TESTS_LICENSE	:= GPL-2.0-only AND GPL-2.0-or-later
 RT_TESTS		:= rt-tests-$(RT_TESTS_VERSION)
 RT_TESTS_SUFFIX		:= tar.xz
 RT_TESTS_URL		:= \
@@ -29,6 +28,8 @@ RT_TESTS_URL		:= \
 	$(call ptx/mirror, KERNEL, utils/rt-tests/older/$(RT_TESTS).$(RT_TESTS_SUFFIX))
 RT_TESTS_SOURCE		:= $(SRCDIR)/$(RT_TESTS).$(RT_TESTS_SUFFIX)
 RT_TESTS_DIR		:= $(BUILDDIR)/$(RT_TESTS)
+RT_TESTS_LICENSE	:= GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.1-or-later
+RT_TESTS_LICENSE_FILES	:= file://COPYING;md5=751419260aa954499f7abaabaa882bbe
 
 # ----------------------------------------------------------------------------
 # Prepare
