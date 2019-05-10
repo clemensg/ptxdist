@@ -25,7 +25,8 @@ NET_SNMP_SUFFIX		:= tar.gz
 NET_SNMP_URL		:= $(call ptx/mirror, SF, net-snmp/$(NET_SNMP).$(NET_SNMP_SUFFIX))
 NET_SNMP_SOURCE		:= $(SRCDIR)/$(NET_SNMP).$(NET_SNMP_SUFFIX)
 NET_SNMP_DIR		:= $(BUILDDIR)/$(NET_SNMP)
-NET_LICENSE		:= BSD like
+NET_SNMP_LICENSE	:= MIT-CMU AND BSD-3-Clause
+NET_SNMP_LICENSE_FILES	:= file://COPYING;md5=5dedd290b5ffbe69d9625ddeb350a044
 
 # ----------------------------------------------------------------------------
 # Prepare
