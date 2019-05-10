@@ -18,6 +18,7 @@ LIBFAKETIME_URL		:= https://github.com/wolfcw/libfaketime/archive/v$(LIBFAKETIME
 LIBFAKETIME_SOURCE	:= $(SRCDIR)/$(LIBFAKETIME).$(LIBFAKETIME_SUFFIX)
 LIBFAKETIME_DIR		:= $(BUILDDIR)/$(LIBFAKETIME)
 LIBFAKETIME_LICENSE	:= GPL-2.0-only
+LIBFAKETIME_LICENSE_FILES := file://COPYING;md5=b234ee4d69f5fce4486a80fdaf4a4263
 
 # ----------------------------------------------------------------------------
 # Prepare
