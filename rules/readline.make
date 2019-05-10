@@ -25,6 +25,7 @@ READLINE_URL		:= $(call ptx/mirror, GNU, readline/$(READLINE).$(READLINE_SUFFIX)
 READLINE_SOURCE		:= $(SRCDIR)/$(READLINE).$(READLINE_SUFFIX)
 READLINE_DIR		:= $(BUILDDIR)/$(READLINE)
 READLINE_LICENSE	:= GPL-3.0-or-later
+READLINE_LICENSE_FILES	:= file://COPYING;md5=d32239bcb673463ab874e80d47fae504
 
 # ----------------------------------------------------------------------------
 # Prepare
