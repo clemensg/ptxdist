@@ -25,6 +25,8 @@ MTD_UTILS_URL		:= ftp://ftp.infradead.org/pub/mtd-utils/$(MTD_UTILS).$(MTD_UTILS
 MTD_UTILS_SOURCE	:= $(SRCDIR)/$(MTD_UTILS).$(MTD_UTILS_SUFFIX)
 MTD_UTILS_DIR		:= $(BUILDDIR)/$(MTD_UTILS)
 MTD_UTILS_LICENSE	:= GPL-2.0-or-later
+MTD_UTILS_LICENSE_FILES	:= file://COPYING;md5=0636e73ff0215e8d672dc4c32c317bb3
+
 
 # ----------------------------------------------------------------------------
 # Prepare
