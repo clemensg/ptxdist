@@ -24,7 +24,10 @@ U_BOOT_TOOLS_URL	:= ftp://ftp.denx.de/pub/u-boot/$(U_BOOT_TOOLS).$(U_BOOT_TOOLS_
 U_BOOT_TOOLS_SOURCE	:= $(SRCDIR)/$(U_BOOT_TOOLS).$(U_BOOT_TOOLS_SUFFIX)
 U_BOOT_TOOLS_DIR	:= $(BUILDDIR)/u-boot-tools-$(U_BOOT_TOOLS_VERSION)
 U_BOOT_TOOLS_PKGDIR	:= $(PKGDIR)/u-boot-tools-$(U_BOOT_TOOLS_VERSION)
-U_BOOT_TOOLS_LICENSE	:= GPL-2.0-only
+U_BOOT_TOOLS_LICENSE	:= GPL-2.0-or-later AND Zlib
+U_BOOT_TOOLS_LICENSE_FILES := \
+	file://Licenses/gpl-2.0.txt;md5=b234ee4d69f5fce4486a80fdaf4a4263 \
+	file://include/u-boot/zlib.h;startline=15;endline=43;md5=7c27ae0384929249664da410d539a1dc
 
 # ----------------------------------------------------------------------------
 # Prepare
