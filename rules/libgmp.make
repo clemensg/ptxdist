@@ -24,7 +24,7 @@ LIBGMP_SUFFIX	:= tar.bz2
 LIBGMP_URL	:= $(call ptx/mirror, GNU, gmp/$(LIBGMP).$(LIBGMP_SUFFIX))
 LIBGMP_SOURCE	:= $(SRCDIR)/$(LIBGMP).$(LIBGMP_SUFFIX)
 LIBGMP_DIR	:= $(BUILDDIR)/$(LIBGMP)
-LIBGMP_LICENSE	:= GPL-3.0-only AND LGPL-3.0-only
+LIBGMP_LICENSE	:= GPL-2.0-or-later OR LGPL-3.0-or-later
 
 # ----------------------------------------------------------------------------
 # Prepare
