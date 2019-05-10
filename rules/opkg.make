@@ -25,6 +25,7 @@ OPKG_URL	:= http://downloads.yoctoproject.org/releases/opkg/$(OPKG).$(OPKG_SUFFI
 OPKG_SOURCE	:= $(SRCDIR)/$(OPKG).$(OPKG_SUFFIX)
 OPKG_DIR	:= $(BUILDDIR)/$(OPKG)
 OPKG_LICENSE	:= GPL-2.0-or-later
+OPKG_LICENSE_FILES := file://COPYING;md5=94d55d512a9ba36caa9b7df079bae19f
 
 # ----------------------------------------------------------------------------
 # Prepare
