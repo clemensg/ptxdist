@@ -27,6 +27,9 @@ LM_SENSORS_URL		:= \
 LM_SENSORS_SOURCE	:= $(SRCDIR)/$(LM_SENSORS).$(LM_SENSORS_SUFFIX)
 LM_SENSORS_DIR		:= $(BUILDDIR)/$(LM_SENSORS)
 LM_SENSORS_LICENSE	:= GPL-2.0-or-later AND LGPL-2.1-or-later
+LM_SENSORS_LICENSE_FILES := \
+	file://COPYING;md5=751419260aa954499f7abaabaa882bbe \
+	file://COPYING.LGPL;md5=4fbd65380cdd255951079008b364516c
 
 # ----------------------------------------------------------------------------
 # Prepare
