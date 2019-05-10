@@ -4,7 +4,6 @@ menuconfig MMPONG
 	tristate
 	select HOST_CMAKE
 	select LIBCACA	if MMPONG_CACA
-	select SDL	if MMPONG_GL
 	prompt "mmpong                        "
 	help
 	  mmpong is an ATARI-pong-like multiplayer game, where a
@@ -21,9 +20,6 @@ if MMPONG
 
 config MMPONG_CACA
 	bool "libcaca interface"
-
-#config MMPONG_GL
-#	bool "gl interface"
 
 config MMPONG_SERVER
 	bool "install mmpong server"
