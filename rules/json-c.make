@@ -24,6 +24,7 @@ JSON_C_URL		:= https://github.com/json-c/json-c/archive/$(JSON_C).$(JSON_C_SUFFI
 JSON_C_SOURCE		:= $(SRCDIR)/$(JSON_C).$(JSON_C_SUFFIX)
 JSON_C_DIR		:= $(BUILDDIR)/$(JSON_C)
 JSON_C_LICENSE		:= MIT
+JSON_C_LICENSE_FILES	:= file://COPYING;md5=de54b60fbbc35123ba193fea8ee216f2
 
 # ----------------------------------------------------------------------------
 # Prepare
