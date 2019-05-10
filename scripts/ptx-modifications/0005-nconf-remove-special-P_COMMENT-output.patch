@@ -10,7 +10,7 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 file changed, 9 deletions(-)
 
 diff --git a/scripts/kconfig/nconf.c b/scripts/kconfig/nconf.c
-index a9bc5334a478..7ad817ef7dec 100644
+index ac92c0ded6c5..9a0ba7575efe 100644
 --- a/scripts/kconfig/nconf.c
 +++ b/scripts/kconfig/nconf.c
 @@ -769,15 +769,6 @@ static void build_conf(struct menu *menu)
@@ -23,7 +23,7 @@ index a9bc5334a478..7ad817ef7dec 100644
 -					item_make(menu, ':',
 -						"   %*c*** %s ***",
 -						indent + 1, ' ',
--						_(prompt));
+-						prompt);
 -				}
 -				break;
  			default:

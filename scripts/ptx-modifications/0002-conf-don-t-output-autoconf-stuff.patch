@@ -4,44 +4,19 @@ Subject: [PATCH] conf: don't output autoconf stuff
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
- scripts/kconfig/conf.c     | 2 ++
- scripts/kconfig/confdata.c | 2 ++
- 2 files changed, 4 insertions(+)
+ scripts/kconfig/confdata.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/scripts/kconfig/conf.c b/scripts/kconfig/conf.c
-index 46c6e1bb5910..2fedd45e8312 100644
---- a/scripts/kconfig/conf.c
-+++ b/scripts/kconfig/conf.c
-@@ -731,10 +731,12 @@ int main(int ac, char **av)
- 			fprintf(stderr, _("\n*** Error during writing of the configuration.\n\n"));
- 			exit(1);
- 		}
-+#if 0
- 		if (conf_write_autoconf()) {
- 			fprintf(stderr, _("\n*** Error during update of the configuration.\n\n"));
- 			return 1;
- 		}
-+#endif
- 	} else if (input_mode == savedefconfig) {
- 		if (conf_write_defconfig(defconfig_file)) {
- 			fprintf(stderr, _("n*** Error while saving defconfig to: %s\n\n"),
 diff --git a/scripts/kconfig/confdata.c b/scripts/kconfig/confdata.c
-index 297b079ae4d9..acfdd93bfeee 100644
+index 08ba146a83c5..03c37c44e9a5 100644
 --- a/scripts/kconfig/confdata.c
 +++ b/scripts/kconfig/confdata.c
-@@ -951,6 +951,7 @@ out:
- 	return res;
- }
+@@ -1023,7 +1023,7 @@ int conf_write_autoconf(int overwrite)
+ 	FILE *out, *tristate, *out_h;
+ 	int i;
  
-+#if 0
- int conf_write_autoconf(void)
- {
- 	struct symbol *sym;
-@@ -1024,6 +1025,7 @@ int conf_write_autoconf(void)
+-	if (!overwrite && is_present(autoconf_name))
++	if (!overwrite)
+ 		return 0;
  
- 	return 0;
- }
-+#endif
- 
- static int sym_change_count;
- static void (*conf_changed_callback)(void);
+ 	sym_clear_all_valid();

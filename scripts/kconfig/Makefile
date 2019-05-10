@@ -37,18 +37,26 @@ lxdialog-objs := \
 	lxdialog/util.o      \
 	lxdialog/yesno.o     \
 
+common-objs := \
+	confdata.o \
+	expr.o \
+	lexer.lex.o \
+	parser.tab.o \
+	preprocess.o \
+	symbol.o
+
 conf-objs := \
-	conf.o \
-	zconf.tab.o
+	$(common-objs) \
+	conf.o
 
 mconf-objs := \
+	$(common-objs) \
 	mconf.o \
-	zconf.tab.o \
 	$(lxdialog-objs)
 
 nconf-objs := \
+	$(common-objs) \
 	nconf.o \
-	zconf.tab.o \
 	nconf.gui.o
 
 conf: $(conf-objs)
@@ -75,36 +83,38 @@ nconf: $(nconf-objs)
 lkc_defs.h: lkc_proto.h
 	sed < $< > $@ 's/P(\([^,]*\),.*/#define \1 (\*\1_p)/'
 
-zconf.tab.o: zconf.lex.c zconf.hash.c zconf.tab.c confdata.c expr.c symbol.c menu.c $(lkc-deps)
-
 kconfig_load.o: $(lkc-deps)
 
 qconf.o: qconf.moc $(lkc-deps)
 
 gconf.o: $(lkc-deps)
 
+lexer.lex.o: parser.tab.h
+
+parser.tab.o: menu.c
+
+.INTERMEDIATE: parser.tab.h
+
 ###
-# The following requires flex/bison/gperf
+# The following requires flex/bison
 # By default we use the _shipped versions, uncomment the following line if
 # you are modifying the flex/bison src.
 # LKC_GENPARSER := 1
 
 ifdef LKC_GENPARSER
 
-zconf.tab.c: zconf.y
 lex.zconf.c: zconf.l
-zconf.hash.c: zconf.gperf
 
 %.tab.c: %.y
-	bison -l -b $* -p $(notdir $*) $<
+	bison -o$@ -t -l $<
+	cp $@ $@_shipped
+
+%.tab.h: %.y
+	bison -o/dev/null --defines=$@ -t -l $<
 	cp $@ $@_shipped
 
 %.lex.c: %.l
-	flex -L -P$(notdir $*) -o$@ $<
-	cp $@ $@_shipped
-
-%.hash.c: %.gperf
-	gperf < $< > $@
+	flex -o$@ -L $<
 	cp $@ $@_shipped
 
 else
@@ -112,14 +122,14 @@ else
 %.tab.c: %.y
 	cp $@_shipped $@
 
-%.lex.c: %.l
+%.tab.h: %.y
 	cp $@_shipped $@
 
-%.hash.c: %.gperf
+%.lex.c: %.l
 	cp $@_shipped $@
 
 endif
 
 clean:
 	rm -f $(conf-objs) $(mconf-objs) $(nconf-objs) conf mconf nconf gconf qconf
-	rm -f lkc_defs.h zconf.tab.o zconf.tab.c zconf.hash.c zconf.lex.c
+	rm -f lkc_defs.h *.lex.c *.tab.c *.tab.h
