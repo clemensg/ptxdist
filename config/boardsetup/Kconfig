@@ -1,10 +1,6 @@
 # configuration for board setup
 
-mainmenu "PTXdist $BOARDSETUP_VERSION_DEFAULT"
-
-config BOARDSETUP_VERSION_DEFAULT
-	string
-	option env="PTXDIST_VERSION_FULL"
+mainmenu "PTXdist $(PTXDIST_VERSION_FULL)"
 
 menu "Network Configuration         "
 

@@ -1,18 +1,13 @@
 ## SECTION=ptxdist_version
 ## SECTION=platform_version
 
-# Note: not setting PTXDIST_DEP_TARGET means runtime _and_ buildtime deps
-config PTXDIST_DEP_TARGET
-	string
-	option env="PTXDIST_DEP_TARGET"
-
 config RUNTIME
 	bool
-	default y if PTXDIST_DEP_TARGET != "build"
+	default y if "$(PTXDIST_DEP_TARGET)" != "build"
 
 config BUILDTIME
 	bool
-	default y if PTXDIST_DEP_TARGET != "run"
+	default y if "$(PTXDIST_DEP_TARGET)" != "run"
 
 config VIRTUAL
 	bool
