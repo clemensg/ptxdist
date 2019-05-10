@@ -26,7 +26,8 @@ SUDO_URL	:= \
 	http://www.sudo.ws/sudo/dist/OLD/$(SUDO).$(SUDO_SUFFIX)
 SUDO_SOURCE	:= $(SRCDIR)/$(SUDO).$(SUDO_SUFFIX)
 SUDO_DIR	:= $(BUILDDIR)/$(SUDO)
-SUDO_LICENSE	:= BSD AND ISC
+SUDO_LICENSE	:= ISC AND BSD-3-Clause AND BSD-2-Clause-NetBSD AND Zlib
+SUDO_LICENSE_FILES := file://doc/LICENSE;md5=7765a3d787cb4fed3ccc3c9cee030af9
 
 # ----------------------------------------------------------------------------
 # Prepare
