@@ -25,6 +25,11 @@ LIBGMP_URL	:= $(call ptx/mirror, GNU, gmp/$(LIBGMP).$(LIBGMP_SUFFIX))
 LIBGMP_SOURCE	:= $(SRCDIR)/$(LIBGMP).$(LIBGMP_SUFFIX)
 LIBGMP_DIR	:= $(BUILDDIR)/$(LIBGMP)
 LIBGMP_LICENSE	:= GPL-2.0-or-later OR LGPL-3.0-or-later
+LIBGMP_LICENSE_FILES := \
+	file://README;startline=1;endline=27;md5=20e1eb0dbe1e7dba4f5934a132360fe9 \
+	file://COPYING.LESSERv3;md5=6a6a8e020838b23406c81b19c1d46df6 \
+	file://COPYINGv2;md5=b234ee4d69f5fce4486a80fdaf4a4263 \
+	file://COPYINGv3;md5=11cc2d3ee574f9d6b7ee797bdce4d423
 
 # ----------------------------------------------------------------------------
 # Prepare
