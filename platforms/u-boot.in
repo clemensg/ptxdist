@@ -9,7 +9,7 @@ if U_BOOT
 
 config U_BOOT_VERSION
 	string
-	default 2019.01
+	default "2019.01"
 	prompt "U-Boot version"
 	help
 	  Enter the U-Boot version you want to build. Usually something like
