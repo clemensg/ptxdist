@@ -25,6 +25,7 @@ BUSYBOX_SOURCE	:= $(SRCDIR)/$(BUSYBOX).$(BUSYBOX_SUFFIX)
 BUSYBOX_DIR	:= $(BUILDDIR)/$(BUSYBOX)
 BUSYBOX_KCONFIG	:= $(BUSYBOX_DIR)/Config.in
 BUSYBOX_LICENSE	:= GPL-2.0-only
+BUSYBOX_LICENSE_FILES := file://LICENSE;md5=de10de48642ab74318e893a61105afbb
 
 # ----------------------------------------------------------------------------
 # Prepare
