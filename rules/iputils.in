@@ -103,7 +103,6 @@ config IPUTILS_TFTPD
 	bool
 	depends on (!BUSYBOX_TFTPD && !INETUTILS_TFTPD) || ALLYES
 	prompt "tftpd"
-	help
 
 comment "inetutils' tftpd is selected!"
         depends on INETUTILS_PING
