@@ -26,6 +26,8 @@ void menu_warn(struct menu *menu, const char *fmt, ...)
 	vfprintf(stderr, fmt, ap);
 	fprintf(stderr, "\n");
 	va_end(ap);
+	if (!getenv("PTXDIST_FORCE"))
+		yynerrs++;
 }
 
 static void prop_warn(struct property *prop, const char *fmt, ...)
@@ -36,6 +38,8 @@ static void prop_warn(struct property *prop, const char *fmt, ...)
 	vfprintf(stderr, fmt, ap);
 	fprintf(stderr, "\n");
 	va_end(ap);
+	if (!getenv("PTXDIST_FORCE"))
+		yynerrs++;
 }
 
 void _menu_init(void)

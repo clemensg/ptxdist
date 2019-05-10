@@ -1505,6 +1505,9 @@ do_config()
 	if [ ${retval} -ne 0 ]; then
 		echo
 		echo "${PTXDIST_LOG_PROMPT}'${config}${part:+ }${part}' returned with an error"
+		if [ -z "${PTXDIST_FORCE}" ]; then
+			echo "${PTXDIST_LOG_PROMPT}for warnings, --force can be used to continue anyways"
+		fi
 		echo
 		if [ -n "${PTX_MENU}" ]; then
 			read

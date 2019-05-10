@@ -1,0 +1,31 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Fri, 10 May 2019 14:05:21 +0200
+Subject: [PATCH] warnings are errors unless PTXDIST_FORCE is set
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ scripts/kconfig/menu.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/scripts/kconfig/menu.c b/scripts/kconfig/menu.c
+index f48dbf9e4b40..e6f43fc166d9 100644
+--- a/scripts/kconfig/menu.c
++++ b/scripts/kconfig/menu.c
+@@ -26,6 +26,8 @@ void menu_warn(struct menu *menu, const char *fmt, ...)
+ 	vfprintf(stderr, fmt, ap);
+ 	fprintf(stderr, "\n");
+ 	va_end(ap);
++	if (!getenv("PTXDIST_FORCE"))
++		yynerrs++;
+ }
+ 
+ static void prop_warn(struct property *prop, const char *fmt, ...)
+@@ -36,6 +38,8 @@ static void prop_warn(struct property *prop, const char *fmt, ...)
+ 	vfprintf(stderr, fmt, ap);
+ 	fprintf(stderr, "\n");
+ 	va_end(ap);
++	if (!getenv("PTXDIST_FORCE"))
++		yynerrs++;
+ }
+ 
+ void _menu_init(void)
