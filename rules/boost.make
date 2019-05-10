@@ -25,6 +25,7 @@ BOOST_URL	:= $(call ptx/mirror, SF, boost/$(BOOST).$(BOOST_SUFFIX))
 BOOST_SOURCE	:= $(SRCDIR)/$(BOOST).$(BOOST_SUFFIX)
 BOOST_DIR	:= $(BUILDDIR)/$(BOOST)
 BOOST_LICENSE	:= BSL-1.0
+BOOST_LICENSE_FILES := file://LICENSE_1_0.txt;md5=e4224ccaecb14d942c71d31bef20d78c
 
 # ----------------------------------------------------------------------------
 # Prepare
