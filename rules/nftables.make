@@ -24,6 +24,7 @@ NFTABLES_URL		:= http://ftp.netfilter.org/pub/nftables/$(NFTABLES).$(NFTABLES_SU
 NFTABLES_SOURCE		:= $(SRCDIR)/$(NFTABLES).$(NFTABLES_SUFFIX)
 NFTABLES_DIR		:= $(BUILDDIR)/$(NFTABLES)
 NFTABLES_LICENSE	:= GPL-2.0-only
+NFTABLES_LICENSE_FILES	:= file://COPYING;md5=d1a78fdd879a263a5e0b42d1fc565e79
 
 # ----------------------------------------------------------------------------
 # Prepare
