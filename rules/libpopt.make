@@ -25,6 +25,7 @@ LIBPOPT_URL	:= http://rpm5.org/files/popt/$(LIBPOPT).$(LIBPOPT_SUFFIX)
 LIBPOPT_SOURCE	:= $(SRCDIR)/$(LIBPOPT).$(LIBPOPT_SUFFIX)
 LIBPOPT_DIR	:= $(BUILDDIR)/$(LIBPOPT)
 LIBPOPT_LICENSE	:= MIT
+LIBPOPT_LICENSE_FILES := file://COPYING;md5=cb0613c30af2a8249b8dcc67d3edb06d
 
 # ----------------------------------------------------------------------------
 # Prepare
