@@ -68,10 +68,6 @@ GSTREAMER1_CONF_OPT	:= \
 	-Dtools=$(call ptx/endis,PTXCONF_GSTREAMER1_INSTALL_TOOLS)d \
 	-Dtracer_hooks=$(call ptx/truefalse,PTXCONF_GSTREAMER1_DEBUG)
 
-ifdef PTXCONF_GSTREAMER1_INTROSPECTION
-#GSTREAMER1_LDFLAGS := -Wl,-rpath-link,$(GSTREAMER1_DIR)/libs/gst/base/.libs
-endif
-
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
