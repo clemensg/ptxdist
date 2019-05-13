@@ -33,5 +33,16 @@ HOST_M4_LICENSE	:= GPL-3.0-only
 # autoconf
 #
 HOST_M4_CONF_TOOL	:= autoconf
+HOST_M4_CONF_OPT	:= \
+	$(HOST_AUTOCONF) \
+	--enable-threads=posix \
+	--disable-gcc-warnings \
+	--enable-assert \
+	--disable-rpath \
+	--disable-c++ \
+	--disable-changeword \
+	--without-included-regex \
+	--with-syscmd-shell=/bin/sh \
+	--without-dmalloc
 
 # vim: syntax=make
