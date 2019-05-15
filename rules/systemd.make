@@ -179,9 +179,6 @@ SYSTEMD_CONF_OPT	:= \
 # - devtmpfs, cgroups are mandatory.
 # - autofs4, ipv6  optional but strongly recommended
 
-# FIXME busybox tools:
-# - mount fails
-
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
