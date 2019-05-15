@@ -18,8 +18,8 @@ HOST_PACKAGES-$(PTXCONF_HOST_QEMU) += host-qemu
 #
 # Paths and names
 #
-HOST_QEMU_VERSION	:= 3.1.0
-HOST_QEMU_MD5		:= fb687ce0b02d3bf4327e36d3b99427a8
+HOST_QEMU_VERSION	:= 4.0.0
+HOST_QEMU_MD5		:= 0afeca336fd57ae3d3086ec07f59d708
 HOST_QEMU		:= qemu-$(HOST_QEMU_VERSION)
 HOST_QEMU_SUFFIX	:= tar.xz
 HOST_QEMU_URL		:= https://download.qemu.org/$(HOST_QEMU).$(HOST_QEMU_SUFFIX)
@@ -65,6 +65,7 @@ HOST_QEMU_CONF_OPT	= \
 		$(call ptx/ifdef, PTXCONF_HOST_QEMU_SYS,$(HOST_QEMU_SYS_TARGETS),) \
 		$(call ptx/ifdef, PTXCONF_HOST_QEMU_USR,$(HOST_QEMU_USR_TARGETS),) \
 	" \
+	--python=$(SYSTEMPYTHON3) \
 	--disable-werror \
 	--audio-drv-list= \
 	--block-drv-rw-whitelist= \
@@ -73,7 +74,6 @@ HOST_QEMU_CONF_OPT	= \
 	--disable-tcg-interpreter \
 	--with-coroutine= \
 	--tls-priority=NORMAL \
-	--disable-xen-pv-domain-build \
 	--$(call ptx/endis, PTXCONF_HOST_QEMU_SYS)-system \
 	--disable-user \
 	--$(call ptx/endis, PTXCONF_HOST_QEMU_USR)-linux-user \
@@ -90,7 +90,6 @@ HOST_QEMU_CONF_OPT	= \
 	--disable-nettle \
 	--disable-gcrypt \
 	--disable-sdl \
-	--with-sdlabi= \
 	--disable-gtk \
 	--disable-vte \
 	--disable-curses \
@@ -116,37 +115,46 @@ HOST_QEMU_CONF_OPT	= \
 	--disable-cap-ng \
 	--enable-attr \
 	--enable-vhost-net \
-	--disable-capstone \
-	--disable-debug-mutex \
-	--disable-libpmem \
+	--enable-vhost-vsock \
+	--enable-vhost-scsi \
+	--disable-vhost-crypto \
+	--disable-vhost-user \
 	--disable-spice \
 	--disable-rbd \
 	--disable-libiscsi \
 	--disable-libnfs \
 	--disable-smartcard \
 	--$(call ptx/endis, PTXCONF_HOST_QEMU_SYS)-libusb \
+	--disable-live-block-migration \
 	--disable-usb-redir \
 	--disable-lzo \
 	--disable-snappy \
 	--disable-bzip2 \
+	--disable-lzfse \
 	--disable-seccomp \
 	--enable-coroutine-pool \
 	--disable-glusterfs \
 	--disable-tpm \
 	--disable-libssh2 \
 	--disable-numa \
+	--disable-libxml2 \
 	--disable-tcmalloc \
 	--disable-jemalloc \
 	--enable-replication \
-	--enable-vhost-vsock \
 	--disable-opengl \
 	--disable-virglrenderer \
 	--disable-xfsctl \
 	--disable-qom-cast-debug \
 	--disable-tools \
-	\
-	--python=$(SYSTEMPYTHON3) \
-	--enable-vhost-scsi
+	--disable-dmg \
+	--disable-vvfat \
+	--disable-qed \
+	--disable-parallels \
+	--disable-sheepdog \
+	--disable-crypto-afalg \
+	--disable-capstone \
+	--disable-debug-mutex \
+	--disable-libpmem
 
 # Use '=' to delay $(shell ...) calls until this is needed
 QEMU_CROSS_QEMU = $(call ptx/get-alternative, config/qemu, qemu-cross)
