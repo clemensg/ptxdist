@@ -140,6 +140,8 @@ ptxd_kconfig_create_config_merge() {
 		saved_md5="${a}"
 	    fi
 	    continue
+	elif [[ "${a}" =~ ^"# ptxdist:" ]]; then
+	    continue
 	elif [ -z "${b}" ]; then
 	    ptxd_bailout "Failed to parse" \
 		"$(ptxd_print_path "${diff}")" \
@@ -453,6 +455,9 @@ ptxd_kconfig_update_config() {
 	    sed -n 's/^> \(\(# \)\?[A-Z]*_\)/\1/p' | \
 	    sed 's/^# \(.*\) is not set$/\1=n/' | sort | \
 	    sed 's/^\([^=]*\)=n$/# \1 is not set/' >> "${tmp}" &&
+	if [ $(wc -l < "${tmp}") -eq 1 ] && ! cmp -s "${base_config}" "${target_config}"; then
+	    echo "# ptxdist: comment and sorting changes only" >> "${tmp}"
+	fi
 	if [ $(wc -l < "${tmp}") -gt 1 ]; then
 	    ptxd_kconfig_save_config "${target_config}" "${config}" &&
 	    ptxd_kconfig_save_config "${tmp}" "${config}.diff" &&
