@@ -102,7 +102,7 @@ ptxd_source_kconfig() {
 	local ret
 
 	set -a
-	source "${1}" 2> /dev/null
+	source "${1}"
 	ret=$?
 	set +a
 
