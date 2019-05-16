@@ -125,6 +125,10 @@ ptxd_kconfig_create_config_merge() {
 	    a="${a% is not set}"
 	    a="${a#\# }"
 	    b="n"
+	elif [[ -z "${b}" && "${a}" =~ ^'# '[^\ ]*' is undefined'$ ]]; then
+	    a="${a% is undefined}"
+	    a="${a#\# }"
+	    b="u"
 	elif [[ "${a}" =~ ^('<<<<<<<'|'>>>>>>>') ]]; then
 	    if [ "${#args[@]}" -eq 0 ]; then
 		conflict=1
@@ -157,6 +161,9 @@ ptxd_kconfig_create_config_merge() {
 	    ;;
 	n)
 	    option="-d"
+	    ;;
+	u)
+	    option="-u"
 	    ;;
 	*)
 	    option="--set-val"
@@ -455,8 +462,19 @@ ptxd_kconfig_update_config() {
 	# take any new lines and sort by option name
 	diff "${tmp}.base" "${tmp}.new" | \
 	    sed -n 's/^> \(\(# \)\?[A-Z]*_\)/\1/p' | \
-	    sed 's/^# \(.*\) is not set$/\1=n/' | sort | \
-	    sed 's/^\([^=]*\)=n$/# \1 is not set/' >> "${tmp}" &&
+	    sed 's/^# \(.*\) is not set$/\1=n/' >> "${tmp}.tmp" &&
+	# handle all removed symbols
+	diff "${tmp}.base" "${tmp}.new" | \
+	    sed -n 's/^< \(# \)\?\([A-Z]*_[^= ]*\)[= ].*$/\2/p' | \
+	    while read sym; do
+		if ! grep -q "^${sym}=" "${tmp}.tmp"; then
+		    echo "${sym}=u" >> "${tmp}.tmp"
+		fi
+	    done
+	sort "${tmp}.tmp" | \
+	    sed -e 's/^\([^=]*\)=n$/# \1 is not set/' \
+		-e 's/^\([^=]*\)=u$/# \1 is undefined/' \
+		>> "${tmp}" &&
 	if [ $(wc -l < "${tmp}") -eq 1 ] && ! cmp -s "${base_config}" "${target_config}"; then
 	    echo "# ptxdist: comment and sorting changes only" >> "${tmp}"
 	fi
