@@ -2474,10 +2474,14 @@ setup_auto_version()
 		;;
 	esac
 
-	if [ ! -e "${PTXDIST_PTXCONFIG}" ]; then
+	file_dotconfig="${PTXDIST_PTXCONFIG}"
+	ptxd_normalize_config
+	if ! ptxd_get_path_filtered ${PTXDIST_LAYERS[@]/%//${relative_file_dotconfig}}; then
 		# no config yet, so this is either 'select' or fails later anyways
 		return
 	fi
+	# the bottom layer decides the version
+	PTXDIST_PTXCONFIG="${ptxd_reply[${#ptxd_reply[@]}-1]}"
 
 	_get_config_ptx
 	if check_version "${configfile_version}"; then
@@ -2765,8 +2769,6 @@ main() {
 
 	setup_parallel &&
 
-	setup_auto_version &&
-
 	setup_platform &&
 	# --- platformdir and other *dirs are available from here ---
 	# --- all variables are defined now ---
@@ -2774,6 +2776,8 @@ main() {
 	setup_libs &&
 	setup_path &&
 	# --- path is now set ---
+
+	setup_auto_version &&
 
 	setup_export &&
 	# -- all important vars are exported
