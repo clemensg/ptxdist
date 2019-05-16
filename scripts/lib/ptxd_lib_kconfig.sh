@@ -223,6 +223,8 @@ ptxd_kconfig_create_config() {
 		prefix="$(sed -n '/^[A-Z]/{s/\([^_]*_\).*/\1/p;q}' "${target}")"
 		echo "# ${prefix}OPTION_DOES_NOT_EXIST is not set" >> "${target}"
 	    fi
+	else
+	    touch "${target}"
 	fi
     fi &&
     stat -c '%y' "${target}" > "${target}.stamp"
