@@ -525,7 +525,7 @@ ptxd_kconfig_update() {
 	# nothing to do for PTXdist itself
 	return
     fi
-    if [ "${config}" != dep -a "${part}" != user ]; then
+    if [ "${config}" != dep -a "${part}" != user -a "${part}" != board ]; then
 	(
 	# call ptxd_kconfig_update() recursively after removing the last layer
 	PTXDIST_LAYERS=( "${PTXDIST_LAYERS[@]:1}" )
@@ -558,7 +558,7 @@ ptxd_kconfig_update() {
 	;;
     esac
     case "${part}" in
-    user)
+    user|board)
 	mode=single
 	;;
     collection)
@@ -684,7 +684,7 @@ ptxd_kconfig() {
 	file_dotconfig="${3}"
 	;;
     board)
-	ptxd_in_path PTXDIST_PATH_LAYERS "boardsetup/Kconfig"
+	ptxd_in_path PTXDIST_PATH_LAYERS "config/boardsetup/Kconfig"
 	file_kconfig="${ptxd_reply}"
 	file_dotconfig="${PTXDIST_BOARDSETUP}"
 	;;
@@ -711,7 +711,7 @@ ptxd_kconfig() {
     fi
 
     (
-	if [ "${part}" != user ]; then
+	if [ "${part}" != user -a "${part}" != board ]; then
 	    ptxd_normalize_config
 	fi &&
 	ptxd_kconfig_update
