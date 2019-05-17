@@ -320,6 +320,30 @@ ptxd_replace_link() {
 }
 export -f ptxd_replace_link
 
+#
+# ptxd_replace_copy_from_path
+#
+# atomically replace a file and use ptxd_in_path to find the source
+#
+# $1 variable name with paths separated by ":"
+# $2 filename to find within these paths
+# $$ the target file name
+#
+ptxd_replace_copy_from_path() {
+	if [ -d "${3}" ]; then
+	    ptxd_bailout "ptxd_replace_copy_from_path: '${3}' must not be a directory"
+	fi
+	if ! ptxd_in_path "${1}" "${2}"; then
+		ptxd_bailout "ptxd_replace_copy_from_path: could not find ${2} in ${1}"
+	fi
+	if [ -d "${ptxd_reply}" ]; then
+	    ptxd_bailout "ptxd_replace_copy_from_path: '${ptxd_reply}' must not be a directory"
+	fi
+	cp -a "${ptxd_reply}" "${3}.tmp" &&
+	mv "${3}.tmp" "${3}"
+}
+export -f ptxd_replace_copy_from_path
+
 ptxd_get_alternative_list() {
     local prefix="${1%/}"
     local file="${2#/}"
