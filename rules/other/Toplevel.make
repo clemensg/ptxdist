@@ -10,11 +10,17 @@ SHELL=true
 define ptx/force-shell
 $(eval SHELL=$(realpath $(PTXDIST_TOPDIR)/bin/bash))$(shell $(1))$(eval SHELL=true)
 endef
+define ptx/force-sh
+$(eval SHELL=/bin/sh)$(shell $(1))$(eval SHELL=true)
+endef
 else
 # make sure bash is used to execute commands from makefiles
 SHELL=$(realpath $(PTXDIST_TOPDIR)/bin/bash)
 define ptx/force-shell
 $(shell $(1))
+endef
+define ptx/force-sh
+$(eval SHELL=/bin/sh)$(shell $(1))$(eval SHELL=$(realpath $(PTXDIST_TOPDIR)/bin/bash))
 endef
 endif
 export SHELL

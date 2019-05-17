@@ -14,7 +14,7 @@ $(PTXDIST_TEMPDIR)/.$(subst /,-,$(subst $(PTXDIST_WORKSPACE)/,,$(strip $(1))))
 endef
 # generate the actual package list
 define _ptx_collection_do
-$(PACKAGES-y) $(filter $(foreach PKG,$(call ptx/force-shell, sed -n 's/^PTXCONF_\([^_][^=]*\)=y$$/\1/p' "$(strip $(1))"),$(PTX_MAP_TO_package_$(PKG))), $(PACKAGES-m))
+$(PACKAGES-y) $(filter $(foreach PKG,$(call ptx/force-sh, sed -n 's/^PTXCONF_\([^_][^=]*\)=y$$/\1/p' "$(strip $(1))"),$(PTX_MAP_TO_package_$(PKG))), $(PACKAGES-m))
 endef
 # mark the collection for verification and save the package list
 define _ptx_collection_write
