@@ -36,7 +36,7 @@ HOST_QEMU_LICENSE	:= GPL-2.0-only AND GPL-2.0-or-later AND MIT AND BSD-1-Clause 
 #
 
 HOST_QEMU_BROKEN_ICECC	:= \
-	$(shell gcc -dumpversion | awk -F . '{ if ($$1*100 + $$2 < 409) print "y" }')
+	$(call ptx/sh, gcc -dumpversion | awk -F . '{ if ($$1*100 + $$2 < 409) print "y" }')
 
 ifeq ($(HOST_QEMU_BROKEN_ICECC),y)
 HOST_QEMU_MAKE_ENV	:= PTXDIST_ICECC=

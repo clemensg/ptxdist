@@ -22,7 +22,7 @@ POCO		:= poco-$(POCO_VERSION)
 POCO_SUFFIX	:= tar.gz
 POCO_URL	:= http://pocoproject.org/releases/$(POCO)/$(POCO)-all.$(POCO_SUFFIX)
 POCO_SOURCE	:= $(SRCDIR)/$(POCO).$(POCO_SUFFIX)
-POCO_DIR	:= $(shell readlink -f "$(BUILDDIR)/$(POCO)")
+POCO_DIR	:= $(call ptx/sh, readlink -f "$(BUILDDIR)/$(POCO)")
 POCO_LICENSE	:= BSL-1.0
 
 # ----------------------------------------------------------------------------
