@@ -113,7 +113,8 @@ BOOST_JAM	:= \
 JAM_PAR		:= \
 	$(filter -j%,$(if $(PTXDIST_PARALLELMFLAGS),$(PTXDIST_PARALLELMFLAGS),$(PARALLELMFLAGS)))
 
-JAM_MAKE_OPT	:= \
+# Use '=' to delay $(shell ...) calls until this is needed
+JAM_MAKE_OPT	= \
 	$(if $(shell test $(subst -j,,$(JAM_PAR)) -le 64 && echo 1),$(JAM_PAR),-j64) \
 	stage
 
