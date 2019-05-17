@@ -16,7 +16,7 @@ ARG_LIST=""
 LATE_ARG_LIST=""
 
 if [ -z "${PTXDIST_PLATFORMCONFIG}" ]; then
-	. "$(dirname "$0")/env" || exit
+	. "$(dirname "$(readlink -f "${0}")")/env" || exit
 fi
 
 . ${PTXDIST_PLATFORMCONFIG}

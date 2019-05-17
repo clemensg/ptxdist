@@ -610,6 +610,8 @@ check_compiler() {
 	mkdir -p -- "${wrapper_dir}/real" ||
 	ptxd_bailout "cannot create dir: '${wrapper_dir}/real'"
 
+	ptxd_replace_copy_from_path PTXDIST_PATH \
+		scripts/wrapper/libwrapper.sh "${wrapper_dir}/libwrapper.sh"
 
 	for cc_ptr in \
 		PTXCONF_SETUP_HOST_CPP \
@@ -653,7 +655,8 @@ check_compiler() {
 		esac
 
 		ptxd_replace_link "${cc_abs}" "${wrapper_dir}/real/${cc_default}" &&
-		ptxd_replace_link "${SCRIPTSDIR}/wrapper/host-${cc_default}-wrapper" "${wrapper_dir}/${cc_default}" &&
+		ptxd_replace_copy_from_path PTXDIST_PATH "scripts/wrapper/host-${cc_default}-wrapper" \
+			"${wrapper_dir}/${cc_default}" &&
 
 		if [ -n "${cc_alternate}" ]; then
 		    ptxd_replace_link "${cc_default}" "${wrapper_dir}/${cc_alternate}" &&
@@ -771,7 +774,8 @@ check_compiler() {
 	ptxd_replace_link "${toolchain}" "${PTXDIST_PLATFORMDIR}/selected_toolchain" &&
 	for cc in gcc g++ cpp ld gdb; do
 		ptxd_replace_link "${toolchain}/${compiler_prefix}${cc}" "${wrapper_dir}/real/${compiler_prefix}${cc}" &&
-		ptxd_replace_link "${SCRIPTSDIR}/wrapper/${cc}-wrapper" "${wrapper_dir}/${compiler_prefix}${cc}"
+		ptxd_replace_copy_from_path PTXDIST_PATH "scripts/wrapper/${cc}-wrapper" \
+			"${wrapper_dir}/${compiler_prefix}${cc}"
 	done &&
 	for tool in "${toolchain}/${compiler_prefix}"* ; do
 		local toolname="$(basename "${tool}")"
