@@ -343,7 +343,11 @@ function write_deps_pkg_all(this_PKG, this_pkg) {
 
 function write_deps_pkg_active_all(this_PKG, this_pkg) {
 	print "ifneq ($(filter /%,$(" this_PKG "_CONFIG)),)"							> DGEN_DEPS_POST;
+	print "ifneq ($(wildcard $(" this_PKG "_CONFIG)),)"							> DGEN_DEPS_POST;
+	print "$(call ptx/force-sh, cat '$(" this_PKG "_CONFIG)' >> " PTXDIST_TEMPDIR "/pkghash-" this_PKG ")"	> DGEN_DEPS_POST;
+	print "else"												> DGEN_DEPS_POST;
 	print "$(STATEDIR)/" this_pkg ".$(" this_PKG "_CFGHASH).cfghash: $(" this_PKG "_CONFIG)"		> DGEN_DEPS_POST;
+	print "endif"												> DGEN_DEPS_POST;
 	print "endif"												> DGEN_DEPS_POST;
 }
 
@@ -529,14 +533,10 @@ END {
 			dump_file(PKG_to_makefile[this_PKG], PTXDIST_TEMPDIR "/pkghash-" this_PKG);
 	}
 
-	close(PKG_HASHFILE);
-	MD5SUM_CMD = "md5sum " PTXDIST_TEMPDIR "/pkghash-*";
-	while (MD5SUM_CMD | getline) {
-		split($0, line, "[ -]")
-		print line[length(line)] "_CFGHASH = " line[1]			> DGEN_DEPS_PRE;
-	}
+	print "$(call ptx/force-sh, md5sum " PTXDIST_TEMPDIR "/pkghash-* | sed 's;^\\([a-z0-9]*\\).*pkghash-\\(.*\\)$$;\\2_CFGHASH := \\1;' > " PTXDIST_TEMPDIR "/pkghash.make)" > DGEN_DEPS_POST;
+	print "include " PTXDIST_TEMPDIR "/pkghash.make"							> DGEN_DEPS_POST;
 
-	close(MD5SUM_CMD)
+	close(PKG_HASHFILE);
 	close(MAP_ALL);
 	close(MAP_ALL_MAKE);
 	close(MAP_DEPS);
