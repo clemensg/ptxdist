@@ -25,6 +25,9 @@ OPENSC_URL	:= https://github.com/OpenSC/OpenSC/archive/$(OPENSC_VERSION).$(OPENS
 OPENSC_SOURCE	:= $(SRCDIR)/$(OPENSC).$(OPENSC_SUFFIX)
 OPENSC_DIR	:= $(BUILDDIR)/$(OPENSC)
 OPENSC_LICENSE	:= LGPL-2.1-or-later AND Expat AND ISC
+ifdef PTXCONF_OPENSC_TESTSUITE
+OPENSC_DEVPKG	:= NO
+endif
 
 # ----------------------------------------------------------------------------
 # Prepare
