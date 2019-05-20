@@ -25,6 +25,9 @@ ECRYPTFS_UTILS_URL	:= https://launchpad.net/ecryptfs/trunk/$(ECRYPTFS_UTILS_VERS
 ECRYPTFS_UTILS_SOURCE	:= $(SRCDIR)/$(ECRYPTFS_UTILS).$(ECRYPTFS_UTILS_SUFFIX)
 ECRYPTFS_UTILS_DIR	:= $(BUILDDIR)/$(ECRYPTFS_UTILS)
 ECRYPTFS_UTILS_LICENSE	:= GPL-2.0-only
+ifdef PTXCONF_ECRYPTFS_UTILS_TESTS
+ECRYPTFS_UTILS_DEVPKG	:= NO
+endif
 
 # ----------------------------------------------------------------------------
 # Prepare
