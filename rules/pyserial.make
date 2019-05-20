@@ -24,6 +24,9 @@ PYSERIAL_URL		:= https://pypi.python.org/packages/source/p/pyserial/$(PYSERIAL).
 PYSERIAL_SOURCE		:= $(SRCDIR)/$(PYSERIAL).$(PYSERIAL_SUFFIX)
 PYSERIAL_DIR		:= $(BUILDDIR)/$(PYSERIAL)
 PYSERIAL_LICENSE	:= BSD
+ifdef PTXCONF_PYSERIAL_EXAMPLES
+PYSERIAL_DEVPKG		:= NO
+endif
 
 # ----------------------------------------------------------------------------
 # Prepare
