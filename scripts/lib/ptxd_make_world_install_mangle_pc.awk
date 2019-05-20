@@ -51,9 +51,8 @@ $1 ~ /^(prefix|exec_prefix)$/ {
 
 $1 ~ /^(includedir|libdir)$/ {
 	# replace e.g. /usr/include
-	if (match($2, "^" "(" prefix "|" SYSROOT "/" ")" "(include|lib)")) {
-		this_var = substr($2, RSTART, RLENGTH);
-		sub(this_var, replace[this_var]);
+	if (match($2, "^" "(" pkg_pkg_dir "|" SYSROOT ")?" "(" prefix "(include|lib)" ")", groups)) {
+		sub(groups[0], replace[groups[2]]);
 	}
 
 	print $0						> FILENAME;

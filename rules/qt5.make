@@ -313,12 +313,16 @@ $(STATEDIR)/qt5.install:
 	@$(call targetinfo)
 	@$(call world/install, QT5)
 	@find $(QT5_PKGDIR) -name '*.qmltypes' | xargs -r rm
+	@find $(QT5_PKGDIR) -name '*.pri' -o -name '*.cmake' | \
+		xargs sed -i 's;$(PTXDIST_WORKSPACE);@WORKSPACE@;g'
 	@$(call touch)
 
 QT5_QT_CONF := $(PTXDIST_SYSROOT_CROSS)/bin/qt5/qt.conf
 
 $(STATEDIR)/qt5.install.post:
 	@$(call targetinfo)
+	@find $(QT5_PKGDIR) -name '*.pri' -o -name '*.cmake' | \
+		xargs sed -i 's;@WORKSPACE@;$(PTXDIST_WORKSPACE);g'
 	@$(call world/install.post, QT5)
 	@rm -rf $(PTXDIST_SYSROOT_CROSS)/bin/qt5
 	@cp -a $(SYSROOT)/usr/bin/qt5 $(PTXDIST_SYSROOT_CROSS)/bin/qt5
