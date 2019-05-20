@@ -341,11 +341,17 @@ function write_deps_pkg_all(this_PKG, this_pkg) {
 	print "endif" > DGEN_DEPS_POST;
 }
 
-function write_deps_pkg_active_all(this_PKG, this_pkg) {
+function write_deps_pkg_active_cfghash(this_PKG, this_pkg) {
 	print "ifneq ($(filter /%,$(" this_PKG "_CONFIG)),)"							> DGEN_DEPS_POST;
 	print "ifneq ($(wildcard $(" this_PKG "_CONFIG)),)"							> DGEN_DEPS_POST;
 	print "$(call ptx/force-sh, cat '$(" this_PKG "_CONFIG)' >> " PTXDIST_TEMPDIR "/pkghash-" this_PKG ")"	> DGEN_DEPS_POST;
-	print "else"												> DGEN_DEPS_POST;
+	print "endif"												> DGEN_DEPS_POST;
+	print "endif"												> DGEN_DEPS_POST;
+}
+
+function write_deps_pkg_active_all(this_PKG, this_pkg) {
+	print "ifneq ($(filter /%,$(" this_PKG "_CONFIG)),)"							> DGEN_DEPS_POST;
+	print "ifeq ($(wildcard $(" this_PKG "_CONFIG)),)"							> DGEN_DEPS_POST;
 	print "$(STATEDIR)/" this_pkg ".$(" this_PKG "_CFGHASH).cfghash: $(" this_PKG "_CONFIG)"		> DGEN_DEPS_POST;
 	print "endif"												> DGEN_DEPS_POST;
 	print "endif"												> DGEN_DEPS_POST;
@@ -500,6 +506,13 @@ function write_deps_pkg_active_image(this_PKG, this_pkg, prefix) {
 }
 
 END {
+	# extend pkghash files fist
+	for (this_PKG in active_PKG_to_pkg)
+		write_deps_pkg_active_cfghash(this_PKG, this_pkg)
+
+	print "$(call ptx/force-sh, md5sum " PTXDIST_TEMPDIR "/pkghash-* | sed 's;^\\([a-z0-9]*\\).*pkghash-\\(.*\\)$$;\\2_CFGHASH := \\1;' > " PTXDIST_TEMPDIR "/pkghash.make)" > DGEN_DEPS_POST;
+	print "include " PTXDIST_TEMPDIR "/pkghash.make"							> DGEN_DEPS_POST;
+
 	# for all pkgs
 	for (this_PKG in PKG_to_pkg) {
 		this_pkg = PKG_to_pkg[this_PKG];
@@ -532,9 +545,6 @@ END {
 		if (this_PKG in PKG_to_makefile)
 			dump_file(PKG_to_makefile[this_PKG], PTXDIST_TEMPDIR "/pkghash-" this_PKG);
 	}
-
-	print "$(call ptx/force-sh, md5sum " PTXDIST_TEMPDIR "/pkghash-* | sed 's;^\\([a-z0-9]*\\).*pkghash-\\(.*\\)$$;\\2_CFGHASH := \\1;' > " PTXDIST_TEMPDIR "/pkghash.make)" > DGEN_DEPS_POST;
-	print "include " PTXDIST_TEMPDIR "/pkghash.make"							> DGEN_DEPS_POST;
 
 	close(PKG_HASHFILE);
 	close(MAP_ALL);
