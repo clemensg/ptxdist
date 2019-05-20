@@ -26,6 +26,7 @@ OPTEE_URL	:= https://github.com/OP-TEE/optee_os/archive/$(OPTEE_VERSION).$(OPTEE
 OPTEE_SOURCE	:= $(SRCDIR)/$(OPTEE).$(OPTEE_SUFFIX)
 OPTEE_DIR	:= $(BUILDDIR)/$(OPTEE)
 OPTEE_LICENSE	:= BSD-2-Clause AND BSD-3-Clause
+OPTEE_DEVPKG	:= NO
 
 # ----------------------------------------------------------------------------
 # Prepare
