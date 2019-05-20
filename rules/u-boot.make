@@ -25,6 +25,7 @@ U_BOOT_SUFFIX	:= tar.bz2
 U_BOOT_URL	:= ftp://ftp.denx.de/pub/u-boot/$(U_BOOT).$(U_BOOT_SUFFIX)
 U_BOOT_SOURCE	:= $(SRCDIR)/$(U_BOOT).$(U_BOOT_SUFFIX)
 U_BOOT_DIR	:= $(BUILDDIR)/$(U_BOOT)
+U_BOOT_DEVPKG	:= NO
 
 ifdef PTXCONF_U_BOOT_CONFIGSYSTEM_KCONFIG
 U_BOOT_CONFIG	:= $(call ptx/in-platformconfigdir, \
