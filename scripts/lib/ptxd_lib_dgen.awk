@@ -382,6 +382,9 @@ function write_deps_pkg_active(this_PKG, this_pkg, prefix) {
 	print "ifeq ($(strip $(wildcard $(PTXDIST_DEVPKG_PLATFORMDIR)/$(" this_PKG "_DEVPKG))),)"		> DGEN_DEPS_POST;
 	print "$(STATEDIR)/" this_pkg ".install.post: "               "$(STATEDIR)/" this_pkg ".install.pack"	> DGEN_DEPS_POST;
 	print "else"												> DGEN_DEPS_POST;
+	if (DIRTY != "true")
+		print "$(STATEDIR)/" this_pkg ".install.unpack: " \
+						"$(STATEDIR)/" this_pkg ".$(" this_PKG "_CFGHASH).cfghash"	> DGEN_DEPS_POST;
 	print "$(STATEDIR)/" this_pkg ".install.post: "               "$(STATEDIR)/" this_pkg ".install.unpack"	> DGEN_DEPS_POST;
 	print "endif"												> DGEN_DEPS_POST;
 	if (prefix == "") {
