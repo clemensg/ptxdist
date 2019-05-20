@@ -39,6 +39,17 @@ LIBSECCOMP_CONF_OPT	:= \
 	--disable-code-coverage
 
 # ----------------------------------------------------------------------------
+# Install
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/libseccomp.install:
+	@$(call targetinfo)
+	@$(call world/install, LIBSECCOMP)
+	@install -D -m 755 $(LIBSECCOMP_DIR)/tools/scmp_app_inspector \
+		$(LIBSECCOMP_PKGDIR)/usr/bin/scmp_app_inspector
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
@@ -55,7 +66,7 @@ $(STATEDIR)/libseccomp.targetinstall:
 
 ifdef PTXCONF_LIBSECCOMP_UTILS
 	@$(call install_copy, libseccomp, 0, 0, 0755, -, /usr/bin/scmp_sys_resolver)
-	@$(call install_copy, libseccomp, 0, 0, 0755, $(LIBSECCOMP_DIR)/tools/scmp_app_inspector, /usr/bin/scmp_app_inspector)
+	@$(call install_copy, libseccomp, 0, 0, 0755, -, /usr/bin/scmp_app_inspector)
 endif
 	@$(call install_finish, libseccomp)
 
