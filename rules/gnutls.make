@@ -16,11 +16,11 @@ PACKAGES-$(PTXCONF_GNUTLS) += gnutls
 #
 # Paths and names
 #
-GNUTLS_VERSION	:= 3.6.4
-GNUTLS_MD5	:= 63363d1c00601f4d11a5cadc8b5e0799
+GNUTLS_VERSION	:= 3.6.7.1
+GNUTLS_MD5	:= 92a8049e618afa60e2c852da1884c457
 GNUTLS		:= gnutls-$(GNUTLS_VERSION)
 GNUTLS_SUFFIX	:= tar.xz
-GNUTLS_URL	:= ftp://ftp.gnutls.org/gcrypt/gnutls/v$(basename $(GNUTLS_VERSION))/$(GNUTLS).$(GNUTLS_SUFFIX)
+GNUTLS_URL	:= ftp://ftp.gnutls.org/gcrypt/gnutls/v3.6/$(GNUTLS).$(GNUTLS_SUFFIX)
 GNUTLS_SOURCE	:= $(SRCDIR)/$(GNUTLS).$(GNUTLS_SUFFIX)
 GNUTLS_DIR	:= $(BUILDDIR)/$(GNUTLS)
 GNUTLS_LICENSE	:= LGPL-3.0-or-later
@@ -38,11 +38,13 @@ GNUTLS_CONF_OPT		:= \
 	$(GLOBAL_LARGE_FILE_OPTION) \
 	--enable-threads=posix \
 	--disable-code-coverage \
+	--disable-bash-tests \
 	--disable-doc \
 	--disable-manpages \
 	--disable-tools \
 	--enable-cxx \
 	--enable-hardware-acceleration \
+	--enable-tls13-interop \
 	--enable-padlock \
 	--enable-sha1-support \
 	--disable-ssl3-support \
