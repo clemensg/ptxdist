@@ -1060,6 +1060,8 @@ clean() {
 	# we want to clean the root dir
 	if [ "${1}" = "root" ]; then
 		echo
+		echo "${PTXDIST_LOG_PROMPT}cleaning image packages..."
+		rm -fr -- "${STATEDIR}"/image-*
 		echo "${PTXDIST_LOG_PROMPT}cleaning image directory..."
 		rm -fr -- "${IMAGEDIR}"
 		echo "${PTXDIST_LOG_PROMPT}cleaning root directory..."

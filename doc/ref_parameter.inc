@@ -154,7 +154,7 @@ Clean Actions
   This is a way to start a fresh build cycle.
 
 ``clean root``
-  this action will only clean the root filesystem
+  this action will only clean the image packages and the root filesystem
   directories. All the build directories are left untouched.
   After using this action, the next ``go`` action  will regenerate all opkg
   archives from the already built packages as well as the root filesystem
