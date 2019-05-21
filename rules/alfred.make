@@ -41,6 +41,7 @@ ALFRED_MAKE_OPT		:= \
 
 ALFRED_INSTALL_OPT	:= \
 	$(ALFRED_MAKE_OPT) \
+	PREFIX=/usr \
 	install
 
 # ----------------------------------------------------------------------------
@@ -56,8 +57,8 @@ $(STATEDIR)/alfred.targetinstall:
 	@$(call install_fixup, alfred,AUTHOR,"Markus Pargmann <mpa@pengutronix.de>")
 	@$(call install_fixup, alfred,DESCRIPTION,missing)
 
-	@$(call install_copy, alfred, 0, 0, 0755, $(ALFRED_DIR)/alfred, /usr/bin/alfred)
-	@$(call install_copy, alfred, 0, 0, 0755, $(ALFRED_DIR)/vis/batadv-vis, /usr/bin/batadv-vis)
+	@$(call install_copy, alfred, 0, 0, 0755, -, /usr/sbin/alfred)
+	@$(call install_copy, alfred, 0, 0, 0755, -, /usr/sbin/batadv-vis)
 
 ifdef PTXCONF_ALFRED_SYSTEMD_SERVICE
 	@$(call install_alternative, alfred, 0, 0, 0644, /usr/lib/systemd/system/alfred@.service)

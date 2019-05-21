@@ -4,5 +4,5 @@ BindsTo = sys-subsystem-net-devices-%i.device
 After = sys-subsystem-net-devices-%i.device
 
 [Service]
-ExecStart=/usr/bin/alfred -i %i
+ExecStart=/usr/sbin/alfred -i %i
 

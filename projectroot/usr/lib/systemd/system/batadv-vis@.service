@@ -5,5 +5,5 @@ After = sys-subsystem-net-devices-%i.device alfred@.service
 Requires = alfred@.service
 
 [Service]
-ExecStart=/usr/bin/batadv-vis -s -i %i
+ExecStart=/usr/sbin/batadv-vis -s -i %i
 
