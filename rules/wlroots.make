@@ -39,6 +39,17 @@ WLROOTS_CONF_OPT := \
 	-Dwerror=false
 
 # ----------------------------------------------------------------------------
+# Install
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/wlroots.install:
+	@$(call targetinfo)
+	@$(call world/install, WLROOTS)
+	@install -vD -m 755 $(WLROOTS_DIR)-build/rootston/rootston \
+		$(WLROOTS_PKGDIR)/usr/bin/rootston
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
@@ -54,8 +65,7 @@ $(STATEDIR)/wlroots.targetinstall:
 	@$(call install_lib, wlroots, 0, 0, 0644, libwlroots)
 
 ifdef PTXCONF_WLROOTS_ROOTSTON
-	@$(call install_copy, wlroots, 0, 0, 0755, \
-		$(WLROOTS_DIR)-build/rootston/rootston, /usr/bin/rootston)
+	@$(call install_copy, wlroots, 0, 0, 0755, -, /usr/bin/rootston)
 endif
 
 	@$(call install_finish, wlroots)
