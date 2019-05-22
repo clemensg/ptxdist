@@ -344,7 +344,10 @@ function write_deps_pkg_all(this_PKG, this_pkg) {
 function write_deps_pkg_active_cfghash(this_PKG, this_pkg) {
 	print "ifneq ($(filter /%,$(" this_PKG "_CONFIG)),)"							> DGEN_DEPS_POST;
 	print "ifneq ($(wildcard $(" this_PKG "_CONFIG)),)"							> DGEN_DEPS_POST;
-	print "$(call ptx/force-sh, cat '$(" this_PKG "_CONFIG)' >> " PTXDIST_TEMPDIR "/pkghash-" this_PKG ")"	> DGEN_DEPS_POST;
+	print "ifeq ($(wildcard " PTXDIST_TEMPDIR "/pkghash-" this_PKG ".done),)"				> DGEN_DEPS_POST;
+	print "$(call ptx/force-sh, cat '$(" this_PKG "_CONFIG)' >> " PTXDIST_TEMPDIR "/pkghash-" this_PKG \
+		" && touch " PTXDIST_TEMPDIR "/pkghash-" this_PKG ".done )"					> DGEN_DEPS_POST;
+	print "endif"												> DGEN_DEPS_POST;
 	print "endif"												> DGEN_DEPS_POST;
 	print "endif"												> DGEN_DEPS_POST;
 }
