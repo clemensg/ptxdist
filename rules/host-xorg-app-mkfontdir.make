@@ -18,7 +18,6 @@ HOST_PACKAGES-$(PTXCONF_HOST_XORG_APP_MKFONTDIR) += host-xorg-app-mkfontdir
 # Paths and names
 #
 HOST_XORG_APP_MKFONTDIR_DIR	= $(HOST_BUILDDIR)/$(XORG_APP_MKFONTDIR)
-HOST_XORG_APP_MKFONTDIR_DEVPKG	= NO
 
 # ----------------------------------------------------------------------------
 # Prepare
