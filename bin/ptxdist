@@ -967,6 +967,7 @@ Clean Actions:
 
   clean				cleanup build-host and build-cross dirs
   clean root			cleanup root directory for target
+  clean target			cleanup all target packages
   distclean			cleanup everything
 
 Misc:
@@ -1040,6 +1041,21 @@ EOF
 
 clean() {
 	local dir bdir
+
+	# we want to clean all target packages
+	if [ "${1}" = "target" ]; then
+		if [ ! -n "${PTXDIST_FORCE}${PTXDIST_QUIET}${PTXCONF_SETUP_DIRECT_CLEAN}" ]; then
+			read -e -p "really clean all target packages? [y/N] " r
+			case "${r}" in
+				y|Y) ;;
+				*) exit 1 ;;
+			esac
+		fi
+		check_premake_compiler &&
+		pkgs=($(ptxd_make "/print-PACKAGES /print-EXTRA_PACKAGES /print-LAZY_PACKAGES")) &&
+		ptxd_make_log "${pkgs[@]/%/_clean}"
+		set -- root
+	fi
 
 	# we want to clean the root dir
 	if [ "${1}" = "root" ]; then

@@ -162,6 +162,12 @@ Clean Actions
   The ``clean root`` and ``go`` action is useful if the
   *targetinstall* stage for all packages should run again.
 
+``clean target``
+  this action will call the ``clean`` action for each target package,
+  and also clean the root file system afterwards.
+  This can be useful if you want to rebuild the target file system from
+  scratch, without throwing away the already built host and cross packages.
+
 ``clean <package>``
   this action will only clean the dedicated
   <package>. It will remove its build directory and all installed files
