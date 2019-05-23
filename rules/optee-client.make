@@ -33,7 +33,8 @@ OPTEE_CLIENT_CONF_TOOL := NO
 OPTEE_CLIENT_MAKE_ENV := \
 	$(CROSS_ENV) \
 	LIBDIR=/usr/lib \
-	INCLUDEDIR=/usr/include
+	INCLUDEDIR=/usr/include \
+	CFG_TEE_CLIENT_LOAD_PATH=/usr/lib/
 
 # ----------------------------------------------------------------------------
 # Target-Install
