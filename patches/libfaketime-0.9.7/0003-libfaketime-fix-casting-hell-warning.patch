@@ -1,0 +1,44 @@
+From: Juergen Borleis <jbe@pengutronix.de>
+Date: Thu, 23 May 2019 11:33:15 +0200
+Subject: [PATCH] libfaketime: fix casting hell warning
+
+GCC8 states:
+
+ libfaketime.c:1986:24: error: cast between incompatible function types
+   from 'int (*)(pthread_mutex_t *)' {aka 'int  (*)(union <anonymous> *)'}
+   to 'void (*)(void *)' [-Werror=cast-function-type]
+
+Let the compiler inline a new function instead, which correctly casts the
+value.
+---
+ src/libfaketime.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
+
+diff --git a/src/libfaketime.c b/src/libfaketime.c
+index eb2d01bb6631..acf586223dec 100644
+--- a/src/libfaketime.c
++++ b/src/libfaketime.c
+@@ -1953,6 +1953,14 @@ static void remove_trailing_eols(char *line)
+   }
+ }
+ 
++#ifdef PTHREAD
++/* to avoid a cast() hell and compiler warnings */
++static void thread_cleanup_locks(void *p)
++{
++	pthread_mutex_t *time_mutex = (pthread_mutex_t*)p;
++	pthread_mutex_unlock(time_mutex);
++}
++#endif
+ 
+ /*
+  *      =======================================================================
+@@ -1983,7 +1991,7 @@ int fake_clock_gettime(clockid_t clk_id, struct timespec *tp)
+ #ifdef PTHREAD_SINGLETHREADED_TIME
+   static pthread_mutex_t time_mutex=PTHREAD_MUTEX_INITIALIZER;
+   pthread_mutex_lock(&time_mutex);
+-  pthread_cleanup_push((void (*)(void *))pthread_mutex_unlock, (void *)&time_mutex);
++  pthread_cleanup_push(thread_cleanup_locks, (void *)&time_mutex);
+ #endif
+ 
+   if ((limited_faking &&

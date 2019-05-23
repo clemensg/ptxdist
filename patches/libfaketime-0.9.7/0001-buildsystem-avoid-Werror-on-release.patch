@@ -1,0 +1,39 @@
+From: Juergen Borleis <jbe@pengutronix.de>
+Date: Thu, 23 May 2019 10:58:20 +0200
+Subject: [PATCH] buildsystem: avoid -Werror on release
+
+While "-Werror" is a really good idea for development, it is a really bad
+idea for releases in conjunction with more recent compilers.
+
+With the GCC-8 compiler building fails due to a new warnings:
+
+  faketime.c:289:45: error: '%s' directive output may be truncated writing
+     up to 4095 bytes into a region of size between 0 and 4095
+     [-Werror=format-truncation=]
+
+and
+
+  libfaketime.c:1986:24: error: cast between incompatible function types
+     from 'int (*)(pthread_mutex_t *)' {aka 'int (*)(union <anonymous> *)'}
+     to 'void (*)(void *)' [-Werror=cast-function-type]
+
+While the warnings are correct, the forced error is useless in this case.
+
+Signed-off-by: Juergen Borleis <jbe@pengutronix.de>
+---
+ src/Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/Makefile b/src/Makefile
+index a557c3847341..27118abcf23d 100644
+--- a/src/Makefile
++++ b/src/Makefile
+@@ -62,7 +62,7 @@ PREFIX ?= /usr/local
+ LIBDIRNAME ?= /lib/faketime
+ PLATFORM ?=$(shell uname)
+ 
+-CFLAGS += -std=gnu99 -Wall -Wextra -Werror -Wno-nonnull-compare -DFAKE_STAT -DFAKE_SLEEP -DFAKE_TIMERS -DFAKE_INTERNAL_CALLS -fPIC -DPREFIX='"'$(PREFIX)'"' -DLIBDIRNAME='"'$(LIBDIRNAME)'"'
++CFLAGS += -std=gnu99 -Wall -Wextra -Wno-nonnull-compare -DFAKE_STAT -DFAKE_SLEEP -DFAKE_TIMERS -DFAKE_INTERNAL_CALLS -fPIC -DPREFIX='"'$(PREFIX)'"' -DLIBDIRNAME='"'$(LIBDIRNAME)'"'
+ ifeq ($(PLATFORM),SunOS)
+ CFLAGS += -D__EXTENSIONS__ -D_XOPEN_SOURCE=600
+ endif
