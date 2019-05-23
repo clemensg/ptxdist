@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_GRPC) += grpc
 #
 # Paths and names
 #
-GRPC_VERSION	:= 1.18.0
-GRPC_MD5	:= 520c545189fad05966c147c42e8280cc
+GRPC_VERSION	:= 1.21.0
+GRPC_MD5	:= 9203f75a9a118684d2dd23500eabd2dd
 GRPC		:= grpc-$(GRPC_VERSION)
 GRPC_SUFFIX	:= tar.gz
 GRPC_URL	:= https://github.com/grpc/grpc/archive/v$(GRPC_VERSION).$(GRPC_SUFFIX)
@@ -39,14 +39,15 @@ GRPC_CONF_OPT	:= \
 	-DBUILD_SHARED_LIBS=ON \
 	-DCMAKE_CXX_FLAGS='-Wno-error=ignored-qualifiers' \
 	-DgRPC_BACKWARDS_COMPATIBILITY_MODE=OFF \
+	-DgRPC_BENCHMARK_PROVIDER=none \
 	-DgRPC_BUILD_CSHARP_EXT=OFF \
 	-DgRPC_BUILD_TESTS=OFF \
 	-D_gRPC_CARES_LIBRARIES=cares \
 	-DgRPC_CARES_PROVIDER=none \
+	-DgRPC_GFLAGS_PROVIDER=none \
 	-DgRPC_PROTOBUF_PROVIDER=package \
 	-DgRPC_SSL_PROVIDER=package \
 	-DgRPC_ZLIB_PROVIDER=package \
-	-DgRPC_NATIVE_CPP_PLUGIN=$(PTXDIST_SYSROOT_HOST)/bin/grpc_cpp_plugin \
 	-DPROTOBUF_PROTOC_EXECUTABLE=$(PTXDIST_SYSROOT_HOST)/bin/protoc
 
 # ----------------------------------------------------------------------------
