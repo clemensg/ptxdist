@@ -10,8 +10,6 @@ menuconfig LIGHTTPD
 	select BZIP2_LIBBZ2		if LIGHTTPD_BZ2LIB
 	select ATTR			if LIGHTTPD_ATTR
 	select LIBPCRE			if LIGHTTPD_PCRE
-	select FAM			if LIGHTTPD_FAM
-	select FAM_LIBRARY		if LIGHTTPD_FAM
 	select LIBXML2			if LIGHTTPD_WEBDAV_PROPS
 	select SQLITE			if LIGHTTPD_WEBDAV_PROPS
 	select LIBUUID			if LIGHTTPD_WEBDAV_LOCKS
@@ -47,13 +45,6 @@ config LIGHTTPD_ATTR
 	prompt "extended attribute support"
 	help
 	  Enable extended attribute support.
-
-config LIGHTTPD_FAM
-	bool
-	depends on STAGING
-	prompt "fam"
-	help
-	  fam/gamin for reducing number of stat() calls.
 
 config LIGHTTPD_LUA
 	bool
