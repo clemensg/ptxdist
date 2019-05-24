@@ -44,14 +44,8 @@ JSVC_ENV	:= $(CROSS_ENV)
 # autoconf
 #
 JSVC_AUTOCONF := \
-	$(CROSS_AUTOCONF_USR)
-
-# HACK: what we really need is a sun-java6-jdk and only install the jre stuff
-ifdef PTXCONF_SUN_JAVA6_JRE
-JSVC_AUTOCONF += --with-java=$(PTXCONF_SETUP_JAVA_SDK)
-else
-JSVC_AUTOCONF += --with-java=$(SYSROOT)/usr
-endif
+	$(CROSS_AUTOCONF_USR) \
+	--with-java=$(PTXCONF_SETUP_JAVA_SDK)
 
 # ----------------------------------------------------------------------------
 # Install
