@@ -1,4 +1,6 @@
-## SECTION=shell_and_console
+## SECTION=staging
+## old section:
+### SECTION=shell_and_console
 config PARTED
 	tristate
 	prompt "parted"
@@ -11,3 +13,6 @@ config PARTED
 	  and copy hard disk partitions. Parted can be used for creating space
 	  for new operating systems, reorganizing disk usage, and copying data
 	  to new hard disks.
+
+	  STAGING: remove in ptxdist-2020.06.0
+	  Old version that need to be updated. Fails to build with glibc-2.28.
