@@ -17,9 +17,6 @@ HOST_PACKAGES-$(PTXCONF_HOST_SYSTEMD) += host-systemd
 # Prepare
 # ----------------------------------------------------------------------------
 
-# FIXME: disable intltool-merge
-# https://github.com/systemd/systemd/issues/7300
-
 HOST_SYSTEMD_CONF_TOOL	:= meson
 HOST_SYSTEMD_CONF_OPT	:= \
 	$(HOST_MESON_OPT) \
