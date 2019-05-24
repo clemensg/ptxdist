@@ -1,4 +1,6 @@
-## SECTION=bytecode_engines
+## SECTION=staging
+## old section:
+### SECTION=bytecode_engines
 
 menuconfig NODEJS
 	tristate
@@ -15,6 +17,9 @@ menuconfig NODEJS
 	  model that makes it lightweight and efficient, perfect for
 	  data-intensive real-time applications that run across
 	  distributed devices.
+
+	  STAGING: remove in ptxdist-2020.06.0
+	  Old version that need to be updated. Fails to build with gcc >= 7.x.
 
 
 if NODEJS
