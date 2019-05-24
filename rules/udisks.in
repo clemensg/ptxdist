@@ -1,4 +1,6 @@
-## SECTION=shell_and_console
+## SECTION=staging
+## old section:
+### SECTION=shell_and_console
 
 comment "udisks conflicts with BusyBox' mount!"
 	depends on BUSYBOX_MOUNT
@@ -34,6 +36,9 @@ menuconfig UDISKS
 	  can access the org.freedesktop.UDisks. Disks service on
 	  the system message bus. Some operations (such as formatting
 	  disks etc.) are restricted using PolicyKit.
+
+	  STAGING: remove in ptxdist-2020.06.0
+	  Old version that need to be updated. Fails to build with glibc-2.28.
 
 if UDISKS
 
