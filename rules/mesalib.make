@@ -8,9 +8,6 @@
 # see the README file.
 #
 
-# FIXME, we only need the source tree, do we still need the package ?
-
-
 #
 # We provide this package
 #
