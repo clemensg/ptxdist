@@ -1,4 +1,6 @@
-## SECTION=communication
+## SECTION=staging
+## old section:
+### SECTION=communication
 
 config CKERMIT
 	tristate
@@ -12,4 +14,5 @@ config CKERMIT
 	  Columbia Univ 'kermit' terminal program: Basic file transfer &
           terminal control.
 
-
+	  STAGING: remove in ptxdist-2020.06.0
+	  Old version that need to be updated. Fails to build with glibc-2.28.

@@ -4,4 +4,6 @@ config HOST_TESTFRAMEWORK
 	tristate
 	prompt "host-side testing framework   "
 	select HOST_LRZSZ
+	# STAGING: remove in ptxdist-2020.06.0
+	depends on STAGING
 	select HOST_CKERMIT
