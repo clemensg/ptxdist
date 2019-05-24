@@ -51,6 +51,7 @@ PHP5_AUTOCONF := \
 	--disable-phar \
 	--with-config-file-path=/etc/php5 \
 	--enable-opcache=no \
+	--without-xmlrpc \
 	--without-iconv
 
 # FIXME: php5 doesn't interprete "with_foo=no" correctly, so we cannot
@@ -208,12 +209,6 @@ ifdef PTXCONF_PHP5_XML_LIBXML2_SIMPLEXML
 PHP5_AUTOCONF += --enable-simplexml
 else
 PHP5_AUTOCONF += --disable-simplexml
-endif
-
-ifdef PTXCONF_PHP5_XML_LIBXML2_XMLRPC
-PHP5_AUTOCONF += --with-xmlrpc
-else
-PHP5_AUTOCONF += --without-xmlrpc
 endif
 
 ifdef PTXCONF_PHP5_EXT_ZLIB

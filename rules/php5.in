@@ -14,7 +14,6 @@ menuconfig PHP5
 	select LIBXSLT		if PHP5_XML_LIBXML2_XSLT
 	select MYSQLDB		if PHP5_EXT_MYSQL
 	select PHP5_XML		if PHP5_EXT_SOAP
-	select XMLRPC_C		if PHP5_XML_LIBXML2_XMLRPC
 	select SQLITE		if PHP5_EXT_SQLITE3
 	select ZLIB		if PHP5_EXT_ZLIB
 	select OPENSSL		if PHP5_EXT_OPENSSL
@@ -227,13 +226,6 @@ config PHP5_XML_LIBXML2_SIMPLEXML
 	prompt "simple xml support"
 	help
 	  simple xml support
-
-config PHP5_XML_LIBXML2_XMLRPC
-	bool
-	depends on STAGING
-	prompt "xmlrpc support"
-	help
-	  xmlrpc support
 
 endif	# PHP5_XML_LIBXML2
 
