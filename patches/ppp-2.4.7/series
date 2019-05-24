@@ -29,6 +29,8 @@
 0027-Fix-buffer-overflow-in-rc_mksid.patch
 0028-Add-a-SONAME-to-the-pppd-binary.patch
 0029-Fix-FTBFS-in-rp-pppoe.patch
-0030-pppd-make-makefile-sysroot-aware.patch
-0031-pppd-make-the-self-made-configure-cross-aware.patch
-# f55804e4f06ed6ed1e5f0e3f1db50b6a  - git-ptx-patches magic
+0030-pppd-Use-openssl-for-the-DES-instead-of-the-libcrypt.patch
+#tag:ptx --start-number 100
+0100-pppd-make-makefile-sysroot-aware.patch
+0101-pppd-make-the-self-made-configure-cross-aware.patch
+# 96f4a97d9fbe6803172eb6dd4b24afd2  - git-ptx-patches magic

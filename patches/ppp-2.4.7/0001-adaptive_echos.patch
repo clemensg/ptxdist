@@ -28,10 +28,11 @@ index 8ed2778bfb67..c97a64b7774f 100644
      { "lcp-restart", o_int, &lcp_fsm[0].timeouttime,
        "Set time in seconds between LCP retransmissions", OPT_PRIO },
      { "lcp-max-terminate", o_int, &lcp_fsm[0].maxtermtransmits,
-@@ -2332,6 +2335,22 @@ LcpSendEchoRequest (f)
+@@ -2331,6 +2334,22 @@ LcpSendEchoRequest (f)
+ 	}
      }
  
-     /*
++    /*
 +     * If adaptive echos have been enabled, only send the echo request if
 +     * no traffic was received since the last one.
 +     */
@@ -47,10 +48,9 @@ index 8ed2778bfb67..c97a64b7774f 100644
 +	}
 +    }
 +
-+    /*
+     /*
       * Make and send the echo request frame.
       */
-     if (f->state == OPENED) {
 diff --git a/pppd/pppd.8 b/pppd/pppd.8
 index e2768b135273..b7fd0bdaab52 100644
 --- a/pppd/pppd.8

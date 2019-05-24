@@ -6,10 +6,10 @@ menuconfig PPP
 	select ROOTFS_VAR_RUN
 	select LIBC_DL
 	select LIBC_UTIL
+	select LIBC_CRYPT
 	select LIBC_RESOLV	if PPP_PLUGINS
-	select LIBC_CRYPT	if PPP_NEEDS_CRYPT
 	select LIBPCAP		if PPP_FILTER
-	select OPENSSL		if PPP_SRP
+	select OPENSSL		if PPP_SRP || PPP_PLUGINS || PPP_MS_CHAP
 	help
 	  Point-to-Point Protocol (PPP) - daemon
 
@@ -73,7 +73,6 @@ config PPP_SHADOW
 config PPP_MS_CHAP
 	bool
 	prompt "MS-CHAP (Microsoft MS-CHAP authentication protocol)"
-	select PPP_NEEDS_CRYPT
 	help
 	  support Micro$oft's MS-CHAP authentication protocol
 
@@ -93,11 +92,6 @@ config PPP_MS_CBCP
 	  Enable Micro$oft proprietary Callback Control Protocol
 
 
-config PPP_NEEDS_CRYPT
-	bool
-	# crypt() calls have slipped into pppd; se we enforce 'y' here until this is fixed upstream
-	default y
-
 config PPP_TDB
 	bool
 
@@ -105,7 +99,6 @@ config PPP_TDB
 menuconfig PPP_PLUGINS
 	bool
 	prompt "support plugins"
-	select PPP_NEEDS_CRYPT
 	help
 	  If you want to use pppd to handle ADSL you must enable this entry
 	  (refer 'ppp over ethernet').

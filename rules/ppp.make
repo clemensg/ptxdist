@@ -121,12 +121,6 @@ else
 	@$(call disable_sh,$(PPP_DIR)/pppd/Makefile,CBCP=y)
 endif
 
-ifdef PTXCONF_PPP_NEEDS_CRYPT
-	@$(call enable_sh,$(PPP_DIR)/pppd/Makefile,USE_CRYPT=y)
-else
-	@$(call disable_sh,$(PPP_DIR)/pppd/Makefile,USE_CRYPT=y)
-endif
-
 ifdef PTXCONF_PPP_TDB
 	@$(call enable_sh,$(PPP_DIR)/pppd/Makefile,USE_TDB=y)
 else

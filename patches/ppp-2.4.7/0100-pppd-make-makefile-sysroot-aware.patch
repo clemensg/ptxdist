@@ -9,11 +9,11 @@ ones.
 Signed-off-by: Marc Kleine-Budde <m.kleine-budde@pengutronix.de>
 Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
 ---
- pppd/Makefile.linux | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ pppd/Makefile.linux | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
 diff --git a/pppd/Makefile.linux b/pppd/Makefile.linux
-index f1b2c90bb510..8b88f2b4811d 100644
+index 4d536f84c7ba..b6e2ddbd9306 100644
 --- a/pppd/Makefile.linux
 +++ b/pppd/Makefile.linux
 @@ -100,8 +100,8 @@ endif
@@ -27,12 +27,15 @@ index f1b2c90bb510..8b88f2b4811d 100644
  TARGETS	+= srp-entry
  EXTRAINSTALL = $(INSTALL) -c -m 555 srp-entry $(BINDIR)/srp-entry
  MANPAGES += srp-entry.8
-@@ -124,7 +124,7 @@ endif
+@@ -124,11 +124,9 @@ endif
  ifdef NO_CRYPT_HACK
  CFLAGS += -DNO_CRYPT_HACK
  else
 -ifneq ($(wildcard /usr/include/crypt.h),)
-+ifdef USE_CRYPT
  CFLAGS  += -DHAVE_CRYPT_H=1
  LIBS	+= -lcrypt
  endif
+-endif
+ 
+ ifdef USE_LIBUTIL
+ CFLAGS	+= -DHAVE_LOGWTMP=1
