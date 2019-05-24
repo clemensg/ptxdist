@@ -33,8 +33,9 @@ LIBXSLT_URL	:= \
 # Prepare
 # ----------------------------------------------------------------------------
 
-LIBXSLT_PATH	:= PATH=$(CROSS_PATH)
-LIBXSLT_ENV	:= $(CROSS_ENV)
+LIBXSLT_ENV	:= \
+	$(CROSS_ENV) \
+	ac_cv_path_XML_CONFIG=xml2-config
 
 #
 # autoconf
