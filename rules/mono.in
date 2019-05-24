@@ -1,4 +1,6 @@
-## SECTION=bytecode_engines
+## SECTION=staging
+## old section:
+### SECTION=bytecode_engines
 
 config MONO
 	tristate
@@ -7,3 +9,6 @@ config MONO
 	help
 	  mono is a runtime implementation of the ECMA Common Language
 	  Infrastructure. It can be used to run ECMA and .NET applications.
+
+	  STAGING: remove in ptxdist-2020.06.0
+	  Old version that need to be updated. Fails to build with glibc-2.28.
