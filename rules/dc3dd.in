@@ -1,3 +1,5 @@
+## SECTION=staging
+## old section:
 ## SECTION=disk_and_file
 
 config DC3DD
@@ -9,3 +11,6 @@ config DC3DD
 	  dc3dd is a patched version of GNU dd with added features for computer forensics.
 	  It was developed at the DoD Cyber Crime Center by Jesse Kornblum.
 	  See https://tools.kali.org/forensics/dc3dd for usage.
+
+	  STAGING: remove in ptxdist-2020.06.0
+	  Old version that need to be updated. Fails to build with glibc-2.28.
