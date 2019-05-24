@@ -7,7 +7,6 @@ menuconfig LINKS
 	select LIBC_M
 	select LIBC_DL
 	select OPENSSL		if LINKS_SSL
-	select GPM		if LINKS_GPM
 	select LIBPNG		if LINKS_PNG
 	select LIBJPEG		if LINKS_JPEG
 	select XORG_LIB_XEXT	if LINKS_X
@@ -28,13 +27,6 @@ config LINKS_SSL
 	help
 	  Include support for Secure Socket Layer (SSL) transfers
 
-config LINKS_GPM
-	bool
-	depends on STAGING
-	prompt "support for GPM"
-	help
-	  Activate support for General Purpose Mouse (GPM) service
-
 config LINKS_PNG
 	bool
 	prompt "support for png"
@@ -47,16 +39,6 @@ config LINKS_JPEG
 	help
 	  Activate support for Joint Photographic Experts Group (JPEG)
 	  image format
-
-config LINKS_FBCON
-	bool
-	select LINKS_PNG
-	select LINKS_JPEG
-	select LINKS_GPM
-	depends on STAGING
-	prompt "support for fbcon"
-	help
-	  Activate support for Framebuffer Console mode
 
 config LINKS_TIFF
 	bool

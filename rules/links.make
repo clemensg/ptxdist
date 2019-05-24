@@ -35,10 +35,10 @@ LINKS_ENV      := $(CROSS_ENV)
 LINKS_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--$(call ptx/wwo, PTXCONF_LINKS_SSL)-ssl \
-	--$(call ptx/wwo, PTXCONF_LINKS_GPM)-gpm \
+	--without-gpm \
 	--$(call ptx/wwo, PTXCONF_LINKS_PNG)-png \
 	--$(call ptx/wwo, PTXCONF_LINKS_JPEG)-libjpeg \
-	--$(call ptx/wwo, PTXCONF_LINKS_FBCON)-fb \
+	--without-fb \
 	--$(call ptx/wwo, PTXCONF_LINKS_TIFF)-libtiff \
 	--$(call ptx/wwo, PTXCONF_LINKS_X)-x \
 	--without-directfb \
@@ -47,7 +47,7 @@ LINKS_AUTOCONF := \
 	--$(call ptx/wwo, PTXCONF_LINKS_BZIP2)-bzip2 \
 	--$(call ptx/wwo, PTXCONF_LINKS_LZMA)-lzma \
 
-ifneq ($(PTXCONF_LINKS_X)$(PTXCONF_LINKS_FBCON),)
+ifneq ($(PTXCONF_LINKS_X),)
 LINKS_AUTOCONF += --enable-graphics
 else
 LINKS_AUTOCONF += --disable-graphics
@@ -55,9 +55,7 @@ endif
 
 # Note: ./configure only support 'gpm' features auto-detection, so
 # we use the autoconf trick (see Gentoo ebuild)
-ifndef PTXCONF_LINKS_GPM
 LINKS_ENV += ac_cv_lib_gpm_Gpm_Open=no
-endif
 
 # ----------------------------------------------------------------------------
 # Target-Install

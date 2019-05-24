@@ -35,7 +35,7 @@ FBTERM_LICENSE	:= GPL-2.0-only
 FBTERM_CONF_TOOL	:= autoconf
 FBTERM_CONF_OPT		:= \
 	$(CROSS_AUTOCONF_USR) \
-	--$(call ptx/endis, PTXCONF_FBTERM_GPM)-gpm \
+	--disable-gpm \
 	--disable-vesa \
 	--enable-epoll \
 	--enable-signalfd
