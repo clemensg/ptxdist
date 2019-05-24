@@ -93,6 +93,8 @@ $(STATEDIR)/host-mariadb.install:
 #	# install helper tools
 	@install -vD -m 644 $(HOST_MARIADB_DIR)-build/import_executables.cmake \
 		$(HOST_MARIADB_PKGDIR)/share/mariadb/import_executables.cmake
+	@sed -i 's;$(HOST_MARIADB_DIR)-build/.*/;@SYSROOT@/bin/mariadb/;' \
+		$(HOST_MARIADB_PKGDIR)/share/mariadb/import_executables.cmake
 	@install -vD -m 755 $(HOST_MARIADB_DIR)-build/extra/comp_err $(HOST_MARIADB_PKGDIR)/bin/mariadb/comp_err
 	@install -vD -m 755 $(HOST_MARIADB_DIR)-build/scripts/comp_sql $(HOST_MARIADB_PKGDIR)/bin/mariadb/comp_sql
 	@install -vD -m 755 $(HOST_MARIADB_DIR)-build/dbug/factorial $(HOST_MARIADB_PKGDIR)/bin/mariadb/factorial
@@ -104,11 +106,7 @@ $(STATEDIR)/host-mariadb.install.post:
 	@$(call targetinfo)
 	@$(call world/install.post, HOST_MARIADB)
 #	# correct helper tool paths
-	@sed -i -e "s;$(HOST_MARIADB_DIR)-build/extra/comp_err;$(PTXDIST_SYSROOT_HOST)/bin/mariadb/comp_err;"  \
-		-e "s;$(HOST_MARIADB_DIR)-build/scripts/comp_sql;$(PTXDIST_SYSROOT_HOST)/bin/mariadb/comp_sql;"  \
-		-e "s;$(HOST_MARIADB_DIR)-build/dbug/factorial;$(PTXDIST_SYSROOT_HOST)/bin/mariadb/factorial;"  \
-		-e "s;$(HOST_MARIADB_DIR)-build/sql/gen_lex_hash;$(PTXDIST_SYSROOT_HOST)/bin/mariadb/gen_lex_hash;"  \
-		-e "s;$(HOST_MARIADB_DIR)-build/sql/gen_lex_token;$(PTXDIST_SYSROOT_HOST)/bin/mariadb/gen_lex_token;" \
+	@sed -i 's;@SYSROOT@;$(PTXDIST_SYSROOT_HOST);' \
 		$(PTXDIST_SYSROOT_HOST)/share/mariadb/import_executables.cmake
 	@$(call touch)
 
