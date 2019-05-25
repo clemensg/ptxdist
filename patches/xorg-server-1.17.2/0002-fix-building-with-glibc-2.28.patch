@@ -1,0 +1,34 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Fri, 24 May 2019 22:27:08 +0200
+Subject: [PATCH] fix building with glibc-2.28
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ hw/xfree86/common/xf86Xinput.c         | 1 +
+ hw/xfree86/os-support/linux/lnx_init.c | 1 +
+ 2 files changed, 2 insertions(+)
+
+diff --git a/hw/xfree86/common/xf86Xinput.c b/hw/xfree86/common/xf86Xinput.c
+index 1fb5b1635e2c..24e0d3f68368 100644
+--- a/hw/xfree86/common/xf86Xinput.c
++++ b/hw/xfree86/common/xf86Xinput.c
+@@ -84,6 +84,7 @@
+ #include <sys/types.h>
+ #include <sys/stat.h>
+ #include <unistd.h>
++#include <sys/sysmacros.h>
+ #ifdef HAVE_SYS_MKDEV_H
+ #include <sys/mkdev.h>          /* for major() & minor() on Solaris */
+ #endif
+diff --git a/hw/xfree86/os-support/linux/lnx_init.c b/hw/xfree86/os-support/linux/lnx_init.c
+index 94853070dc6a..3d89a9d117e6 100644
+--- a/hw/xfree86/os-support/linux/lnx_init.c
++++ b/hw/xfree86/os-support/linux/lnx_init.c
+@@ -37,6 +37,7 @@
+ #include "xf86_OSlib.h"
+ 
+ #include <sys/stat.h>
++#include <sys/sysmacros.h>
+ 
+ #ifndef K_OFF
+ #define K_OFF 0x4
