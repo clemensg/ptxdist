@@ -1,4 +1,6 @@
-## SECTION=multimedia_libs
+## SECTION=staging
+## old section:
+### SECTION=multimedia_libs
 
 menuconfig OPENCV
 	tristate
@@ -18,6 +20,9 @@ menuconfig OPENCV
 	select V4L_UTILS_LIBV4L2	if OPENCV_V4L_LIBV4L2
 	help
 	  Open Source Computer Vision Library
+
+	  STAGING: remove in ptxdist-2020.06.0
+	  Old version that need to be updated. Fails to build with gcc >= 7.x.
 
 if OPENCV
 
