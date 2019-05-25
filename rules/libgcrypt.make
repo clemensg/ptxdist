@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_LIBGCRYPT) += libgcrypt
 #
 # Paths and names
 #
-LIBGCRYPT_VERSION	:= 1.8.3
-LIBGCRYPT_MD5		:= 3139c2402e844985a67fb288a930534d
+LIBGCRYPT_VERSION	:= 1.8.4
+LIBGCRYPT_MD5		:= fbfdaebbbc6d7e5fbbf6ffdb3e139573
 LIBGCRYPT		:= libgcrypt-$(LIBGCRYPT_VERSION)
 LIBGCRYPT_SUFFIX	:= tar.bz2
 LIBGCRYPT_URL		:= https://www.gnupg.org/ftp/gcrypt/libgcrypt/$(LIBGCRYPT).$(LIBGCRYPT_SUFFIX)
