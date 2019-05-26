@@ -5,15 +5,17 @@ Subject: [PATCH] pppd: make makefile sysroot aware
 The pppd Makefile is not SYSROOT aware. This patch replaces all
 occurrences of absolute paths by their corresponding SYSROOT relative
 ones.
+Skip the 'wildcard' check completely. Libcrypt is always needed anyways.
 
 Signed-off-by: Marc Kleine-Budde <m.kleine-budde@pengutronix.de>
 Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
- pppd/Makefile.linux | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+ pppd/Makefile.linux | 8 +++-----
+ 1 file changed, 3 insertions(+), 5 deletions(-)
 
 diff --git a/pppd/Makefile.linux b/pppd/Makefile.linux
-index 4d536f84c7ba..b6e2ddbd9306 100644
+index 4d536f84c7ba..30eb12f9d11d 100644
 --- a/pppd/Makefile.linux
 +++ b/pppd/Makefile.linux
 @@ -100,8 +100,8 @@ endif
@@ -39,3 +41,12 @@ index 4d536f84c7ba..b6e2ddbd9306 100644
  
  ifdef USE_LIBUTIL
  CFLAGS	+= -DHAVE_LOGWTMP=1
+@@ -137,7 +135,7 @@ endif
+ 
+ ifdef NEEDDES
+ ifndef USE_CRYPT
+-CFLAGS   += -I/usr/include/openssl
++CFLAGS   += -I$(SYSROOT)/usr/include/openssl
+ LIBS     += -lcrypto
+ else
+ CFLAGS   += -DUSE_CRYPT=1
