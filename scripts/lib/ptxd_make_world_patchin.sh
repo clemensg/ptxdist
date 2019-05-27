@@ -373,6 +373,12 @@ ptxd_make_world_patchin_fixup()
     local file
 
     echo "patchin: fixup:"
+
+    if [ "${pkg_conf_tool}" != "autoconf" -a "${pkg_conf_tool}" != "NO" ]; then
+	echo -e "patchin: fixup: skipped\n"
+	return
+    fi
+
     find "${pkg_dir}/" -name "configure" -a -type f -a \! -path "*/.pc/*" | while read file; do
 	ptxd_print_path "${file}"
 	#
