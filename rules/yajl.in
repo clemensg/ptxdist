@@ -5,4 +5,8 @@ config YAJL
 	prompt "yajl"
 	select HOST_CMAKE
 	help
-	  A fast streaming JSON parsing library in C.
+	  Yet Another JSON Library.
+
+	  A small, fast library for parsing JavaScript Object Notation (JSON).
+	  It supports incremental parsing from a stream and leaves data
+	  representation to higher level code.
