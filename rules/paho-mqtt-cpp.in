@@ -1,0 +1,13 @@
+## SECTION=system_libraries
+
+config PAHO_MQTT_CPP
+	tristate "paho.mqtt.cpp"
+	select HOST_CMAKE
+	select OPENSSL
+	select PAHO_MQTT_C
+	help
+	  C++ package implementing MQTT client library by Eclipse Paho
+
+	  The Paho MQTT package provides a library which enable
+	  applications to connect to broker to publish messages, and
+	  to subscribe to topics and receive published messages.
