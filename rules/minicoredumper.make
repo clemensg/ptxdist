@@ -61,6 +61,9 @@ $(STATEDIR)/minicoredumper.targetinstall:
 
 	@$(call install_copy, minicoredumper, 0, 0, 0755, /var/crash/minicoredumper)
 
+	@$(call install_alternative, minicoredumper, 0, 0, 0644, \
+		/usr/lib/sysctl.d/50-minicoredumper.conf)
+
 	@$(call install_finish, minicoredumper)
 
 	@$(call touch)
