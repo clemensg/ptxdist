@@ -3,8 +3,8 @@ menuconfig RSYNC
 	tristate
 	prompt "rsync                         "
 	select GCCLIBS_GCC_S
-	select OPENSSH	if RUNTIME
-	select OPENSSH_SSH
+	select OPENSSH		if RSYNC_SSH && RUNTIME
+	select OPENSSH_SSH	if RSYNC_SSH
 	help
 	  rsync is a program that behaves in much the same way that rcp does,
 	  but has many more options and uses the rsync remote-update protocol to
@@ -23,6 +23,9 @@ config RSYNC_CONFIG_FILE
 	  Set configuration file for rsync server to given path on your target
 
 comment "runtime options   ---"
+
+config RSYNC_SSH
+	bool "install ssh to tunnel rsync over ssh"
 
 choice
 	prompt "Kind of startup"
