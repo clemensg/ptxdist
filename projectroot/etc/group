@@ -4,6 +4,7 @@ adm:x:4:
 kvm:x:36:
 shadow:x:42:
 utmp:x:43:
+tss:x:98:
 users:x:100:
 ftp:x:101:
 www:x:102:
