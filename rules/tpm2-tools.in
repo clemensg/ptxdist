@@ -1,0 +1,13 @@
+## SECTION=tpm
+
+config TPM2_TOOLS
+	tristate
+	select TPM2_TSS
+	select OPENSSL
+	select LIBCURL
+	prompt "tpm2-tools"
+	help
+	  This package contains a set of tools to use with TPM 2.0
+	  chips, for common tasks and features provided by the
+	  hardware; such as for doing basic key management,
+	  attestation, encryption and signing.
