@@ -1,6 +1,6 @@
 ## SECTION=staging
 ## old section:
-## SECTION=disk_and_file
+### SECTION=disk_and_file
 
 config DC3DD
 	tristate
