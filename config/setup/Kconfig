@@ -348,6 +348,17 @@ config SETUP_DIRECT_CLEAN
 	help
 	  I'm a developer. I know what I'm doing. Just clean the BSP.
 
+config SETUP_AUTO_EXTRACT
+	bool "automatically reextract non-git sources"
+	help
+	  By default ptxdist will refuse to delete the existing package
+	  source tree if the extract stage is triggered again due to
+	  dependencies (e.g. new patches). This happens to ensure that
+	  local changes are not accidentally lost.
+	  If this option is enabled, then the sources are automatically
+	  deleted unless they contain a .git directory. This is useful if
+	  local modifications are only done in combination with --git.
+
 config SETUP_HOST_CPP
 	prompt "host CPP"
 	string

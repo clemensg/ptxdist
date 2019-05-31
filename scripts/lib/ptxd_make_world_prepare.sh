@@ -31,6 +31,8 @@ ptxd_make_world_hash()
 	if [ "${h}" != "${hash}" ]; then
 	    if [ "${target}" = "pkghash" ]; then
 		echo -e "Configuration changed! Reconfiguring...\n"
+	    else
+		echo -e "Patches changed! Reextracting...\n"
 	    fi
 	fi
 	rm "${h}" || break

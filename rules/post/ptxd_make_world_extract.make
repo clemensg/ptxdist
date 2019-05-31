@@ -8,6 +8,15 @@
 # see the README file.
 #
 
+world/srchash = \
+	+$(call world/env, $1) \
+	ptxd_make_world_hash srchash
+
+$(STATEDIR)/%.srchash:
+	@$(call targetinfo)
+	@$(call world/srchash, $(PTX_MAP_TO_PACKAGE_$(basename $(*))))
+	@$(call touch)
+
 #
 # extract
 #

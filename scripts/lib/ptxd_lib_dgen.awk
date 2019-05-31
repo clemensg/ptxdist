@@ -342,6 +342,15 @@ function write_deps_pkg_all(this_PKG, this_pkg) {
 }
 
 function write_deps_pkg_active_cfghash(this_PKG, this_pkg) {
+	print "ifneq ($(" this_PKG "),)"									> DGEN_DEPS_POST;
+	print this_PKG "_PATCHES := $(call ptx/in-path,PTXDIST_PATH_PATCHES,$(" this_PKG "))"			> DGEN_DEPS_POST;
+	print "ifneq ($(wildcard $(" this_PKG "_PATCHES)),)"							> DGEN_DEPS_POST;
+	print "ifeq ($(wildcard " PTXDIST_TEMPDIR "/pkghash-" this_PKG ".done),)"				> DGEN_DEPS_POST;
+	print "$(call ptx/force-sh, find '$(" this_PKG "_PATCHES)' -type f ! -name '.*' | sort | xargs cat | tee " \
+		PTXDIST_TEMPDIR "/pkghash-" this_PKG "_EXTRACT >> " PTXDIST_TEMPDIR "/pkghash-" this_PKG ")"	> DGEN_DEPS_POST;
+	print "endif"												> DGEN_DEPS_POST;
+	print "endif"												> DGEN_DEPS_POST;
+	print "endif"												> DGEN_DEPS_POST;
 	print "ifneq ($(filter /%,$(" this_PKG "_CONFIG)),)"							> DGEN_DEPS_POST;
 	print "ifneq ($(wildcard $(" this_PKG "_CONFIG)),)"							> DGEN_DEPS_POST;
 	print "ifeq ($(wildcard " PTXDIST_TEMPDIR "/pkghash-" this_PKG ".done),)"				> DGEN_DEPS_POST;
@@ -372,6 +381,12 @@ function write_deps_pkg_active(this_PKG, this_pkg, prefix) {
 		print "endif"											> DGEN_DEPS_POST;
 	print "$(foreach src,$(" this_PKG "_SOURCES)," \
 		"$(eval $(STATEDIR)/" this_pkg ".get:"      "$(STATEDIR)/" this_pkg ".$(notdir $(src)).stamp))"	> DGEN_DEPS_POST;
+	if (DIRTY != "true") {
+		print "ifneq ($(" this_PKG "_EXTRACT_CFGHASH),)"						> DGEN_DEPS_POST;
+		print "$(STATEDIR)/" this_pkg ".extract: " \
+					"$(STATEDIR)/" this_pkg ".$(" this_PKG "_EXTRACT_CFGHASH).srchash"	> DGEN_DEPS_POST;
+		print "endif"											> DGEN_DEPS_POST;
+	}
 	print "$(STATEDIR)/" this_pkg ".extract: "                    "$(STATEDIR)/" this_pkg ".get"		> DGEN_DEPS_POST;
 	print "$(STATEDIR)/" this_pkg ".extract.post: "               "$(STATEDIR)/" this_pkg ".extract"	> DGEN_DEPS_POST;
 	print "$(STATEDIR)/" this_pkg ".prepare: "                    "$(STATEDIR)/" this_pkg ".extract.post"	> DGEN_DEPS_POST;
