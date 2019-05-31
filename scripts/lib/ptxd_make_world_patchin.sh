@@ -473,11 +473,15 @@ ptxd_make_world_patchin_init()
 
     #
     # find patch_dir
-    # for compatibility, look first in 'generic', then in standard
-    # location
+    # fail if the legacy 'generic' location is found
     #
-    if ! ptxd_in_path PTXDIST_PATH_PATCHES ${pkg_pkg}/generic &&
-		! ptxd_in_path PTXDIST_PATH_PATCHES ${pkg_pkg} ; then
+    if ptxd_in_path PTXDIST_PATH_PATCHES ${pkg_pkg}/generic; then
+	ptxd_bailout "Legacy patch dir" \
+	    "$(ptxd_print_path "${ptxd_reply}")" \
+	    "is no longer supported. Move patches to" \
+	    "$(ptxd_print_path "$(dirname "${ptxd_reply}")")"
+    fi
+    if ! ptxd_in_path PTXDIST_PATH_PATCHES ${pkg_pkg} ; then
 	return
     fi
     pkg_patch_dir="${ptxd_reply}"

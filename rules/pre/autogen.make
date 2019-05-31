@@ -10,7 +10,7 @@
 
 autogen_dep = $(strip $(wildcard						\
 	$(foreach dir,$(subst :,/$(strip $(1))$(space),$(PTXDIST_PATH_PATCHES)),\
-		$(dir)/generic/autogen.sh $(dir)/autogen.sh)))
+		$(dir)/autogen.sh)))
 
 $(STATEDIR)/autogen-tools:
 	@$(call targetinfo)
