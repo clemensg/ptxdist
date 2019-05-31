@@ -8,30 +8,35 @@
 # see the README file.
 #
 
-ptxd_make_world_cfghash()
+ptxd_make_world_hash()
 {
     local -a hashes
     local hash h
+    local target="${1}"
+    local ptr="pkg_${target}"
+    local pkg_hash="${!ptr}"
 
     ptxd_make_world_init || return
 
-    hashes=( "${ptx_state_dir}/${pkg_label}."*".cfghash" )
-    hash="${ptx_state_dir}/${pkg_label}.${pkg_cfghash}.cfghash"
+    hashes=( "${ptx_state_dir}/${pkg_label}."*".${target}" )
+    hash="${ptx_state_dir}/${pkg_label}.${pkg_hash}.${target}"
 
-    if [ ${hashes[0]} = "${ptx_state_dir}/${pkg_label}.*.cfghash" ]; then
+    if [ ${hashes[0]} = "${ptx_state_dir}/${pkg_label}.*.${target}" ]; then
 	hashes=()
     fi
     if [ ${#hashes[@]} -gt 1 ]; then
-	ptxd_warning "more than one cfghash found!"
+	ptxd_warning "more than one ${target} found!"
     fi
     for h in "${hashes[@]}"; do
 	if [ "${h}" != "${hash}" ]; then
-	    echo -e "Configuration changed! Reconfiguring...\n"
+	    if [ "${target}" = "pkghash" ]; then
+		echo -e "Configuration changed! Reconfiguring...\n"
+	    fi
 	fi
 	rm "${h}" || break
     done
 }
-export -f ptxd_make_world_cfghash
+export -f ptxd_make_world_hash
 
 #
 # perform sanity check

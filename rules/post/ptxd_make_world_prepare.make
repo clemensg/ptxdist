@@ -10,7 +10,7 @@
 
 world/cfghash = \
 	+$(call world/env, $1) \
-	ptxd_make_world_cfghash
+	ptxd_make_world_hash srchash
 
 $(STATEDIR)/%.cfghash:
 	@$(call targetinfo)
