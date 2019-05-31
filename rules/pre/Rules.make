@@ -398,16 +398,6 @@ add_zoneinfo =							\
 
 
 #
-# clean
-#
-# Cleanup the given directory or file.
-#
-clean =								\
-	DIR="$(strip $(1))";					\
-	rm -rf $$DIR
-
-
-#
 # enable_c
 #
 # Enables a define, removes /* */
