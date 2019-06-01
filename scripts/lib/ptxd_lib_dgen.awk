@@ -516,7 +516,7 @@ function write_deps_pkg_active_image(this_PKG, this_pkg, prefix) {
 	#
 	# images don't depend on world, so this is needed to extract the packages
 	#
-	print "ifneq ($(strip $(" this_PKG "_PKGS)),)"									> DGEN_DEPS_POST
+	print "ifneq ($(strip $(" this_PKG "_PKGS)),)"								> DGEN_DEPS_POST
 	print "$(" this_PKG "_IMAGE):" " \
 		$(STATEDIR)/host-opkg.install.post"								> DGEN_DEPS_POST
 	print "ifeq ($(strip $(" this_PKG "_NFSROOT)),YES)"							> DGEN_DEPS_POST
@@ -531,7 +531,9 @@ END {
 	for (this_PKG in active_PKG_to_pkg)
 		write_deps_pkg_active_cfghash(this_PKG, this_pkg)
 
-	print "$(call ptx/force-sh, md5sum " PTXDIST_TEMPDIR "/pkghash-* | sed 's;^\\([a-z0-9]*\\).*pkghash-\\(.*\\)$$;\\2_CFGHASH := \\1;' > " PTXDIST_TEMPDIR "/pkghash.make)" > DGEN_DEPS_POST;
+	print "$(call ptx/force-sh, md5sum " PTXDIST_TEMPDIR "/pkghash-* | " \
+		"sed 's;^\\([a-z0-9]*\\).*pkghash-\\(.*\\)$$;\\2_CFGHASH := \\1;' > " \
+			PTXDIST_TEMPDIR "/pkghash.make)"							> DGEN_DEPS_POST;
 	print "include " PTXDIST_TEMPDIR "/pkghash.make"							> DGEN_DEPS_POST;
 
 	# for all pkgs
