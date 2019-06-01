@@ -15,7 +15,7 @@ PTXDIST_PTXCONFIG_DEFAULT='${PTXDIST_WORKSPACE}/selected_ptxconfig'
 PTXDIST_PLATFORMCONFIG_DEFAULT='${PTXDIST_WORKSPACE}/selected_platformconfig'
 PTXDIST_COLLECTIONCONFIG_DEFAULT='${PTXDIST_WORKSPACE}/selected_collectionconfig'
 PTXDIST_TOOLCHAIN_DEFAULT='${PTXDIST_WORKSPACE}/selected_toolchain'
-PTXDIST_PTXRC_DEFAULT=${PTXDIST_PTXRC:-'${HOME}/.ptxdist/ptxdistrc-${PTXDIST_VERSION_PTXRC}'}
+PTXDIST_PTXRC_DEFAULT='${HOME}/.ptxdist/ptxdistrc-${PTXDIST_VERSION_PTXRC}'
 
 
 #
@@ -2208,27 +2208,39 @@ setup_topdir() {
 }
 
 
+ensure_ptxrc() {
+	local ptxrc tmpptxrc
+	local rc_default="${PTXDIST_TOPDIR}/config/setup/ptxdistrc.default"
+	local include
 
-#
-# cleanup environment
-#
-#
-setup_env() {
-	local ptxrc
+	# ptxd_source_kconfig is not defined during early bootstrap
+	if [ "$(type -t ptxd_source_kconfig)" = function ]; then
+		include=ptxd_source_kconfig
+	else
+		include=source
+	fi
 
 	#
-	# here an ugly hard coded value:
+	# source default values first, let the user overwrite them
 	#
-	source "${PTXDIST_TOPDIR}/scripts/ptxdist_version.sh" &&
-	eval ptxrc="${PTXDIST_PTXRC_DEFAULT}" &&
+	"${include}" "${rc_default}" || return
+
+	# if it's explicitly specified just use it without any magic
+	if [ -n "${PTXDIST_PTXRC}" ]; then
+		if [ -e "${PTXDIST_PTXRC}" ]; then
+			"${include}" "${PTXDIST_PTXRC}"
+		fi
+		return
+	fi
+
+	eval ptxrc="${PTXDIST_PTXRC_DEFAULT}"
 
 	if [ ! -e "${ptxrc}" ]; then
 		local tmp_year="${PTXDIST_VERSION_YEAR}"
 		local tmp_month="${PTXDIST_VERSION_MONTH}"
 		while [ "${tmp_year}" -ge 2010 ]; do
-			local oldptxrc="${HOME}/.ptxdist/ptxdistrc-${tmp_year}.${tmp_month}"
-			if [ -e "${oldptxrc}" ]; then
-				cp "${oldptxrc}" "${ptxrc}"
+			tmpptxrc="${HOME}/.ptxdist/ptxdistrc-${tmp_year}.${tmp_month}"
+			if [ -e "${tmpptxrc}" ]; then
 				break
 			fi
 			if [ "${tmp_month}" = "01" ]; then
@@ -2239,11 +2251,36 @@ setup_env() {
 				tmp_month="$(printf "%02d" $[tmp_month-1])"
 			fi
 		done
+		if [ -z "${tmpptxrc}" ]; then
+			tmpptxrc="${rc_default}"
+		fi
+	else
+		tmpptxrc="${ptxrc}"
 	fi
 
-	if [ -e "${ptxrc}" ]; then
-		source "${ptxrc}"
-	fi || return
+	"${include}" "${tmpptxrc}"
+
+	if [ "$(type -t ptxd_source_kconfig)" = function ]; then
+		PTXDIST_PTXRC="${ptxrc}"
+		if [ ! -e "${ptxrc}" ]; then
+			mkdir -p -- "$(dirname "${ptxrc}")" &&
+			cp -- "${tmpptxrc}" "${ptxrc}"
+		fi
+	fi
+}
+
+#
+# cleanup environment
+#
+#
+setup_env() {
+	#
+	# here an ugly hard coded value:
+	#
+	source "${PTXDIST_TOPDIR}/scripts/ptxdist_version.sh" || return
+
+	# needed for PTXCONF_SETUP_ENV_WHITELIST
+	ensure_ptxrc || return
 
 	# let shell split by IFS
 	set -- ${PTXCONF_SETUP_ENV_WHITELIST} ${PTXDIST_ENV_WHITELIST} PTXDIST_ENV_WHITELIST
@@ -2346,23 +2383,7 @@ setup_libs_early() {
 #      PTXDIST_PTXRC
 #
 setup_config() {
-	eval PTXDIST_PTXRC_DEFAULT="${PTXDIST_PTXRC_DEFAULT}"
-	PTXDIST_PTXRC="${PTXDIST_PTXRC_DEFAULT}"
-
-	local rc_user="${PTXDIST_PTXRC}"
-	local rc_default="${PTXDIST_TOPDIR}/config/setup/ptxdistrc.default"
-
-	if [ \! -e "${rc_user}" ]; then
-		local rc_user_dir="${rc_user%/*}"
-		mkdir -p -- "${rc_user_dir}" &&
-		cp -- "${rc_default}" "${rc_user}" || return
-	fi
-
-	#
-	# source default values first, let the user overwrite them
-	#
-	ptxd_source_kconfig "${rc_default}" &&
-	ptxd_source_kconfig "${rc_user}" || return
+	ensure_ptxrc || return
 
 	#
 	# enable or disable errexit
