@@ -32,7 +32,7 @@ FBGRAB_DIR	:= $(BUILDDIR)/$(FBGRAB)
 
 FBGRAB_MAKE_OPT	= \
 	$(CROSS_ENV_CC) \
-	LDLIBS='`$(CROSS_ENV) eval PATH=$(CROSS_PATH) $$PKG_CONFIG --libs libpng`'
+	LDLIBS='`eval PATH=$(CROSS_PATH) $(CROSS_PKG_CONFIG) --libs libpng`'
 
 # ----------------------------------------------------------------------------
 # Target-Install
