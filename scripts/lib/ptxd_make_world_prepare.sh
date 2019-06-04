@@ -60,13 +60,6 @@ error: 'CMakeLists.txt' not found in:
 
 EOF
 	exit 1
-    elif [ "${pkg_conf_tool}" = "cmake" -a "${pkg_type}" = "cross" ]; then
-	cat >&2 <<EOF
-
-error: sorry - cmake 'cross' packages are not supported
-
-EOF
-	exit 1
     elif [ \( "${pkg_conf_tool}" = "qmake" -o "${pkg_conf_tool}" = "perl" \) -a "${pkg_type}" != "target" ]; then
 	cat >&2 <<EOF
 
