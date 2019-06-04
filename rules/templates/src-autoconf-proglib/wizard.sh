@@ -1,12 +1,12 @@
 #!/bin/bash
 
-NAME=$1
+NAME="${1}"
 if [ -z "$NAME" ]; then
 	echo -n "project name: "
 	read NAME
 fi
-NAME_UP=$(echo $NAME | tr '[a-z-]' '[A-Z_]')
-NAME_NODASH=$(echo $NAME | tr '-' '_')
+NAME_UP="$(echo $NAME | tr '[a-z-]' '[A-Z_]')"
+NAME_NODASH="$(echo $NAME | tr '-' '_')"
 
 mv "@name@.c" "${NAME}.c"
 mv "lib@name@.c" "lib${NAME}.c"
@@ -23,10 +23,10 @@ mv m4/internal.h .
 for i in \
 	configure.ac \
 	Makefile.am \
-	${NAME}.c \
-	lib${NAME}.c \
-	lib${NAME}.h \
-	lib${NAME}.pc.in \
+	"${NAME}.c" \
+	"lib${NAME}.c" \
+	"lib${NAME}.h" \
+	"lib${NAME}.pc.in" \
 	INSTALL \
 	internal.h \
 ; do

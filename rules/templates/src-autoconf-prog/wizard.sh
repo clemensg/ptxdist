@@ -1,14 +1,14 @@
 #!/bin/bash
 
-NAME=$1
+NAME="${1}"
 if [ -z "$NAME" ]; then
 	echo -n "project name: "
 	read NAME
 fi
-NAME_UP=$(echo $NAME | tr '[a-z-]' '[A-Z_]')
+NAME_UP="$(echo $NAME | tr '[a-z-]' '[A-Z_]')"
 
 mv "@name@.c" "${NAME}.c"
-NAME_NODASH=$(echo $NAME | tr '-' '_')
+NAME_NODASH="$(echo $NAME | tr '-' '_')"
 
 # prepare and instantiate the M4 macros
 mkdir -v m4
@@ -20,7 +20,7 @@ mv m4/internal.h .
 for i in \
 	configure.ac \
 	Makefile.am \
-	${NAME}.c \
+	"${NAME}.c" \
 	INSTALL \
 	internal.h \
 ; do
