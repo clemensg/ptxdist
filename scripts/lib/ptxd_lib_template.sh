@@ -334,6 +334,13 @@ export -f ptxd_template_new_src_qmake_prog
 ptxd_template_help_list[${#ptxd_template_help_list[@]}]="src-qmake-prog"
 ptxd_template_help_list[${#ptxd_template_help_list[@]}]="create qmake binary"
 
+ptxd_template_new_src_meson_prog() {
+    ptxd_template_src_base
+}
+export -f ptxd_template_new_src_meson_prog
+ptxd_template_help_list[${#ptxd_template_help_list[@]}]="src-meson-prog"
+ptxd_template_help_list[${#ptxd_template_help_list[@]}]="create meson binary"
+
 ptxd_template_new_src_linux_driver() {
     ptxd_template_src_base
 }

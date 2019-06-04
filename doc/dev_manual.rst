@@ -206,6 +206,14 @@ handle:
    and their settings. Creating such a package will also create a simple
    template project to be used as a starting point for development.
 
+-  **src-meson-prog**: This kind of package is built for the target.
+   It’s intended for developments based on the *meson* buildsystem.
+   Various projects are using *meson* today and can be built
+   with this package type. PTXdist will prepare it to compile sources in
+   accordance to the target libraries and their settings. Creating such
+   a package will also create a simple template project to be used as a
+   starting point for development.
+
 -  **font**: This package is a helper to add X font files to the root
    filesystem. This package does not create an additional IPKG, instead
    it adds the font to the existing font IPKG. This includes the
@@ -1156,12 +1164,12 @@ So, in the rule file only the two variables ``FOO_MAKE_ENV`` and
 package’s buildsystem. If the package cannot be built in parallel, we
 can also add the ``FOO_MAKE_PAR := NO``. ``YES`` is the default.
 
-Managing CMake / QMake Packages
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Managing CMake/QMake/Meson Packages
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Building packages that use ``cmake`` or ``qmake`` is much like building
-packages with an autotools based buildsystem. We need to specify the
-configuration tool:
+Building packages that use ``cmake``, ``qmake`` or ``meson`` is much like
+building packages with an autotools based buildsystem. We need to specify
+the configuration tool:
 
 .. code-block:: make
 
@@ -1172,6 +1180,12 @@ or
 .. code-block:: make
 
     FOO_CONF_TOOL := qmake
+
+or respectively
+
+.. code-block:: make
+
+    FOO_CONF_TOOL := meson
 
 And provide the correct configuration options. The syntax is different so
 PTXdist provides additional macros to simplify configurable features.
@@ -1192,8 +1206,16 @@ For ``qmake`` the configuration options typically look like this:
     	$(CROSS_QMAKE_OPT) \
     	PREFIX=/usr
 
-Please note that currently only host and target ``cmake`` packages and only
-target ``qmake`` packages are supported.
+And for ``meson`` the configuration options typically look like this:
+
+.. code-block:: make
+
+    FOO_CONF_OPT := \
+    	$(CROSS_MESON_USR) \
+    	-Dbar=$(call ptx/truefalse,PTXCONF_FOO_BAR)
+
+Please note that currently only host and target ``cmake``\/``meson`` packages
+and only target ``qmake`` packages are supported.
 
 Managing Python Packages
 ^^^^^^^^^^^^^^^^^^^^^^^^
