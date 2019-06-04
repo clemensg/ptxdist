@@ -29,12 +29,8 @@ define ptx/escape/1
 $(subst $(1),\$(1),$(2))
 endef
 
-define ptx/escape/2
-$(subst $(1),\\$(1),$(2))
-endef
-
 define ptx/escape
-$(strip $(call ptx/escape/2,$(ptx/def/dollar),$(call ptx/escape/1,$(ptx/def/dquote),$(1))))
+$(strip $(call ptx/escape/1,$(ptx/def/dollar),$(call ptx/escape/1,$(ptx/def/dquote),$(1))))
 endef
 
 
