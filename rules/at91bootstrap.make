@@ -57,6 +57,9 @@ AT91BOOTSTRAP_MAKE_OPT	:= \
 	CROSS_COMPILE=$(COMPILER_PREFIX) \
 	-C $(AT91BOOTSTRAP_BOARDDIR)
 
+AT91BOOTSTRAP_CFLAGS	:= \
+	-ffreestanding
+
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
