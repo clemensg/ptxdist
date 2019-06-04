@@ -39,7 +39,7 @@ I2C_TOOLS_MAKE_ENV := \
 # this way they don't collide with the toolchain's i2c headers
 I2C_TOOLS_INSTALL_OPT := \
 	prefix=/usr \
-	incdir="\$$(prefix)/include/i2c-tools" \
+	incdir=/usr/include/i2c-tools \
 	install
 
 # ----------------------------------------------------------------------------
