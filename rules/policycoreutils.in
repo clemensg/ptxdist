@@ -24,6 +24,7 @@ menuconfig POLICYCOREUTILS
 if POLICYCOREUTILS
 
 menuconfig POLICYCOREUTILS_PYTHON
+	depends on STAGING
 	bool "python based tools"
 
 if POLICYCOREUTILS_PYTHON

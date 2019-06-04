@@ -1,4 +1,6 @@
-## SECTION=selinux
+## SECTION=staging
+## old section:
+### SECTION=selinux
 
 config SEPOLGEN
 	tristate
@@ -22,3 +24,6 @@ config SEPOLGEN
 	  parsing SELinux related messages as produced by the audit
 	  system. It has facilities for generating policy based on
 	  required access.
+
+	  STAGING: remove in ptxdist-2020.06.0
+	  Old version that needs to be updated.
