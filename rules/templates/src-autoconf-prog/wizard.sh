@@ -24,8 +24,8 @@ for i in \
 	INSTALL \
 	internal.h \
 ; do
-	sed -i -e "s/\@name\@/${NAME}/g" $i
-	sed -i -e "s/\@namenodash\@/${NAME_NODASH}/g" $i
-	sed -i -e "s/\@NAME\@/${NAME_UP}/g" $i
+	sed -i -e "s/\@name\@/${NAME}/g" \
+	       -e "s/\@namenodash\@/${NAME_NODASH}/g" \
+	       -e "s/\@NAME\@/${NAME_UP}/g" $i
 done
 

@@ -13,7 +13,7 @@ for i in \
 	CMakeLists.txt \
 	"${NAME}.cpp" \
 ; do
-	sed -i -e "s/\@name\@/${NAME}/g" $i
-	sed -i -e "s/\@NAME\@/${NAME_UP}/g" $i
+	sed -i -e "s/\@name\@/${NAME}/g" \
+	       -e "s/\@NAME\@/${NAME_UP}/g" $i
 done
 
