@@ -1,1 +1,2 @@
+#define VERSION_STR "@version@"
 #define LICENSE_STR "@license@"

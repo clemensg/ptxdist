@@ -211,7 +211,7 @@ ptxd_template_write_src() {
 	return
     fi &&
     template_dir=$(dirname "${template_src}") &&
-    ( cd "${dst}" && bash wizard.sh "${package}" "${template_dir}") &&
+    ( cd "${dst}" && bash wizard.sh "${package}" "${template_dir}" "${VERSION}") &&
     rm -f "${dst}/wizard.sh"
 }
 export -f ptxd_template_write_src
