@@ -345,9 +345,10 @@ function write_deps_pkg_active_cfghash(this_PKG, this_pkg) {
 	print "ifneq ($(" this_PKG "),)"									> DGEN_DEPS_POST;
 	print this_PKG "_PATCHES := $(call ptx/in-path,PTXDIST_PATH_PATCHES,$(" this_PKG "))"			> DGEN_DEPS_POST;
 	print "ifneq ($(wildcard $(" this_PKG "_PATCHES)),)"							> DGEN_DEPS_POST;
-	print "ifeq ($(wildcard " PTXDIST_TEMPDIR "/pkghash-" this_PKG ".done),)"				> DGEN_DEPS_POST;
+	print "ifeq ($(wildcard " PTXDIST_TEMPDIR "/pkghash-" this_PKG "_EXTRACT.done),)"			> DGEN_DEPS_POST;
 	print "$(call ptx/force-sh, find '$(" this_PKG "_PATCHES)' -type f ! -name '.*' | sort | xargs cat | tee " \
-		PTXDIST_TEMPDIR "/pkghash-" this_PKG "_EXTRACT >> " PTXDIST_TEMPDIR "/pkghash-" this_PKG ")"	> DGEN_DEPS_POST;
+		PTXDIST_TEMPDIR "/pkghash-" this_PKG "_EXTRACT >> " PTXDIST_TEMPDIR "/pkghash-" this_PKG \
+		" && touch " PTXDIST_TEMPDIR "/pkghash-" this_PKG "_EXTRACT.done )"				> DGEN_DEPS_POST;
 	print "endif"												> DGEN_DEPS_POST;
 	print "endif"												> DGEN_DEPS_POST;
 	print "endif"												> DGEN_DEPS_POST;
