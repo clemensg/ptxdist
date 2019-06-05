@@ -169,15 +169,7 @@ config ROOTFS_TMP
 	  Create a /tmp directory in the root filesystem.
 	  You should say yes here.
 
-config ROOTFS_VAR
-	bool
-	prompt "/var"
-	default y
-	help
-	  Create a /var directory in the root filesystem.
-	  You should say yes here.
-
-if ROOTFS_VAR
+menu "/var                        "
 
 config ROOTFS_VAR_RUN
 	bool
@@ -250,7 +242,7 @@ config ROOTFS_VAR_TMP
 	  Unless you want to mount a tmpfs on /var you should
 	  say yes here.
 
-endif # ROOTFS_VAR
+endmenu
 endif # ROOTFS
 
 # ----------------------------------------------------------------------------

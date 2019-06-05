@@ -96,9 +96,7 @@ endif
 ifdef PTXCONF_ROOTFS_TMP
 	@$(call install_copy, rootfs, 0, 0, 1777, /tmp)
 endif
-ifdef PTXCONF_ROOTFS_VAR
 	@$(call install_copy, rootfs, 0, 0, 0755, /var)
-endif
 ifdef PTXCONF_ROOTFS_VAR_LOG
 	@$(call install_copy, rootfs, 0, 0, 0755, /var/log)
 endif

@@ -33,7 +33,6 @@ config INITMETHOD_BBINIT_ETC_INITD_NETWORKING
 config INITMETHOD_BBINIT_ETC_INITD_RT_SET_BANDWIDTH
 	bool
 	prompt "install /etc/init.d/rt-set-bandwidth"
-	select ROOTFS_VAR
 	select ROOTFS_VAR_RUN
 	default y
 	help
