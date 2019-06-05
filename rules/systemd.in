@@ -30,6 +30,8 @@ menuconfig SYSTEMD
 	select ROOTFS_DEV
 	select LIBBLKID
 	select HOST_SYSTEMD	if SYSTEMD_UDEV_HWDB
+	select ROOTFS_VAR_LIB	if RUNTIME
+	select ROOTFS_VAR_CACHE	if RUNTIME
 	prompt "systemd                       "
 	help
 	  systemd is a system and session manager for Linux, compatible with SysV
@@ -42,6 +44,9 @@ menuconfig SYSTEMD
 	  drop-in replacement for sysvinit.
 
 	  http://www.freedesktop.org/wiki/Software/systemd
+
+	  Note: on a read-only root filesystem this package still requires a
+	  writable '/var/lib' and '/var/cache' for its run-time information.
 
 if SYSTEMD
 
