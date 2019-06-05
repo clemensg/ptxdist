@@ -4,6 +4,7 @@ config SYSSTAT
 	tristate
 	prompt "sysstat"
 	select GCCLIBS_GCC_S
+	select ROOTFS_VAR_LOG	if RUNTIME
 	help
 	  sar, iostat and mpstat - system performance tools for Linux
 
@@ -23,3 +24,6 @@ config SYSSTAT
 	  others. Both UP and SMP machines are fully supported.
 
 	  Homepage: http://pagesperso-orange.fr/sebastien.godard/
+
+	  Note: on a read-only root filesystem this package still requires a
+	  writable '/var/log'.
