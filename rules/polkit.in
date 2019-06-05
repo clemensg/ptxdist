@@ -10,11 +10,15 @@ menuconfig POLKIT
 	select GLIB
 	select DBUS_GLIB
 	select EGGDBUS
-	select SYSTEMD if POLKIT_SYSTEMD
-	select SYSTEMD_LOGIND if POLKIT_SYSTEMD
+	select SYSTEMD		if POLKIT_SYSTEMD
+	select SYSTEMD_LOGIND	if POLKIT_SYSTEMD
+	select ROOTFS_VAR_LIB	if RUNTIME
 	help
 	  PolicyKit offers an infrastructure for security policies for
 	  dbus applications.
+
+	  Note: on a read-only root filesystem this package still requires a
+	  writable '/var/lib' for its run-time information.
 
 if POLKIT
 
