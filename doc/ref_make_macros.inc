@@ -97,6 +97,21 @@ The same for all other macros. These are the default build commands for the
 corresponding stages. For more details see the documentation of the default
 stages below.
 
+extract
+~~~~~~~
+
+Usage:
+
+.. code-block:: make
+
+ $(call extract, <PKG>)
+
+Extract a source archive into a directory.
+The source archive to unpack is taken from the ``<PKG>_SOURCE`` variable,
+and the directory to unpack to is taken from the ``<PKG>_DIR`` variable.
+This macro doesn't do anything if ``<PKG>_URL`` points to a local directory
+instead of an archive or online URL.
+
 compile
 ~~~~~~~
 
