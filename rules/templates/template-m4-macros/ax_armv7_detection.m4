@@ -12,7 +12,7 @@
 #   --disable-armv7core.
 #   It works by detecting the compiler's macros __ARM_ARCH_7A__, __ARM_ARCH_7M__.
 #   These are set in  gcc compilers when they are configured to create code for
-#   ARMv6 cores.
+#   ARMv7 cores.
 #   This macro cannot detect the correct target's features if the compiler is
 #   not correctly configured to reflect the target's features.
 #
@@ -58,7 +58,7 @@ dnl
 		[ax_armv7core=auto])
 
 	AC_CACHE_CHECK([for ARMv7 target core], [ax_cv_armv7core],
-		[ax_cv_armv7core=${ax_armv6core}])
+		[ax_cv_armv7core=${ax_armv7core}])
 dnl	AC_MSG_RESULT([${ax_cv_armv7core}])
 
 	if test "x${ax_cv_armv7core}" = "xauto"; then
@@ -71,7 +71,7 @@ dnl only for GCC we know it works in this way
 				[AC_LANG_PROGRAM([[]],
 					[[
 #undef THIS_IS_V7
-#if defined(__ARM_ARCH_7A__) || defined(__ARM_ARCH_7M__)
+#if __ARM_ARCH==7 || defined(__ARM_ARCH_7A__) || defined(__ARM_ARCH_7M__)
 # define THIS_IS_V7 1
 #endif
 int foo = THIS_IS_V7;
@@ -79,7 +79,7 @@ int foo = THIS_IS_V7;
 				],
 				[ax_cv_armv7core=yes],
 				[ax_cv_armv7core=no],
-				[ARMv6 core]); dnl AC_COMPILE_IFELSE
+				[ARMv7 core]); dnl AC_COMPILE_IFELSE
 			AC_MSG_RESULT([${ax_cv_armv7core}]);
 		fi
 	fi

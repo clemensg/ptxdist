@@ -14,8 +14,14 @@ AM_SILENT_RULES([yes])
 # TODO If you don't want the default installation path to be '/usr/local' change it here
 # AC_PREFIX_DEFAULT(<new prefix>)
 
-# TODO If possible, enable extensions to Posix
+# If possible, enable extensions to Posix
 AC_USE_SYSTEM_EXTENSIONS
+
+# support LFS
+AC_SYS_LARGEFILE
+
+AM_MAINTAINER_MODE
+AM_INIT_AUTOMAKE([foreign no-exeext dist-xz silent-rules subdir-objects])
 
 #
 # libtool library versioning stuff
@@ -31,13 +37,10 @@ AC_SUBST(LT_CURRENT)
 AC_SUBST(LT_REVISION)
 AC_SUBST(LT_AGE)
 
-AM_MAINTAINER_MODE
-AM_INIT_AUTOMAKE([foreign no-exeext dist-xz silent-rules subdir-objects])
-
 #
 # Checks for programs.
 #
-AC_PROG_CC
+AC_PROG_CC_C99
 
 #
 # TODO to only build the static library uncomment the following line
@@ -120,15 +123,16 @@ PTX_LIBRARY_CHECKS
 # specific architectures.
 
 #AS_IF([test x${host_cpu} = "xarm"],
-#	[AX_DETECT_ARMV4([enable_arm4=yes], [enable_arm4=no])
-#	AX_DETECT_ARMV5([enable_arm5=yes], [enable_arm5=no])
+#	[AX_DETECT_ARMV5([enable_arm5=yes], [enable_arm5=no])
 #	AX_DETECT_ARMV6([enable_arm6=yes], [enable_arm6=no])
 #	AX_DETECT_ARMV7([enable_arm7=yes], [enable_arm7=no])
+#	AX_DETECT_ARMV8([enable_arm8=yes], [enable_arm8=no])
 #
 #	AS_IF([test x${enable_arm4} = "xyes"], [AC_MSG_NOTICE([ARMv4 target])])
 #	AS_IF([test x${enable_arm5} = "xyes"], [AC_MSG_NOTICE([ARMv5 target])])
 #	AS_IF([test x${enable_arm6} = "xyes"], [AC_MSG_NOTICE([ARMv6 target])])
-#	AS_IF([test x${enable_arm7} = "xyes"], [AC_MSG_NOTICE([ARMv7 target])])])
+#	AS_IF([test x${enable_arm7} = "xyes"], [AC_MSG_NOTICE([ARMv7 target])])
+#	AS_IF([test x${enable_arm8} = "xyes"], [AC_MSG_NOTICE([ARMv8 target])])])
 
 # -------------------------- use all the settings ----------------------------
 
@@ -177,14 +181,17 @@ AC_MSG_RESULT([
 	 Target CPU:		${host_cpu}
 	 Target OS:		${host_os}
 
+	User options:
+	------------------------------------------------------
+	 CFLAGS:		${CFLAGS}
+	 CPPFLAGS:		${CPPFLAGS}
+	 LDFLAGS:		${LDFLAGS}
+
 	Detected options:
 	------------------------------------------------------
-	 CPPFLAGS:		${CPPFLAGS}
-	 CFLAGS:		${CFLAGS}
-	 LDFLAGS:		${LDFLAGS}
 	 Debug:			${enable_debug}
 	 Hidden symbols		${enable_hide}
-	 Coverage:		${enable_coverage}
+	 Coverage:		${enable_code_coverage}
 		CPPFLAGS:	${CODE_COVERAGE_CPPFLAGS}
 		CFLAGS:		${CODE_COVERAGE_CFLAGS}
 		LDFLAGS:	${CODE_COVERAGE_LDFLAGS}
@@ -192,12 +199,6 @@ AC_MSG_RESULT([
 	 Optimisation goal:	${with_goal}
 	 Private libs:		${LIBS}
 	 Use abort():		${enable_abort}
-
-	User options:
-	------------------------------------------------------
-	 CFLAGS:		${CFLAGS}
-	 CPPFLAGS:		${CPPFLAGS}
-	 LDFLAGS:		${LDFLAGS}
 
 	Install options:
 	------------------------------------------------------

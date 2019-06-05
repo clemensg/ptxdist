@@ -16,12 +16,11 @@ EXTRA_DIST = \
 	autogen.sh \
 	m4/attributes.m4 \
 	m4/ptx.m4 \
-	m4/ax_armv4_detection.m4 \
 	m4/ax_armv5_detection.m4 \
 	m4/ax_armv6_detection.m4 \
 	m4/ax_armv7_detection.m4 \
+	m4/ax_armv8_detection.m4 \
 	m4/ax_floating_point.m4 \
-	m4/ax_am_jobserver.m4 \
 	m4/ax_code_coverage.m4 \
 	m4/pkg.m4 \
 	COPYING
