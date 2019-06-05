@@ -81,12 +81,12 @@ $(STATEDIR)/dnsmasq.targetinstall:
 	@$(call install_copy, dnsmasq, 0, 0, 0755, -, /usr/sbin/dnsmasq)
 
 ifdef PTXCONF_DNSMASQ_INETD
-	@$(call install_alternative, dnsmasq, 0, 0, 0644, /etc/inetd.conf.d/dnsmasq, n)
+	@$(call install_alternative, dnsmasq, 0, 0, 0644, /etc/inetd.conf.d/dnsmasq)
 endif
 
 ifdef PTXCONF_INITMETHOD_BBINIT
 ifdef PTXCONF_DNSMASQ_STARTSCRIPT
-	@$(call install_alternative, dnsmasq, 0, 0, 0755, /etc/init.d/dnsmasq, n)
+	@$(call install_alternative, dnsmasq, 0, 0, 0755, /etc/init.d/dnsmasq)
 
 ifneq ($(call remove_quotes,$(PTXCONF_DNSMASQ_BBINIT_LINK)),)
 	@$(call install_link, dnsmasq, \
@@ -102,7 +102,7 @@ ifdef PTXCONF_DNSMASQ_SYSTEMD_UNIT
 		/usr/lib/systemd/system/network.target.wants/dnsmasq.service)
 endif
 
-	@$(call install_alternative, dnsmasq, 0, 0, 0644, /etc/dnsmasq.conf, n)
+	@$(call install_alternative, dnsmasq, 0, 0, 0644, /etc/dnsmasq.conf)
 
 # for the 'dnsmasq.leases' file
 	@$(call install_copy, dnsmasq, 0, 0, 0755, /var/lib/misc)
