@@ -44,11 +44,9 @@ Usage:
 
  $(call targetinfo)
 
-Gives a feedback, what build *stage* is just started. That's why it
-should always be the first call for each *stage*. For the package
-*foo* and the *compile stage* it will output:
-
-.. code-block:: bash
+Gives the user feedback about which build stage has just started.
+That's why it should always be the first call for each stage.
+For the package *foo* and the *compile* stage, this macro will output::
 
  --------------------
  target: foo.compile
@@ -63,11 +61,9 @@ Usage:
 
  $(call touch)
 
-Gives a feedback, what build *stage* is just finished. That's why it
-should always be the last call for each *stage*. For the package
-*foo* and the *compile stage* it will output:
-
-.. code-block:: bash
+Gives the user feedback about which build stage has just finished.
+That's why it should always be the last call for each stage.
+For the package *foo* and the *compile* stage, this macro will output::
 
  finished target foo.compile
 
@@ -123,7 +119,7 @@ Usage:
 
 This macro is very similar to ``world/compile``. The only differences is
 that is uses the specified ``build arguments`` instead of
-``<PKG>_MAKE_OPT``. This is usefull if ``make`` needs to be called more
+``<PKG>_MAKE_OPT``. This is useful if ``make`` needs to be called more
 than once in the compile stage.
 
 world/execute, execute
