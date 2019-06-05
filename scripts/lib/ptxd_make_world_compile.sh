@@ -17,7 +17,7 @@ ptxd_make_world_compile() {
 	# no build dir -> assume the package has nothing to build.
 	return
     fi &&
-    case "${pkg_conf_tool}" in
+    case "${pkg_build_tool}" in
 	python*)
 	(
 	ptxd_eval \
@@ -30,7 +30,7 @@ ptxd_make_world_compile() {
 	    "${pkg_make_opt}"
 	)
 	;;
-	meson)
+	ninja)
 	ptxd_eval \
 	    "${pkg_path}" \
 	    "${pkg_env}" \

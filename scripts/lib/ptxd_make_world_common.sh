@@ -336,15 +336,6 @@ ptxd_make_world_init() {
 		pkg_env="${pkg_env} LC_ALL='$(locale -a | grep -i -m 1 "\.utf[-]\?8")'"
 	    fi
 	    unset c_locale
-
-	    if [ "${PTXDIST_VERBOSE}" = "1" ]; then
-		pkg_make_opt="-v ${pkg_make_opt}"
-		pkg_install_opt="-v ${pkg_install_opt}"
-	    fi
-	    # pass jobserver via MAKEFLAGS to ninja
-	    pkg_env="${pkg_env} MAKEFLAGS='${PTXDIST_JOBSERVER_FLAGS}'"
-	    PTXDIST_PARALLELMFLAGS_INTERN=""
-
 	    unset conf_opt_ptr
 	    ;;
 	*)
@@ -369,15 +360,6 @@ ptxd_make_world_init() {
     whitelist_host="$(echo $(cat "${deps_host[@]}" /dev/null 2>/dev/null))"
     whitelist_target="$(echo $(cat "${deps_target[@]}" /dev/null 2>/dev/null))"
     pkg_env="PKGCONFIG_WHITELIST_HOST='${whitelist_host}' PKGCONFIG_WHITELIST_TARGET='${whitelist_target}' PKGCONFIG_WHITELIST_SRC='${pkg_label}' ${pkg_env}"
-
-    # DESTDIR
-    if [[ "${pkg_conf_tool}" =~ "python" ]]; then
-	pkg_install_opt="${pkg_install_opt} --root=${pkg_pkg_dir}"
-    elif [ "${pkg_conf_tool}" = "meson" ]; then
-	    pkg_env="${pkg_env} DESTDIR=\"${pkg_pkg_dir}\""
-    else
-	pkg_install_opt="DESTDIR=\"${pkg_pkg_dir}\" INSTALL_ROOT=\"${pkg_pkg_dir}\" ${pkg_install_opt}"
-    fi
 
 
     #
@@ -412,6 +394,42 @@ ptxd_make_world_init() {
 	pkg_build_oot=true
 	pkg_conf_dir="$(ptxd_abs2rel "${pkg_build_dir}" "${pkg_conf_dir}")"
     fi
+
+    #
+    # make or ninja
+    #
+    pkg_build_tool="${pkg_conf_tool}"
+    case "${pkg_conf_tool}" in
+	meson)
+	    pkg_build_tool=ninja
+	    ;;
+	cmake)
+	    if [ -e "${pkg_build_dir}/build.ninja" ]; then
+		pkg_build_tool=ninja
+	    fi
+    esac
+    if [ "${pkg_build_tool}" = "ninja" ]; then
+	if [ "${PTXDIST_VERBOSE}" = "1" ]; then
+	    pkg_make_opt="-v ${pkg_make_opt}"
+	    pkg_install_opt="-v ${pkg_install_opt}"
+	fi
+	# pass jobserver via MAKEFLAGS to ninja
+	pkg_env="${pkg_env} MAKEFLAGS='${PTXDIST_JOBSERVER_FLAGS}'"
+	PTXDIST_PARALLELMFLAGS_INTERN=""
+    fi
+
+    # DESTDIR
+    case "${pkg_build_tool}" in
+	python*)
+	    pkg_install_opt="${pkg_install_opt} --root=${pkg_pkg_dir}"
+	    ;;
+	ninja)
+	    pkg_env="DESTDIR=\"${pkg_pkg_dir}\" ${pkg_env}"
+	    ;;
+	*)
+	    pkg_install_opt="DESTDIR=\"${pkg_pkg_dir}\" INSTALL_ROOT=\"${pkg_pkg_dir}\" ${pkg_install_opt}"
+	    ;;
+    esac
 
     #
     # parallelmake

@@ -70,7 +70,7 @@ ptxd_make_world_install() {
 
     ptxd_make_world_install_prepare &&
 
-    case "${pkg_conf_tool}" in
+    case "${pkg_build_tool}" in
 	python*)
 	cmd=( \
 	    cd "${pkg_build_dir}" '&&' \
@@ -87,7 +87,7 @@ ptxd_make_world_install() {
 	    cmd[${#cmd[@]}]=ptxd_make_world_install_python_cleanup
 	fi
 	;;
-	meson)
+	ninja)
 	cmd=( \
 	    "${pkg_path}" \
 	    "${pkg_env}" \
