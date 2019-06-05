@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_DNSMASQ) += dnsmasq
 #
 # Paths and names
 #
-DNSMASQ_VERSION		:= 2.79
-DNSMASQ_MD5		:= 64010c9734f5e275eb591374a6dad924
+DNSMASQ_VERSION		:= 2.80
+DNSMASQ_MD5		:= e040e72e6f377a784493c36f9e788502
 DNSMASQ			:= dnsmasq-$(DNSMASQ_VERSION)
 DNSMASQ_SUFFIX		:= tar.xz
 DNSMASQ_URL		:= http://www.thekelleys.org.uk/dnsmasq/$(DNSMASQ).$(DNSMASQ_SUFFIX)
@@ -59,7 +59,7 @@ ifdef DNSMASQ_DNSSEC
 DNSMASQ_COPT += -DHAVE_DNSSEC
 endif
 
-DNSMASQ_MAKEVARS := PREFIX=/usr AWK=awk COPTS='$(DNSMASQ_COPT)'
+DNSMASQ_MAKEVARS := PREFIX=/usr AWK=awk COPTS='$(DNSMASQ_COPT)' "CFLAGS+=-Wall -Wextra -ggdb3 -O2"
 
 $(STATEDIR)/dnsmasq.prepare:
 	@$(call targetinfo)
@@ -76,7 +76,7 @@ $(STATEDIR)/dnsmasq.targetinstall:
 	@$(call install_fixup, dnsmasq,PRIORITY,optional)
 	@$(call install_fixup, dnsmasq,SECTION,base)
 	@$(call install_fixup, dnsmasq,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, dnsmasq,DESCRIPTION,missing)
+	@$(call install_fixup, dnsmasq,DESCRIPTION,"Low Requirements DNS/DHCP daemon")
 
 	@$(call install_copy, dnsmasq, 0, 0, 0755, -, /usr/sbin/dnsmasq)
 

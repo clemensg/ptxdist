@@ -77,6 +77,7 @@ comment "runtime options   ---"
 
 choice
 	prompt "Kind of startup"
+	depends on !INITMETHOD_SYSTEMD
 
 	config DNSMASQ_INETD
 		bool
@@ -106,7 +107,7 @@ endchoice
 config DNSMASQ_SYSTEMD_UNIT
 	bool
 	default y
-	depends on SYSTEMD
+	depends on INITMETHOD_SYSTEMD
 	prompt "install systemd unit files for dnsmasq"
 
 endif
