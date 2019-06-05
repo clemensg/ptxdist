@@ -42,6 +42,7 @@ DBUS_CONF_ENV	:= \
 DBUS_CONF_TOOL	:= autoconf
 DBUS_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
+	--runstatedir=/run \
 	--enable-silent-rules \
 	--disable-developer \
 	--disable-debug \
@@ -74,6 +75,7 @@ DBUS_CONF_OPT	:= \
 	--disable-relocation \
 	--disable-stats \
 	--$(call ptx/endis, PTXCONF_DBUS_SYSTEMD)-user-session \
+	--with-system-socket=/run/dbus/system_bus_socket \
 	--with-dbus-user=messagebus \
 	--without-valgrind \
 	--$(call ptx/wwo, PTXCONF_DBUS_X)-x$(call ptx/ifdef,PTXCONF_DBUS_X,=$(SYSROOT)/usr,) \
