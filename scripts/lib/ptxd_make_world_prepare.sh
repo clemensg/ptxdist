@@ -29,7 +29,7 @@ ptxd_make_world_hash()
     fi
     for h in "${hashes[@]}"; do
 	if [ "${h}" != "${hash}" ]; then
-	    if [ "${target}" = "pkghash" ]; then
+	    if [ "${target}" = "cfghash" ]; then
 		echo -e "Configuration changed! Reconfiguring...\n"
 	    else
 		echo -e "Patches changed! Reextracting...\n"
