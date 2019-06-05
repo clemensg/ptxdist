@@ -20,7 +20,7 @@ barebox-opts = \
 	$(call barebox/opts,$(strip $(1)))
 
 barebox/url = \
-	http://www.barebox.org/download/$($(1)).$($(1)_SUFFIX)
+	http://www.barebox.org/download/barebox-$($(1)_VERSION).$($(1)_SUFFIX)
 
 barebox-url = \
 	$(call barebox/url,$(strip $(1)))

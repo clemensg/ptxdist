@@ -24,7 +24,7 @@ BAREBOX_@PACKAGE@_DIR		:= $(BUILDDIR)/barebox-@package@-$(BAREBOX_@PACKAGE@_VERS
 BAREBOX_@PACKAGE@_CONFIG	:= $(call ptx/in-platformconfigdir, barebox-@package@.config.$(BAREBOX_@PACKAGE@_VERSION))
 BAREBOX_@PACKAGE@_LICENSE	:= GPL-2.0-only
 BAREBOX_@PACKAGE@_URL		:= $(call barebox-url, BAREBOX_@PACKAGE@)
-BAREBOX_@PACKAGE@_SOURCE	:= $(SRCDIR)/$(BAREBOX_@PACKAGE@).$(BAREBOX_@PACKAGE@_SUFFIX)
+BAREBOX_@PACKAGE@_SOURCE	:= $(SRCDIR)/barebox-$(BAREBOX_@PACKAGE@_VERSION).$(BAREBOX_@PACKAGE@_SUFFIX)
 
 # ----------------------------------------------------------------------------
 # Prepare
