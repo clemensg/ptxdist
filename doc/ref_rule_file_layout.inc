@@ -23,6 +23,18 @@ Each rule file provides PTXdist with the required steps (in PTXdist called
 
    - targetinstall.post
 
+.. note::
+
+  Host, image and cross packages don't need to install anything in the target file system.
+  Therefore, PTXdist only respects the *targetinstall* and *targetinstall.post*
+  stages for packages whose name doesn't start with ``host-``, ``image-``, or ``cross-``.
+
+  When you want to depend on the output of a certain image package, you can
+  usually use its image name as an `additional prerequisite <make-prereq-types_>`_
+  in your make rule for the dependent stage.
+
+.. _make-prereq-types: https://www.gnu.org/software/make/manual/make.html#Prerequisite-Types
+
 Default stage rules
 ~~~~~~~~~~~~~~~~~~~
 

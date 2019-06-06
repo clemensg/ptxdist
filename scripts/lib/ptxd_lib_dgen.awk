@@ -98,6 +98,20 @@ function dump_file(src, dst, tmp) {
 
 
 #
+# warn user if an image, host, or cross package contains a targetinstall rule
+# which will not be executed
+#
+$1 ~ /^\$\(STATEDIR\)\/(image-.*|host-.*|cross-.*)\.targetinstall(.post)?:/ {
+	match($0, /\$\(STATEDIR\)\/((image-.*|host-.*|cross-.*)\.targetinstall(.post)?):/, m);
+	print "\nError in " old_filename " line " lineno ":\n" \
+		"  '" m[1] "' stage will be ignored.\n" \
+		"  See section 'Rule File Layout' in the PTXdist reference for more info:\n" \
+		"  https://www.ptxdist.org/doc/ref_manual.html#rule-file-layout"
+	exit 1;
+}
+
+
+#
 # parse "PACKAGES-$(PTXCONF_PKG) += pkg" lines, i.e. rules-files from
 # rules/*.make. Setup mapping between upper and lower case pkg names
 #
