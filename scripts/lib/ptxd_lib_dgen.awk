@@ -36,7 +36,7 @@ FNR == 1 {
 	move_argc = ARGIND;
 
 	#
-	# "include" all mafile files which are _not_ pkgs explicidly
+	# "include" all makefile files which are _not_ pkgs explicitly.
 	# the make files which are actually pkgs will be "include"d
 	# in the END rule
 	#
