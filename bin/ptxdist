@@ -2488,7 +2488,7 @@ setup_parallel() {
 
 setup_auto_version()
 {
-	local configfile_version next
+	local configfile_version next saved_ptxconfig
 	local -a args
 
 	if [ -z "${PTXDIST_AUTOVERSION}" ]; then
@@ -2524,9 +2524,11 @@ setup_auto_version()
 		return
 	fi
 	# the bottom layer decides the version
+	saved_ptxconfig="${PTXDIST_PTXCONFIG}"
 	PTXDIST_PTXCONFIG="${ptxd_reply[${#ptxd_reply[@]}-1]}"
 
 	_get_config_ptx
+	PTXDIST_PTXCONFIG="${saved_ptxconfig}"
 	if check_version "${configfile_version}"; then
 		# this is already the correct version
 		return
