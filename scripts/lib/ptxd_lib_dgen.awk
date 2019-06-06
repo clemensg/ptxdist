@@ -45,12 +45,15 @@ FNR == 1 {
 
 	# remember the current opened file
 	old_filename = FILENAME;
+	lineno = 0;
 
 	# will be set later, if makefile belongs to a pkg
 	is_pkg = "";
 }
 
-
+/^/ {
+	lineno += 1;
+}
 
 #
 # skip comments and empty lines
