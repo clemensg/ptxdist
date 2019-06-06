@@ -570,10 +570,29 @@ check_compiler_icecc() {
 			if [ -n "${compiler_prefix}" ]; then
 				echo "Creating icecc target environment..."
 				cd "${icecc_dir}/target"
-				"${PTXDIST_ICECC_CREATE_ENV}" --gcc \
+				local -a args
+				if [ -e "${wrapper_dir}/real/${compiler_prefix}clang" ]; then
+					args[${#args[@]}]="--clang"
+					args[${#args[@]}]="${wrapper_dir}/real/${compiler_prefix}clang"
+				fi
+				"${PTXDIST_ICECC_CREATE_ENV}" "${args[@]}" --gcc \
 					"${wrapper_dir}/real/${compiler_prefix}gcc" \
 					"${wrapper_dir}/real/${compiler_prefix}g++" > /dev/null 2>&1 || \
 				ptxd_bailout "Failed!"
+				if [ ${#args[*]} -gt 0 ]; then
+					tar --strip-components=2 -xf *.tar.gz usr/bin/as &&
+					./as --verbose --version > env.log 2>&1 &&
+					${compiler_prefix}as --verbose --version > real.log 2>&1
+					if ! cmp -s env.log real.log; then
+						echo "Broken icecc-create-env, disabling icecc clang support!"
+						rm *.tar.gz
+						"${PTXDIST_ICECC_CREATE_ENV}" --gcc \
+							"${wrapper_dir}/real/${compiler_prefix}gcc" \
+							"${wrapper_dir}/real/${compiler_prefix}g++" > /dev/null || \
+						ptxd_bailout "Failed!"
+					fi
+					rm as env.log real.log
+				fi
 				ln -s "${toolchain}" "${icecc_dir}/toolchain"
 			fi
 		) &&
