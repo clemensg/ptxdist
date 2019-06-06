@@ -21,15 +21,18 @@ fi
 
 . ${PTXDIST_PLATFORMCONFIG}
 
+CMD="${0##*/}"
+FULL_CMD="${0%/*}/real/${CMD}"
+
 wrapper_exec() {
 	PATH="$(echo "${PATH}" | sed "s;${PTXDIST_PATH_SYSROOT_HOST}/lib/wrapper:;;")"
 	if [ "${PTXDIST_VERBOSE}" = 1 -a -n "${PTXDIST_FD_LOGFILE}" ]; then
-		echo "wrapper: ${PTXDIST_ICECC}${PTXDIST_CCACHE} ${0##*/} ${ARG_LIST} $* ${LATE_ARG_LIST}" >&${PTXDIST_FD_LOGFILE}
+		echo "wrapper: ${PTXDIST_ICECC}${PTXDIST_CCACHE} ${CMD} ${ARG_LIST} $* ${LATE_ARG_LIST}" >&${PTXDIST_FD_LOGFILE}
 	fi
 	if [ -n "${FAKEROOTKEY}" -o -z "${ICECC_VERSION}" -o ! -e "${ICECC_VERSION}" ]; then
 		unset PTXDIST_ICECC
 	fi
-	exec ${PTXDIST_ICECC}${PTXDIST_CCACHE} "${0%/*}/real/${0##*/}" ${ARG_LIST} "$@" ${LATE_ARG_LIST}
+	exec ${PTXDIST_ICECC}${PTXDIST_CCACHE} "${FULL_CMD}" ${ARG_LIST} "$@" ${LATE_ARG_LIST}
 }
 
 cc_check_args() {
@@ -67,7 +70,7 @@ cc_check_args() {
 			-I/usr/include | -L/usr/lib | -L/lib)
 				if ! ${HOST}; then
 					echo "wrapper: Bad search path in:" >&2
-					echo "${0##*/} $*" >&2
+					echo "${CMD} $*" >&2
 					exit 1
 				fi
 				;;
@@ -284,23 +287,23 @@ add_icecc_args() {
 cc_add_target_icecc() {
 	add_icecc_args
 	export ICECC_VERSION="${ICECC_VERSION_TARGET}"
-	export ICECC_CC="${0%/*}/real/${0##*/}"
+	export ICECC_CC="${FULL_CMD}"
 }
 
 cxx_add_target_icecc() {
 	add_icecc_args
 	export ICECC_VERSION="${ICECC_VERSION_TARGET}"
-	export ICECC_CXX="${0%/*}/real/${0##*/}"
+	export ICECC_CXX="${FULL_CMD}"
 }
 
 cc_add_host_icecc() {
 	add_icecc_args
 	export ICECC_VERSION="${ICECC_VERSION_HOST}"
-	export ICECC_CC="${0%/*}/real/${0##*/}"
+	export ICECC_CC="${FULL_CMD}"
 }
 
 cxx_add_host_icecc() {
 	add_icecc_args
 	export ICECC_VERSION="${ICECC_VERSION_HOST}"
-	export ICECC_CXX="${0%/*}/real/${0##*/}"
+	export ICECC_CXX="${FULL_CMD}"
 }
