@@ -1,0 +1,6 @@
+## SECTION=hosttools_noprompt
+
+config HOST_LIBFTDI1
+	tristate
+	select HOST_CMAKE
+	default ALLYES
