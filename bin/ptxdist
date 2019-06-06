@@ -585,6 +585,9 @@ check_compiler_icecc() {
 	if [ -n "${compiler_prefix}" ]; then
 		ptxd_get_path "${icecc_dir}/target"/*.tar.gz &&
 		export ICECC_VERSION_TARGET="${ptxd_reply}"
+		if tar -tf "${ICECC_VERSION_TARGET}" | grep -q clang; then
+			export PTXDIST_ICECC_CLANG=1
+		fi
 	fi &&
 	if "${PTXDIST_ICECC}" --help | grep -q ICECC_REMOTE_CPP; then
 		export PTXDIST_ICECC_REMOTE_CPP=1
@@ -772,6 +775,14 @@ check_compiler() {
 		ptxd_replace_copy_from_path PTXDIST_PATH "scripts/wrapper/${cc}-wrapper" \
 			"${wrapper_dir}/${compiler_prefix}${cc}"
 	done &&
+	for cc in clang clang++; do
+		if [ ! -e "${toolchain}/${cc}" ]; then
+			continue
+		fi
+		ptxd_replace_link "${toolchain}/${cc}" "${wrapper_dir}/real/${compiler_prefix}${cc}" &&
+		ptxd_replace_copy_from_path PTXDIST_PATH "scripts/wrapper/${cc}-wrapper" \
+			"${wrapper_dir}/${compiler_prefix}${cc}"
+	done
 	for tool in "${toolchain}/${compiler_prefix}"* ; do
 		local toolname="$(basename "${tool}")"
 		if [ ! -e "${wrapper_dir}/${toolname}" ]; then

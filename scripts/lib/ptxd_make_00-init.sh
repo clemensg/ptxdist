@@ -211,7 +211,7 @@ ptxd_init_cross_env() {
     # add "-L<DIR>/lib -Wl,-rpath-link -Wl,<DIR>"
     local -a ldflags
     ldflags=( "${prefix[@]/%//${lib_dir}}" )
-    ldflags=( "${ldflags[@]/#/-B}" "${ldflags[@]/#/-Wl,-rpath-link -Wl,}" )
+    ldflags=( "${ldflags[@]/#/-B}" "${ldflags[@]/#/-L}" "${ldflags[@]/#/-Wl,-rpath-link -Wl,}" )
 
     export \
 	PTXDIST_CROSS_CPPFLAGS="${cppflags[*]}" \
@@ -302,7 +302,9 @@ ptxd_init_save_wrapper_env() {
 	PTXDIST_HOST_CPPFLAGS="${PTXDIST_HOST_CPPFLAGS}"
 	PTXDIST_HOST_LDFLAGS="${PTXDIST_HOST_LDFLAGS}"
 	PTXDIST_PLATFORMDIR="${PTXDIST_PLATFORMDIR}"
+	PTXDIST_SYSROOT_TOOLCHAIN="${PTXDIST_SYSROOT_TOOLCHAIN}"
 	PTXDIST_ICECC_REMOTE_CPP="${PTXDIST_ICECC_REMOTE_CPP}"
+	PTXDIST_ICECC_CLANG="${PTXDIST_ICECC_CLANG}"
 	EOF
 }
 

@@ -11,6 +11,6 @@ cc_add_fortify
 cc_add_stack
 cc_add_pie
 cc_add_glibcxx
-cxx_add_target_icecc "${@}"
+cxx_add_target_icecc
 
 wrapper_exec "$@"

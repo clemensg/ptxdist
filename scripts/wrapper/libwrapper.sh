@@ -277,7 +277,12 @@ cxx_add_host_extra() {
 
 add_icecc_args() {
 	if [ -n "${PTXDIST_ICECC}" ]; then
-		add_late_arg "-fno-diagnostics-show-caret"
+		if [ "${1}" != clang ]; then
+			add_late_arg "-fno-diagnostics-show-caret"
+		elif [ "${PTXDIST_ICECC_CLANG}" != 1 ]; then
+		    unset PTXDIST_ICECC
+		    return
+		fi
 		if [ "${PTXDIST_ICECC_REMOTE_CPP}" != 1 -o "${ICECC_REMOTE_CPP}" = "0" ]; then
 		    add_late_arg "-Wno-implicit-fallthrough"
 		fi
@@ -285,25 +290,40 @@ add_icecc_args() {
 }
 
 cc_add_target_icecc() {
-	add_icecc_args
+	add_icecc_args "${@}"
 	export ICECC_VERSION="${ICECC_VERSION_TARGET}"
 	export ICECC_CC="${FULL_CMD}"
 }
 
 cxx_add_target_icecc() {
-	add_icecc_args
+	add_icecc_args "${@}"
 	export ICECC_VERSION="${ICECC_VERSION_TARGET}"
 	export ICECC_CXX="${FULL_CMD}"
 }
 
 cc_add_host_icecc() {
-	add_icecc_args
+	add_icecc_args "${@}"
 	export ICECC_VERSION="${ICECC_VERSION_HOST}"
 	export ICECC_CC="${FULL_CMD}"
 }
 
 cxx_add_host_icecc() {
-	add_icecc_args
+	add_icecc_args "${@}"
 	export ICECC_VERSION="${ICECC_VERSION_HOST}"
 	export ICECC_CXX="${FULL_CMD}"
+}
+
+cc_add_target_clang() {
+	triple="${CMD%-*}"
+	FULL_CMD=$(readlink "${0%/*}/real/${CMD}")
+	if [ -n "${PTXDIST_SYSROOT_TOOLCHAIN}" ]; then
+		add_arg --sysroot="${PTXDIST_SYSROOT_TOOLCHAIN}"
+	fi
+	env="$(dirname "${FULL_CMD}")/.${triple}.flags"
+	if [ -e "${env}" ]; then
+		. "${env}"
+		add_arg ${flags}
+	else
+		add_arg --target ${triple}
+	fi
 }
