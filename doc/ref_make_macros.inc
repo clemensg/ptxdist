@@ -67,6 +67,8 @@ For the package *foo* and the *compile* stage, this macro will output::
 
  finished target foo.compile
 
+.. _clean:
+
 clean
 ~~~~~
 
@@ -107,6 +109,10 @@ The source archive to unpack is taken from the ``<PKG>_SOURCE`` variable,
 and the directory to unpack to is taken from the ``<PKG>_DIR`` variable.
 This macro doesn't do anything if ``<PKG>_URL`` points to a local directory
 instead of an archive or online URL.
+
+The target directory is not removed, so ``extract`` can be used multipe
+times in a row to extract several archives. Usually :ref:`clean` is
+called before the first ``extract``.
 
 compile
 ~~~~~~~
