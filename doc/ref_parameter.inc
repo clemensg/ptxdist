@@ -339,7 +339,7 @@ Options
   PTXdist cannot know if rebuilding is functionally necessary for the depending
   packages. By specifying ``--dirty``, depending packages will not be rebuilt
   if their dependencies were rebuilt. Also, changes to config options,
-  rule and menu file will not trigger a rebuild either.
+  rule and menu file or changed patches will not trigger a rebuild either.
 
   To trigger a rebuild, the relevant stage of a package must be dropped.
 
