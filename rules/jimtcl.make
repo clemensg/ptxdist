@@ -38,7 +38,7 @@ JIMTCL_CONF_TOOL	:= autoconf
 JIMTCL_CONF_ENV		:= \
 	$(CROSS_ENV) \
 	CCACHE=none \
-	autosetup_tclsh=$(PTXCONF_SYSROOT_HOST)/usr/bin/jimsh
+	autosetup_tclsh=$(PTXCONF_SYSROOT_HOST)/bin/jimsh
 JIMTCL_CONF_OPT		:= \
 	$(CROSS_AUTOCONF_USR) \
 	$(call ptx/ifdef, PTXCONF_JIMTCL_UTF8,--utf8,) \

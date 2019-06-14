@@ -33,7 +33,7 @@ HOST_JIMTCL_CONF_ENV	:= \
 	$(HOST_ENV) \
 	CCACHE=none
 HOST_JIMTCL_CONF_OPT	:= \
-	--prefix=/usr \
+	$(HOST_AUTOCONF) \
 	--disable-lineedit \
 	--disable-docs
 
