@@ -38,7 +38,7 @@ wrapper_exec() {
 cc_check_args() {
 	for ARG in "$@"; do
 		case "${ARG}" in
-			-c)
+			-c | -E)
 				LINKING=false
 				PIE=false
 				;;
