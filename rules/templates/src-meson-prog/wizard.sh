@@ -15,10 +15,15 @@ fi
 mv "@name@.c" "${NAME}.c"
 
 for i in \
+	COPYING \
 	meson.build \
 	"${NAME}.c" \
 ; do
-	sed -i -e "s/\@name\@/${NAME}/g" \
-	       -e "s/\@version\@/${VERSION}/g" $i
+	sed -i \
+	       -e "s/\@AUTHOR\@/${AUTHOR}/g" \
+	       -e "s/\@YEAR\@/${YEAR}/g" \
+	       -e "s/\@name\@/${NAME}/g" \
+	       -e "s/\@version\@/${VERSION}/g" \
+	       $i
 done
 
