@@ -1,0 +1,8 @@
+## SECTION=debug_tools
+
+config LIBJAYLINK
+	bool
+	prompt "libjaylink                    "
+	select LIBUSB
+	help
+	  Library to access J-Link devices
