@@ -1,0 +1,12 @@
+## SECTION=hosttools
+
+menuconfig HOST_OPENOCD
+	tristate
+	prompt "openocd"
+	select HOST_LIBUSB
+	select HOST_JIMTCL
+	select HOST_LIBFTDI1
+	help
+	  The "Open On-Chip Debugger" provides JTAG/SWD access from GDB
+	  (or directly with TCL scripts) to processors with ARM and MIPS
+	  based cores.
