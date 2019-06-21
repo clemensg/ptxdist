@@ -5,12 +5,14 @@ menuconfig OPENOCD
 	prompt "OpenOCD                       "
 
 	# libusb-1.x
-	select LIBUSB		if OPENOCD_FTDI || OPENOCD_STLINK || OPENOCD_TI_ICDI || OPENOCD_ULINK || OPENOCD_USB_BLASTER_2
+	select LIBUSB		if OPENOCD_FTDI || OPENOCD_STLINK || OPENOCD_TI_ICDI || OPENOCD_ULINK || OPENOCD_USB_BLASTER_2 || OPENOCD_FT232R || OPENOCD_XDS110
 	# libusb-1.x or libusb-0.1
 	select LIBUSB		if OPENOCD_JLINK || OPENOCD_OSBDM || OPENOCD_OPENDOUS || OPENOCD_AICE
 	# libusb-0.1
 	select LIBUSB_COMPAT	if OPENOCD_VSLLINK || OPENOCD_USBPROG || OPENOCD_RLINK || OPENOCD_ARMJTAGEW
-	select LIBFTDI1		if OPENOCD_USB_BLASTER_LIBFTDI || OPENOCD_PRESTO_LIBFTDI || OPENOCD_OPENJTAG_FTDI
+	select LIBFTDI1		if OPENOCD_USB_BLASTER || OPENOCD_PRESTO || OPENOCD_OPENJTAG
+	select LIBJAYLINK	if OPENOCD_JLINK
+	select JIMTCL
 
 	help
 	  The Open On-Chip Debugger (OpenOCD) provides debugging, in-system
@@ -70,6 +72,14 @@ config OPENOCD_USB_BLASTER_2
 	bool
 	prompt "Altera USB-Blaster II Compatible"
 
+config OPENOCD_FT232R
+	bool
+	prompt "Bitbang mode of FT232R based devices"
+
+config OPENOCD_XDS110
+	bool
+	prompt "TI XDS110 Debug Probe"
+
 # --- libusb-1.x or libusb-0.1 based
 
 config OPENOCD_JLINK
@@ -113,6 +123,12 @@ config OPENOCD_CMSIS_DAP
 	depends on BROKEN
 	prompt "CMSIS-DAP Compliant Debugger"
 
+config OPENOCD_KITPROG
+	bool
+	# needs libhidapi
+	depends on BROKEN
+	prompt "KITPROG Debugger"
+
 # --- various
 
 config OPENOCD_PARPORT
@@ -134,15 +150,9 @@ config OPENOCD_JTAG_VPI
 	bool
 	prompt "JTAG VPI"
 
-config OPENOCD_USB_BLASTER_LIBFTDI
+config OPENOCD_USB_BLASTER
 	bool
-	prompt "Altera USB-Blaster (libftdi driver, opensource)"
-
-config OPENOCD_USB_BLASTER_FTD2XX
-	bool
-	# needs ftd2xx
-	depends on BROKEN
-	prompt "Altera USB-Blaster (FTD2XX driver from ftdichip.com)"
+	prompt "Altera USB-Blaster"
 
 config OPENOCD_AMTJTAGACCEL
 	bool
@@ -176,29 +186,21 @@ config OPENOCD_BCM2835GPIO
 	bool
 	prompt "bitbanging on BCM2835 (as found in Raspberry Pi)"
 
+config OPENOCD_IMX_GPIO
+	bool
+	prompt "bitbanging on IMX (as found on riotboard)"
+
 config OPENOCD_GW16012
 	bool
 	prompt "Gateworks GW16012 JTAG Programmer"
 
-config OPENOCD_PRESTO_LIBFTDI
+config OPENOCD_PRESTO
 	bool
-	prompt "ASIX Presto Programmer using the libftdi driver"
+	prompt "ASIX Presto Programmer"
 
-config OPENOCD_PRESTO_FTD2XX
-	# needs ftd2xx
-	depends on BROKEN
+config OPENOCD_OPENJTAG
 	bool
-	prompt "ASIX Presto Programmer using the FTD2XX driver"
-
-config OPENOCD_OPENJTAG_FTD2XX
-	# needs ftd2xx
-	depends on BROKEN
-	bool
-	prompt "OpenJTAG Programmer with ftd2xx driver"
-
-config OPENOCD_OPENJTAG_FTDI
-	bool
-	prompt "OpenJTAG Programmer with ftdi driver"
+	prompt "OpenJTAG Programmer"
 
 config OPENOCD_OOCD_TRACE
 	bool
