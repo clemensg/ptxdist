@@ -17,11 +17,11 @@ PACKAGES-$(PTXCONF_NETWORKMANAGER) += networkmanager
 #
 # Paths and names
 #
-NETWORKMANAGER_VERSION	:= 1.14.4
-NETWORKMANAGER_MD5	:= 54ce62f0aa18ef6c5e754eaac47494ac
+NETWORKMANAGER_VERSION	:= 1.18.0
+NETWORKMANAGER_MD5	:= c8c27116a8083bab5d5fcca0d03e988a
 NETWORKMANAGER		:= NetworkManager-$(NETWORKMANAGER_VERSION)
 NETWORKMANAGER_SUFFIX	:= tar.xz
-NETWORKMANAGER_URL	:= https://ftp.gnome.org/pub/GNOME/sources/NetworkManager/1.14/$(NETWORKMANAGER).$(NETWORKMANAGER_SUFFIX)
+NETWORKMANAGER_URL	:= https://ftp.gnome.org/pub/GNOME/sources/NetworkManager/1.18/$(NETWORKMANAGER).$(NETWORKMANAGER_SUFFIX)
 NETWORKMANAGER_SOURCE	:= $(SRCDIR)/$(NETWORKMANAGER).$(NETWORKMANAGER_SUFFIX)
 NETWORKMANAGER_DIR	:= $(BUILDDIR)/$(NETWORKMANAGER)
 NETWORKMANAGER_LICENSE	:= GPL-2.0-or-later AND LGPL-2.0-or-later
@@ -80,6 +80,7 @@ NETWORKMANAGER_CONF_OPT = \
 	--without-consolekit \
 	--without-session-tracking \
 	--with-suspend-resume=$(call ptx/ifdef,PTXCONF_NETWORKMANAGER_SYSTEMD_UNIT,systemd,upower) \
+	--without-ebpf \
 	--without-selinux \
 	--without-libaudit \
 	--with-crypto=gnutls \
