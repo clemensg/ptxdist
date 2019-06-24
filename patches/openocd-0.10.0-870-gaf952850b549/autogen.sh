@@ -1,3 +1,1 @@
-#!/bin/bash
-
-exec ./bootstrap
+../autogen.sh
