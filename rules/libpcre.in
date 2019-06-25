@@ -19,25 +19,25 @@ menuconfig LIBPCRE
 if LIBPCRE
 
 config LIBPCRE_ENABLE_NEWLINE_IS_ANYCRLF
-       bool "Enable NL is any CRLF"
+	bool "Enable NL is any CRLF"
 
 config LIBPCRE_ENABLE_PCREGREP_LIBZ
-       bool "Enable grep libz"
+	bool "Enable grep libz"
 
 config LIBPCRE_ENABLE_PCREGREP_LIBBZ2
-       bool "Enable grep libbz2"
+	bool "Enable grep libbz2"
 
 config LIBPCRE_ENABLE_UTF8
-       bool "Enable UTF8"
+	bool "Enable UTF8"
 
 config LIBPCRE_LIBPCREPOSIX
-       bool "install libpcreposix"
+	bool "install libpcreposix"
 
 config LIBPCRE_LIBPCRECPP
-       bool "install libpcrecpp (c++ bindings for libpcre)"
+	bool "install libpcrecpp (c++ bindings for libpcre)"
 
 config LIBPCRE_PCREGREP
-       select LIBPCRE_LIBPCREPOSIX
-       bool "install pcregrep on the target"
+	select LIBPCRE_LIBPCREPOSIX
+	bool "install pcregrep on the target"
 
 endif
