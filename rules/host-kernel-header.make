@@ -40,7 +40,7 @@ HOST_KERNEL_HEADER_LICENSE	:= GPL-2.0-only
 # Prepare
 # ----------------------------------------------------------------------------
 
-HOST_KERNEL_HEADER_CONF_ENV	:= $(HOST__ENV)
+HOST_KERNEL_HEADER_CONF_ENV	:= $(HOST_ENV)
 HOST_KERNEL_HEADER_PATH		:= PATH=$(HOST_PATH)
 HOST_KERNEL_HEADER_CONF_TOOL	:= NO
 HOST_KERNEL_HEADER_MAKE_OPT	:= \
