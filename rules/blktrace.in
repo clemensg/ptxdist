@@ -1,0 +1,8 @@
+## SECTION=disk_and_file
+
+config BLKTRACE
+	tristate
+	prompt "blktrace"
+	help
+	  Collects and parses block IO traces using the CONFIG_BLK_DEV_IO_TRACE
+	  kernel feature.
