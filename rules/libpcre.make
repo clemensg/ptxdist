@@ -17,15 +17,15 @@ PACKAGES-$(PTXCONF_LIBPCRE) += libpcre
 #
 # Paths and names
 #
-LIBPCRE_VERSION	:= 8.40
-LIBPCRE_MD5	:= 41a842bf7dcecd6634219336e2167d1d
+LIBPCRE_VERSION	:= 8.43
+LIBPCRE_MD5	:= 636222e79e392c3d95dcc545f24f98c4
 LIBPCRE		:= pcre-$(LIBPCRE_VERSION)
 LIBPCRE_SUFFIX	:= tar.bz2
 LIBPCRE_URL	:= $(call ptx/mirror, SF, pcre/$(LIBPCRE).$(LIBPCRE_SUFFIX))
 LIBPCRE_SOURCE	:= $(SRCDIR)/$(LIBPCRE).$(LIBPCRE_SUFFIX)
 LIBPCRE_DIR	:= $(BUILDDIR)/$(LIBPCRE)
 LIBPCRE_LICENSE	:= BSD-3-Clause
-LIBPCRE_LICENSE_FILES := file://LICENCE;md5=60da32d84d067f53e22071c4ecb4384d
+LIBPCRE_LICENSE_FILES := file://LICENCE;md5=91bee59d1b327eb1599b4c673e2fb3d1
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -34,16 +34,39 @@ LIBPCRE_LICENSE_FILES := file://LICENCE;md5=60da32d84d067f53e22071c4ecb4384d
 #
 # autoconf
 #
-LIBPCRE_AUTOCONF := \
+LIBPCRE_CONF_TOOL	:= autoconf
+LIBPCRE_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
+	--enable-pcre8 \
+	--enable-pcre16 \
+	--enable-pcre32 \
+	--$(call ptx/endis, PTXCONF_LIBPCRE_LIBPCRECPP)-cpp \
+	--disable-jit \
+	--enable-pcregrep-jit \
+	--disable-rebuild-chartables \
+	--$(call ptx/endis, PTXCONF_LIBPCRE_ENABLE_UTF8)-utf \
+	--$(call ptx/endis, PTXCONF_LIBPCRE_ENABLE_UTF8)-unicode-properties \
+	--disable-newline-is-cr \
+	--$(call ptx/disen, PTXCONF_LIBPCRE_ENABLE_NEWLINE_IS_ANYCRLF)-newline-is-lf \
+	--disable-newline-is-crlf \
+	--$(call ptx/endis, PTXCONF_LIBPCRE_ENABLE_NEWLINE_IS_ANYCRLF)-newline-is-anycrlf \
+	--disable-newline-is-any \
+	--disable-bsr-anycrlf \
+	--disable-ebcdic \
+	--disable-ebcdic-nl25 \
+	--enable-stack-for-recursion \
 	--$(call ptx/endis, PTXCONF_LIBPCRE_ENABLE_PCREGREP_LIBZ)-pcregrep-libz \
 	--$(call ptx/endis, PTXCONF_LIBPCRE_ENABLE_PCREGREP_LIBBZ2)-pcregrep-libbz2 \
-	--$(call ptx/endis, PTXCONF_LIBPCRE_ENABLE_UTF8)-utf8 \
-	--$(call ptx/endis, PTXCONF_LIBPCRE_ENABLE_UTF8)-unicode-properties \
-
-ifdef PTXCONF_LIBPCRE_ENABLE_NEWLINE_IS_ANYCRLF
-LIBPCRE_AUTOCONF += --enable-newline-is-anycrlf
-endif
+	--disable-pcretest-libedit \
+	--disable-pcretest-libreadline \
+	--disable-valgrind \
+	--disable-coverage \
+	--with-pcregrep-bufsize=20480 \
+	--with-posix-malloc-threshold=10 \
+	--with-link-size=2 \
+	--with-parens-nest-limit=250 \
+	--with-match-limit=10000000 \
+	--with-match-limit-recursion=10000000
 
 # ----------------------------------------------------------------------------
 # Target-Install

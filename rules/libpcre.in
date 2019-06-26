@@ -20,6 +20,9 @@ if LIBPCRE
 
 config LIBPCRE_ENABLE_NEWLINE_IS_ANYCRLF
 	bool "Enable NL is any CRLF"
+	help
+	  If true, any CR/LF combination is interpreted as a newline.
+	  If false, only LF is interpreted as a newline.
 
 config LIBPCRE_ENABLE_PCREGREP_LIBZ
 	bool "Enable grep libz"
