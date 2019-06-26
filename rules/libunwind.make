@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_LIBUNWIND) += libunwind
 #
 # Paths and names
 #
-LIBUNWIND_VERSION	:= 1.2.1
-LIBUNWIND_MD5		:= 06ba9e60d92fd6f55cd9dadb084df19e
+LIBUNWIND_VERSION	:= 1.3.1
+LIBUNWIND_MD5		:= a04f69d66d8e16f8bf3ab72a69112cd6
 LIBUNWIND		:= libunwind-$(LIBUNWIND_VERSION)
 LIBUNWIND_SUFFIX	:= tar.gz
 LIBUNWIND_URL		:= http://download.savannah.gnu.org/releases/libunwind/$(LIBUNWIND).$(LIBUNWIND_SUFFIX)
@@ -39,12 +39,15 @@ LIBUNWIND_CONF_OPT	:= \
 	--enable-ptrace \
 	--enable-setjmp \
 	--disable-documentation \
+	--disable-tests \
 	--disable-debug \
+	--enable-cxx-exceptions \
 	--enable-debug-frame \
 	--enable-block-signals \
 	--enable-conservative-checks \
 	--disable-msabi-support \
-	--disable-minidebuginfo
+	--disable-minidebuginfo \
+	--disable-per-thread-cache
 
 # ----------------------------------------------------------------------------
 # Target-Install
