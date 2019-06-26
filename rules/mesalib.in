@@ -109,6 +109,18 @@ config MESALIB_DRI_VC4
 	bool
 	prompt "vc4"
 
+config MESALIB_DRI_PANFROST
+	bool
+	prompt "panfrost"
+
+config MESALIB_DRI_IRIS
+	bool
+	prompt "iris"
+
+config MESALIB_DRI_LIMA
+	bool
+	prompt "lima"
+
 comment "API Support"
 
 config MESALIB_OPENGL

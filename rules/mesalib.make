@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_MESALIB) += mesalib
 #
 # Paths and names
 #
-MESALIB_VERSION	:= 19.0.2
-MESALIB_MD5	:= 7f84af1c3fe2078c35a7a991d1469921
+MESALIB_VERSION	:= 19.1.1
+MESALIB_MD5	:= 07cd8cd79de28ec1a374ee3a06e47789
 MESALIB		:= mesa-$(MESALIB_VERSION)
 MESALIB_SUFFIX	:= tar.xz
 MESALIB_URL	:= \
@@ -56,6 +56,11 @@ MESALIB_GALLIUM_DRIVERS-$(PTXCONF_MESALIB_DRI_V3D)	+= v3d
 MESALIB_GALLIUM_DRIVERS-$(PTXCONF_MESALIB_DRI_VC4)	+= vc4
 endif
 MESALIB_GALLIUM_DRIVERS-$(PTXCONF_MESALIB_DRI_SWRAST)	+= swrast
+MESALIB_GALLIUM_DRIVERS-$(PTXCONF_MESALIB_DRI_PANFROST)	+= panfrost
+MESALIB_GALLIUM_DRIVERS-$(PTXCONF_MESALIB_DRI_LIMA)	+= lima
+ifdef PTXCONF_ARCH_X86
+MESALIB_GALLIUM_DRIVERS-$(PTXCONF_MESALIB_DRI_IRIS)	+= iris
+endif
 
 MESALIB_DRI_LIBS-y = \
 	$(subst nouveau,nouveau_vieux,$(MESALIB_DRI_DRIVERS-y))
@@ -78,6 +83,7 @@ MESALIBS_EGL_PLATFORMS-$(PTXCONF_MESALIB_EGL_WAYLAND)	+= wayland
 MESALIB_CONF_TOOL	:= meson
 MESALIB_CONF_OPT	:= \
 	$(CROSS_MESON_USR) \
+	-DI-love-half-baked-turnips=false \
 	-Dasm=false \
 	-Dbuild-tests=false \
 	-Dd3d-drivers-path=/usr/lib/d3d \
@@ -86,6 +92,7 @@ MESALIB_CONF_OPT	:= \
 	-Ddri-search-path=/usr/lib/dri \
 	-Ddri3=false \
 	-Degl=$(call ptx/truefalse, PTXCONF_MESALIB_EGL) \
+	-Degl-lib-suffix= \
 	-Dgallium-drivers=$(subst $(space),$(comma),$(MESALIB_GALLIUM_DRIVERS-y)) \
 	-Dgallium-extra-hud=$(call ptx/truefalse, PTXCONF_MESALIB_EXTENDED_HUD) \
 	-Dgallium-nine=false \
@@ -96,12 +103,14 @@ MESALIB_CONF_OPT	:= \
 	-Dgallium-xa=false \
 	-Dgallium-xvmc=false \
 	-Dgbm=$(call ptx/truefalse, PTXCONF_MESALIB_GBM) \
+	-Dgles-lib-suffix= \
 	-Dgles1=$(call ptx/truefalse, PTXCONF_MESALIB_GLES1) \
 	-Dgles2=$(call ptx/truefalse, PTXCONF_MESALIB_GLES2) \
 	-Dglvnd=false \
 	-Dglx=$(call ptx/ifdef, PTXCONF_MESALIB_GLX, dri, disabled) \
 	-Dglx-direct=false \
 	-Dglx-read-only-text=false \
+	-Dinstall-intel-gpu-tests=false \
 	-Dlibunwind=false \
 	-Dllvm=false \
 	-Dlmsensors=$(call ptx/truefalse, PTXCONF_MESALIB_LMSENSORS) \
@@ -109,6 +118,7 @@ MESALIB_CONF_OPT	:= \
 	-Dopengl=$(call ptx/truefalse, PTXCONF_MESALIB_OPENGL) \
 	-Dosmesa=none \
 	-Dosmesa-bits=8 \
+	-Dplatform-sdk-version=25 \
 	-Dplatforms=$(subst $(space),$(comma),$(MESALIBS_EGL_PLATFORMS-y)) \
 	-Dpower8=false \
 	-Dselinux=false \
@@ -122,6 +132,7 @@ MESALIB_CONF_OPT	:= \
 	-Dvdpau-libs-path=/usr/lib/vdpau \
 	-Dvulkan-drivers=[] \
 	-Dvulkan-icd-dir=/etc/vulkan/icd.d \
+	-Dvulkan-overlay-layer=false \
 	-Dxlib-lease=false \
 	-Dxvmc-libs-path=/usr/lib
 
