@@ -437,7 +437,7 @@ for 64-bit host machines the filenames end with ``*_amd64.deb``.
 
 You can simply unpack the Debian packages with ``ar``::
 
-    ar x | oselas.toolchain-|oselasTCNVendorVersion|-|ptxdistCompilerName|-|ptxdistCompilerVersion|\*.deb
+    ar x oselas.toolchain-|oselasTCNVendorVersion|-|ptxdistCompilerName|-|ptxdistCompilerVersion|\*.deb
 
 This will create the files ``debian-binary``, ``control.tar.gz`` and
 ``data.tar.xz``.  Ignore the first two, and unpack ``data.tar.xz`` into your
