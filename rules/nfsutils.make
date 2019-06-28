@@ -76,7 +76,7 @@ $(STATEDIR)/nfsutils.targetinstall:
 	@$(call install_fixup, nfsutils,PRIORITY,optional)
 	@$(call install_fixup, nfsutils,SECTION,base)
 	@$(call install_fixup, nfsutils,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, nfsutils,DESCRIPTION,missing)
+	@$(call install_fixup, nfsutils,DESCRIPTION,"Network Filesystem Support")
 
 	@$(call install_copy, nfsutils, 0, 0, 0755, -, /usr/sbin/nfsstat)
 	@$(call install_copy, nfsutils, 0, 0, 0755, -, /usr/sbin/nfsiostat)
