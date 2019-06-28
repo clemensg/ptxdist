@@ -160,7 +160,7 @@ $(STATEDIR)/ntp.targetinstall:
 	@$(call install_fixup, ntp,PRIORITY,optional)
 	@$(call install_fixup, ntp,SECTION,base)
 	@$(call install_fixup, ntp,AUTHOR,"Robert Schwebel")
-	@$(call install_fixup, ntp,DESCRIPTION,missing)
+	@$(call install_fixup, ntp,DESCRIPTION, "Network Time Protocol Daemon")
 
 #	#
 #	# ntpdate
