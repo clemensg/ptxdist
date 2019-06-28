@@ -171,76 +171,90 @@ config ROOTFS_TMP
 
 menu "/var                        "
 
+config ROOTFS_VAR_OVERLAYFS
+	bool
+	prompt "overlay '/var' with RAM disk"
+	depends on INITMETHOD_SYSTEMD
+	help
+	  This lets the whole '/var' content be writable transparently via an
+	  'overlayfs'.
+	  Reading content happens from the underlaying root filesystem, while
+	  changed content gets stored into a RAM disk instead. This enables all
+	  applications to read initial data (configuration files for example)
+	  and let them change this data even if the root filesystem is read-only.
+	  Due to this behavior all changes made at run-time aren't persistent
+	  by default.
+	  Read documentation chapter 'Read Only Filesystem' for further details.
+	  In order to use the default mount units and mount options, you need
+	  to enable the 'mkdir' and 'rmdir' commands (from 'coreutils' or
+	  'busybox') and use a Linux kernel 4.18 or newer. By replacing the
+	  default files in
+	  'projectroot/usr/lib/systemd/system/run-varoverlayfs.mount',
+	  'projectroot/usr/lib/systemd/system/var.mount' and
+	  'projectroot/usr/sbin/mount.varoverlayfs' by your own variants,
+	  you can adapt these requirements.
+
 config ROOTFS_VAR_RUN
 	bool
 	select ROOTFS_RUN
 	prompt "/var/run"
 	default y
 	help
-	  This will not create a directory but a symlink to /run.
-	  Unless you want to mount a tmpfs on /var you should
-	  say yes here.
+	  Ensure a '/var/run' directory is available at run-time. This will
+	  always be a symlink to '/run'.
 
 config ROOTFS_VAR_LOG
 	bool
 	prompt "/var/log"
 	default y
 	help
-	  Create a /var/log directory in the root filesystem.
-	  Unless you want to mount a tmpfs on /var you should
-	  say yes here.
+	  This directory is intended for log files and directories. Say 'y' here
+	  to ensure a '/var/log' directory is available at run-time.
 
 config ROOTFS_VAR_LOCK
 	bool
 	prompt "/var/lock"
 	default y
 	help
-	  Create a /var/lock directory in the root filesystem.
-	  Unless you want to mount a tmpfs on /var you should
-	  say yes here.
+	  This directory is intended for application lock files. Say 'y' here
+	  to ensure a '/var/lock' directory is available at run-time.
 
 config ROOTFS_VAR_LIB
 	bool
 	prompt "/var/lib"
 	help
-	  Create a /var/lib directory in the root filesystem.
-	  Unless you want to mount a tmpfs on /var you should
-	  say yes here.
-	  If you are going to run an NFS server with file locking
-	  support this folder must be persistent!
+	  This directory is intended for application variable state information.
+	  Say 'y' here to ensure a '/var/lib' directory is available at
+	  run-time.
 
 config ROOTFS_VAR_CACHE
 	bool
 	prompt "/var/cache"
 	help
-	  Create a /var/cache directory in the root filesystem.
-	  Unless you want to mount a tmpfs on /var you should
-	  say yes here.
+	  This directory is intended for application cache data. Say 'y' here
+	  to ensure a '/var/cache' directory is available at run-time.
 
 config ROOTFS_VAR_SPOOL
 	bool
 	prompt "/var/spool"
 	help
-	  Create a /var/spool directory in the root filesystem.
-	  Unless you want to mount a tmpfs on /var you should
-	  say yes here.
+	  This directory is intended for application spool data. Say 'y' here to
+	  ensure a '/var/spool' directory is available at run-time.
 
 config ROOTFS_VAR_SPOOL_CRON
 	bool
 	prompt "/var/spool/cron"
 	help
-	  Create a /var/spool/cron directory in the root filesystem.
-	  Unless you want to mount a tmpfs on /var you should
-	  say yes here.
+	  Create a '/var/spool/cron' directory in the root filesystem.
 
 config ROOTFS_VAR_TMP
 	bool
 	prompt "/var/tmp"
 	default y
 	help
-	  Create a /var/tmp directory in the root filesystem.
-	  Unless you want to mount a tmpfs on /var you should
-	  say yes here.
+	  This directory is intended for temporary files preserved between
+	  system reboots. Say 'y' here to ensure a '/var/tmp' directory is
+	  available at run-time.
 
 endmenu
 endif # ROOTFS

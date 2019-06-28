@@ -1,0 +1,11 @@
+[Unit]
+Description=Writable support for '/var'
+After=run-varoverlayfs.mount
+Before=local-fs.target
+
+[Mount]
+Where=/var
+# note: this is a dummy filesystem only to trigger the corresponding mount helper
+What=varoverlayfs
+Type=varoverlayfs
+Options=metacopy=on

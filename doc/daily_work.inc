@@ -1371,3 +1371,104 @@ in the build machine's filesystem also for the target filesystem image. With
 a different ``umask`` than ``0022`` at build-time this may fail badly at
 run-time with strange erroneous behaviour (for example some daemons with
 regular user permissions cannot acces their own configuration files).
+
+Read Only Filesystem
+--------------------
+
+A system can run a read-only root filesystem in order to have a unit which
+can be powered off at any time, without any previous shut down sequence.
+
+But many applications and tools are still expecting a writable filesystem to
+temporarily store some kind of data or logging information for example. All
+these write attempts will fail and thus, the applications and tools will fail,
+too.
+
+According to the *Filesystem Hierarchy Standard 2.3* the directory tree in
+``/var/`` is traditionally writable and its content is persistent across system
+restarts. Thus, this directory tree is used by most applications and tools to
+store their data.
+
+The *Filesystem Hierarchy Standard 2.3* defines the following directories
+below ``/var/``:
+
+- ``cache/``: Application specific cache data
+- ``crash/``: System crash dumps
+- ``lib/``:   Application specific variable state information
+- ``lock/``:  Lock files
+- ``log/``:   Log files and directories
+- ``run/``:   Data relevant to running processes
+- ``spool/``: Application spool data
+- ``tmp/``:   Temporary files preserved between system reboots
+
+Although this writable directory tree is useful and valid for full blown host
+machines, an embedded system can behave differently here: For example a
+requirement can drop the persistency of changed data across reboots and always
+start with empty directories.
+
+Partially RAM Disks
+~~~~~~~~~~~~~~~~~~~
+
+This is the default behaviour of PTXdist: it mounts a couple of RAM disks over
+directories in ``/var`` expected to be writable by various applications and
+tools. These RAM disks start always in an empty state and are defined as follows:
+
++-------------+---------------------------------------------------------------+
+| mount point | mount options                                                 |
++=============+===============================================================+
+| /var/log    | nosuid,nodev,noexec,mode=0755,size=10%                        |
++-------------+---------------------------------------------------------------+
+| /var/lock   | nosuid,nodev,noexec,mode=0755,size=1M                         |
++-------------+---------------------------------------------------------------+
+| /var/tmp    | nosuid,nodev,mode=1777,size=20%                               |
++-------------+---------------------------------------------------------------+
+
+This is a very simple and optimistic approach and works for surprisingly many use
+cases. But some applications expect a writable ``/var/lib`` and will fail due
+to this setup. Using an additional RAM disk for ``/var/lib`` might not help in
+this use case, because it will bury all build-time generated data already present
+in this directory tree (package pre-defined configuration files for example).
+
+Overlay RAM Disk
+~~~~~~~~~~~~~~~~
+
+A different approach to have a writable ``/var`` without persistency is to use
+a so called *overlay filesystem*. This *overlay filesystem* is a transparent
+writable layer on top of a read-only filesystem. After the system's start the
+*overlay filesystem layer* is empty and all reads will be satisfied by the
+underlaying read-only filesystem. Writes (new files, directories, changes of
+existing files) are stored in the *overlay filesystem layer* and on the
+next read satisfied by this layer, instead of the underlaying read-only
+filesystem.
+
+PTXdist supports this use case, by enabling the *overlay* feature for the
+``/var`` directory in its configuration menu:
+
+.. code-block:: text
+
+   Root Filesystem                 --->
+      directories in rootfs           --->
+           /var                          --->
+              [*]     overlay '/var' with RAM disk
+
+Keep in mind: this approach just enables write support to the ``/var`` directory
+tree, but nothing stored/changed in there at run-time will be persistent and is
+always lost if the system restarts. And each additional RAM disk consumes
+additional main memory, and if applications and tools will fill up the directory
+tree in ``/var`` the machine might run short on memory and slows down
+dramatically.
+
+Thus, it is a good idea to check the amount of data written by applications and
+tools to the ``/var`` directory tree and limit it by default.
+You can limit the size of the *overlay filesystem* RAM disk as well. For this
+you can provide your own
+``projectroot/usr/lib/systemd/system/run-varoverlayfs.mount`` with restrictive
+settings. But then the used applications and tools must deal with the
+"no space left on device" error correctly...
+
+This *overlay filesystem* approach requires the *overlay filesystem feature*
+from the Linux kernel. In order to use it, the feature CONFIG_OVERLAY_FS must
+be enabled. A used mount option of the overlayfs in the default
+``projectroot/usr/lib/systemd/system/var.mount`` unit requires a Linux-4.19 or
+newer.
+If your kernel does not meet this requirement you can provide your own local
+and adapted variant of the mentioned mount unit.

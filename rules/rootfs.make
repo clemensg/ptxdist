@@ -30,7 +30,7 @@ $(STATEDIR)/rootfs.targetinstall:
 	@$(call install_fixup, rootfs,PRIORITY,optional)
 	@$(call install_fixup, rootfs,SECTION,base)
 	@$(call install_fixup, rootfs,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, rootfs,DESCRIPTION,missing)
+	@$(call install_fixup, rootfs,DESCRIPTION, "Filesystem Hierarchy Standard")
 
 #	#
 #	# install directories in rootfs
@@ -121,7 +121,18 @@ endif
 ifdef PTXCONF_ROOTFS_VAR_TMP
 	@$(call install_copy, rootfs, 0, 0, 01777, /var/tmp)
 endif
-
+ifdef PTXCONF_ROOTFS_VAR_OVERLAYFS
+	@$(call install_alternative, rootfs, 0, 0, 0644, \
+		/usr/lib/systemd/system/run-varoverlayfs.mount)
+	@$(call install_link, rootfs, ../run-varoverlayfs.mount, \
+		/usr/lib/systemd/system/local-fs.target.requires/run-varoverlayfs.mount)
+	@$(call install_alternative, rootfs, 0, 0, 0755, \
+		/usr/sbin/mount.varoverlayfs)
+	@$(call install_alternative, rootfs, 0, 0, 0644, \
+		/usr/lib/systemd/system/var.mount)
+	@$(call install_link, rootfs, ../var.mount, \
+		/usr/lib/systemd/system/local-fs.target.requires/var.mount)
+endif
 
 #	#
 #	# install files in rootfs
@@ -140,7 +151,9 @@ ifdef PTXCONF_ROOTFS_GSHADOW
 endif
 ifdef PTXCONF_ROOTFS_FSTAB
 	@$(call install_alternative, rootfs, 0, 0, 0644, /etc/fstab)
-endif
+	@$(call install_replace, rootfs, /etc/fstab, @VAR_OVERLAYFS@, \
+		$(call ptx/ifdef,PTXCONF_ROOTFS_VAR_OVERLAYFS,#))
+endif # PTXCONF_ROOTFS_FSTAB
 ifdef PTXCONF_ROOTFS_MTAB_FILE
 	@$(call install_alternative, rootfs, 0, 0, 0644, /etc/mtab)
 endif

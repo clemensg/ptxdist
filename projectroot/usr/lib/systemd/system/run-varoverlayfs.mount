@@ -1,0 +1,9 @@
+[Unit]
+Description=Overlay for '/var'
+Before=local-fs.target
+
+[Mount]
+Where=/run/varoverlayfs
+What=tmpfs
+Type=tmpfs
+Options=size=20%

@@ -1,0 +1,11 @@
+#!/bin/sh -e
+# Mount helper tool to mount some kind of writable filesystem over '/var'
+# (which might be read-only).
+# What kind of filesystem is used to mount over '/var' can be controlled via
+# the 'run-varoverlayfs.mount' mount unit and is usually a RAM disk.
+
+mkdir -p /run/varoverlayfs/upper
+mkdir -p /run/varoverlayfs/work
+mount -t overlay -olowerdir=/var,upperdir=/run/varoverlayfs/upper,workdir=/run/varoverlayfs/work "${@}"
+systemctl stop run-varoverlayfs.mount
+rmdir /run/varoverlayfs
