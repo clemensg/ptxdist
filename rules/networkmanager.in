@@ -26,12 +26,16 @@ menuconfig NETWORKMANAGER
 	select UDEV_LIBUDEV
 	select WPA_SUPPLICANT			if NETWORKMANAGER_WIRELESS && RUNTIME
 	select WPA_SUPPLICANT_CTRL_IFACE_DBUS	if NETWORKMANAGER_WIRELESS && RUNTIME
+	select ROOTFS_VAR_LIB			if RUNTIME
 	prompt "networkmanager                "
 	help
 	  NetworkManager is a tool to automate network configuration as far as
 	  possible. The project web site is here:
 
 	  http://projects.gnome.org/NetworkManager/
+
+	  Note: on a read-only root filesystem this package still requires a
+	  writable '/var/lib'.
 
 if NETWORKMANAGER
 
