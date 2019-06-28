@@ -19,6 +19,8 @@ menuconfig SAMBA
 	select READLINE
 	select SYSTEMD				if SAMBA_SYSTEMD_UNIT
 	select ZLIB
+	select ROOTFS_VAR_LIB			if RUNTIME
+	select ROOTFS_VAR_CACHE			if RUNTIME
 	help
 	  Samba is an Open Source/Free Software suite that has, since
 	  1992, provided file and print services to all manner of
@@ -27,6 +29,9 @@ menuconfig SAMBA
 	  GNU General Public License
 
 	  See http://www.samba.org for details.
+
+	  Note: on a read-only root filesystem this package still requires a
+	  writable '/var/lib' and '/var/cache'.
 
 if SAMBA
 
