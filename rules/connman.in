@@ -13,7 +13,8 @@ menuconfig CONNMAN
 	select DBUS_PYTHON			if CONNMAN_TESTS && RUNTIME
 	select WPA_SUPPLICANT			if CONNMAN_WIFI && RUNTIME
 	select WPA_SUPPLICANT_CTRL_IFACE_DBUS	if CONNMAN_WIFI
-	select BUSYBOX_START_STOP_DAEMON	if CONNMAN_STARTSCRIPT
+	select BUSYBOX_START_STOP_DAEMON	if CONNMAN_STARTSCRIPT && RUNTIME
+	select ROOTFS_VAR_LIB			if RUNTIME
 	prompt "connman                       "
 	help
 	  The Connection Manager project provides a daemon for

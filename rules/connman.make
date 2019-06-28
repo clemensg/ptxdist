@@ -167,6 +167,7 @@ ifdef PTXCONF_CONNMAN_POLKIT
 endif
 
 #	# ship settings which enable wired interfaces per default
+	@$(call install_copy, connman, 0, 0, 0755, /var/lib/connman)
 	@$(call install_alternative, connman, 0, 0, 0600, \
 		/var/lib/connman/settings)
 
