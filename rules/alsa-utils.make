@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_ALSA_UTILS) += alsa-utils
 #
 # Paths and names
 #
-ALSA_UTILS_VERSION	:= 1.1.7
-ALSA_UTILS_MD5		:= 2b88796c6b05520e59eec6049de02f64
+ALSA_UTILS_VERSION	:= 1.1.9
+ALSA_UTILS_MD5		:= 5ed21c3e296c06046cc986e732f625f6
 ALSA_UTILS		:= alsa-utils-$(ALSA_UTILS_VERSION)
 ALSA_UTILS_SUFFIX	:= tar.bz2
 ALSA_UTILS_URL		:= \
-	http://dl.ambiweb.de/mirrors/ftp.alsa-project.org/utils/$(ALSA_UTILS).$(ALSA_UTILS_SUFFIX) \
+	https://www.alsa-project.org/files/pub/utils/$(ALSA_UTILS).$(ALSA_UTILS_SUFFIX) \
 	ftp://ftp.alsa-project.org/pub/utils/$(ALSA_UTILS).$(ALSA_UTILS_SUFFIX)
 ALSA_UTILS_SOURCE	:= $(SRCDIR)/$(ALSA_UTILS).$(ALSA_UTILS_SUFFIX)
 ALSA_UTILS_DIR		:= $(BUILDDIR)/$(ALSA_UTILS)
