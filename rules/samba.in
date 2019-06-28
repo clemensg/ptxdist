@@ -69,7 +69,7 @@ config SAMBA_CUPS
 config SAMBA_STARTSCRIPT
 	bool
 	default y
-	depends on SAMBA_SERVER
+	depends on SAMBA_SERVER && INITMETHOD_BBINIT
 	prompt "install /etc/init.d/samba"
 
 config SAMBA_SYSTEMD_UNIT
