@@ -104,9 +104,10 @@ endif
 
 	@$(call install_alternative, dnsmasq, 0, 0, 0644, /etc/dnsmasq.conf)
 
-# for the 'dnsmasq.leases' file
+ifdef PTXCONF_DNSMASQ_DHCP
+#	# for the 'dnsmasq.leases' file
 	@$(call install_copy, dnsmasq, 0, 0, 0755, /var/lib/misc)
-
+endif
 	@$(call install_finish, dnsmasq)
 
 	@$(call touch)
