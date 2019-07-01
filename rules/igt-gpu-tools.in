@@ -14,6 +14,7 @@ menuconfig IGT_GPU_TOOLS
 	select UDEV
 	select UDEV_LIBUDEV
 	select ZLIB
+	select JSON_C		if IGT_GPU_TOOLS_TEST_RUNNER
 	prompt "igt-gpu-tools"
 	help
 	  igt-gpu-tools is a package of tools for debugging the Intel
@@ -38,5 +39,13 @@ config IGT_GPU_TOOLS_NOUVEAU
 config IGT_GPU_TOOLS_TESTS
 	bool
 	prompt "build and install tests"
+
+if IGT_GPU_TOOLS_TESTS
+
+config IGT_GPU_TOOLS_TEST_RUNNER
+	bool
+	prompt "build and install igt test runner"
+
+endif
 
 endif
