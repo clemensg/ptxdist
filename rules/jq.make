@@ -16,15 +16,15 @@ PACKAGES-$(PTXCONF_JQ) += jq
 #
 # Paths and names
 #
-JQ_VERSION	:= 1.5
-JQ_MD5		:= 0933532b086bd8b6a41c1b162b1731f9
+JQ_VERSION	:= 1.6
+JQ_MD5		:= e68fbd6a992e36f1ac48c99bbf825d6b
 JQ		:= jq-$(JQ_VERSION)
 JQ_SUFFIX	:= tar.gz
 JQ_URL		:= https://github.com/stedolan/jq/releases/download/$(JQ)/$(JQ).$(JQ_SUFFIX)
 JQ_SOURCE	:= $(SRCDIR)/$(JQ).$(JQ_SUFFIX)
 JQ_DIR		:= $(BUILDDIR)/$(JQ)
 JQ_LICENSE	:= MIT AND CC-BY-3.0
-JQ_LICENSE_FILES := file://COPYING;md5=29dd0c35d7e391bb8d515eacf7592e00
+JQ_LICENSE_FILES := file://COPYING;md5=15d03e360fa7399f76d5a4359fc72cbf
 
 # ----------------------------------------------------------------------------
 # Prepare
