@@ -8,12 +8,16 @@ menuconfig RAUC
 	select GLIB_LIBMOUNT
 	select HOST_GLIB
 	select BUSYBOX_FEATURE_TAR_LONG_OPTIONS	if BUSYBOX_TAR
-	select BUSYBOX_FEATURE_TAR_AUTODETECT 	if BUSYBOX_TAR
-	select BUSYBOX_FEATURE_SEAMLESS_XZ 		if BUSYBOX_TAR
+	select BUSYBOX_FEATURE_TAR_AUTODETECT	if BUSYBOX_TAR
+	select BUSYBOX_FEATURE_SEAMLESS_XZ	if BUSYBOX_TAR
 	select LIBCURL				if RAUC_NETWORK
 	select JSON_GLIB			if RAUC_JSON
 	select SQUASHFS_TOOLS			if RUNTIME
 	select SQUASHFS_TOOLS_UNSQUASHFS	if RUNTIME
+	select DT_UTILS				if RUNTIME && RAUC_BAREBOX
+	select U_BOOT_TOOLS			if RUNTIME && RAUC_U_BOOT
+	#select GRUB2				if RUNTIME && RAUC_GRUB
+	select EFIBOOTMGR			if RUNTIME && RAUC_EFI
 	help
 	  Robust Auto-Update Controller. RAUC controls the update process on embedded linux systems.
 
@@ -77,5 +81,32 @@ config RAUC_BUNDLE_VERSION
 	  Overwrite the bundle version if needed.
 
 endif
+
+config RAUC_BAREBOX
+	bool "barebox support"
+	help
+	  To interact with barebox, barebox-state from dt-utils is used.
+	  Auto-select this package for installation on the target.
+
+config RAUC_U_BOOT
+	bool "U-Boot support"
+	help
+	  To interact with U-Boot, fw_printenv and fw_setenv from
+	  u-boot-tools are used.
+	  Auto-select this package for installation on the target.
+
+config RAUC_GRUB
+	bool "GRUB support"
+	# needs grub2
+	depends on BROKEN
+	help
+	  To interact with GRUB2, grub-editenv from grub is used.
+	  Auto-select this package for installation on the target.
+
+config RAUC_EFI
+	bool "EFI support"
+	help
+	  To interact with EFI, efibootmgr from efibootmgr is used.
+	  Auto-select this package for installation on the target.
 
 endif
