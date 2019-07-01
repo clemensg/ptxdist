@@ -21,8 +21,8 @@ PACKAGES-$(PTXCONF_IPTABLES) += iptables
 #
 # Paths and names
 #
-IPTABLES_VERSION	:= 1.8.2
-IPTABLES_MD5		:= 944558e88ddcc3b9b0d9550070fa3599
+IPTABLES_VERSION	:= 1.8.3
+IPTABLES_MD5		:= 29de711d15c040c402cf3038c69ff513
 IPTABLES		:= iptables-$(IPTABLES_VERSION)
 IPTABLES_SUFFIX		:= tar.bz2
 IPTABLES_URL		:= http://ftp.netfilter.org/pub/iptables/$(IPTABLES).$(IPTABLES_SUFFIX)
@@ -48,6 +48,7 @@ IPTABLES_CONF_OPT	:= \
 	--disable-bpf-compiler \
 	--disable-nfsynproxy \
 	--$(call ptx/endis, PTXCONF_IPTABLES_NFTABLES_COMPAT)-nftables \
+	--disable-connlabel \
 	--with-kernel=$(KERNEL_HEADERS_DIR) \
 	--with-xtlibdir=/usr/lib
 
