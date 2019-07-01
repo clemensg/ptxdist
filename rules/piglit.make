@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_PIGLIT) += piglit
 #
 # Paths and names
 #
-PIGLIT_VERSION	:= b29747a00c6a
-PIGLIT_MD5	:= 9b3fe462a692feaf48d6675f5cf59ed3
+PIGLIT_VERSION	:= 1f66016c1bb4
+PIGLIT_MD5	:= be7a8ec7bca96e95d17e8cfb7332f4b4
 PIGLIT		:= piglit-$(PIGLIT_VERSION)
 PIGLIT_SUFFIX	:= tar.xz
 PIGLIT_URL	:= http://anongit.freedesktop.org/git/piglit.git;tag=$(PIGLIT_VERSION)

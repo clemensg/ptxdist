@@ -49,6 +49,5 @@ config PIGLIT_TESTS_OPENGLES2
 config PIGLIT_TESTS_OPENGLES3
 	bool
 	prompt "build OpenGL ES3 tests"
-	depends on BROKEN
 
 endif
