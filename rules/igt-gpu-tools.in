@@ -9,6 +9,8 @@ menuconfig IGT_GPU_TOOLS
 	select LIBDRM
 	select LIBPCIACCESS
 	select LIBUNWIND
+	select LIBELF
+	select LIBELF_LIBDW
 	select OPENSSL
 	select PROCPS
 	select UDEV
