@@ -323,7 +323,7 @@ ptxd_make_world_init() {
 	    local conf_env_ptr="ptx_conf_env_${pkg_conf_tool}_${pkg_type}"
 
 	    pkg_conf_opt="${pkg_conf_opt:-${!conf_opt_ptr}}"
-	    pkg_conf_env="PTXDIST_ICECC= ${pkg_conf_env:-${!conf_env_ptr}}"
+	    pkg_conf_env="PTXDIST_ICECC= CMAKE= ${pkg_conf_env:-${!conf_env_ptr}}"
 
 	    # Try to find a suitable UTF-8 locale on all distros
 	    local c_locale
