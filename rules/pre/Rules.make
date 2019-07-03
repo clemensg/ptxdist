@@ -250,6 +250,7 @@ HOST_PYTHON_INSTALL := install --prefix=/.
 
 CROSS_MESON_USR := \
 	--cross-file '${PTXDIST_MESON_CROSS_FILE}' \
+	--wrap-mode nodownload \
 	-Dbackend=ninja \
 	-Dbuildtype=debugoptimized \
 	-Dlibdir=$(CROSS_LIB_DIR) \
@@ -319,6 +320,7 @@ HOST_CMAKE_OPT_SYSROOT := \
 	-DCMAKE_TOOLCHAIN_FILE='${PTXDIST_CMAKE_TOOLCHAIN_HOST}'
 
 HOST_MESON_OPT := \
+	--wrap-mode nodownload \
 	-Dbackend=ninja \
 	-Dbuildtype=debugoptimized \
 	-Dlibdir=lib \
