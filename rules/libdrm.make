@@ -15,10 +15,10 @@ PACKAGES-$(PTXCONF_LIBDRM) += libdrm
 #
 # Paths and names
 #
-LIBDRM_VERSION	:= 2.4.98
-LIBDRM_MD5	:= 0d3ba6c7196e0e14fb2c5426141cd5fc
+LIBDRM_VERSION	:= 2.4.99
+LIBDRM_MD5	:= 72539626815b35159a63d45bc4c14ee6
 LIBDRM		:= libdrm-$(LIBDRM_VERSION)
-LIBDRM_SUFFIX	:= tar.gz
+LIBDRM_SUFFIX	:= tar.bz2
 LIBDRM_URL	:= http://dri.freedesktop.org/libdrm/$(LIBDRM).$(LIBDRM_SUFFIX)
 LIBDRM_SOURCE	:= $(SRCDIR)/$(LIBDRM).$(LIBDRM_SUFFIX)
 LIBDRM_DIR	:= $(BUILDDIR)/$(LIBDRM)
@@ -62,7 +62,7 @@ LIBDRM_CONF_OPT := \
 	$(patsubst %,-D%=true,$(LIBDRM_BACKENDSC-y)) \
 	$(patsubst %,-D%=false,$(LIBDRM_BACKENDSC-)) \
 	-Dcairo-tests=false \
-	-Dmanpages=false \
+	-Dman-pages=false \
 	-Dvalgrind=false \
 	-Dinstall-test-programs=$(call ptx/truefalse, PTXCONF_LIBDRM_TESTS) \
 	-Dudev=true
