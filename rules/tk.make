@@ -3,8 +3,6 @@
 # Copyright (C) 2007 by Bjoern Buerger <b.buerger@pengutronix.de>
 # Copyright (C) 2009 by Juergen Beisert
 #
-# See CREDITS for details about who has contributed to this project.
-#
 # For further information about the PTXdist project and license conditions
 # see the README file.
 #

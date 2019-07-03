@@ -3,8 +3,6 @@
 # Copyright (C) 2005 by Robert Schwebel
 #               2009, 2012 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
-# See CREDITS for details about who has contributed to this project.
-#
 # For further information about the PTXdist project and license conditions
 # see the README file.
 #

@@ -3,8 +3,6 @@
 # Copyright (C) 2017 by Enrico Joerns <e.joerns@pengutronix.de>
 # Copyright (C) 2016 by Jan Luebbe <j.luebbe@pengutronix.de>
 #
-# See CREDITS for details about who has contributed to this project.
-#
 # For further information about the PTXdist project and license conditions
 # see the README file.
 #

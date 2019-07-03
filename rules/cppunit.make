@@ -4,8 +4,6 @@
 #               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #               2014 by Bernhard Seßler <bernhard.sessler@corscience.de>
 #
-# See CREDITS for details about who has contributed to this project.
-#
 # For further information about the PTXdist project and license conditions
 # see the README file.
 #

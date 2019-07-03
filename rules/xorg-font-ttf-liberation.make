@@ -3,8 +3,6 @@
 # Copyright (C) 2015 by Philipp Zabel <p.zabel@pengutronix.de>
 #           (C) 2018 by Florian Bäuerle <florian.baeuerle@allegion.com>
 #
-# See CREDITS for details about who has contributed to this project.
-#
 # For further information about the PTXdist project and license conditions
 # see the README file.
 #

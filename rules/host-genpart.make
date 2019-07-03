@@ -2,8 +2,6 @@
 #
 # Copyright (C) 2006 by Robert Schwebel
 #
-# See CREDITS for details about who has contributed to this project.
-#
 # For further information about the PTXdist project and license conditions
 # see the README file.
 #

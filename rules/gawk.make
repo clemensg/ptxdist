@@ -2,8 +2,6 @@
 #
 # Copyright (C) 2003 by Ixia Corporation, By Milan Bobde
 #
-# See CREDITS for details about who has contributed to this project.
-#
 # For further information about the PTXdist project and license conditions
 # see the README file.
 #

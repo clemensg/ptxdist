@@ -4,8 +4,6 @@
 #           (C) 2013 by Michael Olbrich <m.olbrich@pengutronix.de>
 #           (C) 2013 by Jan Luebbe <j.luebbe@pengutronix.de>
 #
-# See CREDITS for details about who has contributed to this project.
-#
 # For further information about the PTXdist project and license conditions
 # see the README file.
 #

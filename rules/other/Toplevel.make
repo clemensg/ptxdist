@@ -1,6 +1,6 @@
 # -*-makefile-*-
 #
-# Copyright (C) 2002-2009 by The PTXdist Team - See CREDITS for Details
+# Copyright (C) 2002-2009 by The PTXdist Team
 #
 
 ifneq ($(findstring n,$(filter-out --%,$(MAKEFLAGS))),)

@@ -3,8 +3,6 @@
 # Copyright (C) 2006 by Erwin Rol
 # Copyright (C) 2009 by Robert Schwebel/Juergen Beisert
 #
-# See CREDITS for details about who has contributed to this project.
-#
 # For further information about the PTXdist project and license conditions
 # see the README file.
 #

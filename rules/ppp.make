@@ -4,8 +4,6 @@
 #                       GYRO net GmbH <info@gyro-net.de>, Hannover, Germany
 #               2008, 2009 by Juergen Beisert <juergen@kreuzholzen.de>
 #
-# See CREDITS for details about who has contributed to this project.
-#
 # For further information about the PTXdist project and license conditions
 # see the README file.
 #

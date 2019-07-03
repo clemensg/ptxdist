@@ -3,8 +3,6 @@
 # Copyright (C) 2013 by Christoph Fritz <chf.fritz@googlemail.com>
 #
 #
-# See CREDITS for details about who has contributed to this project.
-#
 # For further information about the PTXdist project and license conditions
 # see the README file.
 #

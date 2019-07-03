@@ -2,8 +2,6 @@
 #
 # Copyright (C) 2003, 2004, 2009 by Marc Kleine-Budde <kleine-budde@gmx.de>
 #          
-# See CREDITS for details about who has contributed to this project.
-#
 # For further information about the PTXdist project and license conditions
 # see the README file.
 #

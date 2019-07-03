@@ -3,8 +3,6 @@
 # Copyright (C) 2011 by Juergen Beisert <jbe@pengutronix.de>
 # Copyright (C) 2015 by Bernhard Walle <bernhard@bwalle.de>
 #
-# See CREDITS for details about who has contributed to this project.
-#
 # For further information about the PTXdist project and license conditions
 # see the README file.
 #

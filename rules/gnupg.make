@@ -3,8 +3,6 @@
 # Copyright (C) 2005 by Jiri Nesladek
 # Copyright (C) 2018 by Clemens Gruber <clemens.gruber@pqgruber.com>
 #
-# See CREDITS for details about who has contributed to this project.
-#
 # For further information about the PTXdist project and license conditions
 # see the README file.
 #

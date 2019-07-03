@@ -5,8 +5,6 @@
 #               2003-2009 by Pengutronix e.K., Hildesheim, Germany
 #               2010 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
-# See CREDITS for details about who has contributed to this project.
-#
 # For further information about the PTXdist project and license conditions
 # see the README file.
 #

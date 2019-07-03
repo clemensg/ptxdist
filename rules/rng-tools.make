@@ -3,8 +3,6 @@
 # Copyright (C) 2014 by Andreas Pretzsch <apr@cn-eng.de>
 #               2018 by Juergen Borleis <jbe@pengutronix.de>
 #
-# See CREDITS for details about who has contributed to this project.
-#
 # For further information about the PTXdist project and license conditions
 # see the README file.
 #

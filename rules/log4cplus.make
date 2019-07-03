@@ -3,8 +3,6 @@
 # Copyright (C) 2012 by Bernhard Sessler <bernhard.sessler@corscience.de>
 #                       Corscience GmbH & Co. KG <info@corscience.de>, Germany
 #
-# See CREDITS for details about who has contributed to this project.
-#
 # For further information about the PTXdist project and license conditions
 # see the README file.
 #

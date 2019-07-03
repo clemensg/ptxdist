@@ -2,8 +2,6 @@
 #
 # Copyright (C) 2013 by Andreas Helmcke <ahe@helmcke.name>
 #
-# See CREDITS for details about who has contributed to this project.
-#
 # For further information about the PTXdist project and license conditions
 # see the README file.
 #

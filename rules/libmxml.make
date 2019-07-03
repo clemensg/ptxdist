@@ -3,8 +3,6 @@
 # Copyright (C) 2007 by Lars Munch <lars@segv.dk>
 #               2010 by Ryan Raasch <ryan.raasch@gmail.com>
 #
-# See CREDITS for details about who has contributed to this project.
-#
 # For further information about the PTXdist project and license conditions
 # see the README file.
 #

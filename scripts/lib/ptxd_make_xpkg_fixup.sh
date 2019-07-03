@@ -4,8 +4,6 @@
 #               2008, 2009, 2010 by Marc Kleine-Budde <mkl@pengutronix.de>
 #               2011 by George McCollister <george.mccollister@gmail.com>
 #
-# See CREDITS for details about who has contributed to this project.
-#
 # For further information about the PTXdist project and license conditions
 # see the README file.
 #
