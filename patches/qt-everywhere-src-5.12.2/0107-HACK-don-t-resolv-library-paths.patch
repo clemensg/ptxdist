@@ -16,10 +16,10 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/qtbase/mkspecs/features/qt_configure.prf b/qtbase/mkspecs/features/qt_configure.prf
-index c45439c3ef1d..1a0368bc5481 100644
+index 7ca65c92b3f1..5ce57b979617 100644
 --- a/qtbase/mkspecs/features/qt_configure.prf
 +++ b/qtbase/mkspecs/features/qt_configure.prf
-@@ -561,7 +561,7 @@ defineTest(qtConfResolveLibs) {
+@@ -573,7 +573,7 @@ defineTest(qtConfResolveLibs) {
              out += $$l
          }
      }

@@ -1,0 +1,100 @@
+From: Joerg Bornemann <joerg.bornemann@qt.io>
+Date: Mon, 13 May 2019 11:04:42 +0200
+Subject: [PATCH] Fix detection of the webengine-arm-thumb feature
+
+Configure tests must run in a clean environment. That's why functions
+that are defined below the mkspecs directory are discarded during the
+configure run. As a result, extractCFlag could not be found when
+running qtConftest_hasThumbFlag.
+
+This patch moves extractCFlag to src/core/config/functions.pri. Also,
+extractCFlag gets a qtwebengine_ prefix to avoid collisions with
+functions defined in other modules. The alias extractCFlag in
+functions.prf lets us use the old function within QtWebEngine itself.
+
+Fixes: QTBUG-75748
+Change-Id: I6be613fbc569d5f7b3c145ef44b9a7be8e2ecb9d
+Reviewed-by: Kai Koehne <kai.koehne@qt.io>
+---
+ qtwebengine/configure.pri                  | 8 +++++---
+ qtwebengine/mkspecs/features/functions.prf | 9 ---------
+ qtwebengine/src/core/config/functions.pri  | 8 ++++++++
+ qtwebengine/src/core/config/linux.pri      | 6 ++++++
+ 4 files changed, 19 insertions(+), 12 deletions(-)
+ create mode 100644 qtwebengine/src/core/config/functions.pri
+
+diff --git a/qtwebengine/configure.pri b/qtwebengine/configure.pri
+index 26c57ce61fbe..897bea54098f 100644
+--- a/qtwebengine/configure.pri
++++ b/qtwebengine/configure.pri
+@@ -1,3 +1,5 @@
++include(src/core/config/functions.pri)
++
+ # this must be done outside any function
+ QTWEBENGINE_SOURCE_TREE = $$PWD
+ 
+@@ -297,12 +299,12 @@ defineTest(qtConfTest_isWindowsHostCompiler64) {
+ 
+ # Fixme QTBUG-71772
+ defineTest(qtConfTest_hasThumbFlag) {
+-    FLAG = $$extractCFlag("-mthumb")
++    FLAG = $$qtwebengine_extractCFlag("-mthumb")
+     !isEmpty(FLAG): return(true)
+-    FLAG = $$extractCFlag("-marm")
++    FLAG = $$qtwebengine_extractCFlag("-marm")
+     !isEmpty(FLAG): return(false)
+ 
+-    MARCH = $$extractCFlag("-march=.*")
++    MARCH = $$qtwebengine_extractCFlag("-march=.*")
+     MARMV = $$replace(MARCH, "armv",)
+     !isEmpty(MARMV) {
+         MARMV = $$split(MARMV,)
+diff --git a/qtwebengine/mkspecs/features/functions.prf b/qtwebengine/mkspecs/features/functions.prf
+index f6aeea21a79f..9efa8958f9c6 100644
+--- a/qtwebengine/mkspecs/features/functions.prf
++++ b/qtwebengine/mkspecs/features/functions.prf
+@@ -10,15 +10,6 @@ defineReplace(getChromiumSrcDir) {
+   return($$git_chromium_src_dir)
+ }
+ 
+-defineReplace(extractCFlag) {
+-    CFLAGS = $$QMAKE_CC $$QMAKE_CFLAGS
+-    OPTION = $$find(CFLAGS, $$1)
+-    OPTION = $$split(OPTION, =)
+-    PARAM = $$member(OPTION, 1)
+-    !isEmpty(PARAM): return ($$PARAM)
+-    return ($$OPTION)
+-}
+-
+ defineReplace(which) {
+   out = $$1
+   win32 {
+diff --git a/qtwebengine/src/core/config/functions.pri b/qtwebengine/src/core/config/functions.pri
+new file mode 100644
+index 000000000000..8c11faa16ad2
+--- /dev/null
++++ b/qtwebengine/src/core/config/functions.pri
+@@ -0,0 +1,8 @@
++defineReplace(qtwebengine_extractCFlag) {
++    CFLAGS = $$QMAKE_CC $$QMAKE_CFLAGS
++    OPTION = $$find(CFLAGS, $$1)
++    OPTION = $$split(OPTION, =)
++    PARAM = $$member(OPTION, 1)
++    !isEmpty(PARAM): return ($$PARAM)
++    return ($$OPTION)
++}
+diff --git a/qtwebengine/src/core/config/linux.pri b/qtwebengine/src/core/config/linux.pri
+index 85b948db2527..fe5fe6d76346 100644
+--- a/qtwebengine/src/core/config/linux.pri
++++ b/qtwebengine/src/core/config/linux.pri
+@@ -1,4 +1,10 @@
+ include(common.pri)
++include(functions.pri)
++
++defineReplace(extractCFlag) {
++    return($$qtwebengine_extractCFlag($$1))
++}
++
+ QT_FOR_CONFIG += gui-private webenginecore-private
+ 
+ gn_args += \

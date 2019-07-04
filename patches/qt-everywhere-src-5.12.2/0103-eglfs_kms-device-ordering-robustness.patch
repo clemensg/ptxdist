@@ -12,7 +12,7 @@ Signed-off-by: Lucas Stach <l.stach@pengutronix.de>
  1 file changed, 20 insertions(+)
 
 diff --git a/qtbase/src/plugins/platforms/eglfs/deviceintegration/eglfs_kms/qeglfskmsgbmintegration.cpp b/qtbase/src/plugins/platforms/eglfs/deviceintegration/eglfs_kms/qeglfskmsgbmintegration.cpp
-index 402338197d0f..227f6fe3e9fb 100644
+index f1545206691d..1866407087b6 100644
 --- a/qtbase/src/plugins/platforms/eglfs/deviceintegration/eglfs_kms/qeglfskmsgbmintegration.cpp
 +++ b/qtbase/src/plugins/platforms/eglfs/deviceintegration/eglfs_kms/qeglfskmsgbmintegration.cpp
 @@ -47,6 +47,7 @@
@@ -23,7 +23,7 @@ index 402338197d0f..227f6fe3e9fb 100644
  #include <QtGui/QScreen>
  #include <QtDeviceDiscoverySupport/private/qdevicediscovery_p.h>
  
-@@ -129,6 +130,20 @@ void QEglFSKmsGbmIntegration::presentBuffer(QPlatformSurface *surface)
+@@ -130,6 +131,20 @@ void QEglFSKmsGbmIntegration::presentBuffer(QPlatformSurface *surface)
      screen->flip();
  }
  
@@ -44,7 +44,7 @@ index 402338197d0f..227f6fe3e9fb 100644
  QKmsDevice *QEglFSKmsGbmIntegration::createDevice()
  {
      QString path = screenConfig()->devicePath();
-@@ -144,6 +159,11 @@ QKmsDevice *QEglFSKmsGbmIntegration::createDevice()
+@@ -145,6 +160,11 @@ QKmsDevice *QEglFSKmsGbmIntegration::createDevice()
              qFatal("Could not find DRM device!");
  
          path = devices.first();
