@@ -87,6 +87,18 @@ endef
 
 
 #
+# $(call ptx/wow, PTXCONF_SYMBOL) returns "with" or "without"
+# depending on the symbol is defined or not
+#
+# $(call ptx/wow, PTXCONF_SYMBOL)
+#                     $1
+#
+define ptx/wow
+$(call ptx/ifdef, $(1), without, with)
+endef
+
+
+#
 # $(call ptx/onoff, PTXCONF_SYMBOL) returns "ON" or "OFF"
 # depending on the symbol is defined or not
 #
