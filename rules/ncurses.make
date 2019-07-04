@@ -49,7 +49,7 @@ NCURSES_AUTOCONF_SHARED = \
 	--without-tests \
 	--with-curses-h \
 	--with-pkg-config-libdir=/usr/lib/pkgconfig \
-	--enable-pc-files \
+	--$(call ptx/endis,$(1))-pc-files \
 	--enable-mixed-case \
 	--without-libtool \
 	--$(call ptx/wwo,$(1))-shared \
