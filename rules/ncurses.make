@@ -33,14 +33,18 @@ NCURSES_CONF_ENV := \
 	$(CROSS_ENV) \
 	TIC_PATH="$(PTXDIST_SYSROOT_HOST)/bin/tic"
 
+NCURSES_SHARED_TARGET	:= y
+NCURSES_SHARED_HOST	:=
+
 # NOTE: reentrant enables opaque, which breaks other packages
 # pthread enables reentrant, so don't enable it either
-NCURSES_AUTOCONF_SHARED := \
+NCURSES_AUTOCONF_SHARED = \
 	--without-ada \
 	--without-cxx \
 	--without-cxx-binding \
 	--enable-db-install \
 	--without-manpages \
+	--$(call ptx/wow,$(1))-progs \
 	--without-tack \
 	--without-tests \
 	--with-curses-h \
@@ -48,6 +52,7 @@ NCURSES_AUTOCONF_SHARED := \
 	--enable-pc-files \
 	--enable-mixed-case \
 	--without-libtool \
+	--$(call ptx/wwo,$(1))-shared \
 	--with-normal \
 	--without-debug \
 	--without-profile \
@@ -82,9 +87,7 @@ NCURSES_AUTOCONF_SHARED := \
 
 NCURSES_CONF_OPT := \
 	$(CROSS_AUTOCONF_USR) \
-	$(NCURSES_AUTOCONF_SHARED) \
-	--without-progs \
-	--with-shared
+	$(call NCURSES_AUTOCONF_SHARED,NCURSES_SHARED_TARGET)
 
 # ----------------------------------------------------------------------------
 # Install
