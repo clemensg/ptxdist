@@ -98,7 +98,8 @@ install_init:	@DEPENDS@ -> ${dep}"
     for script in preinst postinst prerm postrm; do
 	echo -n "install_init:	${script} "
 
-	if ptxd_in_path PTXDIST_PATH_RULES "${pkg_xpkg}.${script}"; then
+	if ptxd_in_path PTXDIST_PATH_RULES "${pkg_xpkg}.${script}" && \
+	    [ ! -h "${ptxd_reply}" -o "$(readlink "${ptxd_reply}")" != /dev/null ]; then
 	    install -m 0755 \
 		-D "${ptxd_reply}" \
 		"${pkg_xpkg_control_dir}/${script}" || return
