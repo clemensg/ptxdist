@@ -242,17 +242,17 @@ endif
 ifdef PTXCONF_QT5_MODULE_QTMULTIMEDIA
 QT5_CONF_OPT	+= \
 	--disable-pulseaudio \
-	--$(call ptx/endis, PTXCONF_QT5_MODULE_QTMULTIMEDIA)-alsa \
+	--enable-alsa \
 	$(call ptx/ifdef, PTXCONF_QT5_MODULE_QTMULTIMEDIA_GST,-gstreamer 1.0,-no-gstreamer)
 endif
 ifdef PTXCONF_QT5_MODULE_QTWEBENGINE
 QT5_CONF_OPT	+= \
-	--$(call ptx/endis, PTXCONF_QT5_MODULE_QTWEBENGINE)-alsa \
+	--$(call ptx/endis, PTXCONF_QT5_MODULE_QTWEBENGINE_MEDIA)-webengine-alsa \
 	--disable-webengine-pulseaudio \
 	-qt-webengine-icu \
-	-qt-webengine-ffmpeg \
+	-$(call ptx/ifdef, PTXCONF_QT5_MODULE_QTWEBENGINE_MEDIA,qt,no)-webengine-ffmpeg \
 	-system-webengine-opus \
-	-qt-webengine-webp \
+	-$(call ptx/ifdef, PTXCONF_QT5_MODULE_QTWEBENGINE_MEDIA,qt,no)-webengine-webp \
 	--disable-webengine-pepper-plugins \
 	--disable-webengine-printing-and-pdf \
 	--disable-webengine-proprietary-codecs \
