@@ -15,15 +15,15 @@ PACKAGES-$(PTXCONF_NGINX) += nginx
 #
 # Paths and names
 #
-NGINX_VERSION	:= 1.14.2
-NGINX_MD5	:= 239b829a13cea1d244c1044e830bd9c2
+NGINX_VERSION	:= 1.16.0
+NGINX_MD5	:= 97207283f30cd90cdba638c3ea30323a
 NGINX		:= nginx-$(NGINX_VERSION)
 NGINX_SUFFIX	:= tar.gz
 NGINX_URL	:= https://nginx.org/download/$(NGINX).$(NGINX_SUFFIX)
 NGINX_SOURCE	:= $(SRCDIR)/$(NGINX).$(NGINX_SUFFIX)
 NGINX_DIR	:= $(BUILDDIR)/$(NGINX)
 NGINX_LICENSE	:= BSD-2-Clause
-NGINX_LICENSE_FILES	:= file://LICENSE;md5=3691402cc54ce09f800ca348634a2dfe
+NGINX_LICENSE_FILES	:= file://LICENSE;md5=52e384aaac868b755b93ad5535e2d075
 
 # ----------------------------------------------------------------------------
 # Prepare

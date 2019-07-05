@@ -11,7 +11,7 @@ Signed-off-by: Martin Bark <martin@barkynet.com>
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/auto/lib/libgd/conf b/auto/lib/libgd/conf
-index 87761f14dc29..4c74d8f334d2 100644
+index 678639767a63..1a4379a5e45c 100644
 --- a/auto/lib/libgd/conf
 +++ b/auto/lib/libgd/conf
 @@ -7,8 +7,8 @@
@@ -22,6 +22,6 @@ index 87761f14dc29..4c74d8f334d2 100644
 -    ngx_feature_libs="-lgd"
 +    ngx_feature_path="$(${GDLIB_CONFIG:=gdlib-config} --includedir)"
 +    ngx_feature_libs="$(${GDLIB_CONFIG:=gdlib-config} --libs)"
-     ngx_feature_test="gdImagePtr img = gdImageCreateFromGifPtr(1, NULL);"
+     ngx_feature_test="gdImagePtr img = gdImageCreateFromGifPtr(1, NULL);
+                       (void) img"
      . auto/feature
- 
