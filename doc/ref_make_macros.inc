@@ -672,6 +672,7 @@ Usage:
 
  $(call ptx/endis, VARIABLE)
  $(call ptx/disen, VARIABLE)
+ $(call ptx/wow, VARIABLE)
  $(call ptx/wwo, VARIABLE)
  $(call ptx/truefalse, VARIABLE)
  $(call ptx/ifdef, VARIABLE, [expansion-if-true], [expansion-if-false])
@@ -685,6 +686,8 @@ These are useful for ``<PKG>_CONF_OPT`` variables, and expand as follows:
 | ptx/endis          | ``enable``                    | ``disable``                     | autoconf            |
 +--------------------+-------------------------------+---------------------------------+---------------------+
 | ptx/disen          | ``disable``                   | ``enable``                      | autoconf            |
++--------------------+-------------------------------+---------------------------------+---------------------+
+| ptx/wow            | ``without``                   | ``with``                        | autoconf            |
 +--------------------+-------------------------------+---------------------------------+---------------------+
 | ptx/wwo            | ``with``                      | ``without``                     | autoconf            |
 +--------------------+-------------------------------+---------------------------------+---------------------+
