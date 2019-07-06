@@ -763,7 +763,7 @@ SPDX License Identifiers
 
 A list of SPDX license identifiers can be found here:
 
-   https://www.gnu.org/licenses/license-list.html#SoftwareLicenses
+   https://spdx.org/licenses/
 
 Help to Detect the Correct License
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -772,7 +772,7 @@ License identification isn't trivial. A help in doing so can be the following
 repository and its content. It contains a list of known licenses based on their
 SPDX identifier. The content is without formatting to simplify text search.
 
-   https://github.com/spdx/license-list.git
+   https://github.com/spdx/license-list-data/tree/master/text
 
 Advanced Rule Files
 ~~~~~~~~~~~~~~~~~~~
