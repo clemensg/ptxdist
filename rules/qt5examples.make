@@ -3220,12 +3220,6 @@ ifdef PTXCONF_QT5_EXAMPLES_WEBENGINEWIDGETS_COOKIEBROWSER
 endif
 endif
 ifneq ($(strip $(PTXCONF_QT5_MODULE_QTWEBENGINE)),)
-ifdef PTXCONF_QT5_EXAMPLES_WEBENGINEWIDGETS_HTML2PDF
-	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
-		/usr/lib/qt5/examples/webenginewidgets/html2pdf/html2pdf)
-endif
-endif
-ifneq ($(strip $(PTXCONF_QT5_MODULE_QTWEBENGINE)),)
 ifdef PTXCONF_QT5_EXAMPLES_WEBENGINEWIDGETS_MAPS
 	@$(call install_copy, qt5-examples, 0, 0, 0755, -, \
 		/usr/lib/qt5/examples/webenginewidgets/maps/maps)
