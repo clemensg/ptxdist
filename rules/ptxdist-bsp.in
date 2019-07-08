@@ -1,0 +1,13 @@
+## SECTION=ptxdist_version
+
+config BSP
+	bool
+	default y
+	select HOST_DUMMY_INSTALL_INFO
+	select HOST_ELF_H_COMPAT
+	select HOST_FAKEROOT
+	select HOST_LNDIR
+	select HOST_PACKAGE_MANAGEMENT_OPKG
+	select HOST_UNFS3
+	help
+	  This is a BSP with opkg packages.

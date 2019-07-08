@@ -1,5 +1,4 @@
 ## SECTION=hosttools_noprompt_ptx
 
 config HOST_ELF_H_COMPAT
-	default y
 	bool

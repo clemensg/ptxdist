@@ -2,7 +2,6 @@
 
 config HOST_FAKEROOT
 	tristate
-	default y
 	select HOST_ACL
 	select HOST_LIBCAP
 	help
