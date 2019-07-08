@@ -172,7 +172,7 @@ ptxd_kconfig_create_config_merge() {
 	    prefix="${a%%_*}_"
 	fi
 	args[${#args[@]}]="${option}"
-	args[${#args[@]}]="${a#${prefix}}"
+	args[${#args[@]}]="${a}"
 	if [ -n "${arg}" ]; then
 	    args[${#args[@]}]="${arg}"
 	fi
