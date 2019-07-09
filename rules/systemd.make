@@ -229,6 +229,7 @@ SYSTEMD_HELPER := \
 	systemd-shutdown \
 	systemd-sleep \
 	systemd-socket-proxyd \
+	systemd-sulogin-shell \
 	systemd-sysctl \
 	$(call ptx/ifdef, PTXCONF_SYSTEMD_TIMEDATE,systemd-time-wait-sync) \
 	$(call ptx/ifdef, PTXCONF_SYSTEMD_TIMEDATE,systemd-timedated) \
