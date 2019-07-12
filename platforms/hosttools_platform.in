@@ -1,0 +1,7 @@
+## SECTION=hosttools_platform
+
+#
+# This file does only exist to create a defined entry in the
+# "hosttools_platform" section, so that the toplevel Kconfig can include
+# generated/hosttools_platform.in even if no package is in that category.
+#
