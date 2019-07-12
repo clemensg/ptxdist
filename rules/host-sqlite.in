@@ -1,4 +1,3 @@
-## SECTION=hosttools_platform
 ## SECTION=hosttools_noprompt
 
 config HOST_SQLITE
