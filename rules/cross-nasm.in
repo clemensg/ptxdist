@@ -1,5 +1,4 @@
-## SECTION=crosstools
-## SECTION=hosttools_platform
+## SECTION=hosttools_noprompt
 
 config CROSS_NASM
 	bool
