@@ -17,8 +17,6 @@ menuconfig PYTHON
 	select READLINE		if PYTHON_READLINE
 	select DB		if PYTHON_DB
 	select OPENSSL		if PYTHON_HASHLIB
-	select TCL		if PYTHON_LIBTK
-	select TK		if PYTHON_LIBTK
 	help
 	  Python is a dynamic object-oriented programming
 	  language that can be used for many kinds of
@@ -51,18 +49,6 @@ config PYTHON_SYMLINK
 	bool
 	prompt "install symbolic link /usr/bin/python"
 	default y
-
-config PYTHON_LIBTK
-	bool
-	depends on STAGING
-	prompt "Include lib-tk packages"
-
-config PYTHON_IDLELIB
-	bool
-	prompt "Include idlelib packages"
-	help
-	  IDLE, an Integrated Development Environment for Python written in
-	  100% Python
 
 config PYTHON_DISTUTILS
 	bool

@@ -141,8 +141,8 @@ $(STATEDIR)/python3.install.post:
 # Target-Install
 # ----------------------------------------------------------------------------
 
-# may add extra dependencies and is not useful for embedded
-PYTHON3_SKIP-y							+= */nis.*
+# nis may add extra dependencies and is not useful for embedded
+PYTHON3_SKIP-y							+= */nis.* */tkinter */idlelib
 
 # These cannot be disabled during build, so just don't install the disabled modules
 PYTHON3_SKIP-$(call ptx/opt-dis, PTXCONF_PYTHON3_BZ2)		+= */bz2.pyc */_bz2*.so
@@ -151,8 +151,6 @@ PYTHON3_SKIP-$(call ptx/opt-dis, PTXCONF_PYTHON3_NCURSES)	+= */curses */_curses*
 PYTHON3_SKIP-$(call ptx/opt-dis, PTXCONF_PYTHON3_READLINE)	+= */readline*so
 PYTHON3_SKIP-$(call ptx/opt-dis, PTXCONF_PYTHON3_SQLITE)	+= */sqlite3 */_sqlite3*.so
 PYTHON3_SKIP-$(call ptx/opt-dis, PTXCONF_PYTHON3_SSL)		+= */ssl.pyc */_ssl*.so */hashlib.pyc */_hashlib*.so
-PYTHON3_SKIP-$(call ptx/opt-dis, PTXCONF_PYTHON3_LIBTK)		+= */tkinter
-PYTHON3_SKIP-$(call ptx/opt-dis, PTXCONF_PYTHON3_IDLELIB)	+= */idlelib
 PYTHON3_SKIP-$(call ptx/opt-dis, PTXCONF_PYTHON3_DISTUTILS)	+= */distutils
 
 $(STATEDIR)/python3.targetinstall:

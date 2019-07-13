@@ -163,8 +163,7 @@ $(STATEDIR)/python.install.post:
 # Target-Install
 # ----------------------------------------------------------------------------
 
-PYTHON_SKIP-$(call ptx/opt-dis, PTXCONF_PYTHON_LIBTK)		+= lib-tk
-PYTHON_SKIP-$(call ptx/opt-dis, PTXCONF_PYTHON_IDLELIB)		+= idlelib
+PYTHON_SKIP-y							:= lib-tk idlelib
 PYTHON_SKIP-$(call ptx/opt-dis, PTXCONF_PYTHON_DISTUTILS)	+= distutils
 
 ifneq ($(PYTHON_SKIP-y),)
@@ -173,10 +172,10 @@ PYTHON_SKIP_LIST_POST :=/*$(quote)
 
 PYTHON_SKIP_LIST := $(subst $(space),$(PYTHON_SKIP_LIST_POST) $(PYTHON_SKIP_LIST_PRE),$(PYTHON_SKIP-y))
 PYTHON_SKIP_LIST := $(PYTHON_SKIP_LIST_PRE)$(PYTHON_SKIP_LIST)$(PYTHON_SKIP_LIST_POST)
+endif
 
 # may add extra dependencies and is not useful for embedded
 PYTHON_SKIP_LIST += -a \! -name nis.*
-endif
 
 $(STATEDIR)/python.targetinstall:
 	@$(call targetinfo)
