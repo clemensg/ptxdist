@@ -1,9 +1,6 @@
 ## SECTION=networking
 config HPING
 	tristate
-	select TCL if HPING_TCL
-	select LIBC_M if HPING_TCL
-	select LIBC_PTHREAD if HPING_TCL
 	select LIBPCAP
 	prompt "hping"
 	help
@@ -13,12 +10,3 @@ config HPING
 	  ICMP and RAW-IP protocols, has a traceroute mode, the ability to
 	  send files between a covered channel, and many other features.
 
-if HPING
-config HPING_TCL
-	prompt "Add TCL support"
-	depends on BROKEN
-	bool
-	help
-	  Add the Tcl scripting engine feature
-
-endif

@@ -21,7 +21,6 @@ config JIMTCL_SHELL
 config JIMTCL_SYMLINK
 	bool "install tclsh symlink"
 	depends on JIMTCL_SHELL
-	depends on !TCL
 	help
 	  Make tclsh symlink to jimsh
 
