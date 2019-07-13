@@ -49,7 +49,7 @@ $(STATEDIR)/python3-shiboken.install:
 	@$(call world/install, PYTHON3_SHIBOKEN)
 	@cd $(PYTHON3_SHIBOKEN_DIR)-build && $(MAKE) -C data install DESTDIR='$(PYTHON3_SHIBOKEN_PKGDIR)'
 	@sed -i -e 's,"$(SYSROOT)/usr,"SYSROOT/usr,g' \
-		-e 's,"$(PTXCONF_SYSROOT_CROSS),"SYSROOT_CROSS,g' \
+		-e 's,"$(PTXDIST_SYSROOT_CROSS),"SYSROOT_CROSS,g' \
 		$(PYTHON3_SHIBOKEN_PKGDIR)/usr/lib/cmake/Shiboken-$(PYTHON3_SHIBOKEN_VERSION)/ShibokenConfig.cpython*.cmake
 	@$(call touch)
 
@@ -58,9 +58,9 @@ $(STATEDIR)/python3-shiboken.install.post:
 	@$(call world/install.post, PYTHON3_SHIBOKEN)
 	@sed -i -e 's,(/usr,($(SYSROOT)/usr,g' \
 		'$(SYSROOT)/usr/lib/cmake/Shiboken-$(PYTHON3_SHIBOKEN_VERSION)/ShibokenConfig.cmake'
-	@sed -i -e 's,"SYSROOT_CROSS,"@$(PTXCONF_SYSROOT_CROSS),g' \
+	@sed -i -e 's,"SYSROOT_CROSS,"@$(PTXDIST_SYSROOT_CROSS),g' \
 		-e 's,"SYSROOT/usr,"@$(SYSROOT)/usr,g' \
-		-e 's,"/usr/bin,"@$(PTXCONF_SYSROOT_HOST)/bin,g' \
+		-e 's,"/usr/bin,"@$(PTXDIST_SYSROOT_HOST)/bin,g' \
 		-e 's,"/usr,"@$(SYSROOT)/usr,g' \
 		-e 's,"@,",g' \
 		$(SYSROOT)/usr/lib/cmake/Shiboken-$(PYTHON3_SHIBOKEN_VERSION)/ShibokenConfig.cpython*.cmake

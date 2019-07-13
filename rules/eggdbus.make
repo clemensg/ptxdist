@@ -35,7 +35,7 @@ EGGDBUS_AUTOCONF := \
 	--disable-verbose-mode \
 	--disable-man-pages \
 	--disable-gtk-doc \
-	--with-eggdbus-tools=$(PTXCONF_SYSROOT_HOST)/bin
+	--with-eggdbus-tools=$(PTXDIST_SYSROOT_HOST)/bin
 
 # ----------------------------------------------------------------------------
 # Target-Install

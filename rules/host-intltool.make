@@ -39,7 +39,7 @@ HOST_INTLTOOL_CONF_TOOL	:= autoconf
 $(STATEDIR)/host-intltool.install.post:
 	@$(call targetinfo)
 	@$(call world/install.post, HOST_INTLTOOL)
-	@sed -i "s;^prefix=$$;prefix=$(PTXCONF_SYSROOT_HOST);" $(PTXCONF_SYSROOT_HOST)/bin/intltoolize
+	@sed -i "s;^prefix=$$;prefix=$(PTXDIST_SYSROOT_HOST);" $(PTXDIST_SYSROOT_HOST)/bin/intltoolize
 	@$(call touch)
 
 # vim: syntax=make

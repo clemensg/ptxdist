@@ -41,8 +41,8 @@ DBUS_GLIB_CONF_OPT	:= \
 	--disable-asserts \
 	--enable-checks \
 	--disable-gtk-doc \
-	--with-dbus-binding-tool=$(PTXCONF_SYSROOT_HOST)/bin/dbus-binding-tool \
-	--with-introspect-xml=$(PTXCONF_SYSROOT_HOST)/share/dbus-glib/dbus-bus-introspect.xml
+	--with-dbus-binding-tool=$(PTXDIST_SYSROOT_HOST)/bin/dbus-binding-tool \
+	--with-introspect-xml=$(PTXDIST_SYSROOT_HOST)/share/dbus-glib/dbus-bus-introspect.xml
 
 # ----------------------------------------------------------------------------
 # Target-Install

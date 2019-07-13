@@ -17,7 +17,7 @@ HOST_PACKAGES-$(PTXCONF_HOST_PYTHON3) += host-python3
 #
 HOST_PYTHON3_DIR	= $(HOST_BUILDDIR)/$(PYTHON3)
 
-HOSTPYTHON3		= $(PTXCONF_SYSROOT_HOST)/bin/python$(PYTHON3_MAJORMINOR)
+HOSTPYTHON3		= $(PTXDIST_SYSROOT_HOST)/bin/python$(PYTHON3_MAJORMINOR)
 
 # ----------------------------------------------------------------------------
 # Prepare

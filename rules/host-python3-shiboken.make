@@ -37,17 +37,17 @@ HOST_PYTHON3_SHIBOKEN_CONF_OPT	= \
 $(STATEDIR)/host-python3-shiboken.install:
 	@$(call targetinfo)
 	@$(call world/install, HOST_PYTHON3_SHIBOKEN)
-	@sed -i -e 's,"$(PTXCONF_SYSROOT_HOST),",g' \
+	@sed -i -e 's,"$(PTXDIST_SYSROOT_HOST),",g' \
 		$(HOST_PYTHON3_SHIBOKEN_PKGDIR)/lib/cmake/Shiboken-$(PYTHON3_SHIBOKEN_VERSION)/ShibokenConfig.cpython-*.cmake
 	@$(call touch)
 
 $(STATEDIR)/host-python3-shiboken.install.post:
 	@$(call targetinfo)
 	@$(call world/install.post, HOST_PYTHON3_SHIBOKEN)
-	@sed -i -e 's,(/,($(PTXCONF_SYSROOT_HOST)/,g' \
-		'$(PTXCONF_SYSROOT_HOST)/lib/cmake/Shiboken-$(PYTHON3_SHIBOKEN_VERSION)/ShibokenConfig.cmake'
-	@sed -i -e 's,"/,"$(PTXCONF_SYSROOT_HOST)/,g' \
-		$(PTXCONF_SYSROOT_HOST)/lib/cmake/Shiboken-$(PYTHON3_SHIBOKEN_VERSION)/ShibokenConfig.cpython-*.cmake
+	@sed -i -e 's,(/,($(PTXDIST_SYSROOT_HOST)/,g' \
+		'$(PTXDIST_SYSROOT_HOST)/lib/cmake/Shiboken-$(PYTHON3_SHIBOKEN_VERSION)/ShibokenConfig.cmake'
+	@sed -i -e 's,"/,"$(PTXDIST_SYSROOT_HOST)/,g' \
+		$(PTXDIST_SYSROOT_HOST)/lib/cmake/Shiboken-$(PYTHON3_SHIBOKEN_VERSION)/ShibokenConfig.cpython-*.cmake
 	@$(call touch)
 
 # vim: syntax=make

@@ -39,11 +39,11 @@ LIBPVGEN_AUTOCONF := \
 
 $(STATEDIR)/libpvgen.install:
 	@$(call targetinfo)
-	@mkdir -p $(PTXCONF_SYSROOT_HOST)/usr/share/libpvgen
+	@mkdir -p $(PTXDIST_SYSROOT_HOST)/usr/share/libpvgen
 	@for file in confignode genpv_cfile libpvgen wago; do \
 		ln -sf \
-			$(PTXCONF_SYSROOT_TARGET)/usr/share/libpvgen/"$${file}.py" \
-			$(PTXCONF_SYSROOT_HOST)/usr/share/libpvgen/"$${file}.py"; \
+			$(PTXDIST_SYSROOT_TARGET)/usr/share/libpvgen/"$${file}.py" \
+			$(PTXDIST_SYSROOT_HOST)/usr/share/libpvgen/"$${file}.py"; \
 	done
 	@$(call touch)
 

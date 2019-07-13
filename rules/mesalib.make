@@ -140,7 +140,7 @@ MESALIB_CONF_OPT	:= \
 
 $(STATEDIR)/mesalib.compile:
 	@$(call targetinfo)
-	cp $(PTXCONF_SYSROOT_HOST)/bin/mesa/glsl_compiler $(MESALIB_DIR)/src/compiler/
+	cp $(PTXDIST_SYSROOT_HOST)/bin/mesa/glsl_compiler $(MESALIB_DIR)/src/compiler/
 	@$(call world/compile, MESALIB)
 	@$(call touch)
 

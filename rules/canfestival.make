@@ -56,7 +56,7 @@ $(STATEDIR)/canfestival.install.post:
 	@$(call targetinfo)
 	@$(call world/install.post, CANFESTIVAL)
 	@for file in objdictedit objdictgen; do \
-		ln -sf $(PTXCONF_SYSROOT_TARGET)/usr/bin/"$${file}" $(PTXCONF_SYSROOT_HOST)/bin; \
+		ln -sf $(PTXDIST_SYSROOT_TARGET)/usr/bin/"$${file}" $(PTXDIST_SYSROOT_HOST)/bin; \
 	done
 
 	@$(call touch)

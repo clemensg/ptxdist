@@ -29,7 +29,7 @@ PYTHON3_URL		:= \
 	http://python.org/ftp/python/$(PYTHON3_VERSION)/$(PYTHON3).$(PYTHON3_SUFFIX) \
 	http://python.org/ftp/python/$(PYTHON3_MAJORMINOR)/$(PYTHON3).$(PYTHON3_SUFFIX)
 
-CROSS_PYTHON3		:= $(PTXCONF_SYSROOT_CROSS)/bin/python$(PYTHON3_MAJORMINOR)
+CROSS_PYTHON3		:= $(PTXDIST_SYSROOT_CROSS)/bin/python$(PYTHON3_MAJORMINOR)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -126,11 +126,11 @@ $(STATEDIR)/python3.install.post:
 	@echo 'exec $(HOSTPYTHON3) "$${@}"'				>> "$(CROSS_PYTHON3)"
 	@chmod a+x "$(CROSS_PYTHON3)"
 	@ln -sf "python$(PYTHON3_MAJORMINOR)" \
-		"$(PTXCONF_SYSROOT_CROSS)/bin/python3"
+		"$(PTXDIST_SYSROOT_CROSS)/bin/python3"
 	@sed -e 's;prefix_real=.*;prefix_real=$(SYSROOT)/usr;' \
-		"$(PTXCONF_SYSROOT_TARGET)/usr/bin/python$(PYTHON3_MAJORMINOR)-config" \
-		> "$(PTXCONF_SYSROOT_CROSS)/bin/python$(PYTHON3_MAJORMINOR)-config"
-	@chmod +x "$(PTXCONF_SYSROOT_CROSS)/bin/python$(PYTHON3_MAJORMINOR)-config"
+		"$(PTXDIST_SYSROOT_TARGET)/usr/bin/python$(PYTHON3_MAJORMINOR)-config" \
+		> "$(PTXDIST_SYSROOT_CROSS)/bin/python$(PYTHON3_MAJORMINOR)-config"
+	@chmod +x "$(PTXDIST_SYSROOT_CROSS)/bin/python$(PYTHON3_MAJORMINOR)-config"
 
 #	# make sure grammer pickle is generated to avoid parallel building issues
 	@"$(CROSS_PYTHON3)" -c 'from setuptools.command import build_py'
@@ -187,8 +187,8 @@ $(STATEDIR)/python3.clean:
 	@$(call clean_pkg, MESA_DEMOS)
 	@rm -vf \
 		"$(CROSS_PYTHON3)" \
-		"$(PTXCONF_SYSROOT_CROSS)/bin/python3" \
-		"$(PTXCONF_SYSROOT_CROSS)/bin/python$(PYTHON3_MAJORMINOR)-config" \
+		"$(PTXDIST_SYSROOT_CROSS)/bin/python3" \
+		"$(PTXDIST_SYSROOT_CROSS)/bin/python$(PYTHON3_MAJORMINOR)-config" \
 		"$(PTXDIST_SYSROOT_CROSS)/lib/python$(PYTHON3_MAJORMINOR)/"_sysconfigdata_m_linux2_*.py
 
 # vim: syntax=make

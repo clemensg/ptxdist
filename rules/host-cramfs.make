@@ -35,8 +35,8 @@ HOST_CRAMFS_CONF_TOOL := NO
 
 $(STATEDIR)/host-cramfs.install:
 	@$(call targetinfo)
-	cp $(HOST_CRAMFS_DIR)/mkcramfs $(PTXCONF_SYSROOT_HOST)/bin
-	cp $(HOST_CRAMFS_DIR)/cramfsck $(PTXCONF_SYSROOT_HOST)/bin
+	cp $(HOST_CRAMFS_DIR)/mkcramfs $(PTXDIST_SYSROOT_HOST)/bin
+	cp $(HOST_CRAMFS_DIR)/cramfsck $(PTXDIST_SYSROOT_HOST)/bin
 	@$(call touch)
 
 # vim: syntax=make

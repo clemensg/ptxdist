@@ -30,7 +30,7 @@ HOST_LIBGD_AUTOCONF	:= \
 	$(HOST_AUTOCONF) \
 	--without-x \
 	--without-jpeg \
-	--with-png=$(PTXCONF_SYSROOT_HOST) \
+	--with-png=$(PTXDIST_SYSROOT_HOST) \
 	--without-xpm \
 	--without-freetype \
 	--without-fontconfig

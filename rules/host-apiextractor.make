@@ -43,8 +43,8 @@ HOST_APIEXTRACTOR_CONF_OPT	:= \
 $(STATEDIR)/host-apiextractor.install.post:
 	@$(call targetinfo)
 	@$(call world/install.post, HOST_APIEXTRACTOR)
-	@sed -i -e 's,"/,"$(PTXCONF_SYSROOT_HOST)/,g' \
-		'$(PTXCONF_SYSROOT_HOST)/lib/cmake/ApiExtractor-$(HOST_APIEXTRACTOR_VERSION)/ApiExtractorConfig.cmake'
+	@sed -i -e 's,"/,"$(PTXDIST_SYSROOT_HOST)/,g' \
+		'$(PTXDIST_SYSROOT_HOST)/lib/cmake/ApiExtractor-$(HOST_APIEXTRACTOR_VERSION)/ApiExtractorConfig.cmake'
 	@$(call touch)
 
 # vim: syntax=make

@@ -38,7 +38,7 @@ HOST_FONTCONFIG_CONF_OPT := \
 	--disable-docs \
 	--with-arch=$(PTXCONF_ARCH_STRING) \
 	--with-default-fonts=$(XORG_FONTDIR) \
-	--with-cache-dir=$(PTXCONF_SYSROOT_HOST)/var/cache/fontconfig
+	--with-cache-dir=$(PTXDIST_SYSROOT_HOST)/var/cache/fontconfig
 
 HOST_FONTCONFIG_MAKE_PAR := NO
 

@@ -172,8 +172,8 @@ else
 	@echo -e '#!/bin/sh\nexport QMAKESPEC=linux-ptx-g++\nexec $(PTXDIST_SYSROOT_CROSS)/bin/qmake-cross "$$@"\n' > $(PTXDIST_SYSROOT_CROSS)/bin/qmake
 endif
 	@chmod +x $(PTXDIST_SYSROOT_CROSS)/bin/qmake
-	@echo -e "[Paths]\nPrefix=$(SYSROOT)/usr\nBinaries=$(PTXCONF_SYSROOT_HOST)/bin\nImports=/usr/imports" > $(PTXDIST_SYSROOT_CROSS)/bin/qt.conf
-	@echo -e "[Paths]\nPrefix=$(PTXCONF_SYSROOT_HOST)" > $(PTXDIST_SYSROOT_HOST)/bin/qt.conf
+	@echo -e "[Paths]\nPrefix=$(SYSROOT)/usr\nBinaries=$(PTXDIST_SYSROOT_HOST)/bin\nImports=/usr/imports" > $(PTXDIST_SYSROOT_CROSS)/bin/qt.conf
+	@echo -e "[Paths]\nPrefix=$(PTXDIST_SYSROOT_HOST)" > $(PTXDIST_SYSROOT_HOST)/bin/qt.conf
 	@$(call touch)
 
 # vim: syntax=make

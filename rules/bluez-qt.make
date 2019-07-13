@@ -33,7 +33,7 @@ BLUEZ_QT_CONF_OPT	:= \
 		$(CROSS_CMAKE_USR) \
 		-DBUILD_QCH=OFF \
 		-DBUILD_TESTING=OFF \
-		-DECM_DIR=$(PTXCONF_SYSROOT_HOST)/share/ECM/cmake/
+		-DECM_DIR=$(PTXDIST_SYSROOT_HOST)/share/ECM/cmake/
 
 # ----------------------------------------------------------------------------
 # Target-Install

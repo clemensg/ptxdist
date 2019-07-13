@@ -45,10 +45,10 @@ $(STATEDIR)/host-glib.install.post:
 	@$(call targetinfo)
 	@mkdir -p $(HOST_GLIB_PKGDIR)/share/glib-2.0/gettext
 	@$(call world/install.post, HOST_GLIB)
-	@sed -i "s:'/share':'$(PTXCONF_SYSROOT_HOST)/share':" "$(PTXCONF_SYSROOT_HOST)/bin/gdbus-codegen"
+	@sed -i "s:'/share':'$(PTXDIST_SYSROOT_HOST)/share':" "$(PTXDIST_SYSROOT_HOST)/bin/gdbus-codegen"
 	@sed -i -e 's:^prefix=.*:prefix=$(PTXDIST_SYSROOT_HOST):' \
 		-e 's:^\(datarootdir\|datadir\)=.*:\1=$(PTXDIST_SYSROOT_HOST)/share:' \
-		$(PTXCONF_SYSROOT_HOST)/bin/glib-gettextize
+		$(PTXDIST_SYSROOT_HOST)/bin/glib-gettextize
 	@$(call touch)
 
 # vim: syntax=make

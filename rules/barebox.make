@@ -128,7 +128,7 @@ $(STATEDIR)/barebox.install:
 	@$(foreach prog, $(BAREBOX_PROGS_HOST), \
 		if [ -e $(BAREBOX_DIR)/scripts/$(prog) ]; then \
 			install -v -D -m755 $(BAREBOX_DIR)/scripts/$(prog) \
-				$(PTXCONF_SYSROOT_HOST)/bin/$(notdir $(prog)) || exit; \
+				$(PTXDIST_SYSROOT_HOST)/bin/$(notdir $(prog)) || exit; \
 		fi;)
 
 	@$(foreach prog, $(BAREBOX_PROGS_TARGET_y), \
@@ -189,7 +189,7 @@ $(STATEDIR)/barebox.clean:
 	@$(call targetinfo)
 	@$(call clean_pkg, BAREBOX)
 	@$(foreach prog, $(BAREBOX_PROGS_HOST), \
-		rm -vf $(PTXCONF_SYSROOT_HOST)/bin/$(notdir $(prog))$(ptx/nl))
+		rm -vf $(PTXDIST_SYSROOT_HOST)/bin/$(notdir $(prog))$(ptx/nl))
 	@rm -vf $(IMAGEDIR)/barebox-image $(IMAGEDIR)/barebox-default-environment
 
 # ----------------------------------------------------------------------------

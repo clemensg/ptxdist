@@ -22,9 +22,9 @@ CROSS_PKG_CONFIG_WRAPPER_SCRIPT = \
 $(STATEDIR)/cross-pkg-config-wrapper.install:
 	@$(call targetinfo)
 	@ln -svf $(CROSS_PKG_CONFIG_WRAPPER_SCRIPT) \
-		$(PTXCONF_SYSROOT_CROSS)/bin/$(COMPILER_PREFIX)pkg-config
+		$(PTXDIST_SYSROOT_CROSS)/bin/$(COMPILER_PREFIX)pkg-config
 	@ln -svf $(CROSS_PKG_CONFIG_WRAPPER_SCRIPT) \
-		$(PTXCONF_SYSROOT_CROSS)/bin/pkg-config
+		$(PTXDIST_SYSROOT_CROSS)/bin/pkg-config
 	@$(call touch)
 
 # vim: syntax=make

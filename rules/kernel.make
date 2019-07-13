@@ -60,7 +60,7 @@ KERNEL_CONF_OPT := \
 
 ifdef PTXCONF_KERNEL_MODULES_INSTALL
 KERNEL_CONF_OPT += \
-	DEPMOD=$(PTXCONF_SYSROOT_HOST)/sbin/depmod
+	DEPMOD=$(PTXDIST_SYSROOT_HOST)/sbin/depmod
 endif
 
 ifndef PTXCONF_KERNEL_GCC_PLUGINS
@@ -201,7 +201,7 @@ ifdef PTXCONF_KERNEL_MODULES_INSTALL
 	@$(call world/install, KERNEL)
 endif
 ifdef PTXCONF_KERNEL_DTC
-	@install -m 755 "$(KERNEL_DIR)/scripts/dtc/dtc" "$(PTXCONF_SYSROOT_HOST)/bin/dtc"
+	@install -m 755 "$(KERNEL_DIR)/scripts/dtc/dtc" "$(PTXDIST_SYSROOT_HOST)/bin/dtc"
 endif
 
 	@$(call touch)

@@ -141,7 +141,7 @@ endif
 $(STATEDIR)/ncurses.install.post:
 	@$(call targetinfo)
 	@$(call world/install.post, NCURSES)
-	@cp -dp -- "$(NCURSES_PKGDIR)/usr/bin/"*config* "$(PTXCONF_SYSROOT_CROSS)/bin"
+	@cp -dp -- "$(NCURSES_PKGDIR)/usr/bin/"*config* "$(PTXDIST_SYSROOT_CROSS)/bin"
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
