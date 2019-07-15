@@ -3,4 +3,5 @@
 0001-fix-buildsystem.patch
 0002-prepare-for-new-autotools.patch
 0003-include-stdio.h.patch
-# 95fd96128b53d07d1cad2014dcacc9e0  - git-ptx-patches magic
+0004-CVE-2012-6687-use-poll-in-os_unix.c-instead-of-selec.patch
+# b3af8b9128742fb7ab04b50022c278f5  - git-ptx-patches magic
