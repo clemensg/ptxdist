@@ -335,7 +335,7 @@ s/^\(\(# \)\?PTXCONF_\)MESALIB_DRI_IMX\>/\1MESALIB_DRI_KMSRO/
 # from   : ptxdist-2019.04.0
 # to     : ptxdist-2019.05.0
 # symbol : GST_PLUGINS_BASE1_IVORBIS -> GST_PLUGINS_BASE1_TREMOR
-# reason : option was rename
+# reason : option was renamed
 #
 s/^\(\(# \)\?PTXCONF_GST_PLUGINS_BASE1_\)IVORBIS\>/\1TREMOR/
 
@@ -351,7 +351,7 @@ s/^\(\(# \)\?PTXCONF_GST_PLUGINS_\)BAD1_COMPOSITOR\>/\1BASE1_COMPOSITOR/
 # from   : ptxdist-2019.04.0
 # to     : ptxdist-2019.05.0
 # symbol : GST_PLUGINS_GOOD1_QTDEMUX -> GST_PLUGINS_GOOD1_ISOMP4
-# reason : option was rename
+# reason : option was renamed
 #
 s/^\(\(# \)\?PTXCONF_GST_PLUGINS_GOOD1_\)QTDEMUX\>/\1ISOMP4/
 
@@ -359,7 +359,7 @@ s/^\(\(# \)\?PTXCONF_GST_PLUGINS_GOOD1_\)QTDEMUX\>/\1ISOMP4/
 # from   : ptxdist-2019.04.0
 # to     : ptxdist-2019.05.0
 # symbol : GST_PLUGINS_GOOD1_LIBPNG -> GST_PLUGINS_GOOD1_PNG
-# reason : option was rename
+# reason : option was renamed
 #
 s/^\(\(# \)\?PTXCONF_GST_PLUGINS_GOOD1_\)LIBPNG\>/\1PNG/
 
@@ -367,7 +367,7 @@ s/^\(\(# \)\?PTXCONF_GST_PLUGINS_GOOD1_\)LIBPNG\>/\1PNG/
 # from   : ptxdist-2019.04.0
 # to     : ptxdist-2019.05.0
 # symbol : GST_PLUGINS_GOOD1_QT -> GST_PLUGINS_GOOD1_QT5
-# reason : option was rename
+# reason : option was renamed
 #
 s/^\(\(# \)\?PTXCONF_GST_PLUGINS_GOOD1_\)QT\>/\1QT5/
 
@@ -375,7 +375,7 @@ s/^\(\(# \)\?PTXCONF_GST_PLUGINS_GOOD1_\)QT\>/\1QT5/
 # from   : ptxdist-2019.04.0
 # to     : ptxdist-2019.05.0
 # symbol : GST_PLUGINS_GOOD1_GST_V4L2 -> GST_PLUGINS_GOOD1_V4L2
-# reason : option was rename
+# reason : option was renamed
 #
 s/^\(\(# \)\?PTXCONF_GST_PLUGINS_GOOD1_\)GST_V4L2\(_LIBV4L2\)\?\>/\1V4L2\3/
 
@@ -383,7 +383,7 @@ s/^\(\(# \)\?PTXCONF_GST_PLUGINS_GOOD1_\)GST_V4L2\(_LIBV4L2\)\?\>/\1V4L2\3/
 # from   : ptxdist-2019.04.0
 # to     : ptxdist-2019.05.0
 # symbol : GST_PLUGINS_GOOD1_X -> GST_PLUGINS_GOOD1_XIMAGESRC
-# reason : option was rename
+# reason : option was renamed
 #
 s/^\(\(# \)\?PTXCONF_GST_PLUGINS_GOOD1_\)X\>/\1XIMAGESRC/
 
