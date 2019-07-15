@@ -19,27 +19,30 @@ PACKAGES-$(PTXCONF_SQLITE) += sqlite
 #
 # Paths and names
 #
-SQLITE_VERSION	:= 3190200
-SQLITE_MD5	:= 9f006b16de2cd81f6bae9b40e91daabf
+SQLITE_VERSION	:= 3280000
+SQLITE_MD5	:= 3c68eb400f8354605736cd55400e1572
 SQLITE		:= sqlite-autoconf-$(SQLITE_VERSION)
 SQLITE_SUFFIX	:= tar.gz
-SQLITE_URL	:= https://www.sqlite.org/2017/$(SQLITE).$(SQLITE_SUFFIX)
+SQLITE_URL	:= https://www.sqlite.org/2019/$(SQLITE).$(SQLITE_SUFFIX)
 SQLITE_SOURCE	:= $(SRCDIR)/$(SQLITE).$(SQLITE_SUFFIX)
 SQLITE_DIR	:= $(BUILDDIR)/$(SQLITE)
 SQLITE_LICENSE	:= public_domain
+SQLITE_LICENSE_FILES	:= file://sqlite3.c;startline=29;endline=30;md5=43af35cab122fd0eed4d5469d0507788
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
+# sqlite has an unusual config system where some defines are set by the
+# configure script, but others can still be defined on the compiler command
+# line. Pin down all configure options so that configure_helper.py is pleased,
+# but apart from that, set only the defines that we really want (or otherwise
+# our CPPFLAGS would explode).
 SQLITE_CONF_ENV := \
 	$(CROSS_ENV) \
 	CPPFLAGS=" \
 	-DSQLITE_ENABLE_COLUMN_METADATA=1 \
 	-DSQLITE_ENABLE_FTS3_PARENTHESIS=1 \
-	-DSQLITE_ENABLE_FTS4=1 \
-	-DSQLITE_ENABLE_JSON1=1 \
-	-DSQLITE_ENABLE_RTREE=1 \
 	-DSQLITE_ENABLE_UNLOCK_NOTIFY=1 \
 	-DSQLITE_SOUNDEX=1 \
 	"
@@ -53,9 +56,13 @@ SQLITE_CONF_OPT		:= \
 	--$(call ptx/endis,PTXCONF_SQLITE_READLINE)-readline \
 	--$(call ptx/endis,PTXCONF_SQLITE_THREADSAFE)-threadsafe \
 	--$(call ptx/endis,PTXCONF_SQLITE_LOAD_EXTENTION)-dynamic-extensions \
+	--enable-fts4 \
+	--enable-fts3 \
 	--disable-fts5 \
 	--enable-json1 \
+	--enable-rtree \
 	--disable-session \
+	--disable-debug \
 	--disable-static-shell
 
 # ----------------------------------------------------------------------------
