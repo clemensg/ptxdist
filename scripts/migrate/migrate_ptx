@@ -391,6 +391,14 @@ s/^\(\(# \)\?PTXCONF_GST_PLUGINS_GOOD1_\)X\>/\1XIMAGESRC/
 # from   : ptxdist-2019.04.0
 # to     : ptxdist-2019.05.0
 # symbol : GST_PLUGINS_BAD1_STEREO -> GST_PLUGINS_GOOD1_AUDIOFX
-# reason : option was rename
+# reason : option was renamed
 #
 s/^\(\(# \)\?PTXCONF_GST_PLUGINS_\)BAD1_STEREO\>/\1GOOD1_AUDIOFX/
+
+#
+# from   : ptxdist-2019.07.0
+# to     : ptxdist-2019.08.0
+# symbol : SQLITE_LOAD_EXTENTION -> SQLITE_LOAD_EXTENSION
+# reason : option was renamed
+#
+s/^\(\(# \)\?PTXCONF_SQLITE_LOAD_\)EXTENTION/\1EXTENSION/

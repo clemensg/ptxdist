@@ -18,7 +18,7 @@ config SQLITE_THREADSAFE
 	bool
 	prompt "Safe for use within a multi-threaded program"
 
-config SQLITE_LOAD_EXTENTION
+config SQLITE_LOAD_EXTENSION
 	bool
 	prompt "external extensions"
 	help

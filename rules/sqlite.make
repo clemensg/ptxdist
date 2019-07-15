@@ -55,7 +55,7 @@ SQLITE_CONF_OPT		:= \
 	--disable-editline \
 	--$(call ptx/endis,PTXCONF_SQLITE_READLINE)-readline \
 	--$(call ptx/endis,PTXCONF_SQLITE_THREADSAFE)-threadsafe \
-	--$(call ptx/endis,PTXCONF_SQLITE_LOAD_EXTENTION)-dynamic-extensions \
+	--$(call ptx/endis,PTXCONF_SQLITE_LOAD_EXTENSION)-dynamic-extensions \
 	--enable-fts4 \
 	--enable-fts3 \
 	--disable-fts5 \
