@@ -6,11 +6,11 @@ fcgi failed to compile. EOF wasn't defined because stdio.h wasn't included.
 
 Signed-off-by: George McCollister <george.mccollister@gmail.com>
 ---
- include/fcgiapp.h |    2 ++
- 1 files changed, 2 insertions(+), 0 deletions(-)
+ include/fcgiapp.h | 2 ++
+ 1 file changed, 2 insertions(+)
 
 diff --git a/include/fcgiapp.h b/include/fcgiapp.h
-index d7236f6..c39a671 100644
+index d7236f6f3f2a..c39a6715021c 100644
 --- a/include/fcgiapp.h
 +++ b/include/fcgiapp.h
 @@ -34,6 +34,8 @@
@@ -22,6 +22,3 @@ index d7236f6..c39a671 100644
  /*
   * Error codes.  Assigned to avoid conflict with EOF and errno(2).
   */
--- 
-1.7.2.3
-

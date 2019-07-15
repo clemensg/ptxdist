@@ -6,11 +6,11 @@ we need AM_INIT_AUTOMAKE([foreign]) or automake fails with missing files
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
- configure.in |    4 ++--
- 1 files changed, 2 insertions(+), 2 deletions(-)
+ configure.in | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/configure.in b/configure.in
-index e1941d0..1f94dde 100755
+index e1941d008704..1f94ddeea03b 100755
 --- a/configure.in
 +++ b/configure.in
 @@ -4,8 +4,8 @@ dnl     This file is an input file used by the GNU "autoconf" program to
@@ -24,6 +24,3 @@ index e1941d0..1f94dde 100755
  
  AM_CONFIG_HEADER(fcgi_config.h)
  
--- 
-1.7.2.3
-

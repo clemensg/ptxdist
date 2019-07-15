@@ -8,13 +8,13 @@ Subject: [PATCH] fix buildsystem
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
- cgi-fcgi/Makefile.am |    2 +-
- examples/Makefile.am |    4 ++--
- libfcgi/Makefile.am  |    5 +++--
+ cgi-fcgi/Makefile.am | 2 +-
+ examples/Makefile.am | 4 ++--
+ libfcgi/Makefile.am  | 5 +++--
  3 files changed, 6 insertions(+), 5 deletions(-)
 
 diff --git a/cgi-fcgi/Makefile.am b/cgi-fcgi/Makefile.am
-index 4a5c685..04b4483 100644
+index 4a5c685bce01..04b4483bd307 100644
 --- a/cgi-fcgi/Makefile.am
 +++ b/cgi-fcgi/Makefile.am
 @@ -2,7 +2,7 @@
@@ -27,7 +27,7 @@ index 4a5c685..04b4483 100644
  INCLUDE_FILES   = $(INCLUDEDIR)/fastcgi.h  \
  		  $(INCLUDEDIR)/fcgiapp.h  \
 diff --git a/examples/Makefile.am b/examples/Makefile.am
-index 484d3e8..930f203 100644
+index 484d3e897437..930f2030e830 100644
 --- a/examples/Makefile.am
 +++ b/examples/Makefile.am
 @@ -11,7 +11,7 @@ noinst_PROGRAMS     = authorizer        \
@@ -47,7 +47,7 @@ index 484d3e8..930f203 100644
 +echo_cpp_LDADD   = $(LIBDIR)/libfcgi++.la $(LIBDIR)/libfcgi.la
  
 diff --git a/libfcgi/Makefile.am b/libfcgi/Makefile.am
-index 0f14615..d7346f5 100644
+index 0f1461566a35..d7346f5eb26c 100644
 --- a/libfcgi/Makefile.am
 +++ b/libfcgi/Makefile.am
 @@ -1,7 +1,7 @@
@@ -67,6 +67,3 @@ index 0f14615..d7346f5 100644
 +libfcgi___la_LDFLAGS = -rpath @libdir@
 +libfcgi___la_LIBADD = libfcgi.la
  
--- 
-1.7.2.3
-
