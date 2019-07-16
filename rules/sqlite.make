@@ -40,6 +40,7 @@ SQLITE_LICENSE_FILES	:= file://sqlite3.c;startline=29;endline=30;md5=43af35cab12
 # our CPPFLAGS would explode).
 SQLITE_CONF_ENV := \
 	$(CROSS_ENV) \
+	ac_cv_header_zlib_h=no \
 	CPPFLAGS=" \
 	-DSQLITE_ENABLE_COLUMN_METADATA=1 \
 	-DSQLITE_ENABLE_FTS3_PARENTHESIS=1 \
