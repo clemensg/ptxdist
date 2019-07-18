@@ -2251,7 +2251,7 @@ ensure_ptxrc() {
 				tmp_month="$(printf "%02d" $[tmp_month-1])"
 			fi
 		done
-		if [ -z "${tmpptxrc}" ]; then
+		if [ ! -e "${tmpptxrc}" ]; then
 			tmpptxrc="${rc_default}"
 		fi
 	else
