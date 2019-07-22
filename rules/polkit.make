@@ -21,6 +21,10 @@ POLKIT_SUFFIX	:= tar.gz
 POLKIT_URL	:= https://www.freedesktop.org/software/polkit/releases/$(POLKIT).$(POLKIT_SUFFIX)
 POLKIT_SOURCE	:= $(SRCDIR)/$(POLKIT).$(POLKIT_SUFFIX)
 POLKIT_DIR	:= $(BUILDDIR)/$(POLKIT)
+POLKIT_LICENSE := GPL-2.0-or-later
+POLKIT_LICENSE_FILES := \
+	file://COPYING;md5=155db86cdbafa7532b41f390409283eb \
+	file://src/polkitd/main.c;startline=1;endline=20;md5=4a13d29c09d1ef6fa53a5c79ac2c6a28
 
 # ----------------------------------------------------------------------------
 # Prepare
