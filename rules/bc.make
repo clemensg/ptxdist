@@ -22,6 +22,10 @@ BC_SUFFIX	:= tar.gz
 BC_URL		:= $(call ptx/mirror, GNU, bc/$(BC).$(BC_SUFFIX))
 BC_SOURCE	:= $(SRCDIR)/$(BC).$(BC_SUFFIX)
 BC_DIR		:= $(BUILDDIR)/$(BC)
+BC_LICENSE	:= GPL-2.0-or-later
+BC_LICENSE_FILES	:= \
+	file://COPYING;md5=94d55d512a9ba36caa9b7df079bae19f \
+	file://bc/bc.c;startline=47;endline=73;md5=944528275142ba90c112735cf0cbc7d1
 
 # ----------------------------------------------------------------------------
 # Prepare
