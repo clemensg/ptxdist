@@ -22,6 +22,11 @@ DNSMASQ_SUFFIX		:= tar.xz
 DNSMASQ_URL		:= http://www.thekelleys.org.uk/dnsmasq/$(DNSMASQ).$(DNSMASQ_SUFFIX)
 DNSMASQ_SOURCE		:= $(SRCDIR)/$(DNSMASQ).$(DNSMASQ_SUFFIX)
 DNSMASQ_DIR		:= $(BUILDDIR)/$(DNSMASQ)
+DNSMASQ_LICENSE	:= GPL-2.0-only OR GPL-3.0-only
+DNSMASQ_LICENSE_FILES	:= \
+	file://COPYING;md5=0636e73ff0215e8d672dc4c32c317bb3 \
+	file://COPYING-v3;md5=d32239bcb673463ab874e80d47fae504 \
+	file://src/dnsmasq.c;startline=1;endline=15;md5=9142b2fc6c71d7fad3af5ba18b26f0f1
 
 
 # ----------------------------------------------------------------------------
