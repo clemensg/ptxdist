@@ -21,6 +21,10 @@ DIFFUTILS_SUFFIX	:= tar.gz
 DIFFUTILS_URL		:= $(call ptx/mirror, GNU, diffutils/$(DIFFUTILS).$(DIFFUTILS_SUFFIX))
 DIFFUTILS_SOURCE	:= $(SRCDIR)/$(DIFFUTILS).$(DIFFUTILS_SUFFIX)
 DIFFUTILS_DIR		:= $(BUILDDIR)/$(DIFFUTILS)
+DIFFUTILS_LICENSE	:= GPL-2.0-or-later
+DIFFUTILS_LICENSE_FILES	:= \
+	file://COPYING;md5=94d55d512a9ba36caa9b7df079bae19f \
+	file://src/diff.c;startline=1;endline=21;md5=6300de6fcda19d4ac43bedc776f5b3b7
 
 
 # ----------------------------------------------------------------------------
