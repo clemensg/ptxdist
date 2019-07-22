@@ -23,7 +23,10 @@ DOSFSTOOLS_SRC		:= $(DOSFSTOOLS).$(DOSFSTOOLS_SUFFIX)
 DOSFSTOOLS_URL		:= https://github.com/dosfstools/dosfstools/releases/download/v$(DOSFSTOOLS_VERSION)/$(DOSFSTOOLS_SRC)
 DOSFSTOOLS_SOURCE	:= $(SRCDIR)/$(DOSFSTOOLS_SRC)
 DOSFSTOOLS_DIR		:= $(BUILDDIR)/$(DOSFSTOOLS)
-DOSFSTOOLS_LICENSE	:= GPL-3.0-only
+DOSFSTOOLS_LICENSE	:= GPL-3.0-or-later
+DOSFSTOOLS_LICENSE_FILES	:= \
+	file://COPYING;md5=d32239bcb673463ab874e80d47fae504 \
+	file://src/fsck.fat.c;startline=1;endline=22;md5=3f94b53f3d7556100055c58a48937788
 
 # ----------------------------------------------------------------------------
 # Prepare (nothing to be done here)
