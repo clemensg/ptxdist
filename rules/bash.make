@@ -21,7 +21,10 @@ BASH_URL	:= $(call ptx/mirror, GNU, bash/$(BASH).$(BASH_SUFFIX))
 BASH_SOURCE	:= $(SRCDIR)/$(BASH).$(BASH_SUFFIX)
 BASH_DIR	:= $(BUILDDIR)/$(BASH)
 BASH_MAKE_PAR	:= NO
-BASH_LICENSE	:= GPL-3.0-only
+BASH_LICENSE	:= GPL-3.0-or-later
+BASH_LICENSE_FILES	:= \
+	file://COPYING;md5=d32239bcb673463ab874e80d47fae504 \
+	file://general.c;startline=1;endline=19;md5=c018785d21f8c206ca7a13fa7d027568
 
 # ----------------------------------------------------------------------------
 # Prepare
