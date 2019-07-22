@@ -21,7 +21,10 @@ CIFS_UTILS_SUFFIX	:= tar.bz2
 CIFS_UTILS_URL		:= https://ftp.samba.org/pub/linux-cifs/cifs-utils/$(CIFS_UTILS).$(CIFS_UTILS_SUFFIX)
 CIFS_UTILS_SOURCE	:= $(SRCDIR)/$(CIFS_UTILS).$(CIFS_UTILS_SUFFIX)
 CIFS_UTILS_DIR		:= $(BUILDDIR)/$(CIFS_UTILS)
-CIFS_UTILS_LICENSE	:= GPL-3.0-only
+CIFS_UTILS_LICENSE	:= GPL-3.0-or-later
+CIFS_UTILS_LICENSE_FILES := \
+	file://COPYING;md5=d32239bcb673463ab874e80d47fae504 \
+	file://mount.cifs.c;startline=1;endline=19;md5=2f09dc7eb71007249fb0c485abdae60f
 
 #
 # autoconf
