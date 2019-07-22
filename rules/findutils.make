@@ -22,6 +22,10 @@ FINDUTILS_SUFFIX	:= tar.gz
 FINDUTILS_URL		:= $(call ptx/mirror, GNU, findutils/$(FINDUTILS).$(FINDUTILS_SUFFIX))
 FINDUTILS_SOURCE	:= $(SRCDIR)/$(FINDUTILS).$(FINDUTILS_SUFFIX)
 FINDUTILS_DIR		:= $(BUILDDIR)/$(FINDUTILS)
+FINDUTILS_LICENSE   := GPL-3.0-or-later
+FINDUTILS_LICENSE_FILES   := \
+	file://COPYING;md5=f27defe1e96c2e1ecd4e0c9be8967949 \
+	file://find/finddata.c;startline=1;endline=17;md5=8762699fb923e458287765af95c28d5a
 
 
 # ----------------------------------------------------------------------------
