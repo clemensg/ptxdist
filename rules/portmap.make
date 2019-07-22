@@ -23,6 +23,10 @@ PORTMAP_SUFFIX	:= tgz
 PORTMAP_URL	:= http://fossies.org/linux/misc/old/portmap-$(PORTMAP_VERSION).$(PORTMAP_SUFFIX)
 PORTMAP_SOURCE	:= $(SRCDIR)/portmap-$(PORTMAP_VERSION).$(PORTMAP_SUFFIX)
 PORTMAP_DIR	:= $(BUILDDIR)/$(PORTMAP)
+PORTMAP_LICENSE := BSD-4-Clause-UC AND unknown
+PORTMAP_LICENSE_FILES := \
+	file://portmap.c;startline=1;endline=32;md5=eab9bc1a44f8936c130f91f7a079ff54 \
+	file://portmap.c;startline=45;endline=77;md5=031846750f4058d98079ec93d1a46d8b
 
 # ----------------------------------------------------------------------------
 # Compile
