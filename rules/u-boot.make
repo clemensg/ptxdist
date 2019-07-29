@@ -135,6 +135,9 @@ endif
 ifdef PTXCONF_U_BOOT_INSTALL_U_BOOT_IMX
 	@install -v -D -m644 $(U_BOOT_DIR)/u-boot.imx $(IMAGEDIR)/u-boot.imx
 endif
+ifdef PTXCONF_U_BOOT_INSTALL_U_BOOT_DTB_IMX
+	@install -v -D -m644 $(U_BOOT_DIR)/u-boot-dtb.imx $(IMAGEDIR)/u-boot-dtb.imx
+endif
 ifdef PTXCONF_U_BOOT_INSTALL_U_BOOT_DTB
 	@install -v -D -m644 $(U_BOOT_DIR)/u-boot-dtb.bin \
 		$(IMAGEDIR)/u-boot-dtb.bin

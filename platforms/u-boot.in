@@ -137,6 +137,14 @@ config U_BOOT_INSTALL_U_BOOT_IMX
 	  image directory. Say yes if you are building for freescale i.MX SOCs
 	  and are not using SPL.
 
+config U_BOOT_INSTALL_U_BOOT_DTB_IMX
+        prompt "install u-boot-dtb.imx"
+        bool
+        help
+          Installing the U-Boot image with device tree support and imx header (u-boot-dtb.imx)
+          into platform image directory. Say yes if you are building for freescale i.MX SOCs
+          and are not using SPL.
+
 config U_BOOT_INSTALL_U_BOOT_DTB
 	prompt "install u-boot-dtb.bin"
 	bool
