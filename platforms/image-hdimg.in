@@ -11,7 +11,7 @@ menuconfig IMAGE_HDIMG
 	help
 	  Build a harddisk root image. The image will contain one partition
 	  containing the root.ext2 and a corresponding partition table. The
-	  image will bpe made bootable with the bootloader specified below.
+	  image will be made bootable with the bootloader specified below.
 
 if IMAGE_HDIMG
 
