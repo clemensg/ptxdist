@@ -42,6 +42,12 @@ ifdef PTXCONF_HOST_SYSTEM_PYTHON3_NUMPY
 		ptxd_bailout "Python numpy module not found! \
 	Please install python3-numpy (debian)";
 endif
+ifdef PTXCONF_HOST_SYSTEM_PYTHON3_SETUPTOOLS
+	@echo "Checking for Python Setuptools ..."
+	@$(SYSTEMPYTHON3) -c 'import setuptools' 2>/dev/null || \
+		ptxd_bailout "Python setuptools module not found! \
+	Please install python3-setuptools (debian)";
+endif
 ifdef PTXCONF_HOST_SYSTEM_PYTHON3_SIX
 	@echo "Checking for Python Six ..."
 	@$(SYSTEMPYTHON3) -c 'import six' 2>/dev/null || \
