@@ -108,7 +108,7 @@ $(STATEDIR)/kernel-@package@.targetinstall:
 # oldconfig / menuconfig
 # ----------------------------------------------------------------------------
 
-kernel-@package@_oldconfig kernel-@package@_menuconfig: $(STATEDIR)/kernel-@package@.extract
+kernel-@package@_oldconfig kernel-@package@_menuconfig kernel-@package@_nconfig: $(STATEDIR)/kernel-@package@.extract
 	@$(call world/kconfig, KERNEL_@PACKAGE@, $(subst kernel-@package@_,,$@))
 
 # vim: syntax=make
