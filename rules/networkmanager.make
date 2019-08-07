@@ -15,11 +15,11 @@ PACKAGES-$(PTXCONF_NETWORKMANAGER) += networkmanager
 #
 # Paths and names
 #
-NETWORKMANAGER_VERSION	:= 1.18.0
-NETWORKMANAGER_MD5	:= c8c27116a8083bab5d5fcca0d03e988a
+NETWORKMANAGER_VERSION	:= 1.20.0
+NETWORKMANAGER_MD5	:= 109df9b0813755a98735206f5b2d68da
 NETWORKMANAGER		:= NetworkManager-$(NETWORKMANAGER_VERSION)
 NETWORKMANAGER_SUFFIX	:= tar.xz
-NETWORKMANAGER_URL	:= https://ftp.gnome.org/pub/GNOME/sources/NetworkManager/1.18/$(NETWORKMANAGER).$(NETWORKMANAGER_SUFFIX)
+NETWORKMANAGER_URL	:= https://ftp.gnome.org/pub/GNOME/sources/NetworkManager/1.20/$(NETWORKMANAGER).$(NETWORKMANAGER_SUFFIX)
 NETWORKMANAGER_SOURCE	:= $(SRCDIR)/$(NETWORKMANAGER).$(NETWORKMANAGER_SUFFIX)
 NETWORKMANAGER_DIR	:= $(BUILDDIR)/$(NETWORKMANAGER)
 NETWORKMANAGER_LICENSE	:= GPL-2.0-or-later AND LGPL-2.0-or-later
@@ -39,7 +39,6 @@ NETWORKMANAGER_CONF_OPT = \
 	--enable-shared \
 	--disable-nls \
 	--disable-rpath \
-	--disable-config-plugin-ibft \
 	--disable-ifcfg-rh \
 	--enable-ifupdown \
 	--disable-code-coverage \
@@ -68,7 +67,6 @@ NETWORKMANAGER_CONF_OPT = \
 	--disable-gtk-doc-pdf \
 	--$(call ptx/wwo,PTXCONF_NETWORKMANAGER_WIRELESS)-wext \
 	--without-iwd \
-	--without-libnm-glib \
 	--with-udev-dir=/usr/lib/udev \
 	--with-systemdsystemunitdir=/usr/lib/systemd/system \
 	--with-hostname-persist=default \
