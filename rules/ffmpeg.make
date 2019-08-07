@@ -14,8 +14,8 @@ PACKAGES-$(PTXCONF_FFMPEG) += ffmpeg
 #
 # Paths and names
 #
-FFMPEG_VERSION	:= 4.1.3
-FFMPEG_MD5	:= dcc20dd2682ea01c678b7b8324339d43
+FFMPEG_VERSION	:= 4.2
+FFMPEG_MD5	:= fb33a9110251873002869664686b2a3f
 FFMPEG		:= ffmpeg-$(FFMPEG_VERSION)
 FFMPEG_SUFFIX	:= tar.xz
 FFMPEG_URL	:= https://www.ffmpeg.org/releases/$(FFMPEG).$(FFMPEG_SUFFIX)
@@ -24,7 +24,7 @@ FFMPEG_DIR	:= $(BUILDDIR)/$(FFMPEG)
 # Note: any GPL only code is disabled below with --disable-gpl
 FFMPEG_LICENSE	:= LGPL-2.1-or-later AND BSD-3-Clause
 FFMPEG_LICENSE_FILES := \
-	file://LICENSE.md;md5=e6c05704638b696e6df04470d7fede29 \
+	file://LICENSE.md;md5=d14d3e3b1e822c8b34b2a233fda0c9d8 \
 	file://COPYING.LGPLv2.1;md5=bd7a443320af8c812e4c18d1b79df004 \
 	file://libavcodec/arm/vp8dsp_armv6.S;startline=4;endline=52;md5=24eb31d8cad17de39e517e8d946cdee0 \
 	file://libavcodec/mips/ac3dsp_mips.c;startline=2;endline=27;md5=5f25aa1db1ecf13c29efc63800bf6ae8 \
@@ -122,6 +122,7 @@ FFMPEG_CONF_OPT		:= \
 	--disable-jni \
 	--disable-ladspa \
 	--disable-libaom \
+	--disable-libaribb24 \
 	--disable-libass \
 	--disable-libbluray \
 	--disable-libbs2b \
@@ -129,6 +130,7 @@ FFMPEG_CONF_OPT		:= \
 	--disable-libcelt \
 	--disable-libcdio \
 	--disable-libcodec2 \
+	--disable-libdav1d \
 	--disable-libdavs2 \
 	--disable-libdc1394 \
 	--disable-libfdk-aac \
@@ -193,7 +195,6 @@ FFMPEG_CONF_OPT		:= \
 	--disable-lv2 \
 	--disable-lzma \
 	--disable-decklink \
-	--disable-libndi_newtek \
 	--disable-mbedtls \
 	--disable-mediacodec \
 	--disable-libmysofa \
@@ -201,6 +202,7 @@ FFMPEG_CONF_OPT		:= \
 	--disable-opencl \
 	--disable-opengl \
 	--disable-openssl \
+	--disable-pocketsphinx \
 	--disable-sndio \
 	--disable-schannel \
 	--disable-sdl2 \
@@ -210,7 +212,8 @@ FFMPEG_CONF_OPT		:= \
 	--disable-zlib \
 	--disable-amf \
 	--disable-audiotoolbox \
-	--disable-cuda-sdk \
+	--disable-cuda-nvcc \
+	--disable-cuda-llvm \
 	--disable-cuvid \
 	--disable-d3d11va \
 	--disable-dxva2 \
