@@ -77,7 +77,6 @@ $(STATEDIR)/nfsutils.targetinstall:
 	@$(call install_fixup, nfsutils,DESCRIPTION,"Network Filesystem Support")
 
 	@$(call install_copy, nfsutils, 0, 0, 0755, -, /usr/sbin/nfsstat)
-	@$(call install_copy, nfsutils, 0, 0, 0755, -, /usr/sbin/nfsiostat)
 	@$(call install_copy, nfsutils, 0, 0, 0755, -, /usr/sbin/showmount)
 
 	@$(call install_copy, nfsutils, 0, 0, 0755, -, /usr/sbin/rpc.statd)
@@ -117,6 +116,10 @@ ifdef PTXCONF_NFSUTILS_SERVER
 
 	@$(call install_alternative, nfsutils, 0, 0, 0644, \
 		/etc/exports)
+endif
+
+ifdef PTXCONF_NFSUTILS_PYTHON
+	@$(call install_copy, nfsutils, 0, 0, 0755, -, /usr/sbin/nfsiostat)
 endif
 
 #	#
