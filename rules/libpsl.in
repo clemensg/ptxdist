@@ -1,0 +1,11 @@
+## SECTION=networking
+
+config LIBPSL
+	tristate
+	prompt "libpsl"
+	help
+	  Library for Public Suffix List (shared libraries)
+	  Libpsl allows checking domains against the Public Suffix List.
+	  It can be used to avoid privacy-leaking 'super-cookies',
+	  'super domain' certificates, for domain highlighting purposes
+	  sorting domain lists by site and more.
