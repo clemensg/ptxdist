@@ -1,11 +1,21 @@
 ## SECTION=multimedia_framebuffer
 
-config FBSET
+menuconfig FBSET
 	tristate
-	prompt "fbset"
+	prompt "fbset                         "
 	select HOST_FLEX
 	help
 	  fbset is a system utility to show or change the settings
 	  of the frame buffer device. The frame buffer device pro-
 	  vides a simple and unique interface to access different
 	  kinds of graphic displays.
+
+if FBSET
+
+config FBSET_FBMODES
+	bool
+	prompt "install /etc/fb.modes"
+	help
+	  Install /etc/fb.modes file.
+
+endif

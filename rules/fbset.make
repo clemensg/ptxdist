@@ -45,7 +45,9 @@ $(STATEDIR)/fbset.targetinstall:
 	@$(call install_fixup, fbset,DESCRIPTION,missing)
 
 	@$(call install_copy, fbset, 0, 0, 0755, -, /usr/sbin/fbset)
-
+ifdef PTXCONF_FBSET_FBMODES
+	@$(call install_alternative, fbset, 0, 0, 0644, /etc/fb.modes)
+endif
 	@$(call install_finish, fbset)
 
 	@$(call touch)

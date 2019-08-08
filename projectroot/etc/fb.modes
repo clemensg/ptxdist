@@ -1,0 +1,12 @@
+#
+# Contains video mode descriptions
+# See the manual pages for fbset: fbset(8), fb.modes(5)
+#
+
+# mode "<name>"
+#    geometry <xres> <yres> <vxres> <vyres> <depth>
+#    timings <pixclock> <left> <right> <upper> <lower> <hslen> <vslen>
+#    option <value>
+#    option <value>
+#    ...
+# endmode
