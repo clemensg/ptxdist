@@ -2,8 +2,10 @@
 
 config LIBSOUP
 	tristate
+	select HOST_MESON
 	select GLIB
 	select SQLITE
+	select LIBPSL
 	select LIBXML2
 	select LIBXML2_OUTPUT
 	select LIBXML2_SAX1

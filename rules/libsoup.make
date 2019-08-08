@@ -14,8 +14,8 @@ PACKAGES-$(PTXCONF_LIBSOUP) += libsoup
 #
 # Paths and names
 #
-LIBSOUP_VERSION	:= 2.62.2
-LIBSOUP_MD5	:= eaf99b04ac8968ed2b26f2509ba75584
+LIBSOUP_VERSION	:= 2.66.2
+LIBSOUP_MD5	:= 66c2ae89d6031b01337d78a2c57c75d5
 LIBSOUP		:= libsoup-$(LIBSOUP_VERSION)
 LIBSOUP_SUFFIX	:= tar.xz
 LIBSOUP_URL	:= http://ftp.gnome.org/pub/GNOME/sources/libsoup/$(basename $(LIBSOUP_VERSION))/$(LIBSOUP).$(LIBSOUP_SUFFIX)
@@ -28,27 +28,21 @@ LIBSOUP_LICENSE	:= LGPL-2.1-only
 # ----------------------------------------------------------------------------
 
 #
-# autoconf
+# meson
 #
-LIBSOUP_CONF_TOOL := autoconf
+LIBSOUP_CONF_TOOL := meson
 LIBSOUP_CONF_OPT := \
-	$(CROSS_AUTOCONF_USR) \
-	--enable-debug=minimum \
-	--disable-glibtest \
-	--disable-installed-tests \
-	--disable-always-build-tests \
-	--disable-nls \
-	--disable-gtk-doc \
-	--disable-gtk-doc-html \
-	--disable-gtk-doc-pdf \
-	--$(call ptx/endis, PTXCONF_LIBSOUP_INTROSPECTION)-introspection \
-	--disable-vala \
-	--disable-tls-check \
-	--disable-code-coverage \
-	--enable-more-warnings \
-	--without-gnome \
-	--without-apache-httpd \
-	--without-gssapi
+	$(CROSS_MESON_USR) \
+	-Dgssapi=false \
+	-Ddoc=false \
+	-Dgnome=true \
+	-Dvapi=false \
+	-Dintrospection=$(call ptx/truefalse, PTXCONF_LIBSOUP_INTROSPECTION) \
+	-Dkrb5_config= \
+	-Dntlm=false \
+	-Dntlm_auth=ntlm_auth \
+	-Dtests=false \
+	-Dtls_check=false
 
 # ----------------------------------------------------------------------------
 # Target-Install
