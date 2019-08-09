@@ -22,6 +22,7 @@ lock:x:114:
 audio:x:115:
 input:x:116:
 mysql:x:117:
+mosquitto:x:118:
 systemd-journal:x:201:
 systemd-network:x:202:
 systemd-journal-gateway:x:206:
