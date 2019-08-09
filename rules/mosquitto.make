@@ -55,6 +55,16 @@ MOSQUITTO_INSTALL_OPT	:= \
 	install
 
 # ----------------------------------------------------------------------------
+# Install
+# ----------------------------------------------------------------------------
+$(STATEDIR)/mosquitto.install:
+	@$(call targetinfo)
+	@$(call world/install, MOSQUITTO)
+	@install -v -D -m644 $(MOSQUITTO_DIR)/mosquitto.conf \
+		$(MOSQUITTO_PKGDIR)/etc/mosquitto/mosquitto.conf
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
@@ -77,6 +87,8 @@ endif
 
 ifdef PTXCONF_MOSQUITTO_BROKER
 	@$(call install_copy, mosquitto, 0, 0, 0755, -, /usr/sbin/mosquitto)
+	@$(call install_alternative, mosquitto, 0, 0, 0644, \
+		/etc/mosquitto/mosquitto.conf)
 endif
 
 	@$(call install_finish, mosquitto)
