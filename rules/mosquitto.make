@@ -43,7 +43,7 @@ MOSQUITTO_MAKE_OPT	:= \
 	WITH_PERSISTENCE=yes \
 	WITH_MEMORY_TRACKING=yes \
 	WITH_SYS_TREE=yes \
-	WITH_SYSTEMD=no \
+	WITH_SYSTEMD=$(call ptx/yesno, PTXCONF_MOSQUITTO_SYSTEMD_UNIT) \
 	WITH_SRV=$(call ptx/yesno, PTXCONF_MOSQUITTO_SRV) \
 	WITH_WEBSOCKETS=no \
 	WITH_EC=yes \
@@ -68,6 +68,8 @@ $(STATEDIR)/mosquitto.install:
 	@$(call world/install, MOSQUITTO)
 	@install -v -D -m644 $(MOSQUITTO_DIR)/mosquitto.conf \
 		$(MOSQUITTO_PKGDIR)/etc/mosquitto/mosquitto.conf
+	@install -v -D -m644 $(MOSQUITTO_DIR)/service/systemd/mosquitto.service.notify \
+		$(MOSQUITTO_PKGDIR)/usr/lib/systemd/system/mosquitto.service
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -95,6 +97,13 @@ ifdef PTXCONF_MOSQUITTO_BROKER
 	@$(call install_copy, mosquitto, 0, 0, 0755, -, /usr/sbin/mosquitto)
 	@$(call install_alternative, mosquitto, 0, 0, 0644, \
 		/etc/mosquitto/mosquitto.conf)
+
+ifdef PTXCONF_MOSQUITTO_SYSTEMD_UNIT
+	@$(call install_copy, mosquitto, 0, 0, 0644, -, \
+		/usr/lib/systemd/system/mosquitto.service)
+	@$(call install_link, mosquitto, ../mosquitto.service, \
+		/usr/lib/systemd/system/multi-user.target.wants/mosquitto.service)
+endif
 endif
 
 	@$(call install_finish, mosquitto)
