@@ -56,7 +56,7 @@ GNUTLS_CONF_OPT		:= \
 	--enable-dhe \
 	--enable-ecdhe \
 	--enable-gost \
-	--disable-cryptodev \
+	--$(call ptx/endis, PTXCONF_GNUTLS_CRYPTODEV)-cryptodev \
 	--enable-ocsp \
 	--$(call ptx/endis, PTXCONF_GNUTLS_OPENSSL)-openssl-compatibility \
 	--disable-tests \
