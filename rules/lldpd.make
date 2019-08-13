@@ -15,8 +15,8 @@ PACKAGES-$(PTXCONF_LLDPD) += lldpd
 #
 # Paths and names
 #
-LLDPD_VERSION	:= 0.9.8
-LLDPD_MD5	:= 8809600492f6b73149eb19158e819c1f
+LLDPD_VERSION	:= 1.0.4
+LLDPD_MD5	:= 33e8d58623f99184e4e709cbbfe45db3
 LLDPD		:= lldpd-$(LLDPD_VERSION)
 LLDPD_SUFFIX	:= tar.gz
 LLDPD_URL	:= http://media.luffy.cx/files/lldpd//$(LLDPD).$(LLDPD_SUFFIX)
@@ -51,6 +51,7 @@ LLDPD_CONF_OPT	:= $(CROSS_AUTOCONF_USR) \
 	--$(call ptx/wwo, PTXCONF_LLDPD_SNMP)-snmp \
 	--$(call ptx/wwo, PTXCONF_LLDPD_XML)-xml \
 	--without-seccomp \
+	--with-libbsd \
 	--with-systemdsystemunitdir=/usr/lib/systemd/system \
 	--with-privsep-user="$(PTXCONF_LLDPD_PRIVSEP_USER)" \
 	--with-privsep-group="$(PTXCONF_LLDPD_PRIVSEP_GROUP)" \

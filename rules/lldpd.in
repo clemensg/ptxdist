@@ -5,6 +5,7 @@ menuconfig LLDPD
 	prompt "lldpd                         "
 	select INITMETHOD
 	select LIBBSD
+	select LIBCAP
 	select LIBEVENT
 	select READLINE
 	select NET_SNMP if LLDPD_SNMP
