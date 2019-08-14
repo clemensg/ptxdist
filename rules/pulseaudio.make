@@ -151,7 +151,7 @@ ifdef PTXCONF_PULSEAUDIO_SYSTEMD
 		/usr/lib/systemd/system/pulseaudio.socket)
 	@$(call install_link, pulseaudio, ../pulseaudio.socket, \
 		/usr/lib/systemd/system/sockets.target.wants/pulseaudio.socket)
-ifdef PTXCONF_PULSEAUDIO_SYSTEMD
+ifdef PTXCONF_PULSEAUDIO_SYSTEMD_USER
 	@$(call install_alternative, pulseaudio, 0, 0, 0644, \
 		/usr/lib/systemd/user/pulseaudio.service)
 	@$(call install_alternative, pulseaudio, 0, 0, 0644, \
