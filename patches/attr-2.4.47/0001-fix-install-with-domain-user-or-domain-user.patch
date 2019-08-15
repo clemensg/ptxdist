@@ -1,0 +1,229 @@
+From: Jon Ringle <jon@ringle.org>
+Date: Mon, 23 May 2011 09:27:46 -0400
+Subject: [PATCH] fix install with domain\user or "domain user"
+
+If current user is domain\user the \ gets interpreted as an escape char
+resulting in user not found. This also breaks if the user or group contains a
+space.
+
+Enclose "$(PKG_USER)" and "$(PKG_GROUP)" in quotes to fix.
+
+Signed-off-by: Jon Ringle <jon@ringle.org>
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ include/buildmacros |  2 +-
+ include/install-sh  | 26 +++++++++++++-------------
+ install-sh          | 26 +++++++++++++-------------
+ 3 files changed, 27 insertions(+), 27 deletions(-)
+
+diff --git a/include/buildmacros b/include/buildmacros
+index 9e81bb83d609..939f39b80087 100644
+--- a/include/buildmacros
++++ b/include/buildmacros
+@@ -40,7 +40,7 @@ OBJECTS = $(ASFILES:.s=.o) \
+ 	  $(LFILES:.l=.o) \
+ 	  $(YFILES:%.y=%.tab.o)
+ 
+-INSTALL	= $(TOPDIR)/include/install-sh -o $(PKG_USER) -g $(PKG_GROUP)
++INSTALL	= $(TOPDIR)/include/install-sh -o "$(PKG_USER)" -g "$(PKG_GROUP)"
+ 
+ IMAGES_DIR = $(TOPDIR)/all-images
+ DIST_DIR = $(TOPDIR)/dist
+diff --git a/include/install-sh b/include/install-sh
+index fb4997a3b013..3c70b31a3b2c 100755
+--- a/include/install-sh
++++ b/include/install-sh
+@@ -56,7 +56,7 @@ _chown ()
+ {
+     _st=255
+     if [ $# -eq 3 ] ; then
+-	chown $1:$2 $3
++	chown "$1":"$2" $3
+ 	_st=$?
+ 	if [ $_st -ne 0 ] ; then
+ 	    if [ $REAL_UID != '0' ] ; then
+@@ -115,7 +115,7 @@ fi
+ 
+ [ -n "$DIST_ROOT" -a $REAL_UID -ne 0 ] && CHOWN=true
+ 
+-while getopts "Dcm:d:S:o:g:T:" c $*
++while getopts "Dcm:d:S:o:g:T:" c "$@"
+ do
+    case $c in
+    c)
+@@ -168,10 +168,10 @@ then
+     fi
+     if [ $status -eq 0 ]
+     then
+-	$CHOWN $OWNER $GROUP $dir
++	$CHOWN "$OWNER" "$GROUP" $dir
+ 	status=$?
+     fi
+-    $MANIFEST d $DIRMODE $OWNER $GROUP ${dir#$DIST_ROOT}
++    $MANIFEST d $DIRMODE "$OWNER" "$GROUP" ${dir#$DIST_ROOT}
+ elif $Sflag
+ then
+     #
+@@ -217,7 +217,7 @@ then
+ 			install_name=$target/$solib
+ 			$CP $solib $install_name
+ 			status=$?
+-			$MANIFEST f $FILEMODE $OWNER $GROUP $HERE/$solib ${install_name#$DIST_ROOT}
++			$MANIFEST f $FILEMODE "$OWNER" "$GROUP" $HERE/$solib ${install_name#$DIST_ROOT}
+ 			break
+ 		fi
+ 	done
+@@ -268,7 +268,7 @@ then
+ 	install_name=$target/$old_library
+ 	$CP $old_library $install_name
+ 	status=$?
+-	$MANIFEST f $FILEMODE $OWNER $GROUP $HERE/$old_library ${install_name#$DIST_ROOT}
++	$MANIFEST f $FILEMODE "$OWNER" "$GROUP" $HERE/$old_library ${install_name#$DIST_ROOT}
+ 	;;
+     *)
+ 	echo "$prog: -T $lt_install invalid"
+@@ -281,7 +281,7 @@ then
+ 	if [ $status -eq 0 ]
+ 	then
+ 		$CHMOD $FILEMODE $install_name
+-		$CHOWN $OWNER $GROUP $install_name
++		$CHOWN "$OWNER" "$GROUP" $install_name
+ 	fi
+ 	;;
+     esac
+@@ -310,19 +310,19 @@ else
+ 		status=$?
+ 		if [ $status -eq 0 ]
+ 		then
+-		    $CHOWN $OWNER $GROUP $dir/$f
++		    $CHOWN "$OWNER" "$GROUP" $dir/$f
+ 		    status=$?
+ 		fi
+-		$MANIFEST f $FILEMODE $OWNER $GROUP $HERE/$f ${dir#$DIST_ROOT}/$f
++		$MANIFEST f $FILEMODE "$OWNER" "$GROUP" $HERE/$f ${dir#$DIST_ROOT}/$f
+ 	    else
+ 		$CHMOD $FILEMODE $dir
+ 		status=$?
+ 		if [ $status -eq 0 ]
+ 		then
+-		    $CHOWN $OWNER $GROUP $dir
++		    $CHOWN "$OWNER" "$GROUP" $dir
+ 		    status=$?
+ 		fi
+-		$MANIFEST f $FILEMODE $OWNER $GROUP $HERE/$dir ${dir#$DIST_ROOT}
++		$MANIFEST f $FILEMODE "$OWNER" "$GROUP" $HERE/$dir ${dir#$DIST_ROOT}
+ 	    fi
+ 	fi
+     else
+@@ -352,10 +352,10 @@ else
+ 		status=$?
+ 		if [ $status -eq 0 ]
+ 		then
+-		    $CHOWN $OWNER $GROUP $dir/$f
++		    $CHOWN "$OWNER" "$GROUP" $dir/$f
+ 		    status=$?
+ 		fi
+-		$MANIFEST f $FILEMODE $OWNER $GROUP $HERE/$f ${dir#$DIST_ROOT}/$f
++		$MANIFEST f $FILEMODE "$OWNER" "$GROUP" $HERE/$f ${dir#$DIST_ROOT}/$f
+ 	    fi
+ 	    [ $status -ne 0 ] && break
+ 	done
+diff --git a/install-sh b/install-sh
+index fb4997a3b013..3c70b31a3b2c 100755
+--- a/install-sh
++++ b/install-sh
+@@ -56,7 +56,7 @@ _chown ()
+ {
+     _st=255
+     if [ $# -eq 3 ] ; then
+-	chown $1:$2 $3
++	chown "$1":"$2" $3
+ 	_st=$?
+ 	if [ $_st -ne 0 ] ; then
+ 	    if [ $REAL_UID != '0' ] ; then
+@@ -115,7 +115,7 @@ fi
+ 
+ [ -n "$DIST_ROOT" -a $REAL_UID -ne 0 ] && CHOWN=true
+ 
+-while getopts "Dcm:d:S:o:g:T:" c $*
++while getopts "Dcm:d:S:o:g:T:" c "$@"
+ do
+    case $c in
+    c)
+@@ -168,10 +168,10 @@ then
+     fi
+     if [ $status -eq 0 ]
+     then
+-	$CHOWN $OWNER $GROUP $dir
++	$CHOWN "$OWNER" "$GROUP" $dir
+ 	status=$?
+     fi
+-    $MANIFEST d $DIRMODE $OWNER $GROUP ${dir#$DIST_ROOT}
++    $MANIFEST d $DIRMODE "$OWNER" "$GROUP" ${dir#$DIST_ROOT}
+ elif $Sflag
+ then
+     #
+@@ -217,7 +217,7 @@ then
+ 			install_name=$target/$solib
+ 			$CP $solib $install_name
+ 			status=$?
+-			$MANIFEST f $FILEMODE $OWNER $GROUP $HERE/$solib ${install_name#$DIST_ROOT}
++			$MANIFEST f $FILEMODE "$OWNER" "$GROUP" $HERE/$solib ${install_name#$DIST_ROOT}
+ 			break
+ 		fi
+ 	done
+@@ -268,7 +268,7 @@ then
+ 	install_name=$target/$old_library
+ 	$CP $old_library $install_name
+ 	status=$?
+-	$MANIFEST f $FILEMODE $OWNER $GROUP $HERE/$old_library ${install_name#$DIST_ROOT}
++	$MANIFEST f $FILEMODE "$OWNER" "$GROUP" $HERE/$old_library ${install_name#$DIST_ROOT}
+ 	;;
+     *)
+ 	echo "$prog: -T $lt_install invalid"
+@@ -281,7 +281,7 @@ then
+ 	if [ $status -eq 0 ]
+ 	then
+ 		$CHMOD $FILEMODE $install_name
+-		$CHOWN $OWNER $GROUP $install_name
++		$CHOWN "$OWNER" "$GROUP" $install_name
+ 	fi
+ 	;;
+     esac
+@@ -310,19 +310,19 @@ else
+ 		status=$?
+ 		if [ $status -eq 0 ]
+ 		then
+-		    $CHOWN $OWNER $GROUP $dir/$f
++		    $CHOWN "$OWNER" "$GROUP" $dir/$f
+ 		    status=$?
+ 		fi
+-		$MANIFEST f $FILEMODE $OWNER $GROUP $HERE/$f ${dir#$DIST_ROOT}/$f
++		$MANIFEST f $FILEMODE "$OWNER" "$GROUP" $HERE/$f ${dir#$DIST_ROOT}/$f
+ 	    else
+ 		$CHMOD $FILEMODE $dir
+ 		status=$?
+ 		if [ $status -eq 0 ]
+ 		then
+-		    $CHOWN $OWNER $GROUP $dir
++		    $CHOWN "$OWNER" "$GROUP" $dir
+ 		    status=$?
+ 		fi
+-		$MANIFEST f $FILEMODE $OWNER $GROUP $HERE/$dir ${dir#$DIST_ROOT}
++		$MANIFEST f $FILEMODE "$OWNER" "$GROUP" $HERE/$dir ${dir#$DIST_ROOT}
+ 	    fi
+ 	fi
+     else
+@@ -352,10 +352,10 @@ else
+ 		status=$?
+ 		if [ $status -eq 0 ]
+ 		then
+-		    $CHOWN $OWNER $GROUP $dir/$f
++		    $CHOWN "$OWNER" "$GROUP" $dir/$f
+ 		    status=$?
+ 		fi
+-		$MANIFEST f $FILEMODE $OWNER $GROUP $HERE/$f ${dir#$DIST_ROOT}/$f
++		$MANIFEST f $FILEMODE "$OWNER" "$GROUP" $HERE/$f ${dir#$DIST_ROOT}/$f
+ 	    fi
+ 	    [ $status -ne 0 ] && break
+ 	done

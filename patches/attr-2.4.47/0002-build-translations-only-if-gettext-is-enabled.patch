@@ -1,4 +1,3 @@
-From 06d3c2ddb6ef0a9f53c36538ef018d6cca937e51 Mon Sep 17 00:00:00 2001
 From: Philipp Zabel <p.zabel@pengutronix.de>
 Date: Thu, 13 Jul 2017 11:25:35 +0200
 Subject: [PATCH] build translations only if gettext is enabled
@@ -31,6 +30,3 @@ index 4443fe092f37..896186e1e073 100644
  
  SUBDIRS = $(LIB_SUBDIRS) $(TOOL_SUBDIRS)
  
--- 
-2.11.0
-
