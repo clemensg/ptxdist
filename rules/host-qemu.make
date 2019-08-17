@@ -16,14 +16,15 @@ HOST_PACKAGES-$(PTXCONF_HOST_QEMU) += host-qemu
 #
 # Paths and names
 #
-HOST_QEMU_VERSION	:= 4.0.0
-HOST_QEMU_MD5		:= 0afeca336fd57ae3d3086ec07f59d708
+HOST_QEMU_VERSION	:= 4.1.0
+HOST_QEMU_MD5		:= cdf2b5ca52b9abac9bacb5842fa420f8
 HOST_QEMU		:= qemu-$(HOST_QEMU_VERSION)
 HOST_QEMU_SUFFIX	:= tar.xz
 HOST_QEMU_URL		:= https://download.qemu.org/$(HOST_QEMU).$(HOST_QEMU_SUFFIX)
 HOST_QEMU_SOURCE	:= $(SRCDIR)/$(HOST_QEMU).$(HOST_QEMU_SUFFIX)
 HOST_QEMU_DIR		:= $(HOST_BUILDDIR)/$(HOST_QEMU)
 HOST_QEMU_LICENSE	:= GPL-2.0-only AND GPL-2.0-or-later AND MIT AND BSD-1-Clause AND BSD-2-Clause AND BSD-3-Clause
+HOST_QEMU_BUILD_OOT	:= YES
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -133,7 +134,7 @@ HOST_QEMU_CONF_OPT	= \
 	--enable-coroutine-pool \
 	--disable-glusterfs \
 	--disable-tpm \
-	--disable-libssh2 \
+	--disable-libssh \
 	--disable-numa \
 	--disable-libxml2 \
 	--disable-tcmalloc \
