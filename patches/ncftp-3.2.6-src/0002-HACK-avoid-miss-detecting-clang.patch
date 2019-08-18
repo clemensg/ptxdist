@@ -1,0 +1,25 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Sun, 18 Aug 2019 14:51:50 +0200
+Subject: [PATCH] HACK: avoid miss detecting clang
+
+Without this gcc may be  miss detected as clang if the build path contained
+the word 'clang'.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ configure | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/configure b/configure
+index b3095d8d3c34..fb2f9bc9901b 100755
+--- a/configure
++++ b/configure
+@@ -1820,7 +1820,7 @@ case "$CC" in
+ 		CC_is_clang="yes"
+ 		;;
+ 	*)
+-		cc_dash_v=`${CC-gcc} -v 2>&1 | grep clang 2>/dev/null`
++		cc_dash_v=`${CC-gcc} -v 2>&1 | grep '^clang' 2>/dev/null`
+ 		if test -n "$cc_dash_v" ; then
+ 			CC_is_clang="yes"
+ 		fi
