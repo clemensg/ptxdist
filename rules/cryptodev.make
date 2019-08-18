@@ -55,8 +55,6 @@ CRYPTODEV_MAKE_OPT = \
 
 $(STATEDIR)/cryptodev.install:
 	@$(call targetinfo)
-	@install -m644 -D $(CRYPTODEV_DIR)/crypto/cryptodev.h \
-		$(CRYPTODEV_PKGDIR)/usr/include/crypto/cryptodev.h
 	@$(call touch)
 
 # ----------------------------------------------------------------------------

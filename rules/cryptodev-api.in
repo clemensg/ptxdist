@@ -1,0 +1,9 @@
+## SECTION=project_specific
+
+config CRYPTODEV_API
+	tristate
+	select CRYPTODEV	if RUNTIME
+	prompt "cryptodev API"
+	help
+	  API headers for Cryptodev-linux. This is needed to build
+	  userspace code that uses Cryptodev-linux.

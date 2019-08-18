@@ -4,7 +4,7 @@ menuconfig OPENSSL
 	tristate
 	select LIBC_DL
 	select GCCLIBS_GCC_S
-	select CRYPTODEV		if OPENSSL_CRYPTODEV
+	select CRYPTODEV_API		if OPENSSL_CRYPTODEV && BUILDTIME
 	prompt "openssl                       "
 	help
 	  Secure Socket Layer (SSL) binary and related cryptographic tools

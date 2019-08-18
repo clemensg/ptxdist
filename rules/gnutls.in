@@ -5,7 +5,7 @@ menuconfig GNUTLS
 	select LIBTASN1
 	select NETTLE
 	select GCCLIBS_CXX	if GNUTLS_CXX
-	select CRYPTODEV	if GNUTLS_CRYPTODEV
+	select CRYPTODEV_API	if GNUTLS_CRYPTODEV && BUILDTIME
 	prompt "gnutls                        "
 	help
 	  GnuTLS is a secure communications library implementing the SSL,
