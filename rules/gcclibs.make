@@ -14,7 +14,9 @@
 #
 PACKAGES-$(PTXCONF_GCCLIBS) += gcclibs
 
+ifdef PTXCONF_GCCLIBS
 GCCLIBS_VERSION	:= $(or $(call ptx/force-sh, $(CROSS_CC) -dumpversion),unknown)
+endif
 # for license information
 -include $(PTXDIST_PLATFORMDIR)/selected_toolchain/../share/compliance/gcclibs.make
 
