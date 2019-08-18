@@ -1,4 +1,6 @@
-## SECTION=system_libraries
+## SECTION=staging
+## old section:
+### SECTION=system_libraries
 # GNU commoncpp 2 configuration
 
 menuconfig COMMONCPP2
@@ -16,6 +18,9 @@ menuconfig COMMONCPP2
 	  For details see the project homepage:
 
 		http://www.gnu.org/software/commoncpp/
+
+	  STAGING: remove in ptxdist-2020.09.0
+	  Upstream dead since 2010. Fails to build with gcc 9.x
 
 if COMMONCPP2
 
