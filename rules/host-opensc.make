@@ -33,6 +33,10 @@ HOST_OPENSC_CONF_TOOL	:= autoconf
 HOST_OPENSC_CONF_OPT	:= \
 	$(HOST_AUTOCONF) \
 	--sysconfdir=/etc/opensc \
+	--enable-optimization \
+	--disable-strict \
+	--disable-pedantic \
+	--enable-thread-locking \
 	--disable-zlib \
 	--disable-readline \
 	--enable-openssl \
