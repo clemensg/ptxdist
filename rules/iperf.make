@@ -14,8 +14,8 @@ PACKAGES-$(PTXCONF_IPERF) += iperf
 #
 # Paths and names
 #
-IPERF_VERSION	:= 2.0.9
-IPERF_MD5	:= 351b018b71176b8cb25f20eef6a9e37c
+IPERF_VERSION	:= 2.0.13
+IPERF_MD5	:= 31ea1c6d5cbf80b16ff3abe4288dad5e
 IPERF		:= iperf-$(IPERF_VERSION)
 IPERF_SUFFIX	:= tar.gz
 IPERF_URL	:= $(call ptx/mirror, SF, iperf2/$(IPERF).$(IPERF_SUFFIX))
@@ -40,7 +40,12 @@ IPERF_AUTOCONF := \
 	--enable-threads \
 	--disable-debuginfo \
 	--disable-web100 \
-	--enable-kalman
+	--enable-kalman \
+	--enable-seqno64b \
+	--enable-isochronous \
+	--disable-fastsampling \
+	--disable-checkprograms \
+	--enable-af-packet
 
 # ----------------------------------------------------------------------------
 # Target-Install
