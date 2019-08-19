@@ -15,19 +15,18 @@ PACKAGES-$(PTXCONF_TNTNET) += tntnet
 # Paths and names
 #
 TNTNET_VERSION	:= 2.2.1
-TNTNET_MD5		:= febe799675c1b8b2f7259bad30cf6f23
-TNTNET			:= tntnet-$(TNTNET_VERSION)
+TNTNET_MD5	:= febe799675c1b8b2f7259bad30cf6f23
+TNTNET		:= tntnet-$(TNTNET_VERSION)
 TNTNET_SUFFIX	:= tar.gz
-TNTNET_URL		:= http://www.tntnet.org/download/$(TNTNET).$(TNTNET_SUFFIX)
+TNTNET_URL	:= http://www.tntnet.org/download/$(TNTNET).$(TNTNET_SUFFIX)
 TNTNET_SOURCE	:= $(SRCDIR)/$(TNTNET).$(TNTNET_SUFFIX)
-TNTNET_DIR		:= $(BUILDDIR)/$(TNTNET)
+TNTNET_DIR	:= $(BUILDDIR)/$(TNTNET)
 TNTNET_LICENSE	:= LGPL-2.1-only
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-TNTNET_CONF_ENV		:= $(CROSS_ENV)
 TNTNET_CONF_TOOL	:= autoconf
 TNTNET_CONF_OPT		:= $(CROSS_AUTOCONF_USR) \
 	--disable-static \
