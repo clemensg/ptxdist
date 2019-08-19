@@ -18,7 +18,9 @@ TNTNET_VERSION	:= 2.2.1
 TNTNET_MD5	:= febe799675c1b8b2f7259bad30cf6f23
 TNTNET		:= tntnet-$(TNTNET_VERSION)
 TNTNET_SUFFIX	:= tar.gz
-TNTNET_URL	:= http://www.tntnet.org/download/$(TNTNET).$(TNTNET_SUFFIX)
+TNTNET_URL	:= \
+	http://www.tntnet.org/download/$(TNTNET).$(TNTNET_SUFFIX) \
+	https://ftp.uni-erlangen.de/gentoo/distfiles/$(TNTNET).$(TNTNET_SUFFIX)
 TNTNET_SOURCE	:= $(SRCDIR)/$(TNTNET).$(TNTNET_SUFFIX)
 TNTNET_DIR	:= $(BUILDDIR)/$(TNTNET)
 TNTNET_LICENSE	:= LGPL-2.1-only
