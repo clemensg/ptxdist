@@ -112,6 +112,11 @@ Build Actions
   download everything at once. Afterwards the packages can be built without
   internet access.
 
+``getdev``
+  if using pre-built archives is enabled, this action will make sure that all
+  of them exist locally, possibly by downloading them from the configured
+  mirror server.
+
 ``urlcheck [<package>]``
   this action will check if the URL for the package (or all packages) still
   works. It does not download the whole file, so this is relatively fast,

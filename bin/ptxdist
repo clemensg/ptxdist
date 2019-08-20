@@ -947,6 +947,7 @@ Build Actions:
 
   go				start building the current project
   get				get all package sources
+  getdev			get all pre-built archives (if enabled)
   urlcheck			check package URL for all packages
 
   get <package>			get package sources
