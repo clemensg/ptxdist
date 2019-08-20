@@ -53,11 +53,6 @@ menu() {
 		menu=( "${menu[@]}"	"kernel"		"Configure Kernel (${kernel_version})" )
 	fi
 
-	local u_boot_v2_version="$(ptxd_get_ptxconf PTXCONF_U_BOOT_V2_VERSION)"
-	if [ -n "${u_boot_v2_version}" ]; then
-		menu=( "${menu[@]}"	"u-boot-v2"		"Configure U-Boot-v2 (${u_boot_v2_version})" )
-	fi
-
 	local barebox_version="$(ptxd_get_ptxconf PTXCONF_BAREBOX_VERSION)"
 	if [ -n "${barebox_version}" ]; then
 		menu=( "${menu[@]}"	"barebox"		"Configure barebox (${barebox_version})" )
@@ -113,7 +108,7 @@ menu() {
 		menu_select "${cmd}"
 		;;
 
-	ptx|platform|kernel|u-boot-v2|barebox|board|user)
+	ptx|platform|kernel|barebox|board|user)
 		do_config menuconfig "${cmd}"
 		# FIXME: reread user config file
 		;;
@@ -916,9 +911,6 @@ Setup and Project Actions:
   menuconfig collection		configure the collection
 
   menuconfig barebox		configure the bootloader Barebox
-
-  menuconfig u-boot-v2
-  u_boot_config			configure U-Boot V2
 
   oldconfig			run 'make oldconfig' on ptxconfig file
   allmodconfig			run 'make allmodconfig' on ptxconfig file
@@ -1845,11 +1837,6 @@ parse_second()
 
 		kernelconfig)
 			do_config menuconfig kernel
-			exit
-			;;
-
-		u_boot_config)
-			do_config menuconfig u-boot-v2
 			exit
 			;;
 
