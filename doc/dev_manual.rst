@@ -368,6 +368,8 @@ PTXdist specific. What does it mean:
    alternative download locations are known, they can be listed in this
    variable, delimiter character is the space.
 
+-  ``*_SOURCE`` tells PTXdist where to store the downloaded package.
+
 -  ``*_DIR`` points to the directory this package will be build later on
    by PTXdist
 
