@@ -136,7 +136,7 @@ choice
 		bool
 		prompt "xipImage"
 		help
-		  Create eXecute In Place Image
+		  Create eXecute In Place Image.
 
 	config KERNEL_IMAGE_U
 		bool
@@ -177,7 +177,7 @@ choice
 		bool
 		prompt "simpleImage"
 		help
-		  Create a simple Image with embedded DTB
+		  Create a simple Image with embedded DTB.
 endchoice
 
 if KERNEL_IMAGE_SIMPLE
@@ -198,7 +198,7 @@ config KERNEL_IMAGE_SIMPLE_DTS
 	  This specifies the "dts" file used to create your simple
 	  image.
 
-	  The default is "${PTXDIST_PLATFORMCONFIGDIR}/simpleImage.dts"
+	  The default is "${PTXDIST_PLATFORMCONFIGDIR}/simpleImage.dts".
 
 	  The path "${PTXDIST_PLATFORMCONFIGDIR}" is the directory
 	  where your platformconfig file is located.
@@ -226,8 +226,8 @@ config KERNEL_XZ
 	bool
 	help
 	  Select this if you're going to build your kernel compressed
-	  with lzma and your host system is lacking the proper tools.
-	  ("xz-utils" or the deprecated "lzma" package)
+	  with lzma and your host system is lacking the proper tools
+	  ("xz-utils" or the deprecated "lzma" package).
 
 	  Select this if you're unsure, as it won't hurt. It just
 	  increases the build time.
@@ -237,8 +237,8 @@ config KERNEL_LZOP
 	bool
 	help
 	  Select this if you're going to build your kernel compressed
-	  with lzo and your host system is lacking the proper tools.
-	  (the "lzop" package)
+	  with lzo and your host system is lacking the proper tools
+	  (the "lzop" package).
 
 	  Select this if you're unsure, as it won't hurt. It just
 	  increases the build time.
@@ -248,8 +248,8 @@ config KERNEL_LZ4
 	bool
 	help
 	  Select this if you're going to build your kernel compressed
-	  with lz4 and your host system is lacking the proper tools.
-	  (the "lz4" package)
+	  with lz4 and your host system is lacking the proper tools
+	  (the "lz4" package).
 
 	  Select this if you're unsure, as it won't hurt. It just
 	  increases the build time.
@@ -259,7 +259,7 @@ config KERNEL_OPENSSL
 	bool
 	help
 	  Select this if you're going to build your kernel with support for
-	  module signing, IMA etc. where openssl is need as hosttool
+	  module signing, IMA etc. where openssl is need as hosttool.
 
 	  Select this if you're unsure, as it won't hurt. It just
 	  increases the build time.
@@ -292,7 +292,7 @@ config KERNEL_SERIES
 	default "series"
 	help
 	  This entry specifies a patch series file which has to live in
-	  the kernel patches directory:
+	  the kernel patches directory.
 
 	  The series file contains lines with names of patch files which
 	  are then being applied to the kernel.
@@ -302,7 +302,7 @@ config KERNEL_CONFIG
 	string
 	default "kernelconfig-${PTXCONF_KERNEL_VERSION}"
 	help
-	  this entry specifies the .config file used to compile your kernel
+	  This entry specifies the .config file used to compile your kernel.
 
 endmenu
 
@@ -326,9 +326,9 @@ config KERNEL_EXTRA_MAKEVARS
 	  Changing this entry will rebuild the whole kernel.
 
 	  * C=1
-	  Run sparse when compiling
+	  Run sparse when compiling.
 
 	  * V=1
-	  Increase verbosity when compiling
+	  Increase verbosity when compiling.
 
 endif	# KERNEL
