@@ -29,10 +29,5 @@ HOST_PYTHON_SCONS_LICENSE_FILES	:= file://LICENSE.txt;md5=46ddf66004e5be5566367c
 # ----------------------------------------------------------------------------
 
 HOST_PYTHON_SCONS_CONF_TOOL	:= python
-HOST_PYTHON_SCONS_INSTALL_OPT  := install \
-	--install-scripts=/bin \
-	--install-lib=/lib/scons-$(HOST_PYTHON_SCONS_VERSION) \
-	--install-platlib=/lib/scons-$(HOST_PYTHON_SCONS_VERSION) \
-	--install-purelib=/lib/scons-$(HOST_PYTHON_SCONS_VERSION)
 
 # vim: syntax=make
