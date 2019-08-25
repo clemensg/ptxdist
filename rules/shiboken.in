@@ -1,4 +1,6 @@
-## SECTION=qt
+## SECTION=staging
+## old section:
+### SECTION=qt
 
 config SHIBOKEN
 	tristate
@@ -9,3 +11,6 @@ config SHIBOKEN
 	select QT4
 	help
 	  FIXME
+
+	  STAGING: remove in ptxdist-2020.09.0
+	  Old version, broken download and obsolete. Fails to build with gcc 9.x
