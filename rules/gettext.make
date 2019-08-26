@@ -71,6 +71,10 @@ $(STATEDIR)/gettext.targetinstall:
 	@$(call install_fixup, gettext,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, gettext,DESCRIPTION,missing)
 
+ifdef PTXCONF_GETTEXT_ENVSUBST
+	@$(call install_copy, gettext, 0, 0, 0755, -, /usr/bin/envsubst)
+endif
+
 	@$(call install_copy, gettext, 0, 0, 0755, -, /usr/bin/xgettext)
 	@$(call install_copy, gettext, 0, 0, 0755, -, /usr/bin/gettext)
 
