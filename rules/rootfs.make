@@ -21,6 +21,23 @@ ROOTFS_LICENSE	:= ignore
 # Target-Install
 # ----------------------------------------------------------------------------
 
+ROOTFS_STAMP := $(call remove_quotes, \
+	$(PTXCONF_PROJECT) \
+	$(PTXCONF_PROJECT_VERSION) \
+	$(PTXCONF_PLATFORM) \
+	$(PTXCONF_PLATFORM_VERSION) \
+	$(PTXDIST_VERSION_YEAR) \
+	$(PTXDIST_VERSION_MONTH) \
+	$(PTXDIST_VERSION_BUGFIX) \
+	$(PTXDIST_VERSION_SCM) \
+	$(PTXCONF_PROJECT_VENDOR) \
+	)
+
+# install new /etc/issue if versions change
+ifneq ($(strip $(ROOTFS_STAMP)),$(strip $(call ptx/force-sh, cat $(STATEDIR)/rootfs.stamp 2>/dev/null)))
+PHONY += $(STATEDIR)/rootfs.targetinstall
+endif
+
 $(STATEDIR)/rootfs.targetinstall:
 	@$(call targetinfo)
 
@@ -263,6 +280,7 @@ endif
 
 	@$(call install_finish, rootfs)
 
+	@echo "$(ROOTFS_STAMP)" > $(STATEDIR)/rootfs.stamp
 	@$(call touch)
 
 # vim: syntax=make
