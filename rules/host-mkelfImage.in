@@ -1,4 +1,6 @@
-## SECTION=hosttools_noprompt
+## SECTION=staging
+## old section:
+### SECTION=hosttools_noprompt
 
 config HOST_MKELFIMAGE
 	tristate
@@ -15,3 +17,5 @@ config HOST_MKELFIMAGE
 	  These tagged images are downloaded and understood
 	  by Etherboot and can handle LinuxBIOS restrictions
 
+	  STAGING: remove in ptxdist-2020.09.0
+	  Old and obsolete.
