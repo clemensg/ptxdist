@@ -27,16 +27,16 @@ IFPLUGD_DIR	:= $(BUILDDIR)/$(IFPLUGD)
 # Prepare
 # ----------------------------------------------------------------------------
 
-IFPLUGD_PATH	:= PATH=$(CROSS_PATH)
-IFPLUGD_ENV 	:= \
-	$(CROSS_ENV)
-
 #
 # autoconf
 #
-IFPLUGD_AUTOCONF := \
+IFPLUGD_CONF_TOOL	:= autoconf
+IFPLUGD_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
-	--disable-lynx
+	--disable-lynx \
+	--disable-xmltoman \
+	--disable-subversion \
+	--with-initdir=/etc/init.d
 
 # ----------------------------------------------------------------------------
 # Target-Install
