@@ -21,7 +21,7 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  3 files changed, 34 insertions(+), 15 deletions(-)
 
 diff --git a/configure.ac b/configure.ac
-index 023b296..cf1d9d1 100644
+index 023b296c368c..cf1d9d107c82 100644
 --- a/configure.ac
 +++ b/configure.ac
 @@ -22,7 +22,9 @@ AC_CHECK_TYPES(int64,,,[#include <sys/inttypes.h>])
@@ -36,7 +36,7 @@ index 023b296..cf1d9d1 100644
  AC_CHECK_FUNCS(statvfs)
  AC_CHECK_FUNCS(seteuid setegid)
 diff --git a/nfs.h b/nfs.h
-index 63041fa..b3a94ed 100644
+index 63041fa09166..b3a94ede970e 100644
 --- a/nfs.h
 +++ b/nfs.h
 @@ -54,20 +54,12 @@ typedef int64_t int64;
@@ -61,7 +61,7 @@ index 63041fa..b3a94ed 100644
  typedef char *filename3;
  
 diff --git a/xdr.c b/xdr.c
-index 21e5ea7..6aa100c 100644
+index 21e5ea702148..6aa100c80663 100644
 --- a/xdr.c
 +++ b/xdr.c
 @@ -192,22 +192,47 @@ bool_t xdr_uint64(XDR * xdrs, uint64 * objp)

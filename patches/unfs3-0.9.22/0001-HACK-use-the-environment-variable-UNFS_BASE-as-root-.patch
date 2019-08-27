@@ -10,7 +10,7 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  2 files changed, 18 insertions(+), 1 deletion(-)
 
 diff --git a/backend_unix.h b/backend_unix.h
-index 713288d..62dad83 100644
+index 713288da5bef..62dad8336e83 100644
 --- a/backend_unix.h
 +++ b/backend_unix.h
 @@ -23,6 +23,7 @@
@@ -31,7 +31,7 @@ index 713288d..62dad83 100644
  #define backend_rename rename
  #define backend_rmdir rmdir
 diff --git a/readdir.c b/readdir.c
-index 0e7290c..53b0bfc 100644
+index 0e7290c68ae8..53b0bfc9e7dd 100644
 --- a/readdir.c
 +++ b/readdir.c
 @@ -213,3 +213,19 @@ READDIR3res read_dir(const char *path, cookie3 cookie, cookieverf3 verf,
