@@ -2,4 +2,6 @@
 #tag:base --start-number 1
 0001-Add-pkg-config-files.patch
 #tag:upstream --start-number 100
-# bb88160543076859dd8fb26f54d571b1  - git-ptx-patches magic
+0100-Fix-gettid-naming-conflict.patch
+0101-Rename-gettid-functions.patch
+# c5d68a15d62fcc8495ce48a49dd9d92d  - git-ptx-patches magic
