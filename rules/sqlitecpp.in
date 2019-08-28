@@ -1,0 +1,11 @@
+## SECTION=system_libraries
+
+config SQLITECPP
+	bool
+	prompt "sqlitecpp"
+	select HOST_CMAKE
+	select SQLITE
+	select SQLITE_LOAD_EXTENSION
+	help
+	  SQLiteC++ offers an encapsulation around the native C APIs of SQLite,
+	  with a few intuitive and well documented C++ classes.
