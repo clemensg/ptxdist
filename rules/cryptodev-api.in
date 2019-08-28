@@ -1,4 +1,4 @@
-## SECTION=project_specific
+## SECTION=core
 
 config CRYPTODEV_API
 	tristate
