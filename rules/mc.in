@@ -3,7 +3,6 @@
 menuconfig MC
 	tristate
 	select GCCLIBS_GCC_S
-	select LIBC_NSL
 	select GLIB
 	select E2FSPROGS		if MC_VFS_UNDELFS
 	select E2FSPROGS_LIBEXT2FS	if MC_VFS_UNDELFS

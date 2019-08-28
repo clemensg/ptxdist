@@ -15,8 +15,8 @@ PACKAGES-$(PTXCONF_MC) += mc
 #
 # Paths and names
 #
-MC_VERSION	:= 4.8.20
-MC_MD5		:= 7f808b01f3f7d9aa52152a9efb86dbca
+MC_VERSION	:= 4.8.23
+MC_MD5		:= 466c3135f727f8ac2102d060a080ace3
 MC		:= mc-$(MC_VERSION)
 MC_SUFFIX	:= tar.xz
 MC_URL		:= http://ftp.midnight-commander.org/$(MC).$(MC_SUFFIX)
