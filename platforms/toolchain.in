@@ -46,23 +46,25 @@ endchoice
 if LIBC_GLIBC
 config GLIBC_VERSION
 	string
-	prompt "check for specific glibc version"
+	prompt "glibc version"
 	default "2.23"
 	help
 	  Specify the glibc version this BSP shall be built with. This information
-          is used to guess the toolchain path if you use "ptxdist toolchain"
-	  without an argument.
+	  is used to guess the toolchain path if you use "ptxdist toolchain"
+	  without an argument, and to install the glibc into the target file
+	  system.
 endif
 
 if LIBC_UCLIBC
 config UCLIBC_VERSION
 	string
-	prompt "check for specific uClibc version"
+	prompt "uClibc version"
 	default "0.9.33.2"
 	help
 	  Specify the uClibc version this BSP shall be built with. This information
-          is used to guess the toolchain path if you use "ptxdist toolchain"
-	  without an argument.
+	  is used to guess the toolchain path if you use "ptxdist toolchain"
+	  without an argument. and to install the uClibc into the target file
+	  system.
 endif
 
 config GNU_TARGET
