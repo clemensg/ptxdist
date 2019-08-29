@@ -1,4 +1,6 @@
-## SECTION=bytecode_engines
+## SECTION=staging
+## old section:
+### SECTION=bytecode_engines
 
 config ORACLE_JAVA7_JRE
 	bool
@@ -8,3 +10,6 @@ config ORACLE_JAVA7_JRE
 	 Oracle[tm] Java Runtime Environment 7
 	 This downloads the binary distribution
 	 and extracts into the target prefix.
+
+	  STAGING: remove in ptxdist-2020.09.0
+	  Old version and the download is broken.
