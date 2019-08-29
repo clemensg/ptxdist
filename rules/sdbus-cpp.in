@@ -1,0 +1,10 @@
+## SECTION=system_libraries
+
+config SDBUS_CPP
+	tristate
+	prompt "sdbus-cpp"
+	select HOST_CMAKE
+	select SYSTEMD
+	help
+	  D-Bus IPC C++ binding library built on top of sd-bus,
+	  a D-Bus C library by systemd.
