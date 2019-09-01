@@ -14,8 +14,8 @@ HOST_PACKAGES-$(PTXCONF_HOST_SWIG) += host-swig
 #
 # Paths and names
 #
-HOST_SWIG_VERSION	:= 2.0.9
-HOST_SWIG_MD5		:= 54d534b14a70badc226129159412ea85
+HOST_SWIG_VERSION	:= 3.0.8
+HOST_SWIG_MD5		:= c96a1d5ecb13d38604d7e92148c73c97
 HOST_SWIG		:= swig-$(HOST_SWIG_VERSION)
 HOST_SWIG_SUFFIX	:= tar.gz
 HOST_SWIG_URL		:= $(call ptx/mirror, SF, swig/$(HOST_SWIG).$(HOST_SWIG_SUFFIX))
@@ -38,11 +38,11 @@ HOST_SWIG_CONF_OPT = \
 	--without-boost \
 	--without-x \
 	--without-tcl \
-	--with-python=$(CROSS_PYTHON) \
-	--without-python3 \
+	$(call ptx/ifdef, PTXCONF_HOST_SWIG_PYTHON_SUPPORT, --with-python=$(CROSS_PYTHON), --without-python) \
+	$(call ptx/ifdef, PTXCONF_HOST_SWIG_PYTHON3_SUPPORT, --with-python=$(CROSS_PYTHON3), --without-python3) \
 	--without-perl5 \
 	--without-octave \
-	--without-java \
+	$(call ptx/ifdef, PTXCONF_HOST_SWIG_JAVA_SUPPORT, --with-java=$(PTXCONF_SETUP_JAVA_SDK), --without-java) \
 	--without-gcj \
 	--without-android \
 	--without-guile \
