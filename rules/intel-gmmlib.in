@@ -1,0 +1,11 @@
+## SECTION=multimedia_libs
+
+config INTEL_GMMLIB
+	tristate
+	select HOST_CMAKE
+	select LIBC_PTHREAD
+	select GCCLIBS_CXX
+	select GCCLIBS_GCC_S
+	prompt "intel-gmmlib"
+	help
+	  Intel Graphics Memory Management Library.
