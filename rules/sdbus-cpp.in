@@ -3,6 +3,7 @@
 config SDBUS_CPP
 	tristate
 	prompt "sdbus-cpp"
+	depends on INITMETHOD_SYSTEMD
 	select HOST_CMAKE
 	select SYSTEMD
 	help
