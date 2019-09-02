@@ -15,9 +15,9 @@ PACKAGES-$(PTXCONF_WESTON) += weston
 #
 # Paths and names
 #
-WESTON_VERSION	:= 6.0.1
-LIBWESTON_MAJOR := 6
-WESTON_MD5	:= e7b10710ef1eac82258f97bfd41fe534
+WESTON_VERSION	:= 7.0.0
+LIBWESTON_MAJOR := 7
+WESTON_MD5	:= cbfda483bc2501d0831af3f33c707850
 WESTON		:= weston-$(WESTON_VERSION)
 WESTON_SUFFIX	:= tar.xz
 WESTON_URL	:= http://wayland.freedesktop.org/releases/$(WESTON).$(WESTON_SUFFIX)
@@ -53,9 +53,11 @@ WESTON_CONF_OPT		:= \
 	-Dcolor-management-lcms=false \
 	-Ddemo-clients=$(call ptx/truefalse,PTXCONF_WESTON_IVISHELL_EXAMPLE) \
 	-Ddesktop-shell-client-default=weston-desktop-shell \
+	-Ddoc=false \
 	-Dimage-jpeg=true \
 	-Dimage-webp=false \
 	-Dlauncher-logind=$(call ptx/truefalse,PTXCONF_WESTON_SYSTEMD_LOGIND) \
+	-Dpipewire=$(call ptx/truefalse,PTXCONF_WESTON_PIPEWIRE) \
 	-Dremoting=$(call ptx/truefalse,PTXCONF_WESTON_REMOTING) \
 	-Drenderer-gl=$(call ptx/truefalse,PTXCONF_WESTON_GL) \
 	-Dresize-pool=true \
@@ -153,6 +155,9 @@ endif
 ifdef PTXCONF_WESTON_GL
 	@$(call install_lib, weston, 0, 0, 0644, libweston-$(LIBWESTON_MAJOR)/wayland-backend)
 	@$(call install_lib, weston, 0, 0, 0644, libweston-$(LIBWESTON_MAJOR)/gl-renderer)
+endif
+ifdef PTXCONF_WESTON_PIPEWIRE
+	@$(call install_lib, weston, 0, 0, 0644, libweston-$(LIBWESTON_MAJOR)/pipewire-plugin)
 endif
 ifdef PTXCONF_WESTON_REMOTING
 	@$(call install_lib, weston, 0, 0, 0644, libweston-$(LIBWESTON_MAJOR)/remoting-plugin)

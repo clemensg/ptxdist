@@ -110,6 +110,12 @@ config WESTON_IVISHELL_EXAMPLE
 	  application, a few demo clients and the weston.ini configuration for
 	  the IVI-Shell.
 
+config WESTON_PIPEWIRE
+	bool
+	prompt "pipewire plugin"
+	# needs pipewire
+	depends on BROKEN
+
 config WESTON_REMOTING
 	bool
 	prompt "remoting plugin"
