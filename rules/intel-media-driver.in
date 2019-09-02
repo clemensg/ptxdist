@@ -1,0 +1,18 @@
+## SECTION=multimedia_libs
+
+config INTEL_MEDIA_DRIVER
+	tristate
+	select HOST_CMAKE
+	select LIBC_PTHREAD
+	select LIBC_DL
+	select LIBC_RT
+	select LIBC_M
+	select GCCLIBS_CXX
+	select GCCLIBS_GCC_S
+	select INTEL_GMMLIB
+	select LIBVA
+	select LIBPCIACCESS
+	prompt "intel-media-driver"
+	help
+	  intel-media-driver is the VA-API implementation for the Intel
+	  GEN8+ Graphics family.
