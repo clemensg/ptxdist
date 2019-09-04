@@ -46,38 +46,38 @@ export -f ptxd_kconfig_migrate
 #
 # return:
 # $relative_file_dotconfig	the config file relative to its layer
-# $file_dotconfig		the nomalized absolute path:
+# $file_dotconfig		the normalized absolute path:
 #   ${PTXDIST_LAYERS[X]}/${relative_file_dotconfig}
 #
 ptxd_normalize_config() {
-    local nomalized old
-    nomalized="$(readlink -f "${file_dotconfig}")"
-    old="${nomalized}"
+    local normalized old
+    normalized="$(readlink -f "${file_dotconfig}")"
+    old="${normalized}"
     for layer in "${PTXDIST_LAYERS[@]}"; do
 	local tmp="${old/#$(readlink -f ${layer})\//${layer}/}"
 	if [ "${tmp}" != "${old}" ]; then
-	    nomalized="${tmp}"
+	    normalized="${tmp}"
 	fi
     done
-    if [ "$(readlink -f "${nomalized}")" != "${old}" ]; then
+    if [ "$(readlink -f "${normalized}")" != "${old}" ]; then
 	ptxd_bailout "Failed to normalize filename:" \
 	    "${file_dotconfig}" \
 	    "and" \
-	    "${nomalized}" \
+	    "${normalized}" \
 	    "should be the same file!"
     fi
-    if [ "${nomalized}" = "${old}" -a "${nomalized}" = "${nomalized#${PTXDIST_LAYERS[0]}}" ]; then
+    if [ "${normalized}" = "${old}" -a "${normalized}" = "${normalized#${PTXDIST_LAYERS[0]}}" ]; then
 	ptxd_bailout "Failed to normalize filename:" \
 	    "${file_dotconfig}" \
 	    "must be located inside the BSP!"
     fi
     for layer in "${PTXDIST_LAYERS[@]}"; do
-	local relative="${nomalized#${layer}/}"
-	if [ "${relative}" != "${nomalized}" ]; then
+	local relative="${normalized#${layer}/}"
+	if [ "${relative}" != "${normalized}" ]; then
 	    relative_file_dotconfig="${relative}"
 	fi
     done
-    file_dotconfig="${nomalized}"
+    file_dotconfig="${normalized}"
 
 }
 export -f ptxd_normalize_config
