@@ -54,7 +54,10 @@ ptxd_normalize_config() {
     nomalized="$(readlink -f "${file_dotconfig}")"
     old="${nomalized}"
     for layer in "${PTXDIST_LAYERS[@]}"; do
-	nomalized="${nomalized/#$(readlink -f ${layer})\//${layer}/}"
+	local tmp="${old/#$(readlink -f ${layer})\//${layer}/}"
+	if [ "${tmp}" != "${old}" ]; then
+	    nomalized="${tmp}"
+	fi
     done
     if [ "$(readlink -f "${nomalized}")" != "${old}" ]; then
 	ptxd_bailout "Failed to normalize filename:" \
