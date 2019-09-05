@@ -141,6 +141,10 @@ meson_blacklist = [
 	"bashcompletiondir",
 ]
 
+cmake_blacklist = [
+	"jconfig_dir",
+]
+
 def abort(message):
 	print(message)
 	print("\nSee '%s --help' for more details." % cmd)
@@ -250,6 +254,20 @@ def parse_meson_args(args, blacklist):
 				"blacklist": blacklist_hit(name, blacklist)})
 	return (ret, new_args + sorted(last_args))
 
+cmake_parse_args_re = re.compile("-D([^:]*)(:[^=]*)?=(.*)")
+def parse_cmake_args(args, blacklist):
+	ret = []
+	for arg in args:
+		match = cmake_parse_args_re.match(arg)
+		if not match:
+			continue
+		groups = match.groups()
+		found = False
+		ret.append({"name": groups[0], "value": groups[2],
+				"type": groups[1],
+				"blacklist": blacklist_hit(groups[0], blacklist)})
+	return ret
+
 def build_args(parsed):
 	build = []
 	for arg in parsed:
@@ -284,14 +302,16 @@ def handle_dir(d, subdir):
 
 	configure = d + "/configure"
 	meson_build = d + "/meson.build"
-	if not os.path.exists(configure) and not os.path.exists(meson_build):
-		abort("not a autoconf/meson package: configure script / meson.build file not found in '%s'" % d)
-		exit(1)
-
-	if os.path.exists(configure) and tool != "meson":
+	cmakelists = d + "/CMakeLists.txt"
+	if os.path.exists(configure) and tool in ("autoconf", ""):
 		return handle_dir_configure(d, configure)
-	if os.path.exists(meson_build):
+	elif os.path.exists(meson_build) and tool in ("meson", ""):
 		return handle_dir_meson(d)
+	elif os.path.exists(cmakelists) and tool in ("cmake", ""):
+		return handle_dir_cmake(d)
+	else:
+		abort("not a autoconf/meson/cmake package: configure script / meson.build / CMakeLists.txt file not found in '%s'" % d)
+		exit(1)
 
 def handle_dir_configure(d, configure):
 	configure_args = []
@@ -344,6 +364,56 @@ def handle_dir_meson(d):
 		args.append("\t-D%s=%s\n" % (option["name"], value))
 
 	label = os.path.basename(d)
+	return (options, args, label)
+
+def handle_dir_cmake(d):
+	cmake_builddir = d + "-build"
+	if not os.path.exists(cmake_builddir):
+		abort("package must be configured")
+		exit(1)
+	prefix = ["", "", ""]
+	args = []
+	options = []
+	p = subprocess.Popen([ os.path.join(sysroot_host, "bin", "cmake"), "-L", "-N", d, cmake_builddir ],
+			stdout=subprocess.PIPE, universal_newlines=True)
+	lines = p.stdout.read().splitlines()
+	line_re = re.compile("([^:]*):([^=]*)=(.*)")
+	for line in lines:
+		match = line_re.match(line)
+		if not match:
+			continue
+		groups = match.groups()
+
+		name = groups[0]
+		value = groups[2]
+		blacklist = blacklist_hit(groups[0], cmake_blacklist)
+		if name.startswith("pkgcfg_") or name.endswith("_DIR"):
+			blacklist = True
+		t = None
+		try:
+			i = next(index for (index, d) in enumerate(parsed_pkg_conf_opt) if d["name"] == name)
+			t = parsed_pkg_conf_opt[i]["type"]
+			value = parsed_pkg_conf_opt[i]["value"]
+			blacklist = parsed_pkg_conf_opt[i]["blacklist"]
+		except:
+			pass
+		type_string = t if t else ""
+		options.append({"name": name, "value": value, "type": t,
+				"blacklist": blacklist})
+		if blacklist:
+			continue
+		arg = "\t-D%s%s=%s\n" % (name, type_string, value)
+		if name == "CMAKE_INSTALL_PREFIX":
+			prefix[0] = arg
+		elif name == "CMAKE_BUILD_TYPE":
+			prefix[1] = arg
+		elif name == "CMAKE_TOOLCHAIN_FILE":
+			prefix[2] = arg
+		else:
+			args.append(arg)
+
+	label = os.path.basename(d)
+	args = prefix + args
 	return (options, args, label)
 
 def show_diff(old_opt, old_label, new_opt, new_label):
@@ -430,6 +500,8 @@ if args.pkg:
 		parsed_pkg_conf_opt = parse_configure_args(pkg_conf_opt, [])
 	if tool == "meson":
 		(parsed_pkg_conf_opt, pkg_conf_opt) = parse_meson_args(pkg_conf_opt, [])
+	if tool == "cmake":
+		parsed_pkg_conf_opt = parse_cmake_args(pkg_conf_opt, [])
 
 	if args.only:
 		pass
