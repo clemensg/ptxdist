@@ -8,7 +8,7 @@ Signed-off-by: Sergey Zhuravlevich <zhurxx@gmail.com>
 Signed-off-by: Michael Grzeschik <m.grzeschik@pengutronix.de>
 ---
  autogen.sh   |  2 +-
- configure.in | 11 +++++++++++
+ configure.ac | 11 +++++++++++
  2 files changed, 12 insertions(+), 1 deletion(-)
 
 diff --git a/autogen.sh b/autogen.sh
@@ -24,11 +24,11 @@ index 9edfb8a7d913..2f1e2ef3d419 100755
  found=false
  for autoconf in autoconf autoconf259 autoconf-2.59
  do if which $autoconf >/dev/null 2>&1; then $autoconf && found=true; break; fi
-diff --git a/configure.in b/configure.in
-index ae866ff0c55c..23d4ee2d8fad 100644
---- a/configure.in
-+++ b/configure.in
-@@ -2349,6 +2349,14 @@ dnl Find OpenGL ES
+diff --git a/configure.ac b/configure.ac
+index 9e782c653dfd..1e0477d1d0f2 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -2268,6 +2268,14 @@ dnl Find OpenGL ES
  CheckOpenGLESX11()
  {
      if test x$enable_video = xyes -a x$enable_video_opengles = xyes; then
@@ -43,7 +43,7 @@ index ae866ff0c55c..23d4ee2d8fad 100644
          AC_MSG_CHECKING(for EGL support)
          video_opengl_egl=no
          AC_TRY_COMPILE([
-@@ -2361,6 +2369,9 @@ CheckOpenGLESX11()
+@@ -2421,6 +2429,9 @@ CheckEmscriptenGLES()
          video_opengl_egl=yes
          ])
          AC_MSG_RESULT($video_opengl_egl)

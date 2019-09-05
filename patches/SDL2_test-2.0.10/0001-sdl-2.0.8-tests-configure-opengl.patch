@@ -14,13 +14,13 @@ Subject: [PATCH] sdl-2.0.8: tests: configure opengl
     will fail when no OpenGL is detected (which should be obvious,
     but it apparently wasn't for whoever designed this).
 ---
- test/configure.in | 7 +++++++
+ test/configure.ac | 7 +++++++
  1 file changed, 7 insertions(+)
 
-diff --git a/test/configure.in b/test/configure.in
-index fd3f3022bc2e..8ae15159b8f8 100644
---- a/test/configure.in
-+++ b/test/configure.in
+diff --git a/test/configure.ac b/test/configure.ac
+index 2e237262eaf1..45777b5f8999 100644
+--- a/test/configure.ac
++++ b/test/configure.ac
 @@ -115,6 +115,12 @@ if test x$have_x = xyes; then
      fi
  fi

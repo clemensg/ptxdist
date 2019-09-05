@@ -14,8 +14,8 @@ PACKAGES-$(PTXCONF_SDL2) += sdl2
 #
 # Paths and names
 #
-SDL2_VERSION	:= 2.0.9
-SDL2_MD5	:= f2ecfba915c54f7200f504d8b48a5dfe
+SDL2_VERSION	:= 2.0.10
+SDL2_MD5	:= 5a2114f2a6f348bdab5bf52b994811db
 SDL2		:= SDL2-$(SDL2_VERSION)
 SDL2_SUFFIX	:= tar.gz
 SDL2_URL	:= https://www.libsdl.org/release/$(SDL2).$(SDL2_SUFFIX)
@@ -48,7 +48,6 @@ SDL2_CONF_OPT	:= \
 	--enable-joystick \
 	--enable-haptic \
 	--enable-sensor \
-	--enable-hidapi \
 	--disable-power \
 	--disable-filesystem \
 	--enable-threads \
@@ -63,16 +62,13 @@ SDL2_CONF_OPT	:= \
 	--disable-sse \
 	--disable-sse2 \
 	--disable-sse3 \
-	--disable-jack \
-	--disable-jack-shared \
-	--disable-sndio \
-	--disable-sndio-shared \
-	--disable-fusionsound \
-	--disable-fusionsound-shared \
+	--disable-altivec \
 	--$(call ptx/endis,PTXCONF_SDL2_OSS)-oss \
 	--$(call ptx/endis,PTXCONF_SDL2_ALSA)-alsa \
 	--disable-alsatest \
 	--disable-alsa-shared \
+	--disable-jack \
+	--disable-jack-shared \
 	--disable-esd \
 	--disable-esdtest \
 	--disable-esd-shared \
@@ -82,6 +78,10 @@ SDL2_CONF_OPT	:= \
 	--disable-arts-shared \
 	--disable-nas \
 	--disable-nas-shared \
+	--disable-sndio \
+	--disable-sndio-shared \
+	--disable-fusionsound \
+	--disable-fusionsound-shared \
 	--disable-diskaudio \
 	--disable-dummyaudio \
 	--disable-libsamplerate \
@@ -89,21 +89,18 @@ SDL2_CONF_OPT	:= \
 	--$(call ptx/endis,PTXCONF_SDL2_WAYLAND)-video-wayland \
 	--disable-video-wayland-qt-touch \
 	--$(call ptx/endis,PTXCONF_SDL2_WAYLAND)-wayland-shared \
-	--disable-video-mir \
-	--disable-mir-shared \
 	--disable-video-rpi \
-	--disable-altivec \
 	--$(call ptx/endis,PTXCONF_SDL2_XORG)-video-x11 \
 	--disable-x11-shared \
-	--$(call ptx/endis,PTXCONF_SDL2_XORG)-video-x11-vm \
-	--disable-video-vivante \
-	--disable-video-x11-xinerama \
-	--$(call ptx/endis,PTXCONF_SDL2_XORG)-video-x11-xrandr \
 	--$(call ptx/endis,PTXCONF_SDL2_XORG)-video-x11-xcursor \
 	--disable-video-x11-xdbe \
+	--disable-video-x11-xinerama \
 	--$(call ptx/endis,PTXCONF_SDL2_XORG)-video-x11-xinput \
+	--$(call ptx/endis,PTXCONF_SDL2_XORG)-video-x11-xrandr \
 	--disable-video-x11-scrnsaver \
 	--disable-video-x11-xshape \
+	--$(call ptx/endis,PTXCONF_SDL2_XORG)-video-x11-vm \
+	--disable-video-vivante \
 	--disable-video-cocoa \
 	--disable-render-metal \
 	--disable-video-directfb \
@@ -127,9 +124,13 @@ SDL2_CONF_OPT	:= \
 	--disable-directx \
 	--disable-wasapi \
 	--enable-sdl-dlopen \
+	--enable-hidapi \
 	--enable-clock_gettime \
 	--disable-rpath \
+	--disable-backgrounding-signal \
+	--disable-foregrounding-signal \
 	--disable-render-d3d \
+	--disable-sdl2-config \
 	--$(call ptx/wwo,PTXCONF_SDL2_XORG)-x
 
 # ----------------------------------------------------------------------------
