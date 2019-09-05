@@ -8,10 +8,10 @@ Signed-off-by: Michael Grzeschik <m.grzeschik@pengutronix.de>
  1 file changed, 7 insertions(+)
 
 diff --git a/configure.in b/configure.in
-index 9b36e15cfd4d..972dadf80bd2 100644
+index 32b3a9139efd..d77bab0c0069 100644
 --- a/configure.in
 +++ b/configure.in
-@@ -130,6 +130,12 @@ AM_PATH_SDL2($SDL_VERSION,
+@@ -105,6 +105,12 @@ AM_PATH_SDL2($SDL_VERSION,
  CFLAGS="$CFLAGS $SDL_CFLAGS"
  LIBS="$LIBS $SDL_LIBS"
  
@@ -24,7 +24,7 @@ index 9b36e15cfd4d..972dadf80bd2 100644
  dnl Check for OpenGL
  case "$host" in
      *-*-cygwin* | *-*-mingw32*)
-@@ -179,6 +185,7 @@ else
+@@ -157,6 +163,7 @@ else
      GL_LIBS=""
  fi
  AC_SUBST([GL_LIBS])

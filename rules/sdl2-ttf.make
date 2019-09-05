@@ -14,8 +14,8 @@ PACKAGES-$(PTXCONF_SDL2_TTF) += sdl2-ttf
 #
 # Paths and names
 #
-SDL2_TTF_VERSION	:= 2.0.14
-SDL2_TTF_MD5		:= e53c05e1e7f1382c316afd6c763388b1
+SDL2_TTF_VERSION	:= 2.0.15
+SDL2_TTF_MD5		:= 04fe06ff7623d7bdcb704e82f5f88391
 SDL2_TTF		:= SDL2_ttf-$(SDL2_TTF_VERSION)
 SDL2_TTF_SUFFIX	:= tar.gz
 SDL2_TTF_URL		:= https://www.libsdl.org/projects/SDL_ttf/release/$(SDL2_TTF).$(SDL2_TTF_SUFFIX)
