@@ -14,8 +14,8 @@ PACKAGES-$(PTXCONF_SDL2_IMAGE) += sdl2-image
 #
 # Paths and names
 #
-SDL2_IMAGE_VERSION	:= 2.0.4
-SDL2_IMAGE_MD5		:= 88b9766d5b64a67f82ba511c57e7ce10
+SDL2_IMAGE_VERSION	:= 2.0.5
+SDL2_IMAGE_MD5		:= f26f3a153360a8f09ed5220ef7b07aea
 SDL2_IMAGE		:= SDL2_image-$(SDL2_IMAGE_VERSION)
 SDL2_IMAGE_SUFFIX	:= tar.gz
 SDL2_IMAGE_URL		:= https://www.libsdl.org/projects/SDL_image/release/$(SDL2_IMAGE).$(SDL2_IMAGE_SUFFIX)
@@ -32,26 +32,26 @@ SDL2_IMAGE_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	--enable-shared \
 	--disable-static \
-	--disable-sdltest \
 	--disable-imageio \
-	--disable-jpg-shared \
-	--disable-png-shared \
-	--disable-tif-shared \
-	--disable-webp-shared \
+	--disable-sdltest \
 	--$(call ptx/endis, PTXCONF_SDL2_IMAGE_BMP)-bmp \
 	--$(call ptx/endis, PTXCONF_SDL2_IMAGE_GIF)-gif \
 	--$(call ptx/endis, PTXCONF_SDL2_IMAGE_JPG)-jpg \
+	--disable-jpg-shared \
 	--$(call ptx/endis, PTXCONF_SDL2_IMAGE_LBM)-lbm \
 	--$(call ptx/endis, PTXCONF_SDL2_IMAGE_PCX)-pcx \
 	--$(call ptx/endis, PTXCONF_SDL2_IMAGE_PNG)-png \
+	--disable-png-shared \
 	--$(call ptx/endis, PTXCONF_SDL2_IMAGE_PNM)-pnm \
 	--$(call ptx/endis, PTXCONF_SDL2_IMAGE_SVG)-svg \
 	--$(call ptx/endis, PTXCONF_SDL2_IMAGE_TGA)-tga \
 	--$(call ptx/endis, PTXCONF_SDL2_IMAGE_TIF)-tif \
-	--$(call ptx/endis, PTXCONF_SDL2_IMAGE_WEBP)-webp \
+	--disable-tif-shared \
 	--$(call ptx/endis, PTXCONF_SDL2_IMAGE_XCF)-xcf \
 	--$(call ptx/endis, PTXCONF_SDL2_IMAGE_XPM)-xpm \
-	--$(call ptx/endis, PTXCONF_SDL2_IMAGE_XV)-xv
+	--$(call ptx/endis, PTXCONF_SDL2_IMAGE_XV)-xv \
+	--$(call ptx/endis, PTXCONF_SDL2_IMAGE_WEBP)-webp \
+	--disable-webp-shared
 
 ifdef PTXCONF_SDL2_PULSEAUDIO
 SDL2_IMAGE_LDFLAGS	:= \
