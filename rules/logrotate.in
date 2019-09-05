@@ -15,8 +15,13 @@ menuconfig LOGROTATE
 	  log file gets to a certain size. Normally, logrotate runs as
 	  a daily cron job.
 
+	  In order to make 'logrotate' work at run-time, a directory
+	  '/etc/logrotate.d' is required which must contain your own 'logrotate'
+	  config files (refer the manpage). There are no defaults in this
+	  package.
+
 	  Note: on a read-only root filesystem this package still requires a
-	  writable '/var/lib' for its run-time information.
+	  writable '/var/lib' for its run-time state information.
 
 if LOGROTATE
 
