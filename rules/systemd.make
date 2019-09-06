@@ -15,8 +15,8 @@ PACKAGES-$(PTXCONF_SYSTEMD) += systemd
 #
 # Paths and names
 #
-SYSTEMD_VERSION	:= 242-29-g298d13df7ef1
-SYSTEMD_MD5	:= 216e74a1176ad944d944c3136dfe65f6
+SYSTEMD_VERSION	:= 243-9-g64d0f7042dfb
+SYSTEMD_MD5	:= 270fcd2f36b11dc3f635f68387f2d5c2
 SYSTEMD		:= systemd-$(SYSTEMD_VERSION)
 SYSTEMD_SUFFIX	:= tar.gz
 ifeq ($(subst -g,,$(SYSTEMD_VERSION)),$(SYSTEMD_VERSION))
@@ -62,6 +62,7 @@ SYSTEMD_CONF_OPT	:= \
 	-Dcertificate-root=/etc/ssl \
 	-Dcompat-gateway-hostname=false \
 	-Dcoredump=$(call ptx/truefalse,PTXCONF_SYSTEMD_COREDUMP) \
+	-Dcreate-log-dirs=false \
 	-Ddbus=false \
 	-Ddbuspolicydir=/usr/share/dbus-1/system.d \
 	-Ddbussessionservicedir=/usr/share/dbus-1/services \
@@ -80,6 +81,7 @@ SYSTEMD_CONF_OPT	:= \
 	-Denvironment-d=false \
 	-Dfallback-hostname=$(call ptx/ifdef,PTXCONF_ROOTFS_ETC_HOSTNAME,$(PTXCONF_ROOTFS_ETC_HOSTNAME),ptxdist) \
 	-Dfirstboot=false \
+	-Dfuzzbuzz=false \
 	-Dgcrypt=false \
 	-Dglib=false \
 	-Dgnutls=false \
@@ -130,6 +132,7 @@ SYSTEMD_CONF_OPT	:= \
 	-Dpcre2=false \
 	-Dpolkit=$(call ptx/truefalse,PTXCONF_SYSTEMD_POLKIT) \
 	-Dportabled=false \
+	-Dpstore=false \
 	-Dqrencode=false \
 	-Dquotacheck=true \
 	-Dquotacheck-path=/usr/sbin/quotacheck \
@@ -147,6 +150,7 @@ SYSTEMD_CONF_OPT	:= \
 	-Dsplit-usr=false \
 	-Dstatic-libsystemd=false \
 	-Dstatic-libudev=false \
+	-Dstatus-unit-format-default=name \
 	-Dsulogin-path=/sbin/sulogin \
 	-Dsupport-url=https://www.ptxdist.org/ \
 	-Dsystem-gid-max=999 \
@@ -333,7 +337,6 @@ $(STATEDIR)/systemd.targetinstall:
 	@$(call install_tree, systemd, 0, 0, -, /usr/lib/tmpfiles.d/)
 	@$(call install_copy, systemd, 0, 0, 0644, -, /usr/lib/sysctl.d/50-default.conf)
 
-	@$(call install_tree, systemd, 0, 0, -, /usr/share/dbus-1/services/)
 	@$(call install_tree, systemd, 0, 0, -, /usr/share/dbus-1/system-services/)
 
 #	# systemd expects this directory to exist.
