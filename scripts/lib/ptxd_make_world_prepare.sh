@@ -160,8 +160,9 @@ ptxd_make_world_prepare_init() {
     if [ -n "${pkg_build_oot}" ]; then
 	rm -rf   -- "${pkg_build_dir}" &&
 	mkdir -p -- "${pkg_build_dir}"
-    fi
-
+    fi &&
+    # remove files from sysroot from the last build
+    ptxd_make_world_clean_sysroot
 }
 export -f ptxd_make_world_prepare_init
 

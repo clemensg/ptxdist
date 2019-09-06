@@ -5,6 +5,29 @@
 # see the README file.
 #
 
+ptxd_make_world_clean_sysroot() {
+    local link source
+    link="${ptx_pkg_dir}/.${pkg_label}"
+    if [ -d "${link}" ]; then
+	path="${link}"
+    else
+	path="${pkg_pkg_dir}"
+    fi
+    if [ -d "${path}" ]; then
+	echo "Removing files from sysroot..."
+	echo
+	cd "${path}" && find . ! -type d -print0 | \
+	    { cd "${pkg_sysroot_dir}" && xargs -0 rm -f; }
+	cd "${path}" && find . -mindepth 1 -depth -type d -print0 | \
+	    { cd "${pkg_sysroot_dir}" && \
+	      xargs -0 rmdir --ignore-fail-on-non-empty 2> /dev/null; }
+    fi
+    if [ -h "${link}" ]; then
+	rm "${link}"
+    fi
+}
+export -f ptxd_make_world_clean_sysroot
+
 #
 # clean
 #
@@ -43,14 +66,8 @@ ptxd_make_world_clean() {
 	rm -rf "${pkg_build_dir}"
 	echo
     fi
+    ptxd_make_world_clean_sysroot
     if [ -d "${pkg_pkg_dir}" ]; then
-	echo "Removing files from sysroot..."
-	echo
-	cd "${pkg_pkg_dir}" && find . ! -type d -print0 | \
-	    { cd "${pkg_sysroot_dir}" && xargs -0 rm -f; }
-	cd "${pkg_pkg_dir}" && find . -mindepth 1 -depth -type d -print0 | \
-	    { cd "${pkg_sysroot_dir}" && \
-	      xargs -0 rmdir --ignore-fail-on-non-empty 2> /dev/null; }
 	echo "Deleting pkg dir:"
 	echo "${pkg_pkg_dir}"
 	rm -rf "${pkg_pkg_dir}"

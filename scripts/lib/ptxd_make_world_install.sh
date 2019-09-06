@@ -14,6 +14,7 @@ ptxd_make_world_install_prepare() {
     if [ -z "${pkg_pkg_dir}" ]; then
 	return
     fi &&
+    ptxd_make_world_clean_sysroot &&
     rm -rf -- "${pkg_pkg_dir}" &&
     mkdir -p -- "${pkg_pkg_dir}"/{etc,{,usr/}{lib,{,s}bin,include,{,share/}{man/man{1,2,3,4,5,6,7,8,9},misc}}} &&
     if [ "${pkg_type}" != "target" ]; then
@@ -256,6 +257,9 @@ ptxd_make_world_install_post() {
 	fi
     done &&
 
+    if [ ! -e "${ptx_pkg_dir}/${pkg_label}" -o -h "${ptx_pkg_dir}/${pkg_label}" ]; then
+	ln -sfT $(basename "${pkg_pkg_dir}") "${ptx_pkg_dir}/.${pkg_label}"
+    fi &&
     # avoid writing to sysroot in parallel with -jeX/-jX
     flock "${pkg_sysroot_dir}" \
     cp -dpr --link --remove-destination -- "${pkg_pkg_dir}"/* "${pkg_sysroot_dir}" &&
