@@ -19,10 +19,6 @@ menuconfig POPPLER
 	select ZLIB				if POPPLER_ZLIB
 	select LIBCURL				if POPPLER_CURL
 	select LCMS				if POPPLER_CMS
-	select QT4				if POPPLER_QT4
-	select QT4_BUILD_GUI			if POPPLER_QT4
-	select QT4_BUILD_XML			if POPPLER_QT4
-	select QT4_BUILD_QTESTLIB		if POPPLER_QT4
 	select QT5				if POPPLER_QT5
 	select QT5_GUI				if POPPLER_QT5
 	select QT5_MODULE_QTBASE		if POPPLER_QT5
@@ -118,14 +114,6 @@ config POPPLER_SPLASH_SINGLE
 	help
 	  Use single precision instead of double precision floating point
 	  arithmetic in Splash backend
-
-config POPPLER_SPLASH_FIXED
-	bool
-	prompt "use fixed point arithmetic"
-	depends on !POPPLER_SPLASH_SINGLE && !POPPLER_SPLASH_DOUBLE
-	help
-	  If enabled, the Splash backend will use floating point operations
-	  instead of fixed-point arithmetic.
 
 endif # POPPLER_SPLASH
 

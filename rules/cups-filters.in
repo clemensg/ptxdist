@@ -43,9 +43,6 @@ config CUPS_FILTERS_POPPLER
 	help
 	  Build with poppler support, needed for pdfto* filters and banners.
 
-comment "poppler support will not build with POPPLER_SPLASH_FIXED!"
-	depends on (POPPLER_SPLASH_FIXED && CUPS_FILTERS_POPPLER)
-
 config CUPS_FILTERS_IMAGEFILTERS
 	bool "build image filters"
 	help
