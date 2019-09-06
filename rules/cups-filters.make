@@ -14,15 +14,15 @@ PACKAGES-$(PTXCONF_CUPS_FILTERS) += cups-filters
 #
 # Paths and names
 #
-CUPS_FILTERS_VERSION	:= 1.17.9
-CUPS_FILTERS_MD5	:= 2ef5f2b902bcdcb963c5ef5858976bbc
+CUPS_FILTERS_VERSION	:= 1.25.4
+CUPS_FILTERS_MD5	:= a5c89e0b63cebb24a72c48737b25605e
 CUPS_FILTERS		:= cups-filters-$(CUPS_FILTERS_VERSION)
 CUPS_FILTERS_SUFFIX	:= tar.xz
 CUPS_FILTERS_URL	:= http://openprinting.org/download/cups-filters/$(CUPS_FILTERS).$(CUPS_FILTERS_SUFFIX)
 CUPS_FILTERS_SOURCE	:= $(SRCDIR)/$(CUPS_FILTERS).$(CUPS_FILTERS_SUFFIX)
 CUPS_FILTERS_DIR	:= $(BUILDDIR)/$(CUPS_FILTERS)
 CUPS_FILTERS_LICENSE	:= GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.0-only AND LGPL-2.1-or-later AND MIT AND BSD-4-Clause
-CUPS_FILTERS_LICENSE_FILES	:= file://COPYING;md5=794bc12f02f100806cd5f19304d03f7b
+CUPS_FILTERS_LICENSE_FILES	:= file://COPYING;md5=516215fd57564996d70327db19b368ff
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -46,7 +46,6 @@ CUPS_FILTERS_CONF_OPT	:= \
 	$(GLOBAL_LARGE_FILE_OPTION) \
 	--disable-mutool \
 	--disable-ghostscript \
-	--disable-ijs \
 	--disable-gs-ps2write \
 	--disable-foomatic \
 	--disable-werror \
