@@ -381,6 +381,8 @@ available package source. It is defined via one text line:
 
     deb https://debian.pengutronix.de/debian/ sid main contrib non-free
 
+Replace "sid" with the correct release name.
+
 .. note::
   If the directory ``/etc/apt/sources.list.d/`` does not exist, the
   text line mentioned above must be added to the file
@@ -427,17 +429,18 @@ You can also use the Debian packages for non-Debian Linux distributions.
 The Debian packages can be found on our server at
 http://debian.pengutronix.de/debian/pool/main/o/oselas.toolchain
 
-Navigate to the path 
-``| oselas.toolchain-|oselasTCNVendorVersion|-|ptxdistCompilerName|-|ptxdistCompilerVersion|/``
-and download the package named
-``| oselas.toolchain-|oselasTCNVendorVersion|-|ptxdistCompilerName|-|ptxdistCompilerVersion|\*.deb``
+Here you can download the package named
+
+::
+
+    oselas.toolchain-|oselasTCNVendorVersion|-|ptxdistCompilerName|-|ptxdistCompilerVersion|_|oselasTCNVendorVersion|_*.deb
 
 Package filenames for 32-bit host machines end with ``*_i386.deb``,
 for 64-bit host machines the filenames end with ``*_amd64.deb``.
 
 You can simply unpack the Debian packages with ``ar``::
 
-    ar x oselas.toolchain-|oselasTCNVendorVersion|-|ptxdistCompilerName|-|ptxdistCompilerVersion|\*.deb
+    $ ar x oselas.toolchain-|oselasTCNVendorVersion|-|ptxdistCompilerName|-|ptxdistCompilerVersion|_|oselasTCNVendorVersion|_*.deb
 
 This will create the files ``debian-binary``, ``control.tar.gz`` and
 ``data.tar.xz``.  Ignore the first two, and unpack ``data.tar.xz`` into your
@@ -446,7 +449,10 @@ root file system::
     $ sudo tar xf data.tar.xz -C /
 
 The toolchain can now be found in
-``/opt/OSELAS.Toolchain-|oselasTCNVendorVersion|/|ptxdistCompilerName|/|ptxdistCompilerVersion|/``.
+
+::
+
+    /opt/OSELAS.Toolchain-|oselasTCNVendorVersion|/|ptxdistCompilerName|/|ptxdistCompilerVersion|/
 
 Building a Toolchain
 ~~~~~~~~~~~~~~~~~~~~
@@ -552,11 +558,49 @@ for prime time and we can continue with our first project.
 Protecting the Toolchain
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
+This step is only relevant for older toolchain version including
+OSELAS.Toolchain-2018.12.0. For later versions, see the next section.
+
 All toolchain components are built with regular user permissions. In
 order to avoid accidential changes in the toolchain, the files should be
 set to read-only permissions after the installation has finished
 successfully. It is also possible to set the file ownership to root.
 This is an important step for reliability, so it is highly recommended.
+
+Installing the Toolchain
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+Starting with OSELAS.Toolchain-2019.09.0, the toolchain is not directly
+installed during the build process. Instead additional steps are needed.
+There are two possibilities:
+
+::
+
+    $ ptxdist-|oselasTCNVendorptxdistversion| images
+
+This creates a tarball in dir ``dist/`` subdirectory. It contains the
+toolchain with the full path, excluding the ``/opt`` prefix, so it should
+be extracted there.
+
+This is a convenient way to build the toolchain once and install it on
+multiple hosts. The host applications and libraries in the tarball are
+stripped to reduce the used disk space. So it cannot be used to debug the
+toolchain itself (e.g. when an ICE (internal compiler error) occurs. The
+target libraries (e.g. glibc) are not touched to debugging target
+applications works as usual.
+
+::
+
+    $ ptxdist-|oselasTCNVendorptxdistversion| make install
+
+This will install the toolchain to ``/opt``. The toolchain is not stripped,
+so it will require quite a bit more disk space compared to the tarball.
+By adding ``DESTDIR=/some/path`` to the command-line, an additional
+installation prefix can be added.
+
+If additional privileges are needed to write to the installation path, then
+``sudo`` is automatically invoked and the toolchain files will be owned by
+root.
 
 Building additional Toolchains
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -574,13 +618,20 @@ new one.
     $ ptxdist select ptxconfigs/any_other_toolchain_def.ptxconfig
     $ ptxdist go
 
+And of course any additional steps needed to protect or install the
+toolchain depending on the version.
+
 All toolchains will be installed side by side architecture dependent
 into directory
 
-| /opt/OSELAS.Toolchain-|oselasTCNVendorVersion|/<architecture>
+::
+
+    /opt/OSELAS.Toolchain-|oselasTCNVendorVersion|/<architecture>
 
 Different toolchains for the same architecture will be installed side by
 side version dependent into directory
 
-| /opt/OSELAS.Toolchain-|oselasTCNVendorVersion|/<architecture>/<version>
+::
+
+    /opt/OSELAS.Toolchain-|oselasTCNVendorVersion|/<architecture>/<version>
 
