@@ -14,8 +14,8 @@ PACKAGES-$(PTXCONF_POPPLER_DATA) += poppler-data
 #
 # Paths and names
 #
-POPPLER_DATA_VERSION	:= 0.4.8
-POPPLER_DATA_MD5	:= 00f8989c804de84af0ba2ea629949980
+POPPLER_DATA_VERSION	:= 0.4.9
+POPPLER_DATA_MD5	:= 35cc7beba00aa174631466f06732be40
 POPPLER_DATA		:= poppler-data-$(POPPLER_DATA_VERSION)
 POPPLER_DATA_SUFFIX	:= tar.gz
 POPPLER_DATA_URL	:= https://poppler.freedesktop.org/$(POPPLER_DATA).$(POPPLER_DATA_SUFFIX)
@@ -30,6 +30,7 @@ POPPLER_DATA_LICENSE_FILES	:= \
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
+
 POPPLER_DATA_CONF_TOOL	:= NO
 
 # ----------------------------------------------------------------------------
