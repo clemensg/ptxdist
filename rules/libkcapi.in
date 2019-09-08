@@ -2,7 +2,7 @@
 
 menuconfig LIBKCAPI
 	tristate
-	prompt "libkcapi"
+	prompt "libkcapi                      "
 	help
 	  The Linux kernel exports a Netlink interface of type AF_ALG to
 	  allow user space to utilize the kernel crypto API.
