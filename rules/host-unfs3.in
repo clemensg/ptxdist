@@ -2,3 +2,4 @@
 
 config HOST_UNFS3
 	bool
+	select HOST_LIBTIRPC
