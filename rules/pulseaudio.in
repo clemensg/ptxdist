@@ -1,6 +1,6 @@
 ## SECTION=multimedia_sound
 
-config PULSEAUDIO
+menuconfig PULSEAUDIO
 	tristate
 	select HOST_ORC
 	select LIBC_M
@@ -20,7 +20,7 @@ config PULSEAUDIO
 	select SPEEXDSP_FLOAT_API	if PULSEAUDIO_SPEEX
 	select UDEV
 	select UDEV_LIBUDEV
-	prompt "pulseaudio"
+	prompt "pulseaudio                    "
 	help
 	  PulseAudio is a sound system for POSIX OSes, meaning that it is a
 	  proxy for your sound applications. It allows you to do advanced
