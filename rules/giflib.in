@@ -1,10 +1,11 @@
-## SECTION=system_libraries
+## SECTION=multimedia_libs
 
 menuconfig GIFLIB
 	tristate
 	prompt "giflib                        "
 	help
-	  GIFLIB is a package of portable tools and library routines for working with GIF images.
+	  GIFLIB is a package of portable tools and library routines for
+	  working with GIF images.
 
 if GIFLIB
 

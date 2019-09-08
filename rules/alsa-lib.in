@@ -1,4 +1,5 @@
-## SECTION=system_libraries
+## SECTION=multimedia_sound
+
 menuconfig ALSA_LIB
 	tristate
 	prompt "alsa libraries                "

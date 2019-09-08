@@ -33,6 +33,10 @@ config XORG_FONTS_QT4_LINKS
 source "generated/multimedia_xorg_font.in"
 endif
 
+menu "libs                          "
+source "generated/multimedia_libs.in"
+endmenu
+
 source "generated/multimedia_fltk.in"
 
 menu "framebuffer                   "
@@ -70,8 +74,12 @@ menu "tools                         "
 source "generated/multimedia_tools.in"
 endmenu
 
-menu "libs                          "
-source "generated/multimedia_libs.in"
+menu "vaapi                         "
+source "generated/multimedia_vaapi.in"
+endmenu
+
+menu "wayland                       "
+source "generated/multimedia_wayland.in"
 endmenu
 
 menuconfig XORG
@@ -83,7 +91,3 @@ menuconfig XORG
 if XORG
 source "generated/multimedia_xorg.in"
 endif
-
-menu "wayland                       "
-source "generated/multimedia_wayland.in"
-endmenu

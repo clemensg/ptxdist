@@ -1,4 +1,4 @@
-## SECTION=system_libraries
+## SECTION=multimedia_libs
 
 menuconfig QPDF
 	tristate

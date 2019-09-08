@@ -1,4 +1,4 @@
-## SECTION=multimedia_tools
+## SECTION=multimedia_vaapi
 
 config LIBVA_UTILS
 	tristate
