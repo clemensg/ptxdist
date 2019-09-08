@@ -15,24 +15,13 @@ PACKAGES-$(PTXCONF_ALSA_LIB) += alsa-lib
 #
 # Paths and names
 #
-ALSA_LIB_SUFFIX		:= tar.bz2
-
-ifdef PTXCONF_ALSA_LIB_FULL
 ALSA_LIB_VERSION	:= 1.1.9
 ALSA_LIB_MD5		:= e6d429dbdcfaa0f034d907fa6dc3735e
 ALSA_LIB		:= alsa-lib-$(ALSA_LIB_VERSION)
+ALSA_LIB_SUFFIX		:= tar.bz2
 ALSA_LIB_URL		:= \
 	https://www.alsa-project.org/files/pub/lib/$(ALSA_LIB).$(ALSA_LIB_SUFFIX) \
 	ftp://ftp.alsa-project.org/pub/lib/$(ALSA_LIB).$(ALSA_LIB_SUFFIX)
-endif
-
-ifdef PTXCONF_ALSA_LIB_LIGHT
-ALSA_LIB_VERSION	:= 0.0.17
-ALSA_LIB_MD5		:= 81f209f58a3378f5553763b7735e1d58
-ALSA_LIB		:= salsa-lib-$(ALSA_LIB_VERSION)
-ALSA_LIB_URL		:= ftp://ftp.suse.com/pub/people/tiwai/salsa-lib/$(ALSA_LIB).$(ALSA_LIB_SUFFIX)
-endif
-
 ALSA_LIB_SOURCE		:= $(SRCDIR)/$(ALSA_LIB).$(ALSA_LIB_SUFFIX)
 ALSA_LIB_DIR		:= $(BUILDDIR)/$(ALSA_LIB)
 ALSA_LIB_LICENSE	:= LGPL-2.1-or-later
@@ -76,23 +65,6 @@ ALSA_LIB_CONF_OPT	:= \
 	--with-aload-devdir=/dev \
 	--with-pcm-plugins=all
 
-ifdef PTXCONF_ALSA_LIB_LIGHT
-ALSA_LIB_CONF_OPT += \
-	--enable-everyhing \
-	--enable-tlv \
-	--enable-timer \
-	--enable-conf \
-	--enable-async \
-	--enable-libasound \
-	--enable-rawmidi
-endif
-
-# unhandled, yet
-# --with-configdir=dir    path where ALSA config files are stored
-#  --with-plugindir=dir    path where ALSA plugin files are stored
-#  --with-ctl-plugins=<list>
-#                          build control plugins (default = all)
-
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
@@ -106,18 +78,8 @@ $(STATEDIR)/alsa-lib.targetinstall:
 	@$(call install_fixup, alsa-lib, AUTHOR,"Erwin Rol <ero@pengutronix.de>")
 	@$(call install_fixup, alsa-lib, DESCRIPTION,missing)
 
-ifdef PTXCONF_ALSA_LIB_LIGHT
-	@$(call install_lib, alsa-lib, 0, 0, 0644, libsalsa)
-	@$(call install_link, alsa-lib, libsalsa.so, /usr/lib/libasound.so)
-endif
-
-ifdef PTXCONF_ALSA_LIB_FULL
 	@$(call install_lib, alsa-lib, 0, 0, 0644, libasound)
-
-	@$(call install_tree, alsa-lib, \
-		0, 0, -, /usr/share/alsa/)
-endif
-
+	@$(call install_tree, alsa-lib, 0, 0, -, /usr/share/alsa)
 ifdef PTXCONF_ALSA_LIB_ASOUND_CONF
 	@$(call install_alternative, alsa-lib, 0, 0, 0644, /etc/asound.conf)
 endif
