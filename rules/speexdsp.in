@@ -1,10 +1,10 @@
 ## SECTION=multimedia_libs
 
-config SPEEXDSP
+menuconfig SPEEXDSP
 	tristate
 	select LIBC_M
 	select GCCLIBS_GCC_S
-	prompt "speexdsp"
+	prompt "speexdsp                      "
 	help
 	  SpeexDSP is the signal processing library
 	  developed by the Speex codec.
