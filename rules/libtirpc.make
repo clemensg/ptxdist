@@ -14,8 +14,8 @@ PACKAGES-$(PTXCONF_LIBTIRPC) += libtirpc
 #
 # Paths and names
 #
-LIBTIRPC_VERSION	:= 1.0.2
-LIBTIRPC_MD5		:= d5a37f1dccec484f9cabe2b97e54e9a6
+LIBTIRPC_VERSION	:= 1.1.4
+LIBTIRPC_MD5		:= f5d2a623e9dfbd818d2f3f3a4a878e3a
 LIBTIRPC		:= libtirpc-$(LIBTIRPC_VERSION)
 LIBTIRPC_SUFFIX		:= tar.bz2
 LIBTIRPC_URL		:= $(call ptx/mirror, SF, libtirpc/$(LIBTIRPC).$(LIBTIRPC_SUFFIX))
