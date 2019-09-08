@@ -398,10 +398,11 @@ function write_deps_pkg_active(this_PKG, this_pkg, prefix) {
 	print "$(foreach src,$(" this_PKG "_SOURCES)," \
 		"$(eval $(STATEDIR)/" this_pkg ".get:"      "$(STATEDIR)/" this_pkg ".$(notdir $(src)).stamp))"	> DGEN_DEPS_POST;
 	if (DIRTY != "true") {
-		print "ifneq ($(" this_PKG "_EXTRACT_CFGHASH),)"						> DGEN_DEPS_POST;
+		print "ifeq ($(" this_PKG "_EXTRACT_CFGHASH),)"							> DGEN_DEPS_POST;
+		print this_PKG "_EXTRACT_CFGHASH := 00000000000000000000000000000000"				> DGEN_DEPS_POST;
+		print "endif"											> DGEN_DEPS_POST;
 		print "$(STATEDIR)/" this_pkg ".extract: " \
 					"$(STATEDIR)/" this_pkg ".$(" this_PKG "_EXTRACT_CFGHASH).srchash"	> DGEN_DEPS_POST;
-		print "endif"											> DGEN_DEPS_POST;
 	}
 	print "$(STATEDIR)/" this_pkg ".extract: "                    "$(STATEDIR)/" this_pkg ".get"		> DGEN_DEPS_POST;
 	print "$(STATEDIR)/" this_pkg ".extract.post: "               "$(STATEDIR)/" this_pkg ".extract"	> DGEN_DEPS_POST;
