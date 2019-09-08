@@ -14,8 +14,8 @@ PACKAGES-$(PTXCONF_LIBKMOD) += libkmod
 #
 # Paths and names
 #
-LIBKMOD_VERSION	:= 25
-LIBKMOD_MD5	:= 34f325cab568f842fdde4f8b2182f220
+LIBKMOD_VERSION	:= 26
+LIBKMOD_MD5	:= 1129c243199bdd7db01b55a61aa19601
 LIBKMOD		:= kmod-$(LIBKMOD_VERSION)
 LIBKMOD_SUFFIX	:= tar.xz
 LIBKMOD_URL	:= $(call ptx/mirror, KERNEL, utils/kernel/kmod/$(LIBKMOD).$(LIBKMOD_SUFFIX))
@@ -47,7 +47,8 @@ LIBKMOD_CONF_OPT	:= \
 	--disable-gtk-doc-html \
 	--disable-gtk-doc-pdf \
 	--without-xz \
-	--$(call ptx/wwo, PTXCONF_LIBKMOD_ZLIB)-zlib
+	--$(call ptx/wwo, PTXCONF_LIBKMOD_ZLIB)-zlib \
+	--without-openssl
 
 # ----------------------------------------------------------------------------
 # Target-Install
