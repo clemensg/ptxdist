@@ -1,0 +1,20 @@
+From: shawnli2 <48119907+shawnli2@users.noreply.github.com>
+Date: Thu, 22 Aug 2019 11:25:46 +0800
+Subject: [PATCH] Update media_compile_flags_linux.cmake
+
+---
+ media_driver/cmake/linux/media_compile_flags_linux.cmake | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/media_driver/cmake/linux/media_compile_flags_linux.cmake b/media_driver/cmake/linux/media_compile_flags_linux.cmake
+index 9253b2d6503d..d2cdb34ef4d8 100755
+--- a/media_driver/cmake/linux/media_compile_flags_linux.cmake
++++ b/media_driver/cmake/linux/media_compile_flags_linux.cmake
+@@ -32,7 +32,6 @@ set(MEDIA_COMPILER_FLAGS_COMMON
+     -Wno-overflow
+     -Wno-parentheses
+     -Wno-delete-incomplete
+-    -Werror=implicit-function-declaration
+     -Werror=address
+     -Werror=format-security
+     -Werror=non-virtual-dtor
