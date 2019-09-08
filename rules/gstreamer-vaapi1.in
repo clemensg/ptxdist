@@ -28,7 +28,7 @@ config GSTREAMER_VAAPI1_X11
 
 config GSTREAMER_VAAPI1_GLX
 	bool
-	default LIBVA_GLX
+	default LIBVA_X11
 
 config GSTREAMER_VAAPI1_WAYLAND
 	bool
