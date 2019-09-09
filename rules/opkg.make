@@ -15,8 +15,8 @@ PACKAGES-$(PTXCONF_OPKG) += opkg
 #
 # Paths and names
 #
-OPKG_VERSION	:= 0.3.6
-OPKG_MD5	:= 79e04307f6f54db431c251772d7d987c
+OPKG_VERSION	:= 0.4.1
+OPKG_MD5	:= ba0c21305fc93b26e844981ef100dc85
 OPKG		:= opkg-$(OPKG_VERSION)
 OPKG_SUFFIX	:= tar.gz
 OPKG_URL	:= http://downloads.yoctoproject.org/releases/opkg/$(OPKG).$(OPKG_SUFFIX)
