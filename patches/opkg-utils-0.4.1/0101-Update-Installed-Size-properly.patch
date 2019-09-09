@@ -11,10 +11,10 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/opkg.py b/opkg.py
-index 153b62c7e7fa..f5cb9b86a773 100644
+index d4e782546bc1..2e58b5f7ad19 100644
 --- a/opkg.py
 +++ b/opkg.py
-@@ -230,7 +230,7 @@ class Package(object):
+@@ -247,7 +247,7 @@ class Package(object):
              lineparts = re.match(r'([\w-]*?):\s*(.*)', line)
              if lineparts:
                  name = lineparts.group(1)
@@ -23,9 +23,9 @@ index 153b62c7e7fa..f5cb9b86a773 100644
                  value = lineparts.group(2)
                  while 1:
                      line = control.readline().rstrip()
-@@ -482,7 +482,7 @@ class Package(object):
-         if self.maintainer: out = out + "Maintainer: %s\n" % (self.maintainer)
-         if self.md5: out = out + "MD5Sum: %s\n" % (self.md5)
+@@ -504,7 +504,7 @@ class Package(object):
+         if 'sha256' in checksum:
+             if self.sha256: out = out + "SHA256sum: %s\n" % (self.sha256)
          if self.size: out = out + "Size: %d\n" % int(self.size)
 -        if self.installed_size: out = out + "InstalledSize: %d\n" % int(self.installed_size)
 +        if self.installed_size: out = out + "Installed-Size: %d\n" % int(self.installed_size)

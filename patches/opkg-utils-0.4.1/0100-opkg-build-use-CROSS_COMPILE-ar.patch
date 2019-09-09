@@ -14,15 +14,15 @@ Signed-off-by: Andreas Bießmann <andreas@biessmann.de>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/opkg-build b/opkg-build
-index 0050c2bb11ed..4fddf4c9afda 100755
+index dcd2d68ead86..a37e55827a79 100755
 --- a/opkg-build
 +++ b/opkg-build
-@@ -299,7 +299,7 @@ fi
+@@ -314,7 +314,7 @@ fi
  
  rm -f $pkg_file
  if [ "$outer" = "ar" ] ; then
 -  ( cd $tmp_dir && ar -crfD $pkg_file ./debian-binary ./control.tar.gz ./data.tar.$cext )
 +  ( cd $tmp_dir && ${CROSS_COMPILE}ar -crfD $pkg_file ./debian-binary ./control.tar.gz ./data.tar.$cext )
  else
-   ( cd $tmp_dir && tar -c $tsortargs --mtime="$build_date" $tarformat ./debian-binary ./control.tar.gz ./data.tar.$cext | gzip $zipargs > $pkg_file )
+   ( cd $tmp_dir && tar -c $tsortargs --mtime=@$build_date $tarformat ./debian-binary ./control.tar.gz ./data.tar.$cext | gzip $zipargs > $pkg_file )
  fi
