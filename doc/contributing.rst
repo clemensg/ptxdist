@@ -42,13 +42,8 @@ autodetection if no option is available:
   	$(CROSS_ENV) \
   	ac_cv_broken_sem_getvalue=no
 
-:ref:`configure_helper` also supports **meson**. Note that the prepare
-stage for the package must be executed first.
-
-The options for **cmake** packages must be checked manually. The best way
-to do this is to read the cache file
-``<platform-dir>/build-target/<package>-build/CMakeCache.txt``. It contains
-all available options.
+:ref:`configure_helper` also supports **meson** and **cmake**.
+Note that the prepare stage for the package must be executed first.
 
 Packages Suboptions
 ~~~~~~~~~~~~~~~~~~~
