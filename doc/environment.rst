@@ -585,8 +585,8 @@ be extracted there.
 This is a convenient way to build the toolchain once and install it on
 multiple hosts. The host applications and libraries in the tarball are
 stripped to reduce the used disk space. So it cannot be used to debug the
-toolchain itself (e.g. when an ICE (internal compiler error) occurs. The
-target libraries (e.g. glibc) are not touched to debugging target
+toolchain itself (e.g. when an ICE (internal compiler error) occurs). The
+target libraries (e.g. glibc) are not touched so debugging target
 applications works as usual.
 
 ::
@@ -608,7 +608,7 @@ Building additional Toolchains
 The OSELAS.Toolchain- bundle comes with various predefined toolchains.
 Refer the ``ptxconfigs/`` folder for other definitions. To build
 additional toolchains we only have to clean our current toolchain
-project, removing the current ``selected_ptxconfig`` link and creating a
+project, remove the current ``selected_ptxconfig`` link and create a
 new one.
 
 ::
@@ -618,18 +618,18 @@ new one.
     $ ptxdist select ptxconfigs/any_other_toolchain_def.ptxconfig
     $ ptxdist go
 
-And of course any additional steps needed to protect or install the
-toolchain depending on the version.
+This is then followed of course by any additional steps needed to protect or
+install the toolchain depending on the version.
 
-All toolchains will be installed side by side architecture dependent
-into directory
+All toolchains will be installed side by side into architecture dependent
+directories named
 
 ::
 
     /opt/OSELAS.Toolchain-|oselasTCNVendorVersion|/<architecture>
 
-Different toolchains for the same architecture will be installed side by
-side version dependent into directory
+Different toolchains for the same architecture will be installed side by side
+into version dependent directories named
 
 ::
 
