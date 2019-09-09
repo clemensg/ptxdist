@@ -16,13 +16,17 @@ HOST_PACKAGES-$(PTXCONF_HOST_ORC) += host-orc
 # ----------------------------------------------------------------------------
 
 #
-# autoconf
+# meson
 #
-HOST_ORC_CONF_TOOL	:= autoconf
+HOST_ORC_CONF_TOOL	:= meson
 HOST_ORC_CONF_OPT	:= \
-	$(HOST_AUTOCONF) \
-	--disable-gtk-doc \
-	--disable-gtk-doc-html \
-	--disable-gtk-doc-pdf
+	$(HOST_MESON_OPT) \
+	-Dbenchmarks=disabled \
+	-Dexamples=disabled \
+	-Dgtk_doc=disabled \
+	-Dorc-backend=all \
+	-Dorc-test=disabled \
+	-Dtests=disabled \
+	-Dtools=enabled
 
 # vim: syntax=make

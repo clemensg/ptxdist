@@ -2,4 +2,5 @@
 
 config HOST_ORC
 	tristate
+	select HOST_MESON
 	default y if ALLYES

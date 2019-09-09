@@ -14,8 +14,8 @@ PACKAGES-$(PTXCONF_ORC) += orc
 #
 # Paths and names
 #
-ORC_VERSION	:= 0.4.29
-ORC_MD5		:= 25799917c7d31a891d5e32b83ad08f6d
+ORC_VERSION	:= 0.4.30
+ORC_MD5		:= 75461700db04870a7cd1d0509a7a56b1
 ORC		:= orc-$(ORC_VERSION)
 ORC_SUFFIX	:= tar.xz
 ORC_URL		:= http://gstreamer.freedesktop.org/data/src/orc/$(ORC).$(ORC_SUFFIX)
@@ -35,14 +35,16 @@ endif
 #
 # autoconf
 #
-ORC_CONF_TOOL	:= autoconf
+ORC_CONF_TOOL	:= meson
 ORC_CONF_OPT	:= \
-	$(CROSS_AUTOCONF_USR) \
-	--disable-gtk-doc \
-	--disable-gtk-doc-html \
-	--disable-gtk-doc-pdf \
-	--enable-backend=$(ORC_BACKEND) \
-	--$(call ptx/endis,PTXCONF_ORC_TEST)-tests
+	$(CROSS_MESON_USR) \
+	-Dbenchmarks=disabled \
+	-Dexamples=disabled \
+	-Dgtk_doc=disabled \
+	-Dorc-backend=$(ORC_BACKEND) \
+	-Dorc-test=$(call ptx/endis,PTXCONF_ORC_TEST)d
+	-Dtests=disabled \
+	-Dtools=disabled
 
 # ----------------------------------------------------------------------------
 # Install

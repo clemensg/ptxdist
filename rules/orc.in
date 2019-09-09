@@ -2,6 +2,7 @@
 
 config ORC
 	tristate
+	select HOST_MESON
 	select LIBC_M
 	select LIBC_RT
 	select GCCLIBS_GCC_S
