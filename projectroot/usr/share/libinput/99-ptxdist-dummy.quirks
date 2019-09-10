@@ -1,0 +1,6 @@
+# The purpose of this quirk is just to silence the libinput error message
+# "Failed to load the device quirks from /usr/share/libinput [...]. This will
+# negatively affect device behavior." if the input device quirk database is
+# not installed.
+[PTXdist dummy quirk]
+MatchName=PTXdist inexistent device

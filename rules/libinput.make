@@ -54,6 +54,13 @@ $(STATEDIR)/libinput.targetinstall:
 
 	@$(call install_lib, libinput, 0, 0, 0644, libinput)
 
+ifdef PTXCONF_LIBINPUT_QUIRKS
+	@$(call install_tree, libinput, 0, 0, -, /usr/share/libinput)
+else
+	@$(call install_alternative, libinput, 0, 0, 0644, \
+		/usr/share/libinput/99-ptxdist-dummy.quirks)
+endif
+
 	@$(call install_finish, libinput)
 
 	@$(call touch)

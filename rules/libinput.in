@@ -1,16 +1,28 @@
 ## SECTION=multimedia_libs
 
-config LIBINPUT
+menuconfig LIBINPUT
 	tristate
 	select HOST_MESON
 	select MTDEV
 	select LIBEVDEV
 	select UDEV
 	select UDEV_LIBUDEV
-	prompt "libinput"
+	prompt "libinput                      "
 	help
 	  libinput is a library to handle input devices in Wayland compositors and to
 	  provide a generic X.Org input driver. It provides device detection, device
 	  handling, input device event processing and abstraction so minimize the amount
 	  of custom input code compositors need to provide the common set of
 	  functionality that users expect.
+
+if LIBINPUT
+
+config LIBINPUT_QUIRKS
+	bool
+	prompt "install device quirks"
+	help
+	  Installing the input device quirks database is useful for systems
+	  that allow connecting external input devices, or for systems that are
+	  contained in the quirks database.
+
+endif
