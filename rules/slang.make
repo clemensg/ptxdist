@@ -25,6 +25,8 @@ SLANG_URL	:= \
     http://www.jedsoft.org/releases/slang/old/$(SLANG).$(SLANG_SUFFIX)
 SLANG_SOURCE	:= $(SRCDIR)/$(SLANG).$(SLANG_SUFFIX)
 SLANG_DIR	:= $(BUILDDIR)/$(SLANG)
+SLANG_LICENSE	:= GPL-2.0-or-later
+SLANG_LICENSE_FILES	:= file://COPYING;md5=a52a18a472d4f7e45479b06563717c02
 
 # ----------------------------------------------------------------------------
 # Prepare
