@@ -14,8 +14,8 @@ PACKAGES-$(PTXCONF_FFMPEG) += ffmpeg
 #
 # Paths and names
 #
-FFMPEG_VERSION	:= 4.2
-FFMPEG_MD5	:= fb33a9110251873002869664686b2a3f
+FFMPEG_VERSION	:= 4.2.1
+FFMPEG_MD5	:= 67da904cf9fddeeb10a1308fc0dc39de
 FFMPEG		:= ffmpeg-$(FFMPEG_VERSION)
 FFMPEG_SUFFIX	:= tar.xz
 FFMPEG_URL	:= https://www.ffmpeg.org/releases/$(FFMPEG).$(FFMPEG_SUFFIX)
