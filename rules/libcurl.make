@@ -15,8 +15,8 @@ PACKAGES-$(PTXCONF_LIBCURL) += libcurl
 #
 # Paths and names
 #
-LIBCURL_VERSION	:= 7.64.0
-LIBCURL_MD5	:= d0bcc586873cfef08b4b9594e5395a33
+LIBCURL_VERSION	:= 7.66.0
+LIBCURL_MD5	:= c238aa394e3aa47ca4fcb0491774149f
 LIBCURL		:= curl-$(LIBCURL_VERSION)
 LIBCURL_SUFFIX	:= tar.bz2
 LIBCURL_URL	:= https://curl.haxx.se/download/$(LIBCURL).$(LIBCURL_SUFFIX)
@@ -40,8 +40,10 @@ LIBCURL_CONF_OPT	:= \
 	--disable-werror \
 	--disable-curldebug \
 	--enable-symbol-hiding \
+	--enable-hidden-symbols \
 	--$(call ptx/endis, PTXCONF_LIBCURL_C_ARES)-ares \
 	--enable-rt \
+	--disable-code-coverage \
 	$(GLOBAL_LARGE_FILE_OPTION) \
 	--$(call ptx/endis, PTXCONF_LIBCURL_HTTP)-http \
 	--$(call ptx/endis, PTXCONF_LIBCURL_FTP)-ftp \
@@ -73,14 +75,30 @@ LIBCURL_CONF_OPT	:= \
 	--enable-tls-srp \
 	--enable-unix-sockets \
 	--$(call ptx/endis, PTXCONF_LIBCURL_COOKIES)-cookies \
+	--$(call ptx/endis, PTXCONF_LIBCURL_HTTP)-http-auth \
+	--disable-doh \
+	--disable-mime \
+	--enable-dateparse \
+	--enable-netrc \
+	--enable-progress-meter \
+	--disable-dnsshuffle \
+	--disable-alt-svc \
 	--with-zlib=$(SYSROOT) \
+	--without-brotli \
 	--without-gssapi \
+	--with-default-ssl-backend=$(call ptx/ifdef, PTXCONF_LIBCURL_SSL,openssl,no) \
+	--without-winssl \
+	--without-schannel \
+	--without-darwinssl \
+	--without-secure-transport \
+	--without-amissl \
 	--with-ssl=$(call ptx/ifdef, PTXCONF_LIBCURL_SSL,$(SYSROOT)/usr,no) \
 	--with-random=/dev/urandom \
 	--without-gnutls \
-	--without-polarssl \
 	--without-mbedtls \
 	--without-cyassl \
+	--without-wolfssl \
+	--without-mesalink \
 	--without-nss \
 	--with-ca-bundle=$(PTXCONF_LIBCURL_SSL_CABUNDLE_PATH) \
 	--with-ca-path=$(PTXCONF_LIBCURL_SSL_CAPATH_PATH) \
@@ -88,9 +106,13 @@ LIBCURL_CONF_OPT	:= \
 	--without-libpsl \
 	--without-libmetalink \
 	--$(call ptx/wwo, PTXCONF_LIBCURL_LIBSSH2)-libssh2 \
+	--without-libssh \
 	--without-librtmp \
+	--without-winidn \
 	--without-libidn2 \
-	--without-nghttp2
+	--without-nghttp2 \
+	--without-zsh-functions-dir \
+	--without-fish-functions-dir
 
 # ----------------------------------------------------------------------------
 # Target-Install
