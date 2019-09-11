@@ -21,6 +21,8 @@ HOST_MESON_SUFFIX	:= tar.gz
 HOST_MESON_URL		:= https://github.com/mesonbuild/meson/archive/$(HOST_MESON_VERSION).$(HOST_MESON_SUFFIX)
 HOST_MESON_SOURCE	:= $(SRCDIR)/$(HOST_MESON).$(HOST_MESON_SUFFIX)
 HOST_MESON_DIR		:= $(HOST_BUILDDIR)/$(HOST_MESON)
+HOST_MESON_LICENSE	:= Apache-2.0
+HOST_MESON_LICENSE_FILES	:= file://COPYING;md5=3b83ef96387f14655fc854ddc3c6bd57
 
 # ----------------------------------------------------------------------------
 # Prepare
