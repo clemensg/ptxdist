@@ -15,7 +15,9 @@ export PTXDIST_MESON_CROSS_FILE
 # $1:	meson cross file
 #
 ptxd_make_meson_cross_file() {
+    local ptxd_reply
+    ptxd_get_alternative config meson/cross-file.meson.in &&
     CPU="$(ptxd_cross_cc_v | sed -n -e "s/.*'-march=\([^']*\).*/\1/p" -e "/-march=/q")" \
-	ptxd_replace_magic "${PTXDIST_TOPDIR}/config/meson/cross-file.meson.in" > "${1}"
+	ptxd_replace_magic "${ptxd_reply}" > "${1}"
 }
 export -f ptxd_make_meson_cross_file
