@@ -31,7 +31,8 @@ LIBGPG_ERROR_LICENSE_FILES := \
 	file://COPYING.LIB;md5=2d5025d4aa3495befef8f17206a5b0a1
 
 # Use '=' to delay $(shell ...) calls until this is needed
-LIBGPG_ERROR_TARGET	= $(patsubst %-gnueabihf,%-gnueabi,$(patsubst i%86-pc-linux-gnu,i686-pc-linux-gnu,$(shell target=$(PTXCONF_GNU_TARGET); echo $${target/-*-linux/-$(if $(PTXCONF_ARCH_X86),pc,unknown)-linux})))
+LIBGPG_ERROR_TARGET	 = $(patsubst %-gnueabihf,%-gnueabi,$(patsubst i%86-unknown-linux-gnu,i686-unknown-linux-gnu,$(shell target=$(PTXCONF_GNU_TARGET); echo $${target/-*-linux/-unknown-linux})))
+LIBGPG_ERROR_TARGET_PTX	:= $(call remove_quotes, $(PTXCONF_GNU_TARGET))
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -56,8 +57,10 @@ LIBGPG_ERROR_CONF_OPT	:= \
 
 $(STATEDIR)/libgpg-error.prepare:
 	@$(call targetinfo)
-	@cp -v $(LIBGPG_ERROR_DIR)/src/syscfg/lock-obj-pub.$(LIBGPG_ERROR_TARGET).h \
-		$(LIBGPG_ERROR_DIR)/src/syscfg/lock-obj-pub.$(call remove_quotes, $(PTXCONF_GNU_TARGET)).h
+	@if [ ! -e $(LIBGPG_ERROR_DIR)/src/syscfg/lock-obj-pub.$(LIBGPG_ERROR_TARGET_PTX).h ]; then \
+		cp -v $(LIBGPG_ERROR_DIR)/src/syscfg/lock-obj-pub.$(LIBGPG_ERROR_TARGET).h \
+			$(LIBGPG_ERROR_DIR)/src/syscfg/lock-obj-pub.$(LIBGPG_ERROR_TARGET_PTX).h; \
+	fi
 	@$(call world/prepare, LIBGPG_ERROR)
 	@$(call touch)
 
