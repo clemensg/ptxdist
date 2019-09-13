@@ -14,11 +14,11 @@ PACKAGES-$(PTXCONF_ATTR) += attr
 #
 # Paths and names
 #
-ATTR_VERSION	:= 2.4.47
-ATTR_MD5	:= 84f58dec00b60f2dc8fd1c9709291cc7
+ATTR_VERSION	:= 2.4.48
+ATTR_MD5	:= bc1e5cb5c96d99b24886f1f527d3bb3d
 ATTR		:= attr-$(ATTR_VERSION)
 ATTR_SUFFIX	:= tar.gz
-ATTR_SOURCE	:= $(SRCDIR)/$(ATTR).src.$(ATTR_SUFFIX)
+ATTR_SOURCE	:= $(SRCDIR)/$(ATTR).$(ATTR_SUFFIX)
 ATTR_DIR	:= $(BUILDDIR)/$(ATTR)
 ATTR_LICENSE	:= GPL-2.0-only AND LGPL-2.0-only
 ATTR_LICENSE_FILES := \
@@ -26,31 +26,22 @@ ATTR_LICENSE_FILES := \
 	file://doc/COPYING.LGPL;md5=b8d31f339300bc239d73461d68e77b9c
 
 ATTR_URL	:= \
-	http://download.savannah.gnu.org/releases/attr/$(ATTR).src.$(ATTR_SUFFIX) \
-	http://mirrors.zerg.biz/nongnu/attr/$(ATTR).src.$(ATTR_SUFFIX)
+	http://download.savannah.gnu.org/releases/attr/$(ATTR).$(ATTR_SUFFIX) \
+	http://mirrors.zerg.biz/nongnu/attr/$(ATTR).$(ATTR_SUFFIX)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-ATTR_CONF_ENV	:= \
-	$(CROSS_ENV) \
-	CONFIG_SHELL=bash
-
-ATTR_INSTALL_OPT := \
-	DIST_ROOT=$(ATTR_PKGDIR) \
-	install \
-	install-lib \
-	install-dev
-
 #
 # autoconf
 #
-ATTR_AUTOCONF := \
+ATTR_CONF_TOOL	:= autoconf
+ATTR_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
-	--libexecdir=/usr/lib \
-	--enable-shared \
-	--$(call ptx/endis, PTXCONF_ATTR_GETTEXT)-gettext
+	--disable-nls \
+	--disable-rpath \
+	--disable-debug
 
 # ----------------------------------------------------------------------------
 # Target-Install

@@ -2,7 +2,6 @@
 
 menuconfig ATTR
 	tristate
-	select HOST_GETTEXT if ATTR_GETTEXT
 	prompt "attr                          "
 	help
 	  Utilities for manipulating filesystem extended attributes
@@ -21,10 +20,5 @@ config ATTR_TOOLS
 
 comment "BusyBox' setfattr is selected!"
 	depends on BUSYBOX_SETFATTR
-
-config ATTR_GETTEXT
-	bool
-	depends on ATTR
-	prompt "gettext support"
 
 endif
