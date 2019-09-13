@@ -16,11 +16,10 @@ ptxd_make_world_clean_sysroot() {
     if [ -d "${path}" ]; then
 	echo "Removing files from sysroot..."
 	echo
-	cd "${path}" && find . ! -type d -print0 | \
-	    { cd "${pkg_sysroot_dir}" && xargs -0 rm -f; }
-	cd "${path}" && find . -mindepth 1 -depth -type d -print0 | \
-	    { cd "${pkg_sysroot_dir}" && \
-	      xargs -0 rmdir --ignore-fail-on-non-empty 2> /dev/null; }
+	find "${path}/" ! -type d -printf "${pkg_sysroot_dir}/%P\0" | \
+	    xargs -0 rm -f
+	find "${path}/" -mindepth 1 -depth -type d -printf "${pkg_sysroot_dir}/%P\0" | \
+	    xargs -0 rmdir --ignore-fail-on-non-empty 2> /dev/null
     fi
     if [ -h "${link}" ]; then
 	rm "${link}"
