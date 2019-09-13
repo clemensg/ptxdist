@@ -257,7 +257,7 @@ ptxd_make_world_install_post() {
 	fi
     done &&
 
-    if [ ! -e "${ptx_pkg_dir}/${pkg_label}" -o -h "${ptx_pkg_dir}/${pkg_label}" ]; then
+    if [ ! -e "${ptx_pkg_dir}/.${pkg_label}" -o -h "${ptx_pkg_dir}/.${pkg_label}" ]; then
 	ln -sfT $(basename "${pkg_pkg_dir}") "${ptx_pkg_dir}/.${pkg_label}"
     fi &&
     # avoid writing to sysroot in parallel with -jeX/-jX
