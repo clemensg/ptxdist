@@ -15,17 +15,19 @@ PACKAGES-$(PTXCONF_BAREBOX) += barebox
 #
 # Paths and names
 #
-BAREBOX_VERSION	:= $(call remove_quotes,$(PTXCONF_BAREBOX_VERSION))
-BAREBOX_MD5	:= $(call remove_quotes,$(PTXCONF_BAREBOX_MD5))
-BAREBOX		:= barebox-$(BAREBOX_VERSION)
-BAREBOX_SUFFIX	:= tar.bz2
-BAREBOX_URL	:= $(call barebox-url, BAREBOX)
-BAREBOX_SOURCE	:= $(SRCDIR)/$(BAREBOX).$(BAREBOX_SUFFIX)
-BAREBOX_DIR	:= $(BUILDDIR)/$(BAREBOX)
-BAREBOX_LICENSE	:= GPL-2.0-only
-BAREBOX_DEVPKG	:= NO
+BAREBOX_VERSION		:= $(call remove_quotes,$(PTXCONF_BAREBOX_VERSION))
+BAREBOX_MD5		:= $(call remove_quotes,$(PTXCONF_BAREBOX_MD5))
+BAREBOX			:= barebox-$(BAREBOX_VERSION)
+BAREBOX_SUFFIX		:= tar.bz2
+BAREBOX_URL		:= $(call barebox-url, BAREBOX)
+BAREBOX_SOURCE		:= $(SRCDIR)/$(BAREBOX).$(BAREBOX_SUFFIX)
+BAREBOX_DIR		:= $(BUILDDIR)/$(BAREBOX)
+BAREBOX_BUILD_DIR	:= $(BAREBOX_DIR)-build
+BAREBOX_LICENSE		:= GPL-2.0-only
+BAREBOX_DEVPKG		:= NO
+BAREBOX_BUILD_OOT	:= KEEP
 
-BAREBOX_CONFIG	:= $(call ptx/in-platformconfigdir, \
+BAREBOX_CONFIG		:= $(call ptx/in-platformconfigdir, \
 		$(call remove_quotes, $(PTXCONF_BAREBOX_CONFIG)))
 
 # ----------------------------------------------------------------------------
@@ -43,7 +45,11 @@ BAREBOX_WRAPPER_BLACKLIST := \
 	TARGET_DEBUG \
 	TARGET_BUILD_ID
 
-BAREBOX_CONF_OPT := $(call barebox-opts, BAREBOX)
+BAREBOX_CONF_OPT := \
+	-C $(BAREBOX_DIR) \
+	O=$(BAREBOX_BUILD_DIR) \
+	$(call barebox-opts, BAREBOX)
+
 BAREBOX_MAKE_OPT := $(BAREBOX_CONF_OPT)
 
 BAREBOX_TAGS_OPT := TAGS tags cscope
@@ -74,17 +80,17 @@ $(STATEDIR)/barebox.prepare:
 	@$(call world/prepare, BAREBOX)
 
 ifdef PTXCONF_BAREBOX_EXTRA_ENV
-	@rm -rf $(BAREBOX_DIR)/.ptxdist-defaultenv
+	@rm -rf $(BAREBOX_BUILD_DIR)/.ptxdist-defaultenv
 	@ptxd_source_kconfig "${PTXDIST_PTXCONFIG}" && \
 	ptxd_source_kconfig "${PTXDIST_PLATFORMCONFIG}" && \
 	$(foreach path, $(BAREBOX_EXTRA_ENV_PATH), \
 		if [ -d "$(path)" ]; then \
 			ptxd_filter_dir "$(path)" \
-			$(BAREBOX_DIR)/.ptxdist-defaultenv; \
+			$(BAREBOX_BUILD_DIR)/.ptxdist-defaultenv; \
 		else \
-			cp "$(path)" $(BAREBOX_DIR)/.ptxdist-defaultenv/; \
+			cp "$(path)" $(BAREBOX_BUILD_DIR)/.ptxdist-defaultenv/; \
 		fi;)
-	@rm -rf $(BAREBOX_DIR)/defaultenv/barebox_default_env
+	@rm -rf $(BAREBOX_BUILD_DIR)/defaultenv/barebox_default_env
 endif
 
 	@$(call touch)
@@ -97,9 +103,9 @@ $(STATEDIR)/barebox.compile:
 	@$(call targetinfo)
 
 ifdef PTXCONF_BAREBOX_EXTRA_ENV
-	@if test $$(grep -c -e "^CONFIG_DEFAULT_ENVIRONMENT_PATH=.*\.ptxdist-defaultenv" $(BAREBOX_DIR)/.config) -eq 0; then \
+	@if test $$(grep -c -e "^CONFIG_DEFAULT_ENVIRONMENT_PATH=.*\.ptxdist-defaultenv" $(BAREBOX_BUILD_DIR)/.config) -eq 0; then \
 		sed -i -e "s,^\(CONFIG_DEFAULT_ENVIRONMENT_PATH=.*\)\"$$,\1 .ptxdist-defaultenv\"," \
-			$(BAREBOX_DIR)/.config; \
+			$(BAREBOX_BUILD_DIR)/.config; \
 	fi
 endif
 	@$(call world/compile, BAREBOX)
@@ -126,13 +132,13 @@ $(STATEDIR)/barebox.install:
 	@$(call targetinfo)
 
 	@$(foreach prog, $(BAREBOX_PROGS_HOST), \
-		if [ -e $(BAREBOX_DIR)/scripts/$(prog) ]; then \
-			install -v -D -m755 $(BAREBOX_DIR)/scripts/$(prog) \
+		if [ -e $(BAREBOX_BUILD_DIR)/scripts/$(prog) ]; then \
+			install -v -D -m755 $(BAREBOX_BUILD_DIR)/scripts/$(prog) \
 				$(PTXDIST_SYSROOT_HOST)/bin/$(notdir $(prog)) || exit; \
 		fi;)
 
 	@$(foreach prog, $(BAREBOX_PROGS_TARGET_y), \
-		install -v -D -m755 $(BAREBOX_DIR)/scripts/$(prog)-target \
+		install -v -D -m755 $(BAREBOX_BUILD_DIR)/scripts/$(prog)-target \
 			$(BAREBOX_PKGDIR)/usr/bin/$(prog) || exit;)
 
 	@$(call touch)
@@ -159,7 +165,7 @@ ifneq ($(strip $(BAREBOX_PROGS_TARGET_y)),)
 endif
 
 	@rm -f $(IMAGEDIR)/barebox-image
-	@find $(BAREBOX_DIR)/images/ -name "barebox-*.img" | sort | while read image; do \
+	@find $(BAREBOX_BUILD_DIR)/images/ -name "barebox-*.img" | sort | while read image; do \
 		install -D -m644 $$image $(IMAGEDIR)/`basename $$image`; \
 		if [ ! -e $(IMAGEDIR)/barebox-image ]; then \
 			ln -sf `basename $$image` $(IMAGEDIR)/barebox-image; \
@@ -167,17 +173,17 @@ endif
 	done
 	@if [ -e $(IMAGEDIR)/barebox-image ]; then \
 		:; \
-	elif [ -e $(BAREBOX_DIR)/barebox-flash-image ]; then \
-		install -D -m644 $(BAREBOX_DIR)/barebox-flash-image $(IMAGEDIR)/barebox-image; \
+	elif [ -e $(BAREBOX_BUILD_DIR)/barebox-flash-image ]; then \
+		install -D -m644 $(BAREBOX_BUILD_DIR)/barebox-flash-image $(IMAGEDIR)/barebox-image; \
 	else \
-		install -D -m644 $(BAREBOX_DIR)/barebox.bin $(IMAGEDIR)/barebox-image; \
+		install -D -m644 $(BAREBOX_BUILD_DIR)/barebox.bin $(IMAGEDIR)/barebox-image; \
 	fi
-	@if [ -e $(BAREBOX_DIR)/defaultenv/barebox_zero_env ]; then \
-		install -D -m644 $(BAREBOX_DIR)/defaultenv/barebox_zero_env $(IMAGEDIR)/barebox-default-environment; \
-	elif [ -e $(BAREBOX_DIR)/common/barebox_default_env ]; then \
-		install -D -m644 $(BAREBOX_DIR)/common/barebox_default_env $(IMAGEDIR)/barebox-default-environment; \
-	elif [ -e $(BAREBOX_DIR)/barebox_default_env ]; then \
-		install -D -m644 $(BAREBOX_DIR)/barebox_default_env $(IMAGEDIR)/barebox-default-environment; \
+	@if [ -e $(BAREBOX_BUILD_DIR)/defaultenv/barebox_zero_env ]; then \
+		install -D -m644 $(BAREBOX_BUILD_DIR)/defaultenv/barebox_zero_env $(IMAGEDIR)/barebox-default-environment; \
+	elif [ -e $(BAREBOX_BUILD_DIR)/common/barebox_default_env ]; then \
+		install -D -m644 $(BAREBOX_BUILD_DIR)/common/barebox_default_env $(IMAGEDIR)/barebox-default-environment; \
+	elif [ -e $(BAREBOX_BUILD_DIR)/barebox_default_env ]; then \
+		install -D -m644 $(BAREBOX_BUILD_DIR)/barebox_default_env $(IMAGEDIR)/barebox-default-environment; \
 	fi
 	@$(call touch)
 
