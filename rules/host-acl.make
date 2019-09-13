@@ -16,22 +16,14 @@ HOST_PACKAGES-$(PTXCONF_HOST_ACL) += host-acl
 # Prepare
 # ----------------------------------------------------------------------------
 
-HOST_ACL_ENV := \
-	$(HOST_ENV) \
-	ac_cv_path_MSGFMT=: \
-	ac_cv_path_MSGMERGE=: \
-	ac_cv_path_XGETTEXT=:
-
-# don't use := here
-HOST_ACL_INSTALL_OPT = \
-	DIST_ROOT=$(HOST_ACL_PKGDIR) \
-	install \
-	install-lib \
-	install-dev
-
-HOST_ACL_AUTOCONF := \
+#
+# autoconf
+#
+HOST_ACL_CONF_TOOL	:= autoconf
+HOST_ACL_CONF_OPT	:= \
 	$(HOST_AUTOCONF) \
-	--libexecdir=/lib \
-	--enable-shared
+	--disable-nls \
+	--disable-rpath \
+	--disable-debug
 
 # vim: syntax=make

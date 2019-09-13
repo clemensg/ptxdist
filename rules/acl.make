@@ -14,12 +14,12 @@ PACKAGES-$(PTXCONF_ACL) += acl
 #
 # Paths and names
 #
-ACL_VERSION	:= 2.2.52
-ACL_MD5		:= a61415312426e9c2212bd7dc7929abda
+ACL_VERSION	:= 2.2.53
+ACL_MD5		:= 007aabf1dbb550bcddde52a244cd1070
 ACL		:= acl-$(ACL_VERSION)
 ACL_SUFFIX	:= tar.gz
-ACL_URL		:= http://download.savannah.gnu.org/releases/acl/$(ACL).src.$(ACL_SUFFIX)
-ACL_SOURCE	:= $(SRCDIR)/$(ACL).src.$(ACL_SUFFIX)
+ACL_URL		:= http://download.savannah.gnu.org/releases/acl/$(ACL).$(ACL_SUFFIX)
+ACL_SOURCE	:= $(SRCDIR)/$(ACL).$(ACL_SUFFIX)
 ACL_DIR		:= $(BUILDDIR)/$(ACL)
 ACL_LICENSE	:= LGPL-2.1-or-later
 ACL_LICENSE_FILES:= file://doc/COPYING.LGPL;md5=9e9a206917f8af112da634ce3ab41764
@@ -27,27 +27,21 @@ ifdef PTXCONF_ACL_TOOLS
 ACL_LICENSE+= AND GPL-2.0.or-later
 ACL_LICENSE_FILES+= file://doc/COPYING;md5=c781d70ed2b4d48995b790403217a249
 endif
+
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-ACL_PATH	:= PATH=$(CROSS_PATH)
-ACL_ENV 	:= $(CROSS_ENV)
-
-ACL_INSTALL_OPT := \
-	DIST_ROOT=$(ACL_PKGDIR) \
-	install \
-	install-lib \
-	install-dev
-
 #
 # autoconf
 #
-ACL_AUTOCONF := \
+ACL_CONF_TOOL	:= autoconf
+ACL_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
-	--libexecdir=/usr/lib \
-	--enable-shared \
-	--$(call ptx/endis, PTXCONF_ACL_GETTEXT)-gettext
+	$(GLOBAL_LARGE_FILE_OPTION) \
+	--disable-nls \
+	--disable-rpath \
+	--disable-debug
 
 # ----------------------------------------------------------------------------
 # Target-Install
