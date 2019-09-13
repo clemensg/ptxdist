@@ -265,6 +265,11 @@ of the corresponding target package if it exists.
   This is especially useful for ``file://`` URLS that point to directories to
   keep the source tree free of build files.
 
+  ``KEEP`` can be used instead of ``YES``. In this case the build tree is
+  not deleted at the beginning of the prepare stage. This make
+  reconfiguration faster. This should only be used for packages that can
+  handle configuration changes correctly and rebuild everything as needed.
+
 ``<PKG>_SUBDIR``
   This is a directory relative to ``<PKG>_DIR``. If set, all build
   operations are executed in this directory instead. By default

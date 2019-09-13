@@ -158,7 +158,9 @@ export -f ptxd_make_world_prepare_meson
 ptxd_make_world_prepare_init() {
     # delete existing build_dir
     if [ -n "${pkg_build_oot}" ]; then
-	rm -rf   -- "${pkg_build_dir}" &&
+	if [ "${pkg_build_oot}" = "YES" ]; then
+	    rm -rf   -- "${pkg_build_dir}"
+	fi &&
 	mkdir -p -- "${pkg_build_dir}"
     fi &&
     # remove files from sysroot from the last build

@@ -372,7 +372,7 @@ ptxd_make_world_init() {
 	    esac
 	fi
 	case "${pkg_build_oot}" in
-	    "YES") pkg_build_dir="${pkg_dir}-build" ;;
+	    "YES"|"KEEP") pkg_build_dir="${pkg_dir}-build" ;;
 	    "NO")  pkg_build_dir="${pkg_conf_dir}" ;;
 	    *)     ptxd_bailout "<PKG>_BUILD_OOT: please set to YES or NO" ;;
 	esac
@@ -381,15 +381,17 @@ ptxd_make_world_init() {
     #
     # out-of-tree
     #
-    unset pkg_build_oot
     if [ "${pkg_build_dir}" = "${pkg_conf_dir}" ]; then
+	unset pkg_build_oot
 	#
 	# some pkgs don't like a full path to their configure
 	# if building in tree
 	#
 	pkg_conf_dir="."
     else
-	pkg_build_oot=true
+	if [ -z "${pkg_build_oot}" ]; then
+	    pkg_build_oot=YES
+	fi
 	pkg_conf_dir="$(ptxd_abs2rel "${pkg_build_dir}" "${pkg_conf_dir}")"
     fi
 
