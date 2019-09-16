@@ -19,10 +19,12 @@ KERNEL_@PACKAGE@_MD5		:=
 KERNEL_@PACKAGE@		:= linux-$(KERNEL_@PACKAGE@_VERSION)
 KERNEL_@PACKAGE@_SUFFIX		:= tar.xz
 KERNEL_@PACKAGE@_DIR		:= $(BUILDDIR)/linux-@package@-$(KERNEL_@PACKAGE@_VERSION)
+KERNEL_@PACKAGE@_BUILD_DIR	:= $(KERNEL_@PACKAGE@_DIR)-build
 KERNEL_@PACKAGE@_CONFIG		:= $(call ptx/in-platformconfigdir, kernelconfig-@package@)
 KERNEL_@PACKAGE@_LICENSE	:= GPL-2.0
 KERNEL_@PACKAGE@_URL		:= $(call kernel-url, KERNEL_@PACKAGE@)
 KERNEL_@PACKAGE@_SOURCE		:= $(SRCDIR)/$(KERNEL_@PACKAGE@).$(KERNEL_@PACKAGE@_SUFFIX)
+KERNEL_@PACKAGE@_BUILD_OOT	:= KEEP
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -34,10 +36,13 @@ KERNEL_@PACKAGE@_WRAPPER_BLACKLIST := \
 
 KERNEL_@PACKAGE@_PATH		:= PATH=$(CROSS_PATH)
 KERNEL_@PACKAGE@_ENV		:= KCONFIG_NOTIMESTAMP=1
-KERNEL_@PACKAGE@_CONF_OPT	:= $(call kernel-opts, KERNEL_@PACKAGE@)
+KERNEL_@PACKAGE@_CONF_OPT	:= \
+	-C $(KERNEL_@PACKAGE@_DIR) \
+	O=$(KERNEL_@PACKAGE@_BUILD_DIR) \
+	$(call kernel-opts, KERNEL_@PACKAGE@)
 
 KERNEL_@PACKAGE@_IMAGES := @image@
-KERNEL_@PACKAGE@_IMAGES := $(addprefix $(KERNEL_@PACKAGE@_DIR)/arch/$(GENERIC_KERNEL_ARCH)/boot/,$(KERNEL_@PACKAGE@_IMAGES))
+KERNEL_@PACKAGE@_IMAGES := $(addprefix $(KERNEL_@PACKAGE@_BUILD_DIR)/arch/$(GENERIC_KERNEL_ARCH)/boot/,$(KERNEL_@PACKAGE@_IMAGES))
 
 ifdef PTXCONF_KERNEL_@PACKAGE@
 $(KERNEL_@PACKAGE@_CONFIG):
@@ -57,7 +62,7 @@ $(STATEDIR)/kernel-@package@.prepare:
 # ----------------------------------------------------------------------------
 
 KERNEL_@PACKAGE@_MAKE_OPT := \
-	$(call kernel-opts, KERNEL_@PACKAGE@) \
+	$(KERNEL_@PACKAGE@_CONF_OPT) \
 	@image@ modules
 
 # ----------------------------------------------------------------------------
