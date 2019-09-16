@@ -47,6 +47,7 @@ $(STATEDIR)/kernel-header.% $(STATEDIR)/host-kernel-header.%: KERNEL_MAKEVARS=
 
 KERNEL_MAKE_OPT := \
 	V=$(PTXDIST_VERBOSE) \
+	O=$(KERNEL_BUILD_DIR) \
 	ARCH=$(PTXCONF_KERNEL_ARCH_STRING) \
 	CROSS_COMPILE=$(KERNEL_CROSS_COMPILE) \
 	INSTALL_MOD_PATH=$(KERNEL_PKGDIR) \
@@ -65,7 +66,6 @@ endif
 
 KERNEL_CONF_OPT := \
 	-C $(KERNEL_DIR) \
-	O=$(KERNEL_BUILD_DIR) \
 	$(KERNEL_MAKE_OPT)
 #
 # support the different kernel image formats
@@ -145,7 +145,6 @@ $(STATEDIR)/kernel.tags:
 
 KERNEL_OOT_OPT		:= \
 	-C $(KERNEL_DIR) \
-	O=$(KERNEL_BUILD_DIR) \
 	$(KERNEL_MAKE_OPT)
 
 KERNEL_TOOL_PERF_OPTS	:= \
