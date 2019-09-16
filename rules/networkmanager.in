@@ -5,6 +5,8 @@ menuconfig NETWORKMANAGER
 	# intltool is unconditionally requested by configure
 	select HOST_GLIB
 	select HOST_INTLTOOL
+	select HOST_LIBXSLT
+	select HOST_MESON
 	select LIBC_M
 	select LIBC_DL
 	select LIBC_PTHREAD
@@ -18,6 +20,7 @@ menuconfig NETWORKMANAGER
 	select LIBNEWT				if NETWORKMANAGER_NMTUI
 	select LIBUUID
 	select MODEMMANAGER			if NETWORKMANAGER_WWAN
+	select POLKIT				if NETWORKMANAGER_POLKIT
 	select PPP				if NETWORKMANAGER_PPP
 	select PPP_PLUGINS			if NETWORKMANAGER_PPP
 	select READLINE				if NETWORKMANAGER_NMCLI
@@ -95,7 +98,7 @@ config NETWORKMANAGER_EXAMPLES
 
 config NETWORKMANAGER_POLKIT
 	bool
-	default POLKIT
+	prompt "polkit support"
 
 endif
 

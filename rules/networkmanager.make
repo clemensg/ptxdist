@@ -30,78 +30,66 @@ NETWORKMANAGER_LICENSE_FILES := file://COPYING;md5=cbbffd568227ada506640fe950a48
 # ----------------------------------------------------------------------------
 
 #
-# autoconf
+# meson
 #
-NETWORKMANAGER_CONF_TOOL := autoconf
+NETWORKMANAGER_CONF_TOOL := meson
 NETWORKMANAGER_CONF_OPT = \
-	$(CROSS_AUTOCONF_USR) \
-	--disable-static \
-	--enable-shared \
-	--disable-nls \
-	--disable-rpath \
-	--disable-ifcfg-rh \
-	--enable-ifupdown \
-	--disable-code-coverage \
-	--$(call ptx/endis,PTXCONF_NETWORKMANAGER_WIRELESS)-wifi \
-	--disable-introspection \
-	--disable-qt \
-	--disable-teamdctl \
-	--disable-json-validation \
-	--$(call ptx/endis,PTXCONF_NETWORKMANAGER_POLKIT)-polkit \
-	--disable-polkit-agent \
-	--disable-modify-system \
-	--$(call ptx/endis,PTXCONF_NETWORKMANAGER_PPP)-ppp \
-	--disable-bluez5-dun \
-	--disable-ovs \
-	--$(call ptx/endis,PTXCONF_NETWORKMANAGER_CONCHECK)-concheck \
-	--enable-more-warnings \
-	--disable-more-asserts \
-	--disable-more-logging \
-	--disable-lto \
-	--enable-ld-gc=auto \
-	--disable-undefined-sanitizer \
-	--disable-vala \
-	--disable-tests \
-	--disable-gtk-doc \
-	--disable-gtk-doc-html \
-	--disable-gtk-doc-pdf \
-	--$(call ptx/wwo,PTXCONF_NETWORKMANAGER_WIRELESS)-wext \
-	--without-iwd \
-	--with-udev-dir=/usr/lib/udev \
-	--with-systemdsystemunitdir=/usr/lib/systemd/system \
-	--with-hostname-persist=default \
-	--$(call ptx/wwo,PTXCONF_NETWORKMANAGER_SYSTEMD_UNIT)-systemd-journal \
-	--with-config-logging-backend-default="" \
-	--$(call ptx/wwo,PTXCONF_NETWORKMANAGER_SYSTEMD_UNIT)-systemd-logind \
-	--without-consolekit \
-	--without-session-tracking \
-	--with-suspend-resume=$(call ptx/ifdef,PTXCONF_NETWORKMANAGER_SYSTEMD_UNIT,systemd,upower) \
-	--without-ebpf \
-	--without-selinux \
-	--without-libaudit \
-	--with-crypto=gnutls \
-	--with-dbus-sys-dir=/usr/share/dbus-1/system.d \
-	--with-pppd-plugin-dir=$(PPP_SHARED_INST_PATH) \
-	--with-pppd=/usr/sbin/pppd \
-	--$(call ptx/wwo,PTXCONF_NETWORKMANAGER_WWAN)-modem-manager-1 \
-	--without-ofono \
-	--without-dhcpcanon \
-	--with-dhclient=/usr/sbin/dhclient \
-	--without-dhcpcd \
-	--with-config-dhcp-default=internal \
-	--without-resolvconf \
-	--without-netconfig \
-	--with-config-dns-rc-manager-default=file \
-	--with-iptables=/usr/sbin/iptables \
-	--with-dnsmasq=/usr/sbin/dnsmasq \
-	--with-dnssec-trigger=/bin/true \
-	--with-system-ca-path=/etc/ssl/certs \
-	--with-kernel-firmware-dir=/lib/firmware \
-	--without-libpsl \
-	--$(call ptx/wwo,PTXCONF_NETWORKMANAGER_NMCLI)-nmcli \
-	--$(call ptx/wwo,PTXCONF_NETWORKMANAGER_NMTUI)-nmtui \
-	--without-address-sanitizer \
-	--without-valgrind
+	$(CROSS_MESON_USR) \
+	-Dbluez5_dun=false \
+	-Dconcheck=$(call ptx/truefalse,PTXCONF_NETWORKMANAGER_CONCHECK) \
+	-Dconfig_dhcp_default=internal \
+	-Dconfig_dns_rc_manager_default=file \
+	-Dconfig_logging_backend_default=default \
+	-Dcrypto=gnutls \
+	-Ddbus_conf_dir=/usr/share/dbus-1/system.d \
+	-Ddhclient=/usr/sbin/dhclient \
+	-Ddhcpcanon=false \
+	-Ddhcpcd=false \
+	-Ddnsmasq=/usr/sbin/dnsmasq \
+	-Ddnssec_trigger=/bin/true \
+	-Ddocs=false \
+	-Debpf=false \
+	-Dhostname_persist=default \
+	-Difcfg_rh=false \
+	-Difupdown=true \
+	-Dintrospection=false \
+	-Diptables=/usr/sbin/iptables \
+	-Diwd=false \
+	-Djson_validation=false \
+	-Dkernel_firmware_dir=/lib/firmware \
+	-Dld_gc=true \
+	-Dlibaudit=no \
+	-Dlibpsl=false \
+	-Dmodem_manager=$(call ptx/truefalse,PTXCONF_NETWORKMANAGER_WWAN) \
+	-Dmodify_system=false \
+	-Dmore_asserts=no \
+	-Dmore_logging=false \
+	-Dnetconfig=false \
+	-Dnmcli=$(call ptx/truefalse,PTXCONF_NETWORKMANAGER_NMCLI) \
+	-Dnmtui=$(call ptx/truefalse,PTXCONF_NETWORKMANAGER_NMTUI) \
+	-Dofono=false \
+	-Dovs=false \
+	-Dpolkit=$(call ptx/truefalse,PTXCONF_NETWORKMANAGER_POLKIT) \
+	-Dpolkit_agent=false \
+	-Dppp=$(call ptx/truefalse,PTXCONF_NETWORKMANAGER_PPP) \
+	-Dpppd=/usr/sbin/pppd \
+	-Dpppd_plugin_dir=$(PPP_SHARED_INST_PATH) \
+	-Dqt=false \
+	-Dresolvconf=false \
+	-Dselinux=false \
+	-Dsession_tracking=no \
+	-Dsession_tracking_consolekit=false \
+	-Dsuspend_resume=$(call ptx/ifdef,PTXCONF_NETWORKMANAGER_SYSTEMD_UNIT,systemd,upower) \
+	-Dsystem_ca_path=/etc/ssl/certs \
+	-Dsystemd_journal=$(call ptx/truefalse,PTXCONF_NETWORKMANAGER_SYSTEMD_UNIT) \
+	-Dsystemdsystemunitdir=/usr/lib/systemd/system \
+	-Dteamdctl=false \
+	-Dtests=no \
+	-Dudev_dir=/usr/lib/udev \
+	-Dvalgrind=no \
+	-Dvapi=false \
+	-Dwext=$(call ptx/truefalse,PTXCONF_NETWORKMANAGER_WIRELESS) \
+	-Dwifi=$(call ptx/truefalse,PTXCONF_NETWORKMANAGER_WIRELESS)
 
 ifdef PTXCONF_NETWORKMANAGER_WWAN
 NETWORKMANAGER_LDFLAGS	:= \
