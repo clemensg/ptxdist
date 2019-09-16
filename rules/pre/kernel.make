@@ -74,6 +74,19 @@ kernel-opts = \
 	$(call kernel/opts,$(strip $(1)))
 
 #
+# Blacklist for all low-level code, e.g. kernel and bootloaders
+#
+PTXDIST_LOWLEVEL_WRAPPER_BLACKLIST := \
+	TARGET_HARDEN_STACK \
+	TARGET_HARDEN_STACKCLASH \
+	TARGET_HARDEN_FORTIFY \
+	TARGET_HARDEN_RELRO \
+	TARGET_HARDEN_BINDNOW \
+	TARGET_HARDEN_PIE \
+	TARGET_DEBUG \
+	TARGET_BUILD_ID
+
+#
 # handle special compiler
 #
 ifdef PTXCONF_KERNEL
