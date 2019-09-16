@@ -149,6 +149,9 @@ KERNEL_OOT_OPT		:= \
 	$(KERNEL_MAKE_OPT)
 
 KERNEL_TOOL_PERF_OPTS	:= \
+	-C $(KERNEL_DIR)/tools/perf \
+	O=$(KERNEL_BUILD_DIR)/tools/perf \
+	$(KERNEL_MAKE_OPT)
 	WERROR=0 \
 	NO_LIBPERL=1 \
 	NO_LIBPYTHON=1 \
@@ -173,6 +176,16 @@ KERNEL_TOOL_PERF_OPTS	:= \
 	NO_LIBBPF=1 \
 	NO_SDT=1
 
+# manual make to handle CPPFLAGS and broken parallel building for some
+# kernel versions
+KERNEL_TOOL_IIO_OPTS	:= \
+	PTXDIST_ICECC= \
+	CPPFLAGS="-D__EXPORTED_HEADERS__ -I$(KERNEL_DIR)/include/uapi -I$(KERNEL_DIR)/include" \
+	-C $(KERNEL_DIR)/tools/iio \
+	O=$(KERNEL_BUILD_DIR)/tools/iio \
+	$(KERNEL_MAKE_OPT) \
+	$(PARALLELMFLAGS_BROKEN)
+
 $(STATEDIR)/kernel.compile:
 	@$(call targetinfo)
 	@rm -f \
@@ -180,15 +193,13 @@ $(STATEDIR)/kernel.compile:
 		$(KERNEL_BUILD_DIR)/usr/.initramfs_data.cpio.*
 	@$(call compile, KERNEL, $(KERNEL_OOT_OPT) $(KERNEL_IMAGE) $(PTXCONF_KERNEL_MODULES_BUILD))
 ifdef PTXCONF_KERNEL_TOOL_PERF
-	@$(call compile, KERNEL, $(KERNEL_OOT_OPT) $(KERNEL_TOOL_PERF_OPTS) -C tools/perf)
+	@mkdir -p $(KERNEL_BUILD_DIR)/tools/perf
+	@$(call compile, KERNEL, $(KERNEL_TOOL_PERF_OPTS))
 endif
 ifdef PTXCONF_KERNEL_TOOL_IIO
-#	# manual make to handle CPPFLAGS and broken parallel building for some kernel versions
+	@mkdir -p $(KERNEL_BUILD_DIR)/tools/iio
 	@$(call world/execute, KERNEL, \
-		$(MAKE) \
-		PTXDIST_ICECC= \
-		CPPFLAGS="-D__EXPORTED_HEADERS__ -I$(KERNEL_DIR)/include/uapi -I$(KERNEL_DIR)/include" \
-		$(KERNEL_OOT_OPT) $(PARALLELMFLAGS_BROKEN) -C tools/iio)
+		$(MAKE) $(KERNEL_TOOL_IIO_OPTS))
 endif
 	@$(call touch)
 
