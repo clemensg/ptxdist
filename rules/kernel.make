@@ -149,8 +149,8 @@ KERNEL_OOT_OPT		:= \
 
 KERNEL_TOOL_PERF_OPTS	:= \
 	-C $(KERNEL_DIR)/tools/perf \
-	O=$(KERNEL_BUILD_DIR)/tools/perf \
 	$(KERNEL_MAKE_OPT) \
+	O=$(KERNEL_BUILD_DIR)/tools/perf \
 	WERROR=0 \
 	NO_LIBPERL=1 \
 	NO_LIBPYTHON=1 \
@@ -181,8 +181,8 @@ KERNEL_TOOL_IIO_OPTS	:= \
 	PTXDIST_ICECC= \
 	CPPFLAGS="-D__EXPORTED_HEADERS__ -I$(KERNEL_DIR)/include/uapi -I$(KERNEL_DIR)/include" \
 	-C $(KERNEL_DIR)/tools/iio \
-	O=$(KERNEL_BUILD_DIR)/tools/iio \
 	$(KERNEL_MAKE_OPT) \
+	O=$(KERNEL_BUILD_DIR)/tools/iio \
 	$(PARALLELMFLAGS_BROKEN)
 
 $(STATEDIR)/kernel.compile:
