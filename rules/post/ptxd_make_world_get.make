@@ -28,12 +28,21 @@ endif
 $(STATEDIR)/%.stamp:
 	@touch $@
 
+#
+# Use the current package for the primary source file.
+# This avoids strange effects when multiple packages share a source file.
+# For anything else $($(src)) is special and must be used.
+#
+define _ptx_source_to_pkg
+$(if $(filter $($(PTX_MAP_TO_PACKAGE_$(1))_SOURCE),$(2)),$(PTX_MAP_TO_PACKAGE_$(1)),$($(2)))
+endef
+
 $(STATEDIR)/%.get:
 	@$(call targetinfo)
 	@$(foreach src,$($(PTX_MAP_TO_PACKAGE_$(*))_SOURCES), \
-		$(call world/get, $($(src)))$(ptx/nl))
+		$(call world/get, $(call _ptx_source_to_pkg,$(*),$(src)))$(ptx/nl))
 	@$(foreach src,$($(PTX_MAP_TO_PACKAGE_$(*))_SOURCES), \
-		$(call world/check_src, $($(src)))$(ptx/nl))
+		$(call world/check_src, $(call _ptx_source_to_pkg,$(*),$(src)))$(ptx/nl))
 	@$(call touch)
 
 world/get = \
