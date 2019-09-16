@@ -14,8 +14,8 @@ PACKAGES-$(PTXCONF_JSON_C) += json-c
 #
 # Paths and names
 #
-JSON_C_VERSION		:= 0.13-20171207
-JSON_C_MD5		:= 0cd2cca9bd869eacf3595ad3484135be
+JSON_C_VERSION		:= 0.13.1-20180305
+JSON_C_MD5		:= 20dba7bf773599a0842745a2fe5b7cd3
 JSON_C			:= json-c-$(JSON_C_VERSION)
 JSON_C_SUFFIX		:= tar.gz
 JSON_C_URL		:= https://github.com/json-c/json-c/archive/$(JSON_C).$(JSON_C_SUFFIX)
