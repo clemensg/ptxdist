@@ -2,7 +2,6 @@
 
 config IMA_EVM_UTILS
 	tristate
-	select ATTR
 	select KEYUTILS
 	select OPENSSL
 	prompt "ima-evm-utils"

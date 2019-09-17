@@ -229,7 +229,7 @@ index 4c093a038b72..866f74b39b41 100644
  #include <dirent.h>
  #include <string.h>
  #include <stdio.h>
-+#include <attr/xattr.h>
++#include <sys/xattr.h>
  
  #include <openssl/pem.h>
  #include <openssl/evp.h>
