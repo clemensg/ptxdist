@@ -1,0 +1,25 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Wed, 18 Sep 2019 07:46:17 +0200
+Subject: [PATCH] use sys/xattr.h instead of attr/xattr.h
+
+attr/xattr.h is gone in the latest attr version and sys/xattr.h provides
+the same functionality.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ tests/kernel/lp-509180/test.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/tests/kernel/lp-509180/test.c b/tests/kernel/lp-509180/test.c
+index 60cd0170f7f9..171f7a50d446 100644
+--- a/tests/kernel/lp-509180/test.c
++++ b/tests/kernel/lp-509180/test.c
+@@ -26,7 +26,7 @@
+ #include <fcntl.h>
+ #include <sys/types.h>
+ #include <sys/stat.h>
+-#include <attr/xattr.h>
++#include <sys/xattr.h>
+ 
+ #define TEST_ERROR	(2)
+ 
