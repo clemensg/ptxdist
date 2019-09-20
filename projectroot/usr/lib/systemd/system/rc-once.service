@@ -2,14 +2,12 @@
 Description=First boot services
 DefaultDependencies=no
 IgnoreOnIsolate=true
-After=local-fs.target
-Requires=local-fs.target
-Before=system-update-cleanup.service
-After=system-update.target
+Requires=sysinit.target
+After=sysinit.target system-update-pre.target
+Before=system-update.target
 
 [Service]
 Type=oneshot
 RemainAfterExit=no
 ExecStart=/lib/systemd/systemd-rc-once
 StandardOutput=syslog+console
-

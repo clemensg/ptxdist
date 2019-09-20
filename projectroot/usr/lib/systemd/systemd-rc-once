@@ -5,7 +5,7 @@
 
 start() {
 	if ! mount_root_rw; then
-		systemctl rescue
+		systemctl --no-block rescue
 		exit 1
 	fi
 	if run_rc_once; then
@@ -25,12 +25,12 @@ umount() {
 		# remounting rw/ro during the second boot will flush anything
 		# left in the filesystem journal
 		ln -sf /etc/rc.once.d /system-update
-		systemctl reboot
+		systemctl --no-block reboot
 	else
 		if [ -e /system-update ]; then
-			systemctl rescue
+			systemctl --no-block rescue
 		else
-			systemctl default
+			systemctl --no-block default
 		fi
 	fi
 }
