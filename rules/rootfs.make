@@ -139,8 +139,6 @@ endif
 ifdef PTXCONF_ROOTFS_VAR_OVERLAYFS
 	@$(call install_alternative, rootfs, 0, 0, 0644, \
 		/usr/lib/systemd/system/run-varoverlayfs.mount)
-	@$(call install_link, rootfs, ../run-varoverlayfs.mount, \
-		/usr/lib/systemd/system/local-fs.target.requires/run-varoverlayfs.mount)
 	@$(call install_alternative, rootfs, 0, 0, 0755, \
 		/usr/sbin/mount.varoverlayfs)
 	@$(call install_alternative, rootfs, 0, 0, 0644, \

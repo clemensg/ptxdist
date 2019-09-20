@@ -4,6 +4,8 @@
 # What kind of filesystem is used to mount over '/var' can be controlled via
 # the 'run-varoverlayfs.mount' mount unit and is usually a RAM disk.
 
+set -e
+systemctl start run-varoverlayfs.mount
 mkdir -p /run/varoverlayfs/upper
 mkdir -p /run/varoverlayfs/work
 mount -t overlay -olowerdir=/var,upperdir=/run/varoverlayfs/upper,workdir=/run/varoverlayfs/work "${@}"
