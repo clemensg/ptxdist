@@ -199,6 +199,10 @@ endif
 	@rm -v $(SYSTEMD_PKGDIR)/usr/lib/systemd/system/multi-user.target.wants/systemd-ask-password-wall.path
 	@rm -v $(SYSTEMD_PKGDIR)/usr/lib/systemd/system/sysinit.target.wants/systemd-ask-password-console.path
 
+#	# no ConditionNeedsUpdate= services
+	@grep -Rl '^ConditionNeedsUpdate=' $(SYSTEMD_PKGDIR)/usr/lib/systemd/system | \
+		xargs rm -v
+
 #	# don't touch /etc and /home
 	@rm -v $(SYSTEMD_PKGDIR)/usr/lib/tmpfiles.d/etc.conf
 	@rm -v $(SYSTEMD_PKGDIR)/usr/lib/tmpfiles.d/home.conf
